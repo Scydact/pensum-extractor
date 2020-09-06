@@ -1,0 +1,315 @@
+@import url('https://fonts.googleapis.com/css?family=Open+Sans');
+@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+
+* {
+    box-sizing: border-box;
+}
+
+:root {
+    --wallpaper   : #dddddd;
+    --background  : #f3f3f3;
+    --background1 : #f7f7f7;
+    --tableOdd    : rgba(96, 96, 255, 0.15);
+    --bgCuat      : linear-gradient(90deg, transparent 0%, var(--tableOdd) 100%);
+    --bgCuat-hover: rgba(96, 96, 255, 0.5);
+
+    --background-taken      : rgb(156, 247, 163);
+    --background-taken-hover: rgb(7, 182, 22);
+    --background-taken-odd  : rgba(55, 253, 71, 0.25);
+    --background-taken-even : rgba(55, 253, 71, 0.45);
+
+    --progress-bar-green: #bfffcd;
+}
+
+html {
+    font-family    : 'Open Sans', sans-serif;
+    scroll-behavior: smooth;
+}
+
+body {
+    margin        : auto;
+    padding-bottom: 3rem;
+    background    : var(--wallpaper);
+
+    display       : flex;
+    flex-direction: column;
+    flex-wrap     : wrap;
+
+    width: auto;
+    width: min(60rem, 100%);
+    width: fit-content;
+    /* Doesnt work on firefox */
+}
+
+
+p {
+    margin-block-start: .3em;
+    margin-block-end  : .3em;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    margin-block-start: .6em;
+    margin-block-end  : .6em;
+}
+
+.card {
+    /* border       : 3px solid black; */
+    margin       : 1rem;
+    padding      : 1.5rem;
+    border-radius: 1rem;
+    background   : var(--background); 
+    box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.2);
+
+    display       : flex;
+    flex-direction: column;
+    align-items   : center;
+}
+
+#pensumWrapper {
+    flex-shrink: 0;
+}
+
+thead th {
+    background: var(--background);
+    position  : sticky;
+    top       : 0;
+    height    : 2rem;
+    box-shadow: 0 2px 0px 0px black;
+    z-index   : 1;
+}
+
+table {
+    border-collapse: collapse;
+}
+
+td {
+    height: 2rem;
+}
+
+tr:nth-child(2n) td {
+    background: var(--tableOdd)
+}
+
+.cuatLimit td,
+.cuatHeader {
+    border-top: 1px solid black;
+}
+
+.cuatHeader {
+    max-width : 2.5rem;
+    background: var(--bgCuat);
+    color     : rgba(0, 0, 128, 0.8);
+}
+
+.cuatHeader:hover {
+    box-shadow: 0 0 0 2px black;
+    background: var(--bgCuat-hover);
+}
+
+.cuatHeader p {
+    margin: 0;
+}
+
+.text-center {
+    text-align: center;
+}
+
+.vertical-text {
+    writing-mode: vertical-lr;
+}
+
+.monospace {
+    font-family: 'Roboto Mono', monospace;
+}
+
+.fullscreen {
+    position: fixed;
+    top     : 0;
+    left    : 0;
+    width   : 100%;
+    height  : 100%;
+}
+
+.disabled {
+    display: none;
+}
+
+@keyframes highlight {
+    0% {
+        background: #ffff99;
+    }
+
+    100% {
+        background: none;
+    }
+}
+
+.highlightRow td {
+    animation: highlight 2s;
+}
+
+.codigo {
+    cursor         : pointer;
+    margin         : 0.3rem;
+    text-decoration: underline;
+}
+
+.preReq {
+    margin       : 0.1rem;
+    padding      : 0.1rem .5rem .2rem;
+    border-radius: .3rem;
+    background   : rgb(167, 168, 255);
+    cursor       : pointer;
+    display      : inline-block;
+}
+
+.preReq:hover {
+    background: rgb(106, 109, 253);
+}
+
+.preReq.managementMode-taken {
+    background: var(--background-taken);
+}
+
+.preReq.managementMode-taken:hover {
+    background: var(--background-taken-hover);
+}
+
+.preReqExtra,
+.preReqExtra:hover {
+    background: rgb(130, 219, 160);
+    cursor    : default;
+}
+
+.managementMode-cell:hover {
+    background: var(--bgCuat-hover);
+    box-shadow: inset 0 0 0 2px black;
+}
+
+.dialogWrapper {
+    display        : flex;
+    align-items    : center;
+    justify-content: center;
+    z-index        : 2;
+    background     : rgba(0, 0, 0, 0.2);
+    backdrop-filter: blur(3px);
+}
+
+.dialogCard {
+    background   : var(--background1);
+    padding      : 1rem;
+    border-radius: 1rem;
+    box-shadow   : 0 0 .5rem 0 rgba(0, 0, 0, 0.3);
+
+    min-width : 40%;
+    max-width : 95%;
+    max-height: 95%;
+    overflow  : auto;
+}
+
+.btn-primary {
+    display      : block;
+    padding      : .3rem .5rem;
+    margin       : 0.2rem;
+    border-radius: .25rem;
+    cursor       : pointer;
+    font-size    : small;
+    text-align   : center;
+
+    background     : rgb(84, 86, 235);
+    color          : white;
+    border         : none;
+    text-decoration: none;
+}
+
+.btn-primary:hover {
+    background: rgb(45, 47, 182);
+    flex-grow: 2;
+}
+
+.btn-secondary {
+    display      : block;
+    padding      : .3rem .5rem;
+    margin       : 0.2rem;
+    border-radius: .25rem;
+    cursor       : pointer;
+    font-size    : small;
+    text-align   : center;
+
+    flex-grow: 1;
+
+    border         : none;
+    text-decoration: none;
+    color          : black;
+    background     : rgba(0, 0, 0, 0.05);
+    box-shadow     : inset 0 0 0 2px black;
+}
+
+.btn-secondary:hover {
+    background: rgba(0, 0, 0, 0.15);
+}
+
+.inline-btn-wrapper {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+@media only screen and (max-width: 700px) {
+
+    body {
+        display       : flex;
+        flex-direction: column;
+        align-items   : stretch;
+
+        width: 100%;
+    }
+
+    h1,
+    h2,
+    h3,
+    h4,
+    h5,
+    h6 {
+        text-align: center;
+    }
+
+    .card {
+        width        : auto;
+        
+        padding      : 1rem;
+
+        display       : flex;
+        flex-direction: column;
+        align-items   : center;
+    }
+
+    #pensumWrapper {
+        padding: 3rem 0 1rem;
+        margin-left: 0;
+        margin-right: 0;
+    }
+}
+
+/* Interactivity */
+tr.managementMode-taken td {
+    /* tr is necessary, otherwise even cols would override this. */
+    background: var(--background-taken-odd);
+}
+
+tr.managementMode-taken:nth-child(even) td {
+    /* tr is necessary, otherwise even cols would override this. */
+    background: var(--background-taken-even);
+}
+
+
+
+/* ProgressWrapper */
+#progressWrapper:empty {
+    display: none;
+}

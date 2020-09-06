@@ -1,0 +1,104 @@
+{
+    "carreras": [
+        {
+            "codigo": "INE7",
+            "nombre": "INGENIERIA ELECTRICA",
+            "escuela": "Escuela de Ingenierías"
+        },
+        {
+            "codigo": "IEL7",
+            "nombre": "INGENIERIA ELECTRONICA",
+            "escuela": "Escuela de Ingenierías"
+        },
+        {
+            "codigo": "ISC10",
+            "nombre": "INGENIERIA DE SISTEMAS DE COMPUTACION",
+            "escuela": "Escuela de Ingenierías"
+        },
+        {
+            "codigo": "ISO10",
+            "nombre": "INGENIERIA DE SOFTWARE",
+            "escuela": "Escuela de Ingenierías"
+        },
+        {
+            "codigo": "IND7",
+            "nombre": "INGENIERIA INDUSTRIAL",
+            "escuela": "Escuela de Ingenierías"
+        },
+        {
+            "codigo": "ADM10",
+            "nombre": "LICENCIATURA EN ADMINISTRACION DE EMPRESAS",
+            "escuela": "Escuela de Administración"
+        },
+        {
+            "codigo": "ATH7",
+            "nombre": "LICENCIATURA EN ADMINISTRACION TURISTICA Y HOTELERA",
+            "escuela": "Decanato de Turismo"
+        },
+        {
+            "codigo": "CDG10",
+            "nombre": "LICENCIATURA EN COMUNICACION DIGITAL",
+            "escuela": "Decanato de Artes y Comunicación"
+        },
+        {
+            "codigo": "CON10",
+            "nombre": "LICENCIATURA EN CONTABILIDAD",
+            "escuela": "Escuela de Contabilidad y Finanzas"
+        },
+        {
+            "codigo": "DER7",
+            "nombre": "LICENCIATURA EN DERECHO",
+            "escuela": "Decanato de Derecho"
+        },
+        {
+            "codigo": "DIN10",
+            "nombre": "LICENCIATURA EN DISEÑO DE INTERIORES",
+            "escuela": "Decanato de Artes y Comunicación"
+        },
+        {
+            "codigo": "DIG10",
+            "nombre": "LICENCIATURA EN DISEÑO GRAFICO",
+            "escuela": "Decanato de Artes y Comunicación"
+        },
+        {
+            "codigo": "FIN11",
+            "nombre": "LICENCIATURA EN FINANZAS",
+            "escuela": "Escuela de Contabilidad y Finanzas"
+        },
+        {
+            "codigo": "LES11",
+            "nombre": "LICENCIATURA EN LENGUA ESPAÑOLA Y LITERATURA ORIENTADA A LA EDUCACION SECUNDARIA",
+            "escuela": "Decanato de Estudios Generales"
+        },
+        {
+            "codigo": "LIE11",
+            "nombre": "LICENCIATURA EN INGLES ORIENTADA A LA ENSEÑANZA",
+            "escuela": "Escuela de Idiomas"
+        },
+        {
+            "codigo": "LMS11",
+            "nombre": "LICENCIATURA EN MATEMATICA ORIENTADA A LA EDUCACION SECUNDARIA",
+            "escuela": "Decanato de Estudios Generales"
+        },
+        {
+            "codigo": "MER10",
+            "nombre": "LICENCIATURA EN MERCADOTECNIA",
+            "escuela": "Escuela de Mercadeo y Negocios Internacionales"
+        },
+        {
+            "codigo": "NIN7",
+            "nombre": "LICENCIATURA EN NEGOCIOS INTERNACIONALES",
+            "escuela": "Escuela de Mercadeo y Negocios Internacionales"
+        },
+        {
+            "codigo": "PUB10",
+            "nombre": "LICENCIATURA EN PUBLICIDAD",
+            "escuela": "Decanato de Artes y Comunicación"
+        },
+        {
+            "codigo": "TAF11",
+            "nombre": "TECNICO ANALISTA FINANCIERO",
+            "escuela": "Escuela de Contabilidad y Finanzas"
+        }        
+    ]
+}

@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pensums UNAPEC</title>
+    <link rel="stylesheet" href="styles.css">
+
+    <link rel="stylesheet" href="awesomplete.css" />
+    <script defer src="awesomplete.min.js" async></script>
+
+    <script defer src="xlsx.full.min.js"></script>
+    <script defer src="FileSaver.min.js"></script>
+
+    <!-- <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script> -->
+
+    <script defer src="build/main.js"></script>
+</head>
+
+<body>
+    <div class='card'>
+        <h2>Selección de pensum</h2>
+        <label for="codigoMateria">Código de la carrera: </label>
+        <input type="text" name="codigoMateria" id="codigoMateria" value=''>
+        <input class="btn-primary" type="button" value="Cargar" onclick="loadPensum()">
+        <br>
+    </div>
+    <div id='infoWrapper' class="card"></div>
+    <div id='progressWrapper' class="card"></div>
+    <div id='pensumWrapper' class="card"></div>
+
+</body>
+
+</html>

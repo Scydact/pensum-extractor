@@ -1,0 +1,11 @@
+{
+    "compileOnSave": true,
+    "compilerOptions": {
+        "target": "ES5",
+        "outDir": "./build",
+        "sourceMap": true,
+        "module": "ESNext",
+        "lib": ["dom", "dom.iterable", "es2017"]
+    }
+    
+}
