@@ -69,7 +69,7 @@ function extractPensumData(node) {
     var infoCarrera = node.getElementsByClassName("infoCarrera")[0].children;
     for (let i = 0; i < infoCarrera.length; ++i) {
         out.infoCarrera.push(
-            infoCarrera[i].textContent.replaceAll("\n", " ").trim()
+            infoCarrera[i].textContent.replace(/\n/g, " ").trim()
         );
     }
 
@@ -103,7 +103,7 @@ function extractPensumData(node) {
 
             // Prerequisitos
             var splitPrereq = currentRows[3].textContent
-                .replaceAll("\n", ",")
+                .replace(/\n/g, ",")
                 .split(",")
                 .map((x) => x.trim())
                 .filter((e) => e !== "");

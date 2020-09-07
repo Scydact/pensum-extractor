@@ -120,7 +120,7 @@ function extractPensumData(node) {
     // Extract infoCarrera
     var infoCarrera = node.getElementsByClassName("infoCarrera")[0].children;
     for (var i = 0; i < infoCarrera.length; ++i) {
-        out.infoCarrera.push(infoCarrera[i].textContent.replaceAll("\n", " ").trim());
+        out.infoCarrera.push(infoCarrera[i].textContent.replace(/\n/g, " ").trim());
     }
     // Extract cuats
     var cuatrim = node.getElementsByClassName("cuatrim");
@@ -148,7 +148,7 @@ function extractPensumData(node) {
             outMat.cuatrimestre = i + 1;
             // Prerequisitos
             var splitPrereq = currentRows[3].textContent
-                .replaceAll("\n", ",")
+                .replace(/\n/g, ",")
                 .split(",")
                 .map(function (x) { return x.trim(); })
                 .filter(function (e) { return e !== ""; });
