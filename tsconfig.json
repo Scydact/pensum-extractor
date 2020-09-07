@@ -5,6 +5,7 @@
         "outDir": "./build",
         "sourceMap": true,
         "module": "ESNext",
+        "downlevelIteration": true,
         "lib": ["dom", "dom.iterable", "es2017"]
     }
     

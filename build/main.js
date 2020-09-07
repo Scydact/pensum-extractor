@@ -34,12 +34,36 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
         if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
     }
 };
-var __spreadArrays = (this && this.__spreadArrays) || function () {
-    for (var s = 0, i = 0, il = arguments.length; i < il; i++) s += arguments[i].length;
-    for (var r = Array(s), k = 0, i = 0; i < il; i++)
-        for (var a = arguments[i], j = 0, jl = a.length; j < jl; j++, k++)
-            r[k] = a[j];
-    return r;
+var __values = (this && this.__values) || function(o) {
+    var s = typeof Symbol === "function" && Symbol.iterator, m = s && o[s], i = 0;
+    if (m) return m.call(o);
+    if (o && typeof o.length === "number") return {
+        next: function () {
+            if (o && i >= o.length) o = void 0;
+            return { value: o && o[i++], done: !o };
+        }
+    };
+    throw new TypeError(s ? "Object is not iterable." : "Symbol.iterator is not defined.");
+};
+var __read = (this && this.__read) || function (o, n) {
+    var m = typeof Symbol === "function" && o[Symbol.iterator];
+    if (!m) return o;
+    var i = m.call(o), r, ar = [], e;
+    try {
+        while ((n === void 0 || n-- > 0) && !(r = i.next()).done) ar.push(r.value);
+    }
+    catch (error) { e = { error: error }; }
+    finally {
+        try {
+            if (r && !r.done && (m = i["return"])) m.call(i);
+        }
+        finally { if (e) throw e.error; }
+    }
+    return ar;
+};
+var __spread = (this && this.__spread) || function () {
+    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
+    return ar;
 };
 var saveVer = 4;
 var unapecPensumUrl = 'https://servicios.unapec.edu.do/pensum/Main/Detalles/';
@@ -142,24 +166,53 @@ function extractPensumData(node) {
 }
 /** Maps an array of Mats to an dict where the keys are the Mats' code */
 function matsToDict(arr) {
+    var e_1, _a, e_2, _b, e_3, _c;
     var out = {};
-    for (var _i = 0, arr_1 = arr; _i < arr_1.length; _i++) {
-        var x = arr_1[_i];
-        out[x.codigo] = x;
-        out[x.codigo].postreq = [];
-    }
-    // find postreqs
-    for (var _a = 0, arr_2 = arr; _a < arr_2.length; _a++) {
-        var x = arr_2[_a];
-        for (var _b = 0, _c = x.prereq; _b < _c.length; _b++) {
-            var y = _c[_b];
-            out[y].postreq.push(x.codigo);
+    try {
+        for (var arr_1 = __values(arr), arr_1_1 = arr_1.next(); !arr_1_1.done; arr_1_1 = arr_1.next()) {
+            var x = arr_1_1.value;
+            out[x.codigo] = x;
+            out[x.codigo].postreq = [];
         }
+    }
+    catch (e_1_1) { e_1 = { error: e_1_1 }; }
+    finally {
+        try {
+            if (arr_1_1 && !arr_1_1.done && (_a = arr_1.return)) _a.call(arr_1);
+        }
+        finally { if (e_1) throw e_1.error; }
+    }
+    try {
+        // find postreqs
+        for (var arr_2 = __values(arr), arr_2_1 = arr_2.next(); !arr_2_1.done; arr_2_1 = arr_2.next()) {
+            var x = arr_2_1.value;
+            try {
+                for (var _d = (e_3 = void 0, __values(x.prereq)), _e = _d.next(); !_e.done; _e = _d.next()) {
+                    var y = _e.value;
+                    out[y].postreq.push(x.codigo);
+                }
+            }
+            catch (e_3_1) { e_3 = { error: e_3_1 }; }
+            finally {
+                try {
+                    if (_e && !_e.done && (_c = _d.return)) _c.call(_d);
+                }
+                finally { if (e_3) throw e_3.error; }
+            }
+        }
+    }
+    catch (e_2_1) { e_2 = { error: e_2_1 }; }
+    finally {
+        try {
+            if (arr_2_1 && !arr_2_1.done && (_b = arr_2.return)) _b.call(arr_2);
+        }
+        finally { if (e_2) throw e_2.error; }
     }
     return out;
 }
 /** Create mat dialog showing its dependencies and other options... */
 function createMatDialog(code) {
+    var e_4, _a;
     // let outMat = {
     //     codigo: '',
     //     asignatura: '',
@@ -192,9 +245,18 @@ function createMatDialog(code) {
             s.classList.add("c__");
             p.appendChild(s);
         };
-        for (var _i = 0, _a = codeData.prereq; _i < _a.length; _i++) {
-            var x = _a[_i];
-            _loop_1(x);
+        try {
+            for (var _b = __values(codeData.prereq), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var x = _c.value;
+                _loop_1(x);
+            }
+        }
+        catch (e_4_1) { e_4 = { error: e_4_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_4) throw e_4.error; }
         }
         codeData.prereqExtra.forEach(function (x) {
             var p = createElement(outNode, 'p');
@@ -228,17 +290,45 @@ function createMatDialog(code) {
 }
 /** Adds or removes MANAGEMENT_TAKEN_CLASS to the related elements */
 function updateTakenPrereqClasses(node) {
+    var e_5, _a, e_6, _b, e_7, _c;
     if (node === void 0) { node = document; }
-    for (var _i = 0, _a = node.getElementsByClassName('c__'); _i < _a.length; _i++) {
-        var elem = _a[_i];
-        elem.classList.remove(MANAGEMENT_TAKEN_CLASS);
-    }
-    for (var _b = 0, currentProgress_1 = currentProgress; _b < currentProgress_1.length; _b++) {
-        var code = currentProgress_1[_b];
-        for (var _c = 0, _d = node.getElementsByClassName("c_" + code); _c < _d.length; _c++) {
-            var elem = _d[_c];
-            elem.classList.add(MANAGEMENT_TAKEN_CLASS);
+    try {
+        for (var _d = __values(node.getElementsByClassName('c__')), _e = _d.next(); !_e.done; _e = _d.next()) {
+            var elem = _e.value;
+            elem.classList.remove(MANAGEMENT_TAKEN_CLASS);
         }
+    }
+    catch (e_5_1) { e_5 = { error: e_5_1 }; }
+    finally {
+        try {
+            if (_e && !_e.done && (_a = _d.return)) _a.call(_d);
+        }
+        finally { if (e_5) throw e_5.error; }
+    }
+    try {
+        for (var currentProgress_1 = __values(currentProgress), currentProgress_1_1 = currentProgress_1.next(); !currentProgress_1_1.done; currentProgress_1_1 = currentProgress_1.next()) {
+            var code = currentProgress_1_1.value;
+            try {
+                for (var _f = (e_7 = void 0, __values(node.getElementsByClassName("c_" + code))), _g = _f.next(); !_g.done; _g = _f.next()) {
+                    var elem = _g.value;
+                    elem.classList.add(MANAGEMENT_TAKEN_CLASS);
+                }
+            }
+            catch (e_7_1) { e_7 = { error: e_7_1 }; }
+            finally {
+                try {
+                    if (_g && !_g.done && (_c = _f.return)) _c.call(_f);
+                }
+                finally { if (e_7) throw e_7.error; }
+            }
+        }
+    }
+    catch (e_6_1) { e_6 = { error: e_6_1 }; }
+    finally {
+        try {
+            if (currentProgress_1_1 && !currentProgress_1_1.done && (_b = currentProgress_1.return)) _b.call(currentProgress_1);
+        }
+        finally { if (e_6) throw e_6.error; }
     }
 }
 /**
@@ -322,15 +412,25 @@ function createNewPensumTable(data) {
     //         },
     //     ],
     // };
+    var e_8, _a;
     /** @type {HTMLTableElement} */
     var out = document.createElement('table');
     // create the header
     var headerRow = out.createTHead();
-    for (var _i = 0, _a = ['Ct', '✔', 'Codigo', 'Asignatura', 'Créditos', 'Pre-requisitos']; _i < _a.length; _i++) {
-        var x = _a[_i];
-        var a = document.createElement('th');
-        a.innerText = x;
-        headerRow.appendChild(a);
+    try {
+        for (var _b = __values(['Ct', '✔', 'Codigo', 'Asignatura', 'Créditos', 'Pre-requisitos']), _c = _b.next(); !_c.done; _c = _b.next()) {
+            var x = _c.value;
+            var a = document.createElement('th');
+            a.innerText = x;
+            headerRow.appendChild(a);
+        }
+    }
+    catch (e_8_1) { e_8 = { error: e_8_1 }; }
+    finally {
+        try {
+            if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+        }
+        finally { if (e_8) throw e_8.error; }
     }
     // This allows global showing/hiding of management.
     headerRow.children[1].classList.add('managementMode-cell');
@@ -363,20 +463,39 @@ function createNewPensumTable(data) {
                 a.classList.add('cuatHeader');
                 // Allow all cuats selection
                 a.addEventListener('click', function () {
+                    var e_9, _a, e_10, _b;
                     // Check if all are checked
                     var currentCuatMats = cuat.map(function (x) { return x.codigo; });
                     var selectedCuatMats = currentCuatMats.filter(function (x) { return currentProgress.has(x); });
                     // If all are checked, uncheck, else check.
                     if (currentCuatMats.length == selectedCuatMats.length) {
-                        for (var _i = 0, currentCuatMats_1 = currentCuatMats; _i < currentCuatMats_1.length; _i++) {
-                            var x = currentCuatMats_1[_i];
-                            currentProgress.delete(x);
+                        try {
+                            for (var currentCuatMats_1 = __values(currentCuatMats), currentCuatMats_1_1 = currentCuatMats_1.next(); !currentCuatMats_1_1.done; currentCuatMats_1_1 = currentCuatMats_1.next()) {
+                                var x = currentCuatMats_1_1.value;
+                                currentProgress.delete(x);
+                            }
+                        }
+                        catch (e_9_1) { e_9 = { error: e_9_1 }; }
+                        finally {
+                            try {
+                                if (currentCuatMats_1_1 && !currentCuatMats_1_1.done && (_a = currentCuatMats_1.return)) _a.call(currentCuatMats_1);
+                            }
+                            finally { if (e_9) throw e_9.error; }
                         }
                     }
                     else {
-                        for (var _a = 0, currentCuatMats_2 = currentCuatMats; _a < currentCuatMats_2.length; _a++) {
-                            var x = currentCuatMats_2[_a];
-                            currentProgress.add(x);
+                        try {
+                            for (var currentCuatMats_2 = __values(currentCuatMats), currentCuatMats_2_1 = currentCuatMats_2.next(); !currentCuatMats_2_1.done; currentCuatMats_2_1 = currentCuatMats_2.next()) {
+                                var x = currentCuatMats_2_1.value;
+                                currentProgress.add(x);
+                            }
+                        }
+                        catch (e_10_1) { e_10 = { error: e_10_1 }; }
+                        finally {
+                            try {
+                                if (currentCuatMats_2_1 && !currentCuatMats_2_1.done && (_b = currentCuatMats_2.return)) _b.call(currentCuatMats_2);
+                            }
+                            finally { if (e_10) throw e_10.error; }
                         }
                     }
                     loadPensum();
@@ -530,6 +649,7 @@ function createExcelWorkbookFromPensum(data, progress) {
             //     break;
         }
         filteredCuat.forEach(function (mat, idxMat, currentCuat) {
+            var e_11, _a, e_12, _b;
             ws[COL_CUAT + currentRow] = { v: idxCuat + 1, t: 'n' };
             if (idxMat === 0) {
                 mergeCells(currentRow - 1, 0, (currentRow - 1) + currentCuat.length - 1, 0);
@@ -542,15 +662,33 @@ function createExcelWorkbookFromPensum(data, progress) {
             ws[COL_CREDITOS + currentRow] = { v: mat.creditos, t: 'n' };
             // Prereqs
             var prereqCount = 0;
-            for (var _i = 0, _a = mat.prereq; _i < _a.length; _i++) {
-                var x = _a[_i];
-                ws[COL_PREREQ[prereqCount] + currentRow] = { v: x, t: 's' };
-                ++prereqCount;
+            try {
+                for (var _c = __values(mat.prereq), _d = _c.next(); !_d.done; _d = _c.next()) {
+                    var x = _d.value;
+                    ws[COL_PREREQ[prereqCount] + currentRow] = { v: x, t: 's' };
+                    ++prereqCount;
+                }
             }
-            for (var _b = 0, _c = mat.prereqExtra; _b < _c.length; _b++) {
-                var x = _c[_b];
-                ws[COL_PREREQ[prereqCount] + currentRow] = { v: x, t: 's' };
-                ++prereqCount;
+            catch (e_11_1) { e_11 = { error: e_11_1 }; }
+            finally {
+                try {
+                    if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
+                }
+                finally { if (e_11) throw e_11.error; }
+            }
+            try {
+                for (var _e = __values(mat.prereqExtra), _f = _e.next(); !_f.done; _f = _e.next()) {
+                    var x = _f.value;
+                    ws[COL_PREREQ[prereqCount] + currentRow] = { v: x, t: 's' };
+                    ++prereqCount;
+                }
+            }
+            catch (e_12_1) { e_12 = { error: e_12_1 }; }
+            finally {
+                try {
+                    if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
+                }
+                finally { if (e_12) throw e_12.error; }
             }
             // Aprobada
             var aprobVal = currentProgress.has(mat.codigo) ? 1 : 0;
@@ -559,7 +697,7 @@ function createExcelWorkbookFromPensum(data, progress) {
         });
     });
     try {
-        var _a = data.vigencia.split('/').map(function (x) { return parseFloat(x); }), cd_d = _a[0], cd_m = _a[1], cd_y = _a[2];
+        var _a = __read(data.vigencia.split('/').map(function (x) { return parseFloat(x); }), 3), cd_d = _a[0], cd_m = _a[1], cd_y = _a[2];
         var createDate = new Date(cd_y, cd_m, cd_d);
     }
     catch (_b) {
@@ -628,33 +766,43 @@ function getInfoList(data) {
  * @param {*} data
  */
 function createInfoList(data) {
+    var e_13, _a;
     /** @type {HTMLTableElement} */
     var out = document.createElement('ul');
     // Separate the text before outputting.
     var outTextArr = getInfoList(data);
-    // Format the text as a list
-    for (var _i = 0, outTextArr_1 = outTextArr; _i < outTextArr_1.length; _i++) {
-        var x = outTextArr_1[_i];
-        var li = document.createElement('li');
-        switch (x.type) {
-            case 'simple':
-                li.innerText = x.data;
-                break;
-            case 'double':
-                li.innerHTML = "<b>" + sentenceCase(x.data[0]) + ":</b>\t" + x.data[1];
-                break;
-            case 'double_sublist':
-                li.innerHTML = "<b>" + sentenceCase(x.data[0]) + ": </b>";
-                var subul = document.createElement('ul');
-                x.data[1].forEach(function (elem) {
-                    var subli = document.createElement('li');
-                    subli.innerHTML = elem + '.';
-                    subul.appendChild(subli);
-                });
-                li.appendChild(subul);
-                break;
+    try {
+        // Format the text as a list
+        for (var outTextArr_1 = __values(outTextArr), outTextArr_1_1 = outTextArr_1.next(); !outTextArr_1_1.done; outTextArr_1_1 = outTextArr_1.next()) {
+            var x = outTextArr_1_1.value;
+            var li = document.createElement('li');
+            switch (x.type) {
+                case 'simple':
+                    li.innerText = x.data;
+                    break;
+                case 'double':
+                    li.innerHTML = "<b>" + sentenceCase(x.data[0]) + ":</b>\t" + x.data[1];
+                    break;
+                case 'double_sublist':
+                    li.innerHTML = "<b>" + sentenceCase(x.data[0]) + ": </b>";
+                    var subul = document.createElement('ul');
+                    x.data[1].forEach(function (elem) {
+                        var subli = document.createElement('li');
+                        subli.innerHTML = elem + '.';
+                        subul.appendChild(subli);
+                    });
+                    li.appendChild(subul);
+                    break;
+            }
+            out.appendChild(li);
         }
-        out.appendChild(li);
+    }
+    catch (e_13_1) { e_13 = { error: e_13_1 }; }
+    finally {
+        try {
+            if (outTextArr_1_1 && !outTextArr_1_1.done && (_a = outTextArr_1.return)) _a.call(outTextArr_1);
+        }
+        finally { if (e_13) throw e_13.error; }
     }
     return out;
 }
@@ -691,7 +839,7 @@ function saveToLocalStorage() {
     var out = {
         saveVer: saveVer,
         currentCodeAtInputForm: document.getElementById('codigoMateria').value,
-        progress: __spreadArrays(currentProgress),
+        progress: __spread(currentProgress),
     };
     try {
         localStorage.setItem('saveData', JSON.stringify(out));
@@ -875,15 +1023,25 @@ function createSecondaryButton(text, callback) {
 }
 function findAllpostreqs(code) {
     function subFindArr(code) {
+        var e_14, _a;
         var hideList = [code];
-        for (var _i = 0, _a = currentPensumMats[code].postreq; _i < _a.length; _i++) {
-            var x = _a[_i];
-            hideList.push.apply(hideList, subFindArr(x));
+        try {
+            for (var _b = __values(currentPensumMats[code].postreq), _c = _b.next(); !_c.done; _c = _b.next()) {
+                var x = _c.value;
+                hideList.push.apply(hideList, __spread(subFindArr(x)));
+            }
+        }
+        catch (e_14_1) { e_14 = { error: e_14_1 }; }
+        finally {
+            try {
+                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+            }
+            finally { if (e_14) throw e_14.error; }
         }
         return hideList;
     }
     // Set to remove duplicates.
-    return __spreadArrays(new Set(subFindArr(code)));
+    return __spread(new Set(subFindArr(code)));
 }
 //#endregion
 //#region Init
@@ -999,7 +1157,7 @@ function getPensumFromLocalStorage(matCode) {
     }
 }
 function downloadProgress() {
-    var obj = __spreadArrays(currentProgress);
+    var obj = __spread(currentProgress);
     var d = new Date();
     var date = "" + d.getFullYear() + d.getMonth() + d.getDate() + "_" + d.getHours() + "h" + d.getMinutes() + "m" + d.getSeconds() + "s";
     var name = "materias-aprobadas_" + date;
