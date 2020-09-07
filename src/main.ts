@@ -995,6 +995,8 @@ async function loadPensum() {
             codigoMateriaInput.value = newCode;
             currentPensumCode = newCode;
             setPensumToLocalStorage(currentPensumData);
+        } else {
+            setInfoWrap(`Error al procesar el pensum!`);
         }
     }
 

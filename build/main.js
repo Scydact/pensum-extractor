@@ -1088,6 +1088,9 @@ function loadPensum() {
                         currentPensumCode = newCode;
                         setPensumToLocalStorage(currentPensumData);
                     }
+                    else {
+                        setInfoWrap("Error al procesar el pensum!");
+                    }
                     _a.label = 2;
                 case 2:
                     // If data was succesfully found
