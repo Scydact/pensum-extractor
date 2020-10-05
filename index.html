@@ -29,7 +29,14 @@
     <div id='infoWrapper' class="card"></div>
     <div id='progressWrapper' class="card"></div>
     <div id='pensumWrapper' class="card"></div>
-
+    <script>
+        // Extracted from https://developers.google.com/web/fundamentals/codelabs/offline
+        if ('serviceWorker' in navigator) {
+            navigator.serviceWorker
+                .register('./serviceWorker.js')
+                .then(function () { console.log("Service Worker Registered"); });
+        }
+    </script>
 </body>
 
 </html>
