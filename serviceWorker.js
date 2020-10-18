@@ -21,10 +21,36 @@ self.addEventListener('install', function (e) {
 });
 
 self.addEventListener('fetch', function (e) {
-    console.log(e.request.url);
+    console.log('[Service Worker] ' + e.request.url);
     e.respondWith(
-        caches.match(e.request).then(function (response) {
-            return response || fetch(e.request);
-        })
+        // (async () => {
+        //     let cachePromise = caches.match(e.request);
+
+        //     try {
+        //         let fetchPromise = fetch(e.request);
+        //         let fetchResponse = await fetchPromise;
+        //         return caches.open('pensum-extractor').then(function (cache) {
+        //             console.log('[Service Worker] ' + 'Cache updated for ' + e.request.url);
+        //             return cache.put(e.request, fetchResponse.clone())
+
+        //             // todo: sort out the auto update thing
+        //         });
+        //     } 
+        //     catch(error) {
+        //         return cachePromise;
+        //     }
+
+        //     console.log(cacheResponse);
+        //     if (fetchResponse.ok) {
+        //         return fetchPromise;
+        //     } else {
+        //         return cachePromise;
+        //     }
+        //     //return fetchPromise;//.catch(caches.match(e.request))
+        //     // caches.match(e.request).then(function (response) {
+        //     //     return response || fetch(e.request);
+        //     // })
+        // })()
+        fetch(e.request).catch(() => caches.match(e.request))
     );
 });
