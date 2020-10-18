@@ -242,6 +242,7 @@ function analyseGradeProgress(matArray) {
         totalCreds: 0,
         currentCreds: 0,
         currentMats: 0,
+        totalMats: Object.keys(currentPensumMats).length,
     };
 
     for (let matCode in currentPensumMats) {
@@ -264,10 +265,7 @@ function updateGradeProgress() {
     let node = document.getElementById("progressWrapper");
     node.innerHTML = "";
 
-    var n = (
-        (100 * progressData.currentCreds) /
-        progressData.totalCreds
-    ).toFixed(2);
+    var n = ((100 * progressData.currentCreds) / progressData.totalCreds).toFixed(2);
     let bg = `linear-gradient(to right, var(--progress-bar-green) ${n}%, var(--background) ${n}%)`;
     node.style.backgroundImage = bg;
 
@@ -277,13 +275,10 @@ function updateGradeProgress() {
 
     let ul = createElement(node, "ul");
 
-    createElement(ul, "li", `Materias aprobadas: ${progressData.currentMats}`);
-    createElement(
-        ul,
-        "li",
-        `Creditos aprobados: ${progressData.currentCreds} (${n}%)`
-    );
-    createElement(ul, "li", `Creditos en total: ${progressData.totalCreds}`);
+    // Percent of mats
+    var m = ((100 * progressData.currentMats) / progressData.totalMats).toFixed(2);
+    createElement(ul, "li", `Materias aprobadas: ${progressData.currentMats}/${progressData.totalMats} (${m}%)`);
+    createElement(ul,"li",`Creditos aprobados: ${progressData.currentCreds}/${progressData.totalCreds} (${n}%)`);
 
     {
         createElement(node, "label", "Mostrar materias en pensum: ");
@@ -734,9 +729,8 @@ function createInfoList(data) {
                 li.innerText = x.data;
                 break;
             case "double":
-                li.innerHTML = `<b>${sentenceCase(x.data[0])}:</b>\t${
-                    x.data[1]
-                }`;
+                li.innerHTML = `<b>${sentenceCase(x.data[0])}:</b>\t${x.data[1]
+                    }`;
                 break;
             case "double_sublist":
                 li.innerHTML = `<b>${sentenceCase(x.data[0])}: </b>`;
@@ -899,8 +893,7 @@ async function fetchHtmlAsText(
             if (response.ok) {
                 var recieveDate = new Date().getTime();
                 console.info(
-                    `CORS proxy '${currProxy}' succeeded in ${
-                        recieveDate - sendDate
+                    `CORS proxy '${currProxy}' succeeded in ${recieveDate - sendDate
                     }ms.'`
                 );
 
@@ -915,8 +908,7 @@ async function fetchHtmlAsText(
             clearTimeout(timeoutId);
             var recieveDate = new Date().getTime();
             console.warn(
-                `CORS proxy '${currProxy}' failed in ${
-                    recieveDate - sendDate
+                `CORS proxy '${currProxy}' failed in ${recieveDate - sendDate
                 }ms.'`
             );
             console.warn(err);

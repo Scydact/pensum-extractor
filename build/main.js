@@ -347,6 +347,7 @@ function analyseGradeProgress(matArray) {
         totalCreds: 0,
         currentCreds: 0,
         currentMats: 0,
+        totalMats: Object.keys(currentPensumMats).length,
     };
     for (var matCode in currentPensumMats) {
         var currentMatObj = currentPensumMats[matCode];
@@ -364,17 +365,17 @@ function updateGradeProgress() {
     var progressData = analyseGradeProgress(currentProgress);
     var node = document.getElementById("progressWrapper");
     node.innerHTML = "";
-    var n = ((100 * progressData.currentCreds) /
-        progressData.totalCreds).toFixed(2);
+    var n = ((100 * progressData.currentCreds) / progressData.totalCreds).toFixed(2);
     var bg = "linear-gradient(to right, var(--progress-bar-green) " + n + "%, var(--background) " + n + "%)";
     node.style.backgroundImage = bg;
     if (progressData.currentCreds == 0)
         return;
     createElement(node, "h3", "Progreso en la carrera: ");
     var ul = createElement(node, "ul");
-    createElement(ul, "li", "Materias aprobadas: " + progressData.currentMats);
-    createElement(ul, "li", "Creditos aprobados: " + progressData.currentCreds + " (" + n + "%)");
-    createElement(ul, "li", "Creditos en total: " + progressData.totalCreds);
+    // Percent of mats
+    var m = ((100 * progressData.currentMats) / progressData.totalMats).toFixed(2);
+    createElement(ul, "li", "Materias aprobadas: " + progressData.currentMats + "/" + progressData.totalMats + " (" + m + "%)");
+    createElement(ul, "li", "Creditos aprobados: " + progressData.currentCreds + "/" + progressData.totalCreds + " (" + n + "%)");
     {
         createElement(node, "label", "Mostrar materias en pensum: ");
         var sel_1 = createElement(node, "select");
