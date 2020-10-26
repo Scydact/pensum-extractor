@@ -20,6 +20,7 @@ declare var XLSX;
 declare var Awesomplete;
 
 const MANAGEMENT_TAKEN_CLASS = "managementMode-taken";
+const CURRENT_PENSUM_VERSION = 2; // Update this if new mats are added to IgnoredMats.json
 
 /** Loads the node given at 'input' into the DOM */
 async function fetchPensumTable(pensumCode, requestCallback) {
@@ -48,6 +49,7 @@ function extractPensumData(node) {
         infoCarrera: [],
         cuats: [],
         error: null,
+        version: CURRENT_PENSUM_VERSION,
     };
 
     // Verify if pensum is actually valid data
@@ -1055,7 +1057,7 @@ async function loadPensum() {
         // try to check if its on localStorage, else check online and cache if successful.
         setInfoWrap(`Buscando ${currentPensumCode} en cache local.`);
         currentPensumData = getPensumFromLocalStorage(currentPensumCode);
-        if (currentPensumData === null) {
+        if (currentPensumData === null || !currentPensumData['version'] || currentPensumData.version < CURRENT_PENSUM_VERSION) {
             let pensumNode = await fetchPensumTable(
                 currentPensumCode,
                 (returnCode, proxy, index) => {

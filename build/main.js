@@ -75,6 +75,7 @@ var filterMode = "noFilter";
 var currentProgress = new Set();
 FileSaver.saveAs = saveAs;
 var MANAGEMENT_TAKEN_CLASS = "managementMode-taken";
+var CURRENT_PENSUM_VERSION = 2; // Update this if new mats are added to IgnoredMats.json
 /** Loads the node given at 'input' into the DOM */
 function fetchPensumTable(pensumCode, requestCallback) {
     return __awaiter(this, void 0, void 0, function () {
@@ -105,6 +106,7 @@ function extractPensumData(node) {
         infoCarrera: [],
         cuats: [],
         error: null,
+        version: CURRENT_PENSUM_VERSION,
     };
     // Verify if pensum is actually valid data
     if (node.getElementsByClassName("contPensum").length == 0 ||
@@ -1095,7 +1097,7 @@ function loadPensum() {
                     // try to check if its on localStorage, else check online and cache if successful.
                     setInfoWrap_1("Buscando " + currentPensumCode + " en cache local.");
                     currentPensumData = getPensumFromLocalStorage(currentPensumCode);
-                    if (!(currentPensumData === null)) return [3 /*break*/, 2];
+                    if (!(currentPensumData === null || !currentPensumData['version'] || currentPensumData.version < CURRENT_PENSUM_VERSION)) return [3 /*break*/, 2];
                     return [4 /*yield*/, fetchPensumTable(currentPensumCode, function (returnCode, proxy, index) {
                             var n = index + 1;
                             switch (returnCode) {
