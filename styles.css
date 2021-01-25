@@ -26,7 +26,10 @@ html {
     scroll-behavior: smooth;
 }
 
-html, body {height: 100%;} /* For footer at bottom */
+html,
+body {
+    height: 100%;
+} /* For footer at bottom */
 
 body {
     margin: auto;
@@ -36,7 +39,6 @@ body {
     display: flex;
     flex-direction: column;
 }
-
 
 main {
     flex: 1 0 auto; /* For footer at bottom */
@@ -166,7 +168,8 @@ tr:nth-child(2n) td {
     height: 100%;
 }
 
-.disabled, .hidden {
+.disabled,
+.hidden {
     display: none;
 }
 
