@@ -29,7 +29,9 @@ html {
 body {
     margin: auto;
     background: var(--wallpaper);
-
+}
+main {
+    margin: auto;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -43,7 +45,7 @@ body {
 footer {
     text-align: center;
     padding: 2em 0 1em;
-    background: linear-gradient(transparent, rgba(0,0,0,0.3));
+    background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
     font-size: small;
 }
 footer a {
