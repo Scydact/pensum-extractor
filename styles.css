@@ -1,39 +1,38 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans');
-@import url('https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap');
+@import url("https://fonts.googleapis.com/css?family=Open+Sans");
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
 
 * {
     box-sizing: border-box;
 }
 
 :root {
-    --wallpaper   : #dddddd;
-    --background  : #f3f3f3;
-    --background1 : #f7f7f7;
-    --tableOdd    : rgba(96, 96, 255, 0.15);
-    --bgCuat      : linear-gradient(90deg, transparent 0%, var(--tableOdd) 100%);
+    --wallpaper: #dddddd;
+    --background: #f3f3f3;
+    --background1: #f7f7f7;
+    --tableOdd: rgba(96, 96, 255, 0.15);
+    --bgCuat: linear-gradient(90deg, transparent 0%, var(--tableOdd) 100%);
     --bgCuat-hover: rgba(96, 96, 255, 0.5);
 
-    --background-taken      : rgb(156, 247, 163);
+    --background-taken: rgb(156, 247, 163);
     --background-taken-hover: rgb(7, 182, 22);
-    --background-taken-odd  : rgba(55, 253, 71, 0.25);
-    --background-taken-even : rgba(55, 253, 71, 0.45);
+    --background-taken-odd: rgba(55, 253, 71, 0.25);
+    --background-taken-even: rgba(55, 253, 71, 0.45);
 
     --progress-bar-green: #bfffcd;
 }
 
 html {
-    font-family    : 'Open Sans', sans-serif;
+    font-family: "Open Sans", sans-serif;
     scroll-behavior: smooth;
 }
 
 body {
-    margin        : auto;
-    padding-bottom: 3rem;
-    background    : var(--wallpaper);
+    margin: auto;
+    background: var(--wallpaper);
 
-    display       : flex;
+    display: flex;
     flex-direction: column;
-    flex-wrap     : wrap;
+    flex-wrap: wrap;
 
     width: auto;
     width: min(60rem, 100%);
@@ -41,10 +40,22 @@ body {
     /* Doesnt work on firefox */
 }
 
+footer {
+    text-align: center;
+    padding: 2em 0 1em;
+    background: linear-gradient(transparent, rgba(0,0,0,0.3));
+    font-size: small;
+}
+footer a {
+    color: inherit;
+}
+.footer-version {
+    opacity: 0.7;
+}
 
 p {
-    margin-block-start: .3em;
-    margin-block-end  : .3em;
+    margin-block-start: 0.3em;
+    margin-block-end: 0.3em;
 }
 
 h1,
@@ -53,21 +64,21 @@ h3,
 h4,
 h5,
 h6 {
-    margin-block-start: .6em;
-    margin-block-end  : .6em;
+    margin-block-start: 0.6em;
+    margin-block-end: 0.6em;
 }
 
 .card {
     /* border       : 3px solid black; */
-    margin       : 1rem;
-    padding      : 1.5rem;
+    margin: 1rem;
+    padding: 1.5rem;
     border-radius: 1rem;
-    background   : var(--background); 
+    background: var(--background);
     box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.2);
 
-    display       : flex;
+    display: flex;
     flex-direction: column;
-    align-items   : center;
+    align-items: center;
 }
 
 #pensumWrapper {
@@ -76,11 +87,11 @@ h6 {
 
 thead th {
     background: var(--background);
-    position  : sticky;
-    top       : 0;
-    height    : 2rem;
+    position: sticky;
+    top: 0;
+    height: 2rem;
     box-shadow: 0 2px 0px 0px black;
-    z-index   : 1;
+    z-index: 1;
 }
 
 table {
@@ -92,7 +103,7 @@ td {
 }
 
 tr:nth-child(2n) td {
-    background: var(--tableOdd)
+    background: var(--tableOdd);
 }
 
 .cuatLimit td,
@@ -101,9 +112,9 @@ tr:nth-child(2n) td {
 }
 
 .cuatHeader {
-    max-width : 2.5rem;
+    max-width: 2.5rem;
     background: var(--bgCuat);
-    color     : rgba(0, 0, 128, 0.8);
+    color: rgba(0, 0, 128, 0.8);
 }
 
 .cuatHeader:hover {
@@ -124,15 +135,15 @@ tr:nth-child(2n) td {
 }
 
 .monospace {
-    font-family: 'Roboto Mono', monospace;
+    font-family: "Roboto Mono", monospace;
 }
 
 .fullscreen {
     position: fixed;
-    top     : 0;
-    left    : 0;
-    width   : 100%;
-    height  : 100%;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
 }
 
 .disabled {
@@ -154,18 +165,18 @@ tr:nth-child(2n) td {
 }
 
 .codigo {
-    cursor         : pointer;
-    margin         : 0.3rem;
+    cursor: pointer;
+    margin: 0.3rem;
     text-decoration: underline;
 }
 
 .preReq {
-    margin       : 0.1rem;
-    padding      : 0.1rem .5rem .2rem;
-    border-radius: .3rem;
-    background   : rgb(167, 168, 255);
-    cursor       : pointer;
-    display      : inline-block;
+    margin: 0.1rem;
+    padding: 0.1rem 0.5rem 0.2rem;
+    border-radius: 0.3rem;
+    background: rgb(167, 168, 255);
+    cursor: pointer;
+    display: inline-block;
 }
 
 .preReq:hover {
@@ -183,7 +194,7 @@ tr:nth-child(2n) td {
 .preReqExtra,
 .preReqExtra:hover {
     background: rgb(130, 219, 160);
-    cursor    : default;
+    cursor: default;
 }
 
 .managementMode-cell:hover {
@@ -192,38 +203,38 @@ tr:nth-child(2n) td {
 }
 
 .dialogWrapper {
-    display        : flex;
-    align-items    : center;
+    display: flex;
+    align-items: center;
     justify-content: center;
-    z-index        : 2;
-    background     : rgba(0, 0, 0, 0.2);
+    z-index: 2;
+    background: rgba(0, 0, 0, 0.2);
     backdrop-filter: blur(3px);
 }
 
 .dialogCard {
-    background   : var(--background1);
-    padding      : 1rem;
+    background: var(--background1);
+    padding: 1rem;
     border-radius: 1rem;
-    box-shadow   : 0 0 .5rem 0 rgba(0, 0, 0, 0.3);
+    box-shadow: 0 0 0.5rem 0 rgba(0, 0, 0, 0.3);
 
-    min-width : 40%;
-    max-width : 95%;
+    min-width: 40%;
+    max-width: 95%;
     max-height: 95%;
-    overflow  : auto;
+    overflow: auto;
 }
 
 .btn-primary {
-    display      : block;
-    padding      : .3rem .5rem;
-    margin       : 0.2rem;
-    border-radius: .25rem;
-    cursor       : pointer;
-    font-size    : small;
-    text-align   : center;
+    display: block;
+    padding: 0.3rem 0.5rem;
+    margin: 0.2rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: small;
+    text-align: center;
 
-    background     : rgb(84, 86, 235);
-    color          : white;
-    border         : none;
+    background: rgb(84, 86, 235);
+    color: white;
+    border: none;
     text-decoration: none;
 }
 
@@ -233,21 +244,21 @@ tr:nth-child(2n) td {
 }
 
 .btn-secondary {
-    display      : block;
-    padding      : .3rem .5rem;
-    margin       : 0.2rem;
-    border-radius: .25rem;
-    cursor       : pointer;
-    font-size    : small;
-    text-align   : center;
+    display: block;
+    padding: 0.3rem 0.5rem;
+    margin: 0.2rem;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    font-size: small;
+    text-align: center;
 
     flex-grow: 1;
 
-    border         : none;
+    border: none;
     text-decoration: none;
-    color          : black;
-    background     : rgba(0, 0, 0, 0.05);
-    box-shadow     : inset 0 0 0 2px black;
+    color: black;
+    background: rgba(0, 0, 0, 0.05);
+    box-shadow: inset 0 0 0 2px black;
 }
 
 .btn-secondary:hover {
@@ -261,11 +272,10 @@ tr:nth-child(2n) td {
 }
 
 @media only screen and (max-width: 700px) {
-
     body {
-        display       : flex;
+        display: flex;
         flex-direction: column;
-        align-items   : stretch;
+        align-items: stretch;
 
         width: 100%;
     }
@@ -280,13 +290,13 @@ tr:nth-child(2n) td {
     }
 
     .card {
-        width        : auto;
-        
-        padding      : 1rem;
+        width: auto;
 
-        display       : flex;
+        padding: 1rem;
+
+        display: flex;
         flex-direction: column;
-        align-items   : center;
+        align-items: center;
     }
 
     #pensumWrapper {
@@ -306,8 +316,6 @@ tr.managementMode-taken:nth-child(even) td {
     /* tr is necessary, otherwise even cols would override this. */
     background: var(--background-taken-even);
 }
-
-
 
 /* ProgressWrapper */
 #progressWrapper:empty {

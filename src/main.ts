@@ -1,4 +1,5 @@
-var saveVer = 4;
+const saveVer = 4;
+const jsVer = 1;
 var unapecPensumUrl = "https://servicios.unapec.edu.do/pensum/Main/Detalles/";
 var allIgnored = {}; // Mats that are no longer available and should be ommited from the pensum
 
@@ -10,16 +11,16 @@ var filterMode = "noFilter";
 var currentProgress = new Set();
 
 // The version of FileSaver used here places this method on the global namespace
-declare var saveAs;
-declare var FileSaver: { saveAs };
+declare const saveAs;
+declare const FileSaver: { saveAs };
 FileSaver.saveAs = saveAs;
 
 // XLSX to export as excel
-declare var XLSX;
+declare const XLSX;
 // Autocomplete
-declare var Awesomplete;
+declare const Awesomplete;
 
-const MANAGEMENT_TAKEN_CLASS = "managementMode-taken";
+const MANAGEMENT_TAKEN_CSS_CLASS = "managementMode-taken";
 const CURRENT_PENSUM_VERSION = 2; // Update this if new mats are added to IgnoredMats.json
 
 /** Loads the node given at 'input' into the DOM */
@@ -37,12 +38,30 @@ async function fetchPensumTable(pensumCode, requestCallback) {
     return doc;
 }
 
+interface i_pensum {
+    carrera: string,
+    codigo: string,
+    vigencia: string,
+    infoCarrera: string[],
+    cuats: i_mat[][],
+    error: string | null,
+    version: number,
+}
+interface i_mat {
+    codigo: string,
+    asignatura: string,
+    creditos: number,
+    prereq: string[],
+    prereqExtra: string[],
+    cuatrimestre: number,
+}
+
 /**
  * Converts the node fetched from UNAPEC to a jObject.
  * @param {Element} node
  */
 function extractPensumData(node) {
-    let out = {
+    let out: i_pensum = {
         carrera: "",
         codigo: "",
         vigencia: "",
@@ -86,10 +105,10 @@ function extractPensumData(node) {
         let currentCuatTable = cuatrim[i];
         let rows = currentCuatTable.children;
 
-        let outCuat = [];
+        let outCuat: i_mat[] = [];
 
         for (let j = 1; j < rows.length; ++j) {
-            let outMat = {
+            let outMat: i_mat = {
                 codigo: "",
                 asignatura: "",
                 creditos: 0,
@@ -221,11 +240,11 @@ function createMatDialog(code) {
 /** Adds or removes MANAGEMENT_TAKEN_CLASS to the related elements */
 function updateTakenPrereqClasses(node: HTMLElement | HTMLDocument = document) {
     for (let elem of node.getElementsByClassName("c__"))
-        elem.classList.remove(MANAGEMENT_TAKEN_CLASS);
+        elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS);
 
     for (let code of currentProgress) {
         for (let elem of node.getElementsByClassName(`c_${code}`)) {
-            elem.classList.add(MANAGEMENT_TAKEN_CLASS);
+            elem.classList.add(MANAGEMENT_TAKEN_CSS_CLASS);
         }
     }
 }
@@ -280,7 +299,7 @@ function updateGradeProgress() {
     // Percent of mats
     var m = ((100 * progressData.currentMats) / progressData.totalMats).toFixed(2);
     createElement(ul, "li", `Materias aprobadas: ${progressData.currentMats}/${progressData.totalMats} (${m}%)`);
-    createElement(ul,"li",`Creditos aprobados: ${progressData.currentCreds}/${progressData.totalCreds} (${n}%)`);
+    createElement(ul, "li", `Creditos aprobados: ${progressData.currentCreds}/${progressData.totalCreds} (${n}%)`);
 
     {
         createElement(node, "label", "Mostrar materias en pensum: ");
@@ -1221,6 +1240,14 @@ function uploadProgress() {
 }
 
 async function onWindowLoad() {
+    {
+        let a = document.getElementById('versionSpan');
+        let b = document.getElementById('saveVersionSpan');
+        if (a) a.innerText = jsVer.toString();
+        if (b) b.innerText = saveVer.toString();
+    }
+
+
     try {
         let carr = await (await fetch("carreras.json")).json();
         let input = document.getElementById("codigoMateria");

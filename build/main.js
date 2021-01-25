@@ -66,6 +66,7 @@ var __spread = (this && this.__spread) || function () {
     return ar;
 };
 var saveVer = 4;
+var jsVer = 1;
 var unapecPensumUrl = "https://servicios.unapec.edu.do/pensum/Main/Detalles/";
 var allIgnored = {}; // Mats that are no longer available and should be ommited from the pensum
 var currentPensumData = null;
@@ -74,7 +75,7 @@ var currentPensumMats = {};
 var filterMode = "noFilter";
 var currentProgress = new Set();
 FileSaver.saveAs = saveAs;
-var MANAGEMENT_TAKEN_CLASS = "managementMode-taken";
+var MANAGEMENT_TAKEN_CSS_CLASS = "managementMode-taken";
 var CURRENT_PENSUM_VERSION = 2; // Update this if new mats are added to IgnoredMats.json
 /** Loads the node given at 'input' into the DOM */
 function fetchPensumTable(pensumCode, requestCallback) {
@@ -299,7 +300,7 @@ function updateTakenPrereqClasses(node) {
     try {
         for (var _d = __values(node.getElementsByClassName("c__")), _e = _d.next(); !_e.done; _e = _d.next()) {
             var elem = _e.value;
-            elem.classList.remove(MANAGEMENT_TAKEN_CLASS);
+            elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS);
         }
     }
     catch (e_5_1) { e_5 = { error: e_5_1 }; }
@@ -315,7 +316,7 @@ function updateTakenPrereqClasses(node) {
             try {
                 for (var _f = (e_7 = void 0, __values(node.getElementsByClassName("c_" + code))), _g = _f.next(); !_g.done; _g = _f.next()) {
                     var elem = _g.value;
-                    elem.classList.add(MANAGEMENT_TAKEN_CLASS);
+                    elem.classList.add(MANAGEMENT_TAKEN_CSS_CLASS);
                 }
             }
             catch (e_7_1) { e_7 = { error: e_7_1 }; }
@@ -1248,14 +1249,24 @@ function uploadProgress() {
 }
 function onWindowLoad() {
     return __awaiter(this, void 0, void 0, function () {
-        var carr, input, list, _a, tempIgnored, _b;
+        var a, b, carr, input, list, _a, tempIgnored, _b;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
-                    _c.trys.push([0, 3, , 4]);
+                    {
+                        a = document.getElementById('versionSpan');
+                        b = document.getElementById('saveVersionSpan');
+                        if (a)
+                            a.innerText = jsVer.toString();
+                        if (b)
+                            b.innerText = saveVer.toString();
+                    }
+                    _c.label = 1;
+                case 1:
+                    _c.trys.push([1, 4, , 5]);
                     return [4 /*yield*/, fetch("carreras.json")];
-                case 1: return [4 /*yield*/, (_c.sent()).json()];
-                case 2:
+                case 2: return [4 /*yield*/, (_c.sent()).json()];
+                case 3:
                     carr = _c.sent();
                     input = document.getElementById("codigoMateria");
                     list = carr.carreras.map(function (x) { return [
@@ -1264,25 +1275,25 @@ function onWindowLoad() {
                     ]; });
                     // from awesomplete.min.js
                     new Awesomplete(input, { minChars: 0, list: list });
-                    return [3 /*break*/, 4];
-                case 3:
+                    return [3 /*break*/, 5];
+                case 4:
                     _a = _c.sent();
                     console.warn("carreras.json could not be loaded.\n Search autocomplete will not be available.");
-                    return [3 /*break*/, 4];
-                case 4:
-                    _c.trys.push([4, 7, , 8]);
+                    return [3 /*break*/, 5];
+                case 5:
+                    _c.trys.push([5, 8, , 9]);
                     return [4 /*yield*/, fetch("ignoredMats.json")];
-                case 5: return [4 /*yield*/, (_c.sent()).json()];
-                case 6:
+                case 6: return [4 /*yield*/, (_c.sent()).json()];
+                case 7:
                     tempIgnored = _c.sent();
                     if (tempIgnored)
                         allIgnored = tempIgnored;
-                    return [3 /*break*/, 8];
-                case 7:
+                    return [3 /*break*/, 9];
+                case 8:
                     _b = _c.sent();
                     console.warn("ignoredMats.json could not be loaded.");
-                    return [3 /*break*/, 8];
-                case 8:
+                    return [3 /*break*/, 9];
+                case 9:
                     // Associate input with Enter.
                     document.getElementById("codigoMateria").addEventListener("keyup", function (e) {
                         if (e.key === "Enter")
