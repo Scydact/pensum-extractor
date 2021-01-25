@@ -26,11 +26,21 @@ html {
     scroll-behavior: smooth;
 }
 
+html, body {height: 100%;} /* For footer at bottom */
+
 body {
     margin: auto;
     background: var(--wallpaper);
+
+    /* For footer at bottom */
+    display: flex;
+    flex-direction: column;
 }
+
+
 main {
+    flex: 1 0 auto; /* For footer at bottom */
+
     margin: auto;
     display: flex;
     flex-direction: column;
@@ -43,6 +53,9 @@ main {
 }
 
 footer {
+    flex-shrink: 0; /* For footer at bottom */
+
+    width: 100%;
     text-align: center;
     padding: 2em 0 1em;
     background: linear-gradient(transparent, rgba(0, 0, 0, 0.3));
@@ -68,6 +81,11 @@ h5,
 h6 {
     margin-block-start: 0.6em;
     margin-block-end: 0.6em;
+}
+
+.col2 {
+    display: grid;
+    grid-template-columns: auto auto;
 }
 
 .card {
@@ -108,7 +126,7 @@ tr:nth-child(2n) td {
     background: var(--tableOdd);
 }
 
-.cuatLimit td,
+.cuatLimit + tr td,
 .cuatHeader {
     border-top: 1px solid black;
 }
@@ -148,7 +166,7 @@ tr:nth-child(2n) td {
     height: 100%;
 }
 
-.disabled {
+.disabled, .hidden {
     display: none;
 }
 
