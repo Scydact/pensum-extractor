@@ -125,6 +125,11 @@ h6 {
     min-height: 500px;
 }
 
+#codigoMateria {
+    font-size: x-large;
+    text-align: center;
+}
+
 thead th {
     background: var(--background);
     position: sticky;
