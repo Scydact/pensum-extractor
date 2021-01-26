@@ -21,7 +21,7 @@ self.addEventListener('install', function (e) {
 });
 
 self.addEventListener('fetch', function (e) {
-    console.log('[Service Worker] ' + e.request.url);
+    //console.log('[Service Worker] ' + e.request.url);
     e.respondWith(
         // (async () => {
         //     let cachePromise = caches.match(e.request);

@@ -1,5 +1,8 @@
 const saveVer = 5;
 const jsVer = 1;
+const SAVE_DATA_LOCALSTORAGE = 'saveData';
+var SAVE_TO_LOCALSTORAGE = true;
+var CARRERAS: { codigo: string, nombre: string, escuela: string, }[] = [];
 var unapecPensumUrl = 'https://servicios.unapec.edu.do/pensum/Main/Detalles/';
 var allIgnored = {}; // Mats that are no longer available and should be ommited from the pensum
 
@@ -16,6 +19,21 @@ var currentProgress: Set<string> = new Set();
 var userProgress = {
     passed: new Set<string>(),
     onCourse: new Set<string>(),
+    selected: new Set<string>(),
+}
+enum SelectMode {
+    Passed,
+    OnCourse,
+    Select,
+}
+var userSelectMode = SelectMode.Passed;
+function getUserProgressList(mode: SelectMode) {
+    const a = {
+        [SelectMode.Passed]: 'passed',
+        [SelectMode.OnCourse]: 'onCourse',
+        [SelectMode.Select]: 'selected',
+    }
+    return userProgress[a[mode]] as Set<string>;
 }
 
 // The version of FileSaver used here places this method on the global namespace
@@ -29,6 +47,8 @@ declare const XLSX;
 declare const Awesomplete;
 
 const MANAGEMENT_TAKEN_CSS_CLASS = 'managementMode-taken';
+const MANAGEMENT_ONCOURSE_CSS_CLASS = 'managementMode-oncourse';
+const MANAGEMENT_SELECTED_CSS_CLASS = 'managementMode-selected';
 const CURRENT_PENSUM_VERSION = 2; // Update this if new mats are added to IgnoredMats.json
 
 /** Loads the node given at 'input' into the DOM */
@@ -244,12 +264,25 @@ function createMatDialog(code: string) {
 
 /** Adds or removes MANAGEMENT_TAKEN_CLASS to the related elements */
 function updateTakenPrereqClasses(node: HTMLElement | HTMLDocument = document) {
-    for (let elem of node.getElementsByClassName('c__'))
+    for (let elem of node.getElementsByClassName('c__')) {
         elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS);
+        elem.classList.remove(MANAGEMENT_ONCOURSE_CSS_CLASS);
+        elem.classList.remove(MANAGEMENT_SELECTED_CSS_CLASS);
+    }
 
     for (let code of userProgress.passed) {
         for (let elem of node.getElementsByClassName(`c_${code}`)) {
             elem.classList.add(MANAGEMENT_TAKEN_CSS_CLASS);
+        }
+    }
+    for (let code of userProgress.onCourse) {
+        for (let elem of node.getElementsByClassName(`c_${code}`)) {
+            elem.classList.add(MANAGEMENT_ONCOURSE_CSS_CLASS);
+        }
+    }
+    for (let code of userProgress.selected) {
+        for (let elem of node.getElementsByClassName(`c_${code}`)) {
+            elem.classList.add(MANAGEMENT_SELECTED_CSS_CLASS);
         }
     }
 }
@@ -262,92 +295,284 @@ function updateTakenPrereqClasses(node: HTMLElement | HTMLDocument = document) {
  *
  * @param {*} matArray Array of mats codes (e.g. [ESP101, IDI033...])
  */
-function analyseGradeProgress(matArray: string[] | Set<string>) {
-    let matSet = new Set(matArray);
+function analyseGradeProgress(matArray: typeof userProgress) {
     let out = {
         totalCreds: 0,
-        currentCreds: 0,
-        currentMats: 0,
+        passedCreds: 0,
+        passedMats: 0,
+        onCourseCreds: 0,
+        onCourseMats: 0,
         totalMats: Object.keys(currentPensumMats).length,
     };
 
     for (let matCode in currentPensumMats) {
         let currentMatObj = currentPensumMats[matCode];
         out.totalCreds += currentMatObj.creditos;
-        if (matSet.has(matCode)) {
-            out.currentCreds += currentMatObj.creditos;
-            ++out.currentMats;
+        if (matArray.passed.has(matCode)) {
+            out.passedCreds += currentMatObj.creditos;
+            ++out.passedMats;
+        }
+        else if (matArray.onCourse.has(matCode)) {
+            out.onCourseCreds += currentMatObj.creditos;
+            ++out.onCourseMats;
         }
     }
 
     return out;
 }
 
+/** Creates n label-checkbox pairs */
+function createCheckbox(node, labelName, onchange, initialState = false) {
+    let objId = labelName.toLowerCase().split(' ').join('_');
+
+    let x = document.createElement('input');
+    x.type = 'checkbox';
+    x.id = objId;
+    x.checked = initialState;
+    x.addEventListener('change', onchange);
+    node.appendChild(x);
+
+    let l = document.createElement('label');
+    l.innerText = labelName;
+    l.htmlFor = objId;
+    node.appendChild(l);
+
+    return [x, l];
+}
+
+function createRadio(node, groupName = '', labelName = '', onchange = null, initialState = false) {
+    let objId = labelName.toLowerCase().split(' ').join('_');
+
+    let x = document.createElement('input');
+    x.type = 'radio';
+    x.name = groupName;
+    x.id = objId;
+    x.checked = initialState;
+    x.addEventListener('change', onchange);
+    node.appendChild(x);
+
+    let l = document.createElement('label');
+    l.innerText = labelName;
+    l.htmlFor = objId;
+    node.appendChild(l);
+
+    return [x, l];
+}
+
 /** Updates the element #toolboxWrapper */
 function createToolbox() {
     let node = document.getElementById('toolboxWrapper');
     node.innerHTML = '';
-    
-    createElement(node, 'h4', 'Filtros de materias');
-    let d = createElement(node, 'div', null, ['col2']);
-    
-    function createCheck(node, labelName, onchange, initialState = false) {
-        let objId = labelName.toLowerCase().split(' ').join('_');
 
-        let l = document.createElement('label');
-        l.innerText = labelName;
-        l.htmlFor = objId;
-        node.appendChild(l);
+    {
+        let wrapper = createElement(node, 'div');
+        createElement(wrapper, 'h4', 'Filtrar materias');
+        let d = createElement(wrapper, 'form', null, ['filter-mode']);
 
-        let x = document.createElement('input');
-        x.type = 'checkbox';
-        x.id = objId;
-        x.checked = initialState;
-        x.addEventListener('change', onchange);
-        node.appendChild(x);
-        return node;
-    }
-
-    let a = [
-        { label: 'No pasadas', key: 'pending' },
-        { label: 'Cursando', key: 'onCourse' },
-        { label: 'Pasadas', key: 'passed' },
-    ];
-    for (let x of a) {
-        let fn = obj => {
-            filterMode[x.key] = obj.target.checked;
-            loadPensum();
-            // TODO: Try to make filtering a bit more dynamic (dont redraw entire table)
+        let a = [
+            { label: 'Pendientes', key: 'pending' },
+            { label: 'Cursando', key: 'onCourse' },
+            { label: 'Pasadas', key: 'passed' },
+        ];
+        for (let x of a) {
+            let fn = obj => {
+                filterMode[x.key] = obj.target.checked;
+                loadPensum();
+                // TODO: Try to make filtering a bit more dynamic (dont redraw entire table)
+            }
+            createCheckbox(d, x.label, fn, filterMode[x.key]);
         }
-        createCheck(d, x.label, fn, filterMode[x.key]);
     }
+
+    {
+        let wrapper = createElement(node, 'div');
+        createElement(wrapper, 'h4', 'Modo de interacción');
+        let d = createElement(wrapper, 'form', null, ['select-mode']);
+
+        let a = [
+            { label: 'Pasar', key: SelectMode.Passed },
+            { label: 'Cursar', key: SelectMode.OnCourse },
+            { label: 'Seleccionar', key: SelectMode.Select },
+        ];
+        for (let x of a) {
+            let fn = () => userSelectMode = x.key;
+            let selected = userSelectMode === x.key;
+            createRadio(d, 'userSelect', x.label, fn, selected);
+        }
+    }
+
+    {
+        let wrapper = createElement(node, 'div');
+        createElement(wrapper, 'h4', 'Seleccionados:');
+
+        {
+            let dw = createElement(wrapper, 'div', null, []);
+            dw.id = 'selectedWrapper';
+            updateSelectionBox();
+        }
+
+        let ibw = createElement(wrapper, 'div', null, ['inline-btn-wrapper']);
+        {
+            let b = [
+                {
+                    label: 'Deseleccionar todo',
+                    action: () => {
+                        userProgress.selected.clear();
+                        updateTakenPrereqClasses();
+                        updateSelectionBox();
+                    },
+                },
+                {
+                    label: 'Seleccionar visibles',
+                    action: () => {
+                        userProgress.selected = new Set(
+                            filterMats(Object.values(currentPensumMats))
+                                .map(x => x.codigo));
+                        updateTakenPrereqClasses();
+                        updateSelectionBox();
+                    },
+                },
+                {
+                    label: 'Seleccionar Cursando',
+                    action: () => {
+                        userProgress.selected = new Set([...userProgress.onCourse]);
+                        updateTakenPrereqClasses();
+                        updateSelectionBox();
+                    },
+                },
+                {
+                    label: 'Invertir selección',
+                    action: () => {
+                        let new_select = new Set<string>();
+                        Object.values(currentPensumMats)
+                            .map(x => x.codigo)
+                            .forEach(x => { if (!userProgress.selected.has(x)) new_select.add(x); })
+                        userProgress.selected = new_select;
+                        updateTakenPrereqClasses();
+                        updateSelectionBox();
+                    },
+                },
+            ];
+            let di = createElement(ibw, 'div', null, ['dropdown-wrapper']);
+            let dul = createElement(di, 'ul', null, ['dropdown-ul']);
+            createElement(di, 'span', 'Seleccionar...', ['dropdown-text', 'btn-secondary']);
+            for (let actionBtn of b) {
+                createElement(dul, 'li', actionBtn.label, [])
+                    .addEventListener('click', actionBtn.action);
+            }
+        }
+
+        {
+            let b = [
+                {
+                    label: 'Asignar como "Pendiente(s)"',
+                    action: () => {
+                        userProgress.selected.forEach(x => {
+                            removeBySelectMode(x, SelectMode.Passed);
+                            removeBySelectMode(x, SelectMode.OnCourse);
+                        });
+                        updateTakenPrereqClasses();
+                        updateGradeProgress();
+                    },
+                },
+                {
+                    label: 'Asignar como "Cursando"',
+                    action: () => {
+                        userProgress.selected.forEach(x => {
+                            addBySelectMode(x, SelectMode.OnCourse);
+                        });
+                        updateTakenPrereqClasses();
+                        updateGradeProgress();
+                    },
+                },
+                {
+                    label: 'Asignar como "Pasada(s)"',
+                    action: () => {
+                        userProgress.selected.forEach(x => {
+                            addBySelectMode(x, SelectMode.Passed);
+                        });
+                        updateTakenPrereqClasses();
+                        updateGradeProgress();
+                    },
+                },
+            ];
+            let di = createElement(ibw, 'div', null, ['dropdown-wrapper']);
+            let dul = createElement(di, 'ul', null, ['dropdown-ul']);
+            createElement(di, 'span', 'Acciones...', ['dropdown-text', 'btn-secondary']);
+            for (let actionBtn of b) {
+                createElement(dul, 'li', actionBtn.label, [])
+                    .addEventListener('click', actionBtn.action);
+            }
+        }
+    }
+}
+
+function processSelectedData(data: Set<string>) {
+    let mats = Object.values(currentPensumMats).filter(x => data.has(x.codigo));
+    let out = {
+        materias: mats.length,
+        creditos: mats.reduce((acc, v) => acc += v.creditos, 0),
+        // if any more iterations are needed, use traditional loop pls!
+    }
+    return out;
+}
+
+function updateSelectionBox() {
+    let node = document.getElementById('selectedWrapper');
+    if (!node) return;
+    node.innerHTML = '';
+
+    let data = userProgress.selected;
+    let pData = processSelectedData(data);
+
+    let dataTable = document.createElement('table');
+    {
+        let r = dataTable.insertRow();
+        let c1 = r.insertCell();
+        c1.innerText = 'Materias';
+        let c2 = r.insertCell();
+        c2.innerText = pData.materias.toString();
+    }
+    {
+        let r = dataTable.insertRow();
+        let c1 = r.insertCell();
+        c1.innerText = 'Creditos';
+        let c2 = r.insertCell();
+        c2.innerText = pData.creditos.toString();
+    }
+
+    node.appendChild(dataTable);
 }
 
 /** Updates the element #progressWrapper with data
  * related to the user's mats selection */
 function updateGradeProgress() {
-    let progressData = analyseGradeProgress(userProgress.passed);
+    let progressData = analyseGradeProgress(userProgress);
 
     let node = document.getElementById('progressWrapper');
     node.innerHTML = '';
 
-    var n = ((100 * progressData.currentCreds) / progressData.totalCreds).toFixed(2);
-    let bg = `linear-gradient(to right, var(--progress-bar-green) ${n}%, var(--background) ${n}%)`;
+    var n1 = ((100 * progressData.passedCreds) / progressData.totalCreds);
+    var n2 = ((100 * progressData.onCourseCreds) / progressData.totalCreds);
+    let bg = [
+        'linear-gradient(to right, ',
+        `var(--progress-bar-green) ${n1.toFixed(2)}%, `,
+        `var(--progress-bar-yellow) ${n1.toFixed(2)}%, `,
+        `var(--progress-bar-yellow) ${(n1+n2).toFixed(2)}%, `,
+        `var(--background) ${(n1+n2).toFixed(2)}%)`,
+    ].join('');
     node.style.backgroundImage = bg;
 
     createElement(node, 'h3', 'Progreso en la carrera: ');
-
-    if (progressData.currentCreds == 0) {
-
-        return;
-    };
-
     let ul = createElement(node, 'ul');
 
     // Percent of mats
-    var m = ((100 * progressData.currentMats) / progressData.totalMats).toFixed(2);
-    createElement(ul, 'li', `Materias aprobadas: ${progressData.currentMats}/${progressData.totalMats} (${m}%)`);
-    createElement(ul, 'li', `Creditos aprobados: ${progressData.currentCreds}/${progressData.totalCreds} (${n}%)`);
+    var mp = ((100 * progressData.passedMats) / progressData.totalMats);
+    var mc = ((100 * progressData.onCourseMats) / progressData.totalMats);
+    createElement(ul, 'li', `Materias aprobadas: ${progressData.passedMats}/${progressData.totalMats} (${mp.toFixed(2)}%)`);
+    createElement(ul, 'li', `Creditos aprobados: ${progressData.passedCreds}/${progressData.totalCreds} (${n1.toFixed(2)}%)`);
+    createElement(ul, 'li', `Materias en curso: +${progressData.onCourseMats}/${progressData.totalMats} (+${mc.toFixed(2)}%)`);
+    createElement(ul, 'li', `Creditos en curso: +${progressData.onCourseCreds}/${progressData.totalCreds} (+${n2.toFixed(2)}%)`);
 }
 
 /**
@@ -401,15 +626,48 @@ function createNewPensumTable(data: i_pensum) {
             a.addEventListener('click', () => {
                 // Check if all are checked
                 let currentCuatMats = cuat.map(x => x.codigo);
-                let selectedCuatMats = currentCuatMats.filter(x => userProgress.passed.has(x));
 
-                // If all are checked, uncheck, else check.
-                if (currentCuatMats.length == selectedCuatMats.length) {
-                    for (let x of currentCuatMats)
-                        userProgress.passed.delete(x);
-                } else {
-                    for (let x of currentCuatMats) userProgress.passed.add(x);
+                if (userSelectMode === SelectMode.Select) {
+                    // Standard behaviour
+                    let selectSet = getUserProgressList(userSelectMode);
+                    let selectedCuatMats = currentCuatMats.filter(x => selectSet.has(x));
+
+                    // If all are checked, uncheck, else check.
+                    if (currentCuatMats.length === selectedCuatMats.length) {
+                        currentCuatMats.forEach(x => removeBySelectMode(x, userSelectMode));
+                    } else {
+                        currentCuatMats.forEach(x => addBySelectMode(x, userSelectMode));
+                    }
                 }
+                else {
+                    let { passed, onCourse } = userProgress;
+                    let [main, second] = (userSelectMode === SelectMode.Passed) ? [passed, onCourse] : [onCourse, passed];
+
+                    /**
+                     * Cases:
+                     * - All unselected: just add all
+                     * - All on both, none unselected: finish adding all (same as prev.)
+                     * - All on main: remove all;
+                     * - Some holes: set holes only.
+                     */
+                    let onMain = currentCuatMats.filter(x => main.has(x));
+                    let onSecond = currentCuatMats.filter(x => second.has(x));
+                    let unselected = currentCuatMats.filter(x => !main.has(x) && !second.has(x));
+                    let n = currentCuatMats.length;
+
+                    let allOnMain = onMain.length === n;
+                    let allOnBoth = onMain.length + onSecond.length === n;
+                    let allUnselected = unselected.length === n;
+
+                    if (allOnMain) {
+                        onMain.forEach(x => removeBySelectMode(x, userSelectMode));
+                    } else if (allUnselected || allOnBoth) {
+                        currentCuatMats.forEach(x => addBySelectMode(x, userSelectMode));
+                    } else { // someUnselected
+                        unselected.forEach(x => addBySelectMode(x, userSelectMode));
+                    }
+                }
+
                 loadPensum();
             });
             row.appendChild(a);
@@ -428,31 +686,21 @@ function createNewPensumTable(data: i_pensum) {
                 r.classList.add('text-center');
                 r.classList.add('managementMode-cell');
 
-                // TODO: Remove checkbox, use generic click events on a div
-                // Allow tristate toggle ability (OFF - ONCOUSE - PASSED)
-                let s = document.createElement('input');
-                s.type = 'checkbox';
-                if (userProgress.passed.has(mat.codigo)) s.checked = true;
+                let s = document.createElement('div');
+                s.classList.add('mat-clickable')
+                //if (userProgress.passed.has(mat.codigo)) s.checked = true;
 
-                s.addEventListener('change', () => {
-                    if (s.checked) userProgress.passed.add(mat.codigo);
-                    else userProgress.passed.delete(mat.codigo);
+                s.addEventListener('click', () => {
+                    let selectSet = getUserProgressList(userSelectMode);
+                    if (selectSet.has(mat.codigo))
+                        removeBySelectMode(mat.codigo, userSelectMode);
+                    else
+                        addBySelectMode(mat.codigo, userSelectMode);
 
                     updateTakenPrereqClasses();
                     updateGradeProgress();
 
                     loadPensum();
-                    // TODO: CHECK IF THIS IS STILL VALID
-                    // Reloads the pensum if the cuat is empty because of this mat.
-                    // if (filterMode !== 'noFilter') {
-                    //     let allMats = Object.keys(currentPensumMats);
-                    //     let matsLeft = new Set(
-                    //         allMats.filter((x) => !currentProgress.has(x))
-                    //     );
-                    //     if (matsLeft.size == allMats.length)
-                    //         filterMode = 'noFilter';
-                    //     loadPensum();
-                    // }
                 });
 
                 r.appendChild(s);
@@ -534,10 +782,12 @@ function createNewPensumTable(data: i_pensum) {
 
     updateTakenPrereqClasses(out);
     updateGradeProgress();
+    updateSelectionBox();
 
     return out;
 }
 
+//** Filters the given mat[] according to filterMode */
 function filterMats(mats: i_mat_raw[]) {
     if (Object.values(filterMode).every(x => x))
         return mats;
@@ -548,6 +798,41 @@ function filterMats(mats: i_mat_raw[]) {
         (filterMode.pending) && (!userProgress.onCourse.has(x.codigo) && !userProgress.passed.has(x.codigo)));
 }
 
+function addBySelectMode(mat: string, mode: SelectMode) {
+    switch (mode) {
+        case (SelectMode.Select):
+            userProgress.selected.add(mat);
+            updateSelectionBox();
+            break;
+        case (SelectMode.OnCourse):
+            userProgress.passed.delete(mat);
+            userProgress.onCourse.add(mat);
+            break;
+        case (SelectMode.Passed):
+            userProgress.onCourse.delete(mat);
+            userProgress.passed.add(mat);
+            break;
+        default:
+            break;
+    }
+}
+
+function removeBySelectMode(mat: string, mode: SelectMode) {
+    switch (mode) {
+        case (SelectMode.Select):
+            userProgress.selected.delete(mat);
+            updateSelectionBox();
+            break;
+        case (SelectMode.OnCourse):
+            userProgress.onCourse.delete(mat);
+            break;
+        case (SelectMode.Passed):
+            userProgress.passed.delete(mat);
+            break;
+        default:
+            break;
+    }
+}
 
 /**
  * Recreates the pensumData, as a new formatted table.
@@ -829,8 +1114,9 @@ function createImportExportDialog() {
 
 //#region LocalStorage Funcs
 
-function saveToLocalStorage() {
-    let out = {
+/** Creates a SaveObject */
+function createSaveObject() {
+    return {
         saveVer: saveVer,
         currentCodeAtInputForm: (document.getElementById(
             'codigoMateria'
@@ -838,12 +1124,40 @@ function saveToLocalStorage() {
         userData: {
             passed: [...userProgress.passed],
             onCourse: [...userProgress.onCourse],
+            selected: [...userProgress.selected],
         },
         filterMode: { ...filterMode },
+        selectMode: userSelectMode,
     };
+}
+
+/** Loads a SaveObject from saveToObject */
+function loadFromObject(obj) {
+    (document.getElementById('codigoMateria') as HTMLInputElement).value =
+        obj.currentCodeAtInputForm;
+
+    // Up to SaveVer 4
+    if (obj.progress) userProgress.passed = new Set(obj.progress);
+
+    if (obj.userData) {
+        let ud = obj.userData;
+        if (ud.passed) userProgress.passed = new Set(ud.passed);
+        if (ud.onCourse) userProgress.onCourse = new Set(ud.onCourse);
+        if (ud.selected) userProgress.selected = new Set(ud.selected);
+    }
+
+    if (obj.filterMode) Object.assign(filterMode, obj.filterMode);
+    if (obj.selectMode) userSelectMode = obj.selectMode;
+    return true;
+}
+
+
+function saveToLocalStorage() {
+    let out = createSaveObject();
+    if (!SAVE_TO_LOCALSTORAGE) return false;
 
     try {
-        localStorage.setItem('saveData', JSON.stringify(out));
+        localStorage.setItem(SAVE_DATA_LOCALSTORAGE, JSON.stringify(out));
         return true;
     } catch (err) {
         console.warn('Could not save saveData to localStorage');
@@ -852,29 +1166,17 @@ function saveToLocalStorage() {
     }
 }
 
+
 function loadFromLocalStorage() {
-    let saveData = localStorage.getItem('saveData');
+    let saveData = localStorage.getItem(SAVE_DATA_LOCALSTORAGE);
     if (saveData === null) return false;
 
     let out = JSON.parse(saveData);
-
-    (document.getElementById('codigoMateria') as HTMLInputElement).value =
-        out.currentCodeAtInputForm;
-
-    // Up to SaveVer 4
-    if (out.progress) userProgress.passed = new Set(out.progress);
-
-    if (out.userData) {
-        let ud = out.userData;
-        if (ud.passed) userProgress.passed = new Set(ud.passed);
-        if (ud.onCourse) userProgress.onCourse = new Set(ud.onCourse);
-    }
-
-    if (out.filterMode) Object.assign(filterMode, out.filterMode);
+    loadFromObject(out);
 
     // Version management and cache clearing.
     if (out.saveVer !== saveVer) {
-        console.info(`Updated from ${out.saveVer} to version ${saveVer} and cleared localStorage.`);
+        console.info(`Updated from ${out.saveVer} to version ${saveVer}.`);
         localStorage.clear();
     }
     return true;
@@ -1086,7 +1388,7 @@ async function loadPensum() {
     let codigoMateriaInput = document.getElementById(
         'codigoMateria'
     ) as HTMLInputElement;
-    currentPensumCode = codigoMateriaInput.value.toUpperCase();
+    currentPensumCode = codigoMateriaInput.value.trim().toUpperCase();
 
     // helper functions
     const clearInfoWrap = () => {
@@ -1095,6 +1397,23 @@ async function loadPensum() {
     const setInfoWrap = (str) => {
         infoWrap.innerHTML = str;
     };
+
+    if (currentPensumCode === '') {
+        let carr = CARRERAS.slice(0, 16); // 17 and onward are too long and not so popular.
+        let rpci = Math.round(Math.random() * (carr.length - 1));
+        let rpc = carr[rpci] ?? { codigo: "DIG10", nombre: "LICENCIATURA EN DISEÑO GRAFICO", escuela: "Decanato de Artes y Comunicación" };
+        let rpcn = rpc.nombre.split(' ').filter(x => !['LICENCIATURA', 'EN', 'DE', 'INGENIERIA'].includes(x)).join(' ');
+        let rpcn_r = rpcn.slice(0, Math.round(rpcn.length * (0.5 + 0.25 * (Math.random() - 0.3)))) + '...';
+        let x = [
+            `Favor inserte un codigo de pensum (ej ${rpc.codigo}).`,
+            '',
+            'Tambien puede empezar a escribir el nombre de la carrera ' +
+            `(${rpcn_r}), ` +
+            'y aparecerá un listado con las distintas carreras y sus respectivos códigos.',
+        ];
+        setInfoWrap(x.join('<br>'));
+        return;
+    }
 
     // try to check if its on localStorage, else check online and cache if successful.
     setInfoWrap(`Buscando ${currentPensumCode} en cache local.`);
@@ -1218,7 +1537,7 @@ function getPensumFromLocalStorage(matCode) {
 }
 
 function downloadProgress() {
-    let obj = [...currentProgress];
+    let obj = createSaveObject();
     let d = new Date();
     let date = `${d.getFullYear()}${d.getMonth()}${d.getDate()}_${d.getHours()}h${d.getMinutes()}m${d.getSeconds()}s`;
     let name = `materias-aprobadas_${date}`;
@@ -1240,13 +1559,19 @@ function uploadProgress() {
                     let txt = e.target.result as string;
                     let obj = JSON.parse(txt);
 
-                    if (obj && Array.isArray(obj)) {
-                        currentProgress = new Set(obj);
-                        loadPensum();
-                        alert(
-                            `Se han seleccionado ${currentProgress.size} materias de ${input.files[0].name}.`
-                        );
-                        return;
+                    if (obj) {
+                        if (Array.isArray(obj)) {
+                            userProgress.passed = new Set(obj);
+                            loadPensum();
+                            alert(`Se han seleccionado ${userProgress.passed.size} materias de ${input.files[0].name}.`);
+                            return;
+                        }
+                        if (typeof (obj) === 'object') {
+                            loadFromObject(obj);
+                            loadPensum();
+                            alert(`Se han seleccionado ${userProgress.passed.size} materias de ${input.files[0].name}.`);
+                            return;
+                        }
                     }
                 } catch (e) {
                     console.warn('Could not load progress.json file!');
@@ -1260,6 +1585,12 @@ function uploadProgress() {
     });
 }
 
+function RESET_PROGRESS() {
+    SAVE_TO_LOCALSTORAGE = false;
+    localStorage.removeItem(SAVE_DATA_LOCALSTORAGE);
+    location.reload();
+}
+
 async function onWindowLoad() {
     {
         let a = document.getElementById('versionSpan');
@@ -1271,9 +1602,12 @@ async function onWindowLoad() {
 
     try {
         let carr = await (await fetch('carreras.json')).json();
+        if (carr && carr.carreras) {
+            CARRERAS = [...carr.carreras];
+        }
         let input = document.getElementById('codigoMateria');
 
-        let list = carr.carreras.map((x) => [
+        let list = CARRERAS.map((x) => [
             `(${x.codigo}) ${x.nombre}`,
             x.codigo,
         ]);

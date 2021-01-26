@@ -78,6 +78,9 @@ var __spread = (this && this.__spread) || function () {
 };
 var saveVer = 5;
 var jsVer = 1;
+var SAVE_DATA_LOCALSTORAGE = 'saveData';
+var SAVE_TO_LOCALSTORAGE = true;
+var CARRERAS = [];
 var unapecPensumUrl = 'https://servicios.unapec.edu.do/pensum/Main/Detalles/';
 var allIgnored = {}; // Mats that are no longer available and should be ommited from the pensum
 var currentPensumData = null;
@@ -92,9 +95,28 @@ var currentProgress = new Set();
 var userProgress = {
     passed: new Set(),
     onCourse: new Set(),
+    selected: new Set(),
 };
+var SelectMode;
+(function (SelectMode) {
+    SelectMode[SelectMode["Passed"] = 0] = "Passed";
+    SelectMode[SelectMode["OnCourse"] = 1] = "OnCourse";
+    SelectMode[SelectMode["Select"] = 2] = "Select";
+})(SelectMode || (SelectMode = {}));
+var userSelectMode = SelectMode.Passed;
+function getUserProgressList(mode) {
+    var _a;
+    var a = (_a = {},
+        _a[SelectMode.Passed] = 'passed',
+        _a[SelectMode.OnCourse] = 'onCourse',
+        _a[SelectMode.Select] = 'selected',
+        _a);
+    return userProgress[a[mode]];
+}
 FileSaver.saveAs = saveAs;
 var MANAGEMENT_TAKEN_CSS_CLASS = 'managementMode-taken';
+var MANAGEMENT_ONCOURSE_CSS_CLASS = 'managementMode-oncourse';
+var MANAGEMENT_SELECTED_CSS_CLASS = 'managementMode-selected';
 var CURRENT_PENSUM_VERSION = 2; // Update this if new mats are added to IgnoredMats.json
 /** Loads the node given at 'input' into the DOM */
 function fetchPensumTable(pensumCode, requestCallback) {
@@ -307,34 +329,36 @@ function createMatDialog(code) {
 }
 /** Adds or removes MANAGEMENT_TAKEN_CLASS to the related elements */
 function updateTakenPrereqClasses(node) {
-    var e_5, _a, e_6, _b, e_7, _c;
+    var e_5, _a, e_6, _b, e_7, _c, e_8, _d, e_9, _e, e_10, _f, e_11, _g;
     if (node === void 0) { node = document; }
     try {
-        for (var _d = __values(node.getElementsByClassName('c__')), _e = _d.next(); !_e.done; _e = _d.next()) {
-            var elem = _e.value;
+        for (var _h = __values(node.getElementsByClassName('c__')), _j = _h.next(); !_j.done; _j = _h.next()) {
+            var elem = _j.value;
             elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS);
+            elem.classList.remove(MANAGEMENT_ONCOURSE_CSS_CLASS);
+            elem.classList.remove(MANAGEMENT_SELECTED_CSS_CLASS);
         }
     }
     catch (e_5_1) { e_5 = { error: e_5_1 }; }
     finally {
         try {
-            if (_e && !_e.done && (_a = _d.return)) _a.call(_d);
+            if (_j && !_j.done && (_a = _h.return)) _a.call(_h);
         }
         finally { if (e_5) throw e_5.error; }
     }
     try {
-        for (var _f = __values(userProgress.passed), _g = _f.next(); !_g.done; _g = _f.next()) {
-            var code = _g.value;
+        for (var _k = __values(userProgress.passed), _l = _k.next(); !_l.done; _l = _k.next()) {
+            var code = _l.value;
             try {
-                for (var _h = (e_7 = void 0, __values(node.getElementsByClassName("c_" + code))), _j = _h.next(); !_j.done; _j = _h.next()) {
-                    var elem = _j.value;
+                for (var _m = (e_7 = void 0, __values(node.getElementsByClassName("c_" + code))), _o = _m.next(); !_o.done; _o = _m.next()) {
+                    var elem = _o.value;
                     elem.classList.add(MANAGEMENT_TAKEN_CSS_CLASS);
                 }
             }
             catch (e_7_1) { e_7 = { error: e_7_1 }; }
             finally {
                 try {
-                    if (_j && !_j.done && (_c = _h.return)) _c.call(_h);
+                    if (_o && !_o.done && (_c = _m.return)) _c.call(_m);
                 }
                 finally { if (e_7) throw e_7.error; }
             }
@@ -343,9 +367,59 @@ function updateTakenPrereqClasses(node) {
     catch (e_6_1) { e_6 = { error: e_6_1 }; }
     finally {
         try {
-            if (_g && !_g.done && (_b = _f.return)) _b.call(_f);
+            if (_l && !_l.done && (_b = _k.return)) _b.call(_k);
         }
         finally { if (e_6) throw e_6.error; }
+    }
+    try {
+        for (var _p = __values(userProgress.onCourse), _q = _p.next(); !_q.done; _q = _p.next()) {
+            var code = _q.value;
+            try {
+                for (var _r = (e_9 = void 0, __values(node.getElementsByClassName("c_" + code))), _s = _r.next(); !_s.done; _s = _r.next()) {
+                    var elem = _s.value;
+                    elem.classList.add(MANAGEMENT_ONCOURSE_CSS_CLASS);
+                }
+            }
+            catch (e_9_1) { e_9 = { error: e_9_1 }; }
+            finally {
+                try {
+                    if (_s && !_s.done && (_e = _r.return)) _e.call(_r);
+                }
+                finally { if (e_9) throw e_9.error; }
+            }
+        }
+    }
+    catch (e_8_1) { e_8 = { error: e_8_1 }; }
+    finally {
+        try {
+            if (_q && !_q.done && (_d = _p.return)) _d.call(_p);
+        }
+        finally { if (e_8) throw e_8.error; }
+    }
+    try {
+        for (var _t = __values(userProgress.selected), _u = _t.next(); !_u.done; _u = _t.next()) {
+            var code = _u.value;
+            try {
+                for (var _v = (e_11 = void 0, __values(node.getElementsByClassName("c_" + code))), _w = _v.next(); !_w.done; _w = _v.next()) {
+                    var elem = _w.value;
+                    elem.classList.add(MANAGEMENT_SELECTED_CSS_CLASS);
+                }
+            }
+            catch (e_11_1) { e_11 = { error: e_11_1 }; }
+            finally {
+                try {
+                    if (_w && !_w.done && (_g = _v.return)) _g.call(_v);
+                }
+                finally { if (e_11) throw e_11.error; }
+            }
+        }
+    }
+    catch (e_10_1) { e_10 = { error: e_10_1 }; }
+    finally {
+        try {
+            if (_u && !_u.done && (_f = _t.return)) _f.call(_t);
+        }
+        finally { if (e_10) throw e_10.error; }
     }
 }
 /**
@@ -357,91 +431,306 @@ function updateTakenPrereqClasses(node) {
  * @param {*} matArray Array of mats codes (e.g. [ESP101, IDI033...])
  */
 function analyseGradeProgress(matArray) {
-    var matSet = new Set(matArray);
     var out = {
         totalCreds: 0,
-        currentCreds: 0,
-        currentMats: 0,
+        passedCreds: 0,
+        passedMats: 0,
+        onCourseCreds: 0,
+        onCourseMats: 0,
         totalMats: Object.keys(currentPensumMats).length,
     };
     for (var matCode in currentPensumMats) {
         var currentMatObj = currentPensumMats[matCode];
         out.totalCreds += currentMatObj.creditos;
-        if (matSet.has(matCode)) {
-            out.currentCreds += currentMatObj.creditos;
-            ++out.currentMats;
+        if (matArray.passed.has(matCode)) {
+            out.passedCreds += currentMatObj.creditos;
+            ++out.passedMats;
+        }
+        else if (matArray.onCourse.has(matCode)) {
+            out.onCourseCreds += currentMatObj.creditos;
+            ++out.onCourseMats;
         }
     }
     return out;
 }
+/** Creates n label-checkbox pairs */
+function createCheckbox(node, labelName, onchange, initialState) {
+    if (initialState === void 0) { initialState = false; }
+    var objId = labelName.toLowerCase().split(' ').join('_');
+    var x = document.createElement('input');
+    x.type = 'checkbox';
+    x.id = objId;
+    x.checked = initialState;
+    x.addEventListener('change', onchange);
+    node.appendChild(x);
+    var l = document.createElement('label');
+    l.innerText = labelName;
+    l.htmlFor = objId;
+    node.appendChild(l);
+    return [x, l];
+}
+function createRadio(node, groupName, labelName, onchange, initialState) {
+    if (groupName === void 0) { groupName = ''; }
+    if (labelName === void 0) { labelName = ''; }
+    if (onchange === void 0) { onchange = null; }
+    if (initialState === void 0) { initialState = false; }
+    var objId = labelName.toLowerCase().split(' ').join('_');
+    var x = document.createElement('input');
+    x.type = 'radio';
+    x.name = groupName;
+    x.id = objId;
+    x.checked = initialState;
+    x.addEventListener('change', onchange);
+    node.appendChild(x);
+    var l = document.createElement('label');
+    l.innerText = labelName;
+    l.htmlFor = objId;
+    node.appendChild(l);
+    return [x, l];
+}
 /** Updates the element #toolboxWrapper */
 function createToolbox() {
-    var e_8, _a;
+    var e_12, _a, e_13, _b, e_14, _c, e_15, _d;
     var node = document.getElementById('toolboxWrapper');
     node.innerHTML = '';
-    createElement(node, 'h4', 'Filtros de materias');
-    var d = createElement(node, 'div', null, ['col2']);
-    function createCheck(node, labelName, onchange, initialState) {
-        if (initialState === void 0) { initialState = false; }
-        var objId = labelName.toLowerCase().split(' ').join('_');
-        var l = document.createElement('label');
-        l.innerText = labelName;
-        l.htmlFor = objId;
-        node.appendChild(l);
-        var x = document.createElement('input');
-        x.type = 'checkbox';
-        x.id = objId;
-        x.checked = initialState;
-        x.addEventListener('change', onchange);
-        node.appendChild(x);
-        return node;
-    }
-    var a = [
-        { label: 'No pasadas', key: 'pending' },
-        { label: 'Cursando', key: 'onCourse' },
-        { label: 'Pasadas', key: 'passed' },
-    ];
-    var _loop_2 = function (x) {
-        var fn = function (obj) {
-            filterMode[x.key] = obj.target.checked;
-            loadPensum();
-            // TODO: Try to make filtering a bit more dynamic (dont redraw entire table)
+    {
+        var wrapper = createElement(node, 'div');
+        createElement(wrapper, 'h4', 'Filtrar materias');
+        var d = createElement(wrapper, 'form', null, ['filter-mode']);
+        var a = [
+            { label: 'Pendientes', key: 'pending' },
+            { label: 'Cursando', key: 'onCourse' },
+            { label: 'Pasadas', key: 'passed' },
+        ];
+        var _loop_2 = function (x) {
+            var fn = function (obj) {
+                filterMode[x.key] = obj.target.checked;
+                loadPensum();
+                // TODO: Try to make filtering a bit more dynamic (dont redraw entire table)
+            };
+            createCheckbox(d, x.label, fn, filterMode[x.key]);
         };
-        createCheck(d, x.label, fn, filterMode[x.key]);
-    };
-    try {
-        for (var a_1 = __values(a), a_1_1 = a_1.next(); !a_1_1.done; a_1_1 = a_1.next()) {
-            var x = a_1_1.value;
-            _loop_2(x);
-        }
-    }
-    catch (e_8_1) { e_8 = { error: e_8_1 }; }
-    finally {
         try {
-            if (a_1_1 && !a_1_1.done && (_a = a_1.return)) _a.call(a_1);
+            for (var a_1 = __values(a), a_1_1 = a_1.next(); !a_1_1.done; a_1_1 = a_1.next()) {
+                var x = a_1_1.value;
+                _loop_2(x);
+            }
         }
-        finally { if (e_8) throw e_8.error; }
+        catch (e_12_1) { e_12 = { error: e_12_1 }; }
+        finally {
+            try {
+                if (a_1_1 && !a_1_1.done && (_a = a_1.return)) _a.call(a_1);
+            }
+            finally { if (e_12) throw e_12.error; }
+        }
     }
+    {
+        var wrapper = createElement(node, 'div');
+        createElement(wrapper, 'h4', 'Modo de interacción');
+        var d = createElement(wrapper, 'form', null, ['select-mode']);
+        var a = [
+            { label: 'Pasar', key: SelectMode.Passed },
+            { label: 'Cursar', key: SelectMode.OnCourse },
+            { label: 'Seleccionar', key: SelectMode.Select },
+        ];
+        var _loop_3 = function (x) {
+            var fn = function () { return userSelectMode = x.key; };
+            var selected = userSelectMode === x.key;
+            createRadio(d, 'userSelect', x.label, fn, selected);
+        };
+        try {
+            for (var a_2 = __values(a), a_2_1 = a_2.next(); !a_2_1.done; a_2_1 = a_2.next()) {
+                var x = a_2_1.value;
+                _loop_3(x);
+            }
+        }
+        catch (e_13_1) { e_13 = { error: e_13_1 }; }
+        finally {
+            try {
+                if (a_2_1 && !a_2_1.done && (_b = a_2.return)) _b.call(a_2);
+            }
+            finally { if (e_13) throw e_13.error; }
+        }
+    }
+    {
+        var wrapper = createElement(node, 'div');
+        createElement(wrapper, 'h4', 'Seleccionados:');
+        {
+            var dw = createElement(wrapper, 'div', null, []);
+            dw.id = 'selectedWrapper';
+            updateSelectionBox();
+        }
+        var ibw = createElement(wrapper, 'div', null, ['inline-btn-wrapper']);
+        {
+            var b = [
+                {
+                    label: 'Deseleccionar todo',
+                    action: function () {
+                        userProgress.selected.clear();
+                        updateTakenPrereqClasses();
+                        updateSelectionBox();
+                    },
+                },
+                {
+                    label: 'Seleccionar visibles',
+                    action: function () {
+                        userProgress.selected = new Set(filterMats(Object.values(currentPensumMats))
+                            .map(function (x) { return x.codigo; }));
+                        updateTakenPrereqClasses();
+                        updateSelectionBox();
+                    },
+                },
+                {
+                    label: 'Seleccionar Cursando',
+                    action: function () {
+                        userProgress.selected = new Set(__spread(userProgress.onCourse));
+                        updateTakenPrereqClasses();
+                        updateSelectionBox();
+                    },
+                },
+                {
+                    label: 'Invertir selección',
+                    action: function () {
+                        var new_select = new Set();
+                        Object.values(currentPensumMats)
+                            .map(function (x) { return x.codigo; })
+                            .forEach(function (x) { if (!userProgress.selected.has(x))
+                            new_select.add(x); });
+                        userProgress.selected = new_select;
+                        updateTakenPrereqClasses();
+                        updateSelectionBox();
+                    },
+                },
+            ];
+            var di = createElement(ibw, 'div', null, ['dropdown-wrapper']);
+            var dul = createElement(di, 'ul', null, ['dropdown-ul']);
+            createElement(di, 'span', 'Seleccionar...', ['dropdown-text', 'btn-secondary']);
+            try {
+                for (var b_1 = __values(b), b_1_1 = b_1.next(); !b_1_1.done; b_1_1 = b_1.next()) {
+                    var actionBtn = b_1_1.value;
+                    createElement(dul, 'li', actionBtn.label, [])
+                        .addEventListener('click', actionBtn.action);
+                }
+            }
+            catch (e_14_1) { e_14 = { error: e_14_1 }; }
+            finally {
+                try {
+                    if (b_1_1 && !b_1_1.done && (_c = b_1.return)) _c.call(b_1);
+                }
+                finally { if (e_14) throw e_14.error; }
+            }
+        }
+        {
+            var b = [
+                {
+                    label: 'Asignar como "Pendiente(s)"',
+                    action: function () {
+                        userProgress.selected.forEach(function (x) {
+                            removeBySelectMode(x, SelectMode.Passed);
+                            removeBySelectMode(x, SelectMode.OnCourse);
+                        });
+                        updateTakenPrereqClasses();
+                        updateGradeProgress();
+                    },
+                },
+                {
+                    label: 'Asignar como "Cursando"',
+                    action: function () {
+                        userProgress.selected.forEach(function (x) {
+                            addBySelectMode(x, SelectMode.OnCourse);
+                        });
+                        updateTakenPrereqClasses();
+                        updateGradeProgress();
+                    },
+                },
+                {
+                    label: 'Asignar como "Pasada(s)"',
+                    action: function () {
+                        userProgress.selected.forEach(function (x) {
+                            addBySelectMode(x, SelectMode.Passed);
+                        });
+                        updateTakenPrereqClasses();
+                        updateGradeProgress();
+                    },
+                },
+            ];
+            var di = createElement(ibw, 'div', null, ['dropdown-wrapper']);
+            var dul = createElement(di, 'ul', null, ['dropdown-ul']);
+            createElement(di, 'span', 'Acciones...', ['dropdown-text', 'btn-secondary']);
+            try {
+                for (var b_2 = __values(b), b_2_1 = b_2.next(); !b_2_1.done; b_2_1 = b_2.next()) {
+                    var actionBtn = b_2_1.value;
+                    createElement(dul, 'li', actionBtn.label, [])
+                        .addEventListener('click', actionBtn.action);
+                }
+            }
+            catch (e_15_1) { e_15 = { error: e_15_1 }; }
+            finally {
+                try {
+                    if (b_2_1 && !b_2_1.done && (_d = b_2.return)) _d.call(b_2);
+                }
+                finally { if (e_15) throw e_15.error; }
+            }
+        }
+    }
+}
+function processSelectedData(data) {
+    var mats = Object.values(currentPensumMats).filter(function (x) { return data.has(x.codigo); });
+    var out = {
+        materias: mats.length,
+        creditos: mats.reduce(function (acc, v) { return acc += v.creditos; }, 0),
+    };
+    return out;
+}
+function updateSelectionBox() {
+    var node = document.getElementById('selectedWrapper');
+    if (!node)
+        return;
+    node.innerHTML = '';
+    var data = userProgress.selected;
+    var pData = processSelectedData(data);
+    var dataTable = document.createElement('table');
+    {
+        var r = dataTable.insertRow();
+        var c1 = r.insertCell();
+        c1.innerText = 'Materias';
+        var c2 = r.insertCell();
+        c2.innerText = pData.materias.toString();
+    }
+    {
+        var r = dataTable.insertRow();
+        var c1 = r.insertCell();
+        c1.innerText = 'Creditos';
+        var c2 = r.insertCell();
+        c2.innerText = pData.creditos.toString();
+    }
+    node.appendChild(dataTable);
 }
 /** Updates the element #progressWrapper with data
  * related to the user's mats selection */
 function updateGradeProgress() {
-    var progressData = analyseGradeProgress(userProgress.passed);
+    var progressData = analyseGradeProgress(userProgress);
     var node = document.getElementById('progressWrapper');
     node.innerHTML = '';
-    var n = ((100 * progressData.currentCreds) / progressData.totalCreds).toFixed(2);
-    var bg = "linear-gradient(to right, var(--progress-bar-green) " + n + "%, var(--background) " + n + "%)";
+    var n1 = ((100 * progressData.passedCreds) / progressData.totalCreds);
+    var n2 = ((100 * progressData.onCourseCreds) / progressData.totalCreds);
+    var bg = [
+        'linear-gradient(to right, ',
+        "var(--progress-bar-green) " + n1.toFixed(2) + "%, ",
+        "var(--progress-bar-yellow) " + n1.toFixed(2) + "%, ",
+        "var(--progress-bar-yellow) " + (n1 + n2).toFixed(2) + "%, ",
+        "var(--background) " + (n1 + n2).toFixed(2) + "%)",
+    ].join('');
     node.style.backgroundImage = bg;
     createElement(node, 'h3', 'Progreso en la carrera: ');
-    if (progressData.currentCreds == 0) {
-        return;
-    }
-    ;
     var ul = createElement(node, 'ul');
     // Percent of mats
-    var m = ((100 * progressData.currentMats) / progressData.totalMats).toFixed(2);
-    createElement(ul, 'li', "Materias aprobadas: " + progressData.currentMats + "/" + progressData.totalMats + " (" + m + "%)");
-    createElement(ul, 'li', "Creditos aprobados: " + progressData.currentCreds + "/" + progressData.totalCreds + " (" + n + "%)");
+    var mp = ((100 * progressData.passedMats) / progressData.totalMats);
+    var mc = ((100 * progressData.onCourseMats) / progressData.totalMats);
+    createElement(ul, 'li', "Materias aprobadas: " + progressData.passedMats + "/" + progressData.totalMats + " (" + mp.toFixed(2) + "%)");
+    createElement(ul, 'li', "Creditos aprobados: " + progressData.passedCreds + "/" + progressData.totalCreds + " (" + n1.toFixed(2) + "%)");
+    createElement(ul, 'li', "Materias en curso: +" + progressData.onCourseMats + "/" + progressData.totalMats + " (+" + mc.toFixed(2) + "%)");
+    createElement(ul, 'li', "Creditos en curso: +" + progressData.onCourseCreds + "/" + progressData.totalCreds + " (+" + n2.toFixed(2) + "%)");
 }
 /**
  * Recreates the pensumData, as a new formatted table.
@@ -454,7 +743,7 @@ function updateGradeProgress() {
  * @param {*} data
  */
 function createNewPensumTable(data) {
-    var e_9, _a, e_10, _b;
+    var e_16, _a, e_17, _b;
     var out = document.createElement('table');
     // Create the header
     var headerRow = out.createTHead();
@@ -473,15 +762,15 @@ function createNewPensumTable(data) {
             headerRow.appendChild(a);
         }
     }
-    catch (e_9_1) { e_9 = { error: e_9_1 }; }
+    catch (e_16_1) { e_16 = { error: e_16_1 }; }
     finally {
         try {
             if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
         }
-        finally { if (e_9) throw e_9.error; }
+        finally { if (e_16) throw e_16.error; }
     }
-    var _loop_3 = function (idxCuat, cuat) {
-        var e_11, _a;
+    var _loop_4 = function (idxCuat, cuat) {
+        var e_18, _a;
         // new table per cuat
         var filteredCuat = filterMats(cuat);
         if (filteredCuat.length === 0)
@@ -498,46 +787,52 @@ function createNewPensumTable(data) {
             // Allow all cuats selection
             // TODO: Do with a SELECT_MODE TOOL instead
             a.addEventListener('click', function () {
-                var e_12, _a, e_13, _b;
                 // Check if all are checked
                 var currentCuatMats = cuat.map(function (x) { return x.codigo; });
-                var selectedCuatMats = currentCuatMats.filter(function (x) { return userProgress.passed.has(x); });
-                // If all are checked, uncheck, else check.
-                if (currentCuatMats.length == selectedCuatMats.length) {
-                    try {
-                        for (var currentCuatMats_1 = (e_12 = void 0, __values(currentCuatMats)), currentCuatMats_1_1 = currentCuatMats_1.next(); !currentCuatMats_1_1.done; currentCuatMats_1_1 = currentCuatMats_1.next()) {
-                            var x = currentCuatMats_1_1.value;
-                            userProgress.passed.delete(x);
-                        }
+                if (userSelectMode === SelectMode.Select) {
+                    // Standard behaviour
+                    var selectSet_1 = getUserProgressList(userSelectMode);
+                    var selectedCuatMats = currentCuatMats.filter(function (x) { return selectSet_1.has(x); });
+                    // If all are checked, uncheck, else check.
+                    if (currentCuatMats.length === selectedCuatMats.length) {
+                        currentCuatMats.forEach(function (x) { return removeBySelectMode(x, userSelectMode); });
                     }
-                    catch (e_12_1) { e_12 = { error: e_12_1 }; }
-                    finally {
-                        try {
-                            if (currentCuatMats_1_1 && !currentCuatMats_1_1.done && (_a = currentCuatMats_1.return)) _a.call(currentCuatMats_1);
-                        }
-                        finally { if (e_12) throw e_12.error; }
+                    else {
+                        currentCuatMats.forEach(function (x) { return addBySelectMode(x, userSelectMode); });
                     }
                 }
                 else {
-                    try {
-                        for (var currentCuatMats_2 = (e_13 = void 0, __values(currentCuatMats)), currentCuatMats_2_1 = currentCuatMats_2.next(); !currentCuatMats_2_1.done; currentCuatMats_2_1 = currentCuatMats_2.next()) {
-                            var x = currentCuatMats_2_1.value;
-                            userProgress.passed.add(x);
-                        }
+                    var passed = userProgress.passed, onCourse = userProgress.onCourse;
+                    var _a = __read((userSelectMode === SelectMode.Passed) ? [passed, onCourse] : [onCourse, passed], 2), main_1 = _a[0], second_1 = _a[1];
+                    /**
+                     * Cases:
+                     * - All unselected: just add all
+                     * - All on both, none unselected: finish adding all (same as prev.)
+                     * - All on main: remove all;
+                     * - Some holes: set holes only.
+                     */
+                    var onMain = currentCuatMats.filter(function (x) { return main_1.has(x); });
+                    var onSecond = currentCuatMats.filter(function (x) { return second_1.has(x); });
+                    var unselected = currentCuatMats.filter(function (x) { return !main_1.has(x) && !second_1.has(x); });
+                    var n = currentCuatMats.length;
+                    var allOnMain = onMain.length === n;
+                    var allOnBoth = onMain.length + onSecond.length === n;
+                    var allUnselected = unselected.length === n;
+                    if (allOnMain) {
+                        onMain.forEach(function (x) { return removeBySelectMode(x, userSelectMode); });
                     }
-                    catch (e_13_1) { e_13 = { error: e_13_1 }; }
-                    finally {
-                        try {
-                            if (currentCuatMats_2_1 && !currentCuatMats_2_1.done && (_b = currentCuatMats_2.return)) _b.call(currentCuatMats_2);
-                        }
-                        finally { if (e_13) throw e_13.error; }
+                    else if (allUnselected || allOnBoth) {
+                        currentCuatMats.forEach(function (x) { return addBySelectMode(x, userSelectMode); });
+                    }
+                    else { // someUnselected
+                        unselected.forEach(function (x) { return addBySelectMode(x, userSelectMode); });
                     }
                 }
                 loadPensum();
             });
             row.appendChild(a);
         }
-        var _loop_4 = function (mat) {
+        var _loop_5 = function (mat) {
             var row = out.insertRow();
             row.id = "r_" + mat.codigo;
             row.classList.add("c_" + mat.codigo);
@@ -547,33 +842,20 @@ function createNewPensumTable(data) {
                 var r = row.insertCell();
                 r.classList.add('text-center');
                 r.classList.add('managementMode-cell');
-                // TODO: Remove checkbox, use generic click events on a div
-                // Allow tristate toggle ability (OFF - ONCOUSE - PASSED)
-                var s_1 = document.createElement('input');
-                s_1.type = 'checkbox';
-                if (userProgress.passed.has(mat.codigo))
-                    s_1.checked = true;
-                s_1.addEventListener('change', function () {
-                    if (s_1.checked)
-                        userProgress.passed.add(mat.codigo);
+                var s = document.createElement('div');
+                s.classList.add('mat-clickable');
+                //if (userProgress.passed.has(mat.codigo)) s.checked = true;
+                s.addEventListener('click', function () {
+                    var selectSet = getUserProgressList(userSelectMode);
+                    if (selectSet.has(mat.codigo))
+                        removeBySelectMode(mat.codigo, userSelectMode);
                     else
-                        userProgress.passed.delete(mat.codigo);
+                        addBySelectMode(mat.codigo, userSelectMode);
                     updateTakenPrereqClasses();
                     updateGradeProgress();
                     loadPensum();
-                    // TODO: CHECK IF THIS IS STILL VALID
-                    // Reloads the pensum if the cuat is empty because of this mat.
-                    // if (filterMode !== 'noFilter') {
-                    //     let allMats = Object.keys(currentPensumMats);
-                    //     let matsLeft = new Set(
-                    //         allMats.filter((x) => !currentProgress.has(x))
-                    //     );
-                    //     if (matsLeft.size == allMats.length)
-                    //         filterMode = 'noFilter';
-                    //     loadPensum();
-                    // }
                 });
-                r.appendChild(s_1);
+                r.appendChild(s);
             }
             // Codigo mat.
             {
@@ -632,36 +914,38 @@ function createNewPensumTable(data) {
         };
         try {
             // Mat rows
-            for (var filteredCuat_1 = (e_11 = void 0, __values(filteredCuat)), filteredCuat_1_1 = filteredCuat_1.next(); !filteredCuat_1_1.done; filteredCuat_1_1 = filteredCuat_1.next()) {
+            for (var filteredCuat_1 = (e_18 = void 0, __values(filteredCuat)), filteredCuat_1_1 = filteredCuat_1.next(); !filteredCuat_1_1.done; filteredCuat_1_1 = filteredCuat_1.next()) {
                 var mat = filteredCuat_1_1.value;
-                _loop_4(mat);
+                _loop_5(mat);
             }
         }
-        catch (e_11_1) { e_11 = { error: e_11_1 }; }
+        catch (e_18_1) { e_18 = { error: e_18_1 }; }
         finally {
             try {
                 if (filteredCuat_1_1 && !filteredCuat_1_1.done && (_a = filteredCuat_1.return)) _a.call(filteredCuat_1);
             }
-            finally { if (e_11) throw e_11.error; }
+            finally { if (e_18) throw e_18.error; }
         }
     };
     try {
         for (var _e = __values(data.cuats.entries()), _f = _e.next(); !_f.done; _f = _e.next()) {
             var _g = __read(_f.value, 2), idxCuat = _g[0], cuat = _g[1];
-            _loop_3(idxCuat, cuat);
+            _loop_4(idxCuat, cuat);
         }
     }
-    catch (e_10_1) { e_10 = { error: e_10_1 }; }
+    catch (e_17_1) { e_17 = { error: e_17_1 }; }
     finally {
         try {
             if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
         }
-        finally { if (e_10) throw e_10.error; }
+        finally { if (e_17) throw e_17.error; }
     }
     updateTakenPrereqClasses(out);
     updateGradeProgress();
+    updateSelectionBox();
     return out;
 }
+//** Filters the given mat[] according to filterMode */
 function filterMats(mats) {
     if (Object.values(filterMode).every(function (x) { return x; }))
         return mats;
@@ -670,6 +954,40 @@ function filterMats(mats) {
             (filterMode.passed && userProgress.passed.has(x.codigo)) ||
             (filterMode.pending) && (!userProgress.onCourse.has(x.codigo) && !userProgress.passed.has(x.codigo));
     });
+}
+function addBySelectMode(mat, mode) {
+    switch (mode) {
+        case (SelectMode.Select):
+            userProgress.selected.add(mat);
+            updateSelectionBox();
+            break;
+        case (SelectMode.OnCourse):
+            userProgress.passed.delete(mat);
+            userProgress.onCourse.add(mat);
+            break;
+        case (SelectMode.Passed):
+            userProgress.onCourse.delete(mat);
+            userProgress.passed.add(mat);
+            break;
+        default:
+            break;
+    }
+}
+function removeBySelectMode(mat, mode) {
+    switch (mode) {
+        case (SelectMode.Select):
+            userProgress.selected.delete(mat);
+            updateSelectionBox();
+            break;
+        case (SelectMode.OnCourse):
+            userProgress.onCourse.delete(mat);
+            break;
+        case (SelectMode.Passed):
+            userProgress.passed.delete(mat);
+            break;
+        default:
+            break;
+    }
 }
 /**
  * Recreates the pensumData, as a new formatted table.
@@ -731,7 +1049,7 @@ function createExcelWorkbookFromPensum(data, progress) {
     data.cuats.forEach(function (cuat, idxCuat) {
         var filteredCuat = cuat;
         filteredCuat.forEach(function (mat, idxMat, currentCuat) {
-            var e_14, _a, e_15, _b;
+            var e_19, _a, e_20, _b;
             ws[COL_CUAT + currentRow] = { v: idxCuat + 1, t: 'n' };
             if (idxMat === 0) {
                 mergeCells(currentRow - 1, 0, currentRow - 1 + currentCuat.length - 1, 0);
@@ -751,12 +1069,12 @@ function createExcelWorkbookFromPensum(data, progress) {
                     ++prereqCount;
                 }
             }
-            catch (e_14_1) { e_14 = { error: e_14_1 }; }
+            catch (e_19_1) { e_19 = { error: e_19_1 }; }
             finally {
                 try {
                     if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
                 }
-                finally { if (e_14) throw e_14.error; }
+                finally { if (e_19) throw e_19.error; }
             }
             try {
                 for (var _e = __values(mat.prereqExtra), _f = _e.next(); !_f.done; _f = _e.next()) {
@@ -765,12 +1083,12 @@ function createExcelWorkbookFromPensum(data, progress) {
                     ++prereqCount;
                 }
             }
-            catch (e_15_1) { e_15 = { error: e_15_1 }; }
+            catch (e_20_1) { e_20 = { error: e_20_1 }; }
             finally {
                 try {
                     if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
                 }
-                finally { if (e_15) throw e_15.error; }
+                finally { if (e_20) throw e_20.error; }
             }
             // Aprobada
             var aprobVal = currentProgress.has(mat.codigo) ? 1 : 0;
@@ -847,7 +1165,7 @@ function getInfoList(data) {
  * @param {*} data
  */
 function createInfoList(data) {
-    var e_16, _a;
+    var e_21, _a;
     /** @type {HTMLTableElement} */
     var out = document.createElement('ul');
     // Separate the text before outputting.
@@ -878,12 +1196,12 @@ function createInfoList(data) {
             out.appendChild(li);
         }
     }
-    catch (e_16_1) { e_16 = { error: e_16_1 }; }
+    catch (e_21_1) { e_21 = { error: e_21_1 }; }
     finally {
         try {
             if (outTextArr_1_1 && !outTextArr_1_1.done && (_a = outTextArr_1.return)) _a.call(outTextArr_1);
         }
-        finally { if (e_16) throw e_16.error; }
+        finally { if (e_21) throw e_21.error; }
     }
     return out;
 }
@@ -919,18 +1237,48 @@ function createImportExportDialog() {
     return dialog;
 }
 //#region LocalStorage Funcs
-function saveToLocalStorage() {
-    var out = {
+/** Creates a SaveObject */
+function createSaveObject() {
+    return {
         saveVer: saveVer,
         currentCodeAtInputForm: document.getElementById('codigoMateria').value,
         userData: {
             passed: __spread(userProgress.passed),
             onCourse: __spread(userProgress.onCourse),
+            selected: __spread(userProgress.selected),
         },
         filterMode: __assign({}, filterMode),
+        selectMode: userSelectMode,
     };
+}
+/** Loads a SaveObject from saveToObject */
+function loadFromObject(obj) {
+    document.getElementById('codigoMateria').value =
+        obj.currentCodeAtInputForm;
+    // Up to SaveVer 4
+    if (obj.progress)
+        userProgress.passed = new Set(obj.progress);
+    if (obj.userData) {
+        var ud = obj.userData;
+        if (ud.passed)
+            userProgress.passed = new Set(ud.passed);
+        if (ud.onCourse)
+            userProgress.onCourse = new Set(ud.onCourse);
+        if (ud.selected)
+            userProgress.selected = new Set(ud.selected);
+    }
+    if (obj.filterMode)
+        Object.assign(filterMode, obj.filterMode);
+    if (obj.selectMode)
+        userSelectMode = obj.selectMode;
+    return true;
+}
+function saveToLocalStorage() {
+    var out = createSaveObject();
+    if (!SAVE_TO_LOCALSTORAGE)
+        return false;
     try {
-        localStorage.setItem('saveData', JSON.stringify(out));
+        localStorage.setItem(SAVE_DATA_LOCALSTORAGE, JSON.stringify(out));
         return true;
     }
     catch (err) {
@@ -940,27 +1288,14 @@ function saveToLocalStorage() {
     }
 }
 function loadFromLocalStorage() {
-    var saveData = localStorage.getItem('saveData');
+    var saveData = localStorage.getItem(SAVE_DATA_LOCALSTORAGE);
     if (saveData === null)
         return false;
     var out = JSON.parse(saveData);
-    document.getElementById('codigoMateria').value =
-        out.currentCodeAtInputForm;
-    // Up to SaveVer 4
-    if (out.progress)
-        userProgress.passed = new Set(out.progress);
-    if (out.userData) {
-        var ud = out.userData;
-        if (ud.passed)
-            userProgress.passed = new Set(ud.passed);
-        if (ud.onCourse)
-            userProgress.onCourse = new Set(ud.onCourse);
-    }
-    if (out.filterMode)
-        Object.assign(filterMode, out.filterMode);
+    loadFromObject(out);
     // Version management and cache clearing.
     if (out.saveVer !== saveVer) {
-        console.info("Updated from " + out.saveVer + " to version " + saveVer + " and cleared localStorage.");
+        console.info("Updated from " + out.saveVer + " to version " + saveVer + ".");
         localStorage.clear();
     }
     return true;
@@ -1124,7 +1459,7 @@ function createSecondaryButton(text, callback) {
 }
 function findAllpostreqs(code) {
     function subFindArr(code) {
-        var e_17, _a;
+        var e_22, _a;
         var hideList = [code];
         try {
             for (var _b = __values(currentPensumMats[code].postreq), _c = _b.next(); !_c.done; _c = _b.next()) {
@@ -1132,12 +1467,12 @@ function findAllpostreqs(code) {
                 hideList.push.apply(hideList, __spread(subFindArr(x)));
             }
         }
-        catch (e_17_1) { e_17 = { error: e_17_1 }; }
+        catch (e_22_1) { e_22 = { error: e_22_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
             }
-            finally { if (e_17) throw e_17.error; }
+            finally { if (e_22) throw e_22.error; }
         }
         return hideList;
     }
@@ -1148,20 +1483,37 @@ function findAllpostreqs(code) {
 //#region Init
 /** This function is called by the <search> button */
 function loadPensum() {
+    var _a;
     return __awaiter(this, void 0, void 0, function () {
-        var infoWrap, codigoMateriaInput, clearInfoWrap, setInfoWrap, pensumNode, newCode, h, btnwrp, a;
-        return __generator(this, function (_a) {
-            switch (_a.label) {
+        var infoWrap, codigoMateriaInput, clearInfoWrap, setInfoWrap, carr, rpci, rpc, rpcn, rpcn_r, x, pensumNode, newCode, h, btnwrp, a;
+        return __generator(this, function (_b) {
+            switch (_b.label) {
                 case 0:
                     infoWrap = document.getElementById('infoWrapper');
                     codigoMateriaInput = document.getElementById('codigoMateria');
-                    currentPensumCode = codigoMateriaInput.value.toUpperCase();
+                    currentPensumCode = codigoMateriaInput.value.trim().toUpperCase();
                     clearInfoWrap = function () {
                         infoWrap.innerHTML = '';
                     };
                     setInfoWrap = function (str) {
                         infoWrap.innerHTML = str;
                     };
+                    if (currentPensumCode === '') {
+                        carr = CARRERAS.slice(0, 16);
+                        rpci = Math.round(Math.random() * (carr.length - 1));
+                        rpc = (_a = carr[rpci]) !== null && _a !== void 0 ? _a : { codigo: "DIG10", nombre: "LICENCIATURA EN DISEÑO GRAFICO", escuela: "Decanato de Artes y Comunicación" };
+                        rpcn = rpc.nombre.split(' ').filter(function (x) { return !['LICENCIATURA', 'EN', 'DE', 'INGENIERIA'].includes(x); }).join(' ');
+                        rpcn_r = rpcn.slice(0, Math.round(rpcn.length * (0.5 + 0.25 * (Math.random() - 0.3)))) + '...';
+                        x = [
+                            "Favor inserte un codigo de pensum (ej " + rpc.codigo + ").",
+                            '',
+                            'Tambien puede empezar a escribir el nombre de la carrera ' +
+                                ("(" + rpcn_r + "), ") +
+                                'y aparecerá un listado con las distintas carreras y sus respectivos códigos.',
+                        ];
+                        setInfoWrap(x.join('<br>'));
+                        return [2 /*return*/];
+                    }
                     // try to check if its on localStorage, else check online and cache if successful.
                     setInfoWrap("Buscando " + currentPensumCode + " en cache local.");
                     currentPensumData = getPensumFromLocalStorage(currentPensumCode);
@@ -1184,7 +1536,7 @@ function loadPensum() {
                             }
                         })];
                 case 1:
-                    pensumNode = _a.sent();
+                    pensumNode = _b.sent();
                     currentPensumData = extractPensumData(pensumNode);
                     // Update cache and currentPensumCode if successfuly fetched.
                     if (currentPensumData) {
@@ -1193,7 +1545,7 @@ function loadPensum() {
                         currentPensumCode = newCode;
                         setPensumToLocalStorage(currentPensumData);
                     }
-                    _a.label = 2;
+                    _b.label = 2;
                 case 2:
                     // If data was succesfully found
                     if (currentPensumData) {
@@ -1272,7 +1624,7 @@ function getPensumFromLocalStorage(matCode) {
     }
 }
 function downloadProgress() {
-    var obj = __spread(currentProgress);
+    var obj = createSaveObject();
     var d = new Date();
     var date = "" + d.getFullYear() + d.getMonth() + d.getDate() + "_" + d.getHours() + "h" + d.getMinutes() + "m" + d.getSeconds() + "s";
     var name = "materias-aprobadas_" + date;
@@ -1292,11 +1644,19 @@ function uploadProgress() {
                 try {
                     var txt = e.target.result;
                     var obj = JSON.parse(txt);
-                    if (obj && Array.isArray(obj)) {
-                        currentProgress = new Set(obj);
-                        loadPensum();
-                        alert("Se han seleccionado " + currentProgress.size + " materias de " + input.files[0].name + ".");
-                        return;
+                    if (obj) {
+                        if (Array.isArray(obj)) {
+                            userProgress.passed = new Set(obj);
+                            loadPensum();
+                            alert("Se han seleccionado " + userProgress.passed.size + " materias de " + input.files[0].name + ".");
+                            return;
+                        }
+                        if (typeof (obj) === 'object') {
+                            loadFromObject(obj);
+                            loadPensum();
+                            alert("Se han seleccionado " + userProgress.passed.size + " materias de " + input.files[0].name + ".");
+                            return;
+                        }
                     }
                 }
                 catch (e) {
@@ -1310,6 +1670,11 @@ function uploadProgress() {
             console.info('progress.json file could not be uploaded.');
         }
     });
+}
+function RESET_PROGRESS() {
+    SAVE_TO_LOCALSTORAGE = false;
+    localStorage.removeItem(SAVE_DATA_LOCALSTORAGE);
+    location.reload();
 }
 function onWindowLoad() {
     return __awaiter(this, void 0, void 0, function () {
@@ -1332,8 +1697,11 @@ function onWindowLoad() {
                 case 2: return [4 /*yield*/, (_c.sent()).json()];
                 case 3:
                     carr = _c.sent();
+                    if (carr && carr.carreras) {
+                        CARRERAS = __spread(carr.carreras);
+                    }
                     input = document.getElementById('codigoMateria');
-                    list = carr.carreras.map(function (x) { return [
+                    list = CARRERAS.map(function (x) { return [
                         "(" + x.codigo + ") " + x.nombre,
                         x.codigo,
                     ]; });

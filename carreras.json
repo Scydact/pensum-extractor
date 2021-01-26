@@ -66,21 +66,6 @@
             "escuela": "Escuela de Contabilidad y Finanzas"
         },
         {
-            "codigo": "LES11",
-            "nombre": "LICENCIATURA EN LENGUA ESPAÑOLA Y LITERATURA ORIENTADA A LA EDUCACION SECUNDARIA",
-            "escuela": "Decanato de Estudios Generales"
-        },
-        {
-            "codigo": "LIE11",
-            "nombre": "LICENCIATURA EN INGLES ORIENTADA A LA ENSEÑANZA",
-            "escuela": "Escuela de Idiomas"
-        },
-        {
-            "codigo": "LMS11",
-            "nombre": "LICENCIATURA EN MATEMATICA ORIENTADA A LA EDUCACION SECUNDARIA",
-            "escuela": "Decanato de Estudios Generales"
-        },
-        {
             "codigo": "MER10",
             "nombre": "LICENCIATURA EN MERCADOTECNIA",
             "escuela": "Escuela de Mercadeo y Negocios Internacionales"
@@ -94,6 +79,21 @@
             "codigo": "PUB10",
             "nombre": "LICENCIATURA EN PUBLICIDAD",
             "escuela": "Decanato de Artes y Comunicación"
+        },
+        {
+            "codigo": "LES11",
+            "nombre": "LICENCIATURA EN LENGUA ESPAÑOLA Y LITERATURA ORIENTADA A LA EDUCACION SECUNDARIA",
+            "escuela": "Decanato de Estudios Generales"
+        },
+        {
+            "codigo": "LIE11",
+            "nombre": "LICENCIATURA EN INGLES ORIENTADA A LA ENSEÑANZA",
+            "escuela": "Escuela de Idiomas"
+        },
+        {
+            "codigo": "LMS11",
+            "nombre": "LICENCIATURA EN MATEMATICA ORIENTADA A LA EDUCACION SECUNDARIA",
+            "escuela": "Decanato de Estudios Generales"
         },
         {
             "codigo": "TAF11",
