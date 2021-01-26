@@ -268,6 +268,23 @@ function createMatDialog(code) {
     createElement(outNode, 'p', "Codigo: \t" + codeData.codigo);
     createElement(outNode, 'p', "Creditos: \t" + codeData.creditos);
     createElement(outNode, 'p', "Cuatrimestre: \t" + codeData.cuatrimestre);
+    if (filterMats([codeData]).length === 0) {
+        createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary', 'btn-disabled']);
+        createElement(outNode, 'span', 'Esta materia no está visible actualmente.', ['explanatory']);
+    }
+    else {
+        var a = createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary']);
+        a.addEventListener('click', function () {
+            dialog.hide();
+            var x = codeData.codigo; // im lazy, this part was moved.
+            var targetCell = document.getElementById("a_" + x);
+            var targetRow = document.getElementById("r_" + x);
+            targetCell.scrollIntoView({ block: 'center' });
+            targetRow.classList.remove('highlightRow');
+            targetRow.classList.add('highlightRow');
+            setTimeout(function () { return targetRow.classList.remove('highlightRow'); }, 3e3);
+        });
+    }
     if (codeData.prereq.length > 0 || codeData.prereqExtra.length > 0) {
         createElement(outNode, 'h4', 'Pre-requisitos');
         var _loop_1 = function (x) {
@@ -888,12 +905,7 @@ function createNewPensumTable(data) {
                     var s = document.createElement('a');
                     s.innerText = x;
                     s.addEventListener('click', function () {
-                        var targetCell = document.getElementById("a_" + x);
-                        var targetRow = document.getElementById("r_" + x);
-                        targetCell.scrollIntoView({ block: 'center' });
-                        targetRow.classList.remove('highlightRow');
-                        targetRow.classList.add('highlightRow');
-                        setTimeout(function () { return targetRow.classList.remove('highlightRow'); }, 2e3);
+                        createMatDialog(x).show();
                     });
                     s.classList.add('preReq');
                     s.classList.add('monospace');

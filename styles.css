@@ -32,9 +32,9 @@
     --background-selected-oncourse-even: rgba(253, 207, 55, 0.95);
 
     --progress-bar-green: #bfffcd;
-    --progress-bar-yellow:  rgb(252, 239, 181);
-    
-    --br: .5em;
+    --progress-bar-yellow: rgb(252, 239, 181);
+
+    --br: 0.5em;
     --bs: inset 0 0 0 2px black;
 }
 
@@ -199,16 +199,19 @@ tr:nth-child(2n) td {
 
 @keyframes highlight {
     0% {
-        background: #ffff99;
+        background: #f825ff;
+    } 
+    50% {
+        background:  #2534ff;
     }
-
     100% {
-        background: none;
-    }
+        background: #f825ff;
+    } 
 }
 
 .highlightRow td {
-    animation: highlight 2s;
+    color: white;
+    animation: highlight 700ms ease infinite;
 }
 
 .codigo {
@@ -257,7 +260,7 @@ tr:nth-child(2n) td {
     text-decoration: none;
 }
 
-.btn-primary:hover {
+.btn-primary:hover:not(.btn-disabled) {
     background: rgb(45, 47, 182);
     flex-grow: 2;
 }
@@ -280,14 +283,23 @@ tr:nth-child(2n) td {
     box-shadow: var(--bs);
 }
 
-.btn-secondary:hover {
+.btn-secondary:hover:not(.btn-disabled) {
     background: rgba(0, 0, 0, 0.15);
+}
+.btn-disabled {
+    opacity: 0.6;
 }
 
 .inline-btn-wrapper {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
+}
+
+.explanatory {
+    font-style: italic;
+    font-size: small;
+    color: rgba(0,0,0,0.6);
 }
 
 @media only screen and (max-width: 700px) {
@@ -348,11 +360,11 @@ tr:nth-child(2n) td {
 }
 .select-mode label {
     display: inline-block;
-    padding: .5em;
+    padding: 0.5em;
     background: var(--wallpaper);
 }
 .select-mode label:hover {
-    background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.2);
 }
 .select-mode label:first-of-type {
     border-radius: var(--br) 0 0 var(--br);
@@ -383,17 +395,16 @@ tr:nth-child(2n) td {
     background: var(--background-selected-even);
 }
 
-
 .filter-mode input {
     display: none;
 }
 .filter-mode label {
     display: inline-block;
-    padding: .5em;
+    padding: 0.5em;
     background: var(--wallpaper);
 }
 .filter-mode label:hover {
-    background: rgba(0,0,0,0.2);
+    background: rgba(0, 0, 0, 0.2);
 }
 .filter-mode label:first-of-type {
     border-radius: var(--br) 0 0 var(--br);
@@ -414,7 +425,6 @@ tr:nth-child(2n) td {
 .filter-mode input:checked + label:nth-of-type(3) {
     background: var(--background-selected-taken-even);
 }
-
 
 tr.managementMode-taken td {
     /* tr is necessary, otherwise even cols would override this. */
@@ -508,7 +518,7 @@ tr.managementMode-selected.managementMode-oncourse:nth-child(even) td {
     justify-content: space-between;
 }
 #toolboxWrapper > div {
-    margin: .5em;
+    margin: 0.5em;
     flex-grow: 1;
     display: flex;
     flex-flow: column nowrap;
@@ -519,7 +529,7 @@ tr.managementMode-selected.managementMode-oncourse:nth-child(even) td {
     border: 2px solid black;
     width: 100%;
 }
-#selectedWrapper table{
+#selectedWrapper table {
     width: 100%;
 }
 #selectedWrapper td:first-child {
@@ -536,8 +546,6 @@ tr.managementMode-selected.managementMode-oncourse:nth-child(even) td {
     height: 100%;
 }
 
-
-
 /* Dropdown */
 .dropdown-wrapper {
     user-select: none;
@@ -548,7 +556,7 @@ tr.managementMode-selected.managementMode-oncourse:nth-child(even) td {
     display: inline-block;
     width: 100%;
     text-align: center;
-    padding: .5em;
+    padding: 0.5em;
     cursor: pointer;
 }
 .dropdown-wrapper > .dropdown-ul {
@@ -563,7 +571,7 @@ tr.managementMode-selected.managementMode-oncourse:nth-child(even) td {
     list-style: none;
     margin: 0;
     padding: 0;
-    box-shadow: 0 0 1em 0 rgba(0,0,0,0.5);
+    box-shadow: 0 0 1em 0 rgba(0, 0, 0, 0.5);
     border-radius: var(--br);
 }
 .dropdown-ul > li:first-child {
@@ -579,12 +587,12 @@ tr.managementMode-selected.managementMode-oncourse:nth-child(even) td {
     min-width: 200px;
 }
 .dropdown-ul > li {
-    padding: .2em .5em;
+    padding: 0.2em 0.5em;
     background: var(--background1);
 }
 .dropdown-ul > li:hover {
     background: var(--wallpaper);
 }
 .dropdown-ul > li:active {
-    background: var(--background-selected)
+    background: var(--background-selected);
 }

@@ -209,6 +209,26 @@ function createMatDialog(code: string) {
     createElement(outNode, 'p', `Creditos: \t${codeData.creditos}`);
     createElement(outNode, 'p', `Cuatrimestre: \t${codeData.cuatrimestre}`);
 
+    if (filterMats([codeData]).length === 0) {
+        createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary', 'btn-disabled']);
+        createElement(outNode, 'span', 'Esta materia no está visible actualmente.', ['explanatory']);
+    } else {
+        let a = createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary']);
+        a.addEventListener('click', () => {
+            dialog.hide();
+            let x = codeData.codigo; // im lazy, this part was moved.
+            let targetCell = document.getElementById(`a_${x}`);
+            let targetRow = document.getElementById(`r_${x}`);
+            targetCell.scrollIntoView({ block: 'center' });
+            targetRow.classList.remove('highlightRow');
+            targetRow.classList.add('highlightRow');
+            setTimeout(
+                () => targetRow.classList.remove('highlightRow'),
+                3e3
+            );
+        });
+    }
+
     if (codeData.prereq.length > 0 || codeData.prereqExtra.length > 0) {
         createElement(outNode, 'h4', 'Pre-requisitos');
         for (let x of codeData.prereq) {
@@ -558,8 +578,8 @@ function updateGradeProgress() {
         'linear-gradient(to right, ',
         `var(--progress-bar-green) ${n1.toFixed(2)}%, `,
         `var(--progress-bar-yellow) ${n1.toFixed(2)}%, `,
-        `var(--progress-bar-yellow) ${(n1+n2).toFixed(2)}%, `,
-        `var(--background) ${(n1+n2).toFixed(2)}%)`,
+        `var(--progress-bar-yellow) ${(n1 + n2).toFixed(2)}%, `,
+        `var(--background) ${(n1 + n2).toFixed(2)}%)`,
     ].join('');
     node.style.backgroundImage = bg;
 
@@ -747,15 +767,7 @@ function createNewPensumTable(data: i_pensum) {
                     let s = document.createElement('a');
                     s.innerText = x;
                     s.addEventListener('click', () => {
-                        let targetCell = document.getElementById(`a_${x}`);
-                        let targetRow = document.getElementById(`r_${x}`);
-                        targetCell.scrollIntoView({ block: 'center' });
-                        targetRow.classList.remove('highlightRow');
-                        targetRow.classList.add('highlightRow');
-                        setTimeout(
-                            () => targetRow.classList.remove('highlightRow'),
-                            2e3
-                        );
+                        createMatDialog(x).show();
                     });
                     s.classList.add('preReq');
                     s.classList.add('monospace');
