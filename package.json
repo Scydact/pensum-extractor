@@ -1,0 +1,29 @@
+{
+  "name": "pensum-extractor",
+  "version": "1.0.0",
+  "description": "Pensum tracker for UNAPEC",
+  "main": "index.html",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/ScyllarusDactyl/pensum-extractor.git"
+  },
+  "keywords": [
+    "pensum",
+    "UNAPEC"
+  ],
+  "author": "ScyDact",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/ScyllarusDactyl/pensum-extractor/issues"
+  },
+  "homepage": "https://github.com/ScyllarusDactyl/pensum-extractor#readme",
+  "dependencies": {
+    "pdfkit": "^0.12.1"
+  }
+}

@@ -86,6 +86,7 @@ var allIgnored = {}; // Mats that are no longer available and should be ommited 
 var currentPensumData = null;
 var currentPensumCode = '';
 var currentPensumMats = {};
+var errorCodes = [];
 var filterMode = {
     pending: true,
     onCourse: true,
@@ -117,6 +118,7 @@ FileSaver.saveAs = saveAs;
 var MANAGEMENT_TAKEN_CSS_CLASS = 'managementMode-taken';
 var MANAGEMENT_ONCOURSE_CSS_CLASS = 'managementMode-oncourse';
 var MANAGEMENT_SELECTED_CSS_CLASS = 'managementMode-selected';
+var MANAGEMENT_ERROR_CSS_CLASS = 'managementMode-error';
 var CURRENT_PENSUM_VERSION = 2; // Update this if new mats are added to IgnoredMats.json
 /** Loads the node given at 'input' into the DOM */
 function fetchPensumTable(pensumCode, requestCallback) {
@@ -214,6 +216,7 @@ function extractPensumData(node) {
 function matsToDict(arr) {
     var e_1, _a, e_2, _b, e_3, _c;
     var out = {};
+    errorCodes = [];
     try {
         // Map all mats
         for (var arr_1 = __values(arr), arr_1_1 = arr_1.next(); !arr_1_1.done; arr_1_1 = arr_1.next()) {
@@ -235,7 +238,14 @@ function matsToDict(arr) {
             try {
                 for (var _d = (e_3 = void 0, __values(x.prereq)), _e = _d.next(); !_e.done; _e = _d.next()) {
                     var y = _e.value;
-                    out[y].postreq.push(x.codigo);
+                    var pre = out[y];
+                    if (!pre) {
+                        console.error("[ERROR!]: No se encuentra la materia \"" + y + "\" (prerequisito de \"" + x.codigo + "\")");
+                        errorCodes.push(y);
+                    }
+                    else {
+                        pre.postreq.push(x.codigo);
+                    }
                 }
             }
             catch (e_3_1) { e_3 = { error: e_3_1 }; }
@@ -258,7 +268,7 @@ function matsToDict(arr) {
 }
 /** Create mat dialog showing its dependencies and other options... */
 function createMatDialog(code) {
-    var e_4, _a;
+    var e_4, _a, e_5, _b;
     var codeData = currentPensumMats[code];
     if (!codeData)
         return new DialogBox().setMsg('Informacion no disponible para ' + code);
@@ -276,7 +286,7 @@ function createMatDialog(code) {
         var a = createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary']);
         a.addEventListener('click', function () {
             dialog.hide();
-            var x = codeData.codigo; // im lazy, this part was moved.
+            var x = safeForHtmlId(codeData.codigo); // im lazy, this part was moved.
             var targetCell = document.getElementById("a_" + x);
             var targetRow = document.getElementById("r_" + x);
             targetCell.scrollIntoView({ block: 'center' });
@@ -287,30 +297,16 @@ function createMatDialog(code) {
     }
     if (codeData.prereq.length > 0 || codeData.prereqExtra.length > 0) {
         createElement(outNode, 'h4', 'Pre-requisitos');
-        var _loop_1 = function (x) {
-            var p = createElement(outNode, 'p');
-            var s = document.createElement('a');
-            s.innerText = "(" + x + ") " + currentPensumMats[x].asignatura;
-            s.addEventListener('click', function () {
-                dialog.hide();
-                createMatDialog(x).show();
-            });
-            s.classList.add('preReq');
-            s.classList.add('monospace');
-            s.classList.add("c_" + x);
-            s.classList.add("c__");
-            p.appendChild(s);
-        };
         try {
-            for (var _b = __values(codeData.prereq), _c = _b.next(); !_c.done; _c = _b.next()) {
-                var x = _c.value;
-                _loop_1(x);
+            for (var _c = __values(codeData.prereq), _d = _c.next(); !_d.done; _d = _c.next()) {
+                var code_1 = _d.value;
+                outNode.appendChild(createMatBtn(dialog, code_1));
             }
         }
         catch (e_4_1) { e_4 = { error: e_4_1 }; }
         finally {
             try {
-                if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
+                if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
             }
             finally { if (e_4) throw e_4.error; }
         }
@@ -325,118 +321,234 @@ function createMatDialog(code) {
     }
     if (codeData.postreq.length > 0) {
         createElement(outNode, 'h4', 'Es pre-requisito de: ');
-        codeData.postreq.forEach(function (x) {
-            var p = createElement(outNode, 'p');
-            var s = document.createElement('a');
-            s.innerText = "(" + x + ") " + currentPensumMats[x].asignatura;
-            s.addEventListener('click', function () {
-                dialog.hide();
-                createMatDialog(x).show();
-            });
-            s.classList.add('preReq');
-            s.classList.add('monospace');
-            s.classList.add("c_" + x);
-            s.classList.add("c__");
-            p.appendChild(s);
-        });
+        try {
+            for (var _e = __values(codeData.postreq), _f = _e.next(); !_f.done; _f = _e.next()) {
+                var code_2 = _f.value;
+                outNode.appendChild(createMatBtn(dialog, code_2));
+            }
+        }
+        catch (e_5_1) { e_5 = { error: e_5_1 }; }
+        finally {
+            try {
+                if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
+            }
+            finally { if (e_5) throw e_5.error; }
+        }
     }
     outNode.appendChild(dialog.createCloseButton());
     updateTakenPrereqClasses(outNode);
     return dialog;
 }
-/** Adds or removes MANAGEMENT_TAKEN_CLASS to the related elements */
+// Creates a single clickable mat code, for use inside dialogs.
+function createMatBtn(dialog, code) {
+    var _a;
+    var p = document.createElement('p');
+    var s = document.createElement('a');
+    s.innerText = "(" + code + ") " + (((_a = currentPensumMats[code]) === null || _a === void 0 ? void 0 : _a.asignatura) || '?');
+    s.addEventListener('click', function () {
+        dialog.hide();
+        createMatDialog(code).show();
+    });
+    s.classList.add('preReq');
+    s.classList.add('monospace');
+    s.classList.add("c_" + safeForHtmlId(code));
+    s.classList.add("c__");
+    p.appendChild(s);
+    return p;
+}
+/** Adds or removes MANAGEMENT_TAKEN_CLASS to the related elements. */
 function updateTakenPrereqClasses(node) {
-    var e_5, _a, e_6, _b, e_7, _c, e_8, _d, e_9, _e, e_10, _f, e_11, _g;
+    var e_6, _a, e_7, _b, e_8, _c, e_9, _d, e_10, _e, e_11, _f, e_12, _g, e_13, _h, e_14, _j;
     if (node === void 0) { node = document; }
     try {
-        for (var _h = __values(node.getElementsByClassName('c__')), _j = _h.next(); !_j.done; _j = _h.next()) {
-            var elem = _j.value;
+        for (var _k = __values(node.getElementsByClassName('c__')), _l = _k.next(); !_l.done; _l = _k.next()) {
+            var elem = _l.value;
             elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS);
             elem.classList.remove(MANAGEMENT_ONCOURSE_CSS_CLASS);
             elem.classList.remove(MANAGEMENT_SELECTED_CSS_CLASS);
         }
     }
-    catch (e_5_1) { e_5 = { error: e_5_1 }; }
-    finally {
-        try {
-            if (_j && !_j.done && (_a = _h.return)) _a.call(_h);
-        }
-        finally { if (e_5) throw e_5.error; }
-    }
-    try {
-        for (var _k = __values(userProgress.passed), _l = _k.next(); !_l.done; _l = _k.next()) {
-            var code = _l.value;
-            try {
-                for (var _m = (e_7 = void 0, __values(node.getElementsByClassName("c_" + code))), _o = _m.next(); !_o.done; _o = _m.next()) {
-                    var elem = _o.value;
-                    elem.classList.add(MANAGEMENT_TAKEN_CSS_CLASS);
-                }
-            }
-            catch (e_7_1) { e_7 = { error: e_7_1 }; }
-            finally {
-                try {
-                    if (_o && !_o.done && (_c = _m.return)) _c.call(_m);
-                }
-                finally { if (e_7) throw e_7.error; }
-            }
-        }
-    }
     catch (e_6_1) { e_6 = { error: e_6_1 }; }
     finally {
         try {
-            if (_l && !_l.done && (_b = _k.return)) _b.call(_k);
+            if (_l && !_l.done && (_a = _k.return)) _a.call(_k);
         }
         finally { if (e_6) throw e_6.error; }
     }
     try {
-        for (var _p = __values(userProgress.onCourse), _q = _p.next(); !_q.done; _q = _p.next()) {
-            var code = _q.value;
+        for (var _m = __values(userProgress.passed), _o = _m.next(); !_o.done; _o = _m.next()) {
+            var code = _o.value;
+            code = safeForHtmlId(code);
             try {
-                for (var _r = (e_9 = void 0, __values(node.getElementsByClassName("c_" + code))), _s = _r.next(); !_s.done; _s = _r.next()) {
-                    var elem = _s.value;
+                for (var _p = (e_8 = void 0, __values(node.getElementsByClassName("c_" + code))), _q = _p.next(); !_q.done; _q = _p.next()) {
+                    var elem = _q.value;
+                    elem.classList.add(MANAGEMENT_TAKEN_CSS_CLASS);
+                }
+            }
+            catch (e_8_1) { e_8 = { error: e_8_1 }; }
+            finally {
+                try {
+                    if (_q && !_q.done && (_c = _p.return)) _c.call(_p);
+                }
+                finally { if (e_8) throw e_8.error; }
+            }
+        }
+    }
+    catch (e_7_1) { e_7 = { error: e_7_1 }; }
+    finally {
+        try {
+            if (_o && !_o.done && (_b = _m.return)) _b.call(_m);
+        }
+        finally { if (e_7) throw e_7.error; }
+    }
+    try {
+        for (var _r = __values(userProgress.onCourse), _s = _r.next(); !_s.done; _s = _r.next()) {
+            var code = _s.value;
+            code = safeForHtmlId(code);
+            try {
+                for (var _t = (e_10 = void 0, __values(node.getElementsByClassName("c_" + code))), _u = _t.next(); !_u.done; _u = _t.next()) {
+                    var elem = _u.value;
                     elem.classList.add(MANAGEMENT_ONCOURSE_CSS_CLASS);
                 }
             }
-            catch (e_9_1) { e_9 = { error: e_9_1 }; }
+            catch (e_10_1) { e_10 = { error: e_10_1 }; }
             finally {
                 try {
-                    if (_s && !_s.done && (_e = _r.return)) _e.call(_r);
+                    if (_u && !_u.done && (_e = _t.return)) _e.call(_t);
                 }
-                finally { if (e_9) throw e_9.error; }
+                finally { if (e_10) throw e_10.error; }
             }
         }
     }
-    catch (e_8_1) { e_8 = { error: e_8_1 }; }
+    catch (e_9_1) { e_9 = { error: e_9_1 }; }
     finally {
         try {
-            if (_q && !_q.done && (_d = _p.return)) _d.call(_p);
+            if (_s && !_s.done && (_d = _r.return)) _d.call(_r);
         }
-        finally { if (e_8) throw e_8.error; }
+        finally { if (e_9) throw e_9.error; }
     }
     try {
-        for (var _t = __values(userProgress.selected), _u = _t.next(); !_u.done; _u = _t.next()) {
-            var code = _u.value;
+        for (var _v = __values(userProgress.selected), _w = _v.next(); !_w.done; _w = _v.next()) {
+            var code = _w.value;
+            code = safeForHtmlId(code);
             try {
-                for (var _v = (e_11 = void 0, __values(node.getElementsByClassName("c_" + code))), _w = _v.next(); !_w.done; _w = _v.next()) {
-                    var elem = _w.value;
+                for (var _x = (e_12 = void 0, __values(node.getElementsByClassName("c_" + code))), _y = _x.next(); !_y.done; _y = _x.next()) {
+                    var elem = _y.value;
                     elem.classList.add(MANAGEMENT_SELECTED_CSS_CLASS);
                 }
             }
-            catch (e_11_1) { e_11 = { error: e_11_1 }; }
+            catch (e_12_1) { e_12 = { error: e_12_1 }; }
             finally {
                 try {
-                    if (_w && !_w.done && (_g = _v.return)) _g.call(_v);
+                    if (_y && !_y.done && (_g = _x.return)) _g.call(_x);
                 }
-                finally { if (e_11) throw e_11.error; }
+                finally { if (e_12) throw e_12.error; }
             }
         }
     }
-    catch (e_10_1) { e_10 = { error: e_10_1 }; }
+    catch (e_11_1) { e_11 = { error: e_11_1 }; }
     finally {
         try {
-            if (_u && !_u.done && (_f = _t.return)) _f.call(_t);
+            if (_w && !_w.done && (_f = _v.return)) _f.call(_v);
         }
-        finally { if (e_10) throw e_10.error; }
+        finally { if (e_11) throw e_11.error; }
+    }
+    try {
+        for (var errorCodes_1 = __values(errorCodes), errorCodes_1_1 = errorCodes_1.next(); !errorCodes_1_1.done; errorCodes_1_1 = errorCodes_1.next()) {
+            var code = errorCodes_1_1.value;
+            code = safeForHtmlId(code);
+            try {
+                for (var _z = (e_14 = void 0, __values(node.getElementsByClassName("c_" + code))), _0 = _z.next(); !_0.done; _0 = _z.next()) {
+                    var elem = _0.value;
+                    elem.classList.add(MANAGEMENT_ERROR_CSS_CLASS);
+                }
+            }
+            catch (e_14_1) { e_14 = { error: e_14_1 }; }
+            finally {
+                try {
+                    if (_0 && !_0.done && (_j = _z.return)) _j.call(_z);
+                }
+                finally { if (e_14) throw e_14.error; }
+            }
+        }
+    }
+    catch (e_13_1) { e_13 = { error: e_13_1 }; }
+    finally {
+        try {
+            if (errorCodes_1_1 && !errorCodes_1_1.done && (_h = errorCodes_1.return)) _h.call(errorCodes_1);
+        }
+        finally { if (e_13) throw e_13.error; }
+    }
+}
+/** Adds or removes MANAGEMENT_TAKEN_CLASS to a single element. */
+function updateSingleTakenPrereqClasses(elem) {
+    var e_15, _a, e_16, _b, e_17, _c, e_18, _d;
+    var cl = elem.classList;
+    if (!cl.contains('c__'))
+        return;
+    elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS);
+    elem.classList.remove(MANAGEMENT_ONCOURSE_CSS_CLASS);
+    elem.classList.remove(MANAGEMENT_SELECTED_CSS_CLASS);
+    try {
+        for (var _e = __values(userProgress.passed), _f = _e.next(); !_f.done; _f = _e.next()) {
+            var code = _f.value;
+            code = safeForHtmlId(code);
+            if (cl.contains("c_" + code))
+                cl.add(MANAGEMENT_TAKEN_CSS_CLASS);
+        }
+    }
+    catch (e_15_1) { e_15 = { error: e_15_1 }; }
+    finally {
+        try {
+            if (_f && !_f.done && (_a = _e.return)) _a.call(_e);
+        }
+        finally { if (e_15) throw e_15.error; }
+    }
+    try {
+        for (var _g = __values(userProgress.onCourse), _h = _g.next(); !_h.done; _h = _g.next()) {
+            var code = _h.value;
+            code = safeForHtmlId(code);
+            if (cl.contains("c_" + code))
+                cl.add(MANAGEMENT_ONCOURSE_CSS_CLASS);
+        }
+    }
+    catch (e_16_1) { e_16 = { error: e_16_1 }; }
+    finally {
+        try {
+            if (_h && !_h.done && (_b = _g.return)) _b.call(_g);
+        }
+        finally { if (e_16) throw e_16.error; }
+    }
+    try {
+        for (var _j = __values(userProgress.selected), _k = _j.next(); !_k.done; _k = _j.next()) {
+            var code = _k.value;
+            code = safeForHtmlId(code);
+            if (cl.contains("c_" + code))
+                cl.add(MANAGEMENT_SELECTED_CSS_CLASS);
+        }
+    }
+    catch (e_17_1) { e_17 = { error: e_17_1 }; }
+    finally {
+        try {
+            if (_k && !_k.done && (_c = _j.return)) _c.call(_j);
+        }
+        finally { if (e_17) throw e_17.error; }
+    }
+    try {
+        for (var errorCodes_2 = __values(errorCodes), errorCodes_2_1 = errorCodes_2.next(); !errorCodes_2_1.done; errorCodes_2_1 = errorCodes_2.next()) {
+            var code = errorCodes_2_1.value;
+            code = safeForHtmlId(code);
+            if (cl.contains("c_" + code)) {
+                cl.add(MANAGEMENT_ERROR_CSS_CLASS);
+            }
+        }
+    }
+    catch (e_18_1) { e_18 = { error: e_18_1 }; }
+    finally {
+        try {
+            if (errorCodes_2_1 && !errorCodes_2_1.done && (_d = errorCodes_2.return)) _d.call(errorCodes_2);
+        }
+        finally { if (e_18) throw e_18.error; }
     }
 }
 /**
@@ -473,7 +585,7 @@ function analyseGradeProgress(matArray) {
 /** Creates n label-checkbox pairs */
 function createCheckbox(node, labelName, onchange, initialState) {
     if (initialState === void 0) { initialState = false; }
-    var objId = labelName.toLowerCase().split(' ').join('_');
+    var objId = safeForHtmlId(labelName);
     var x = document.createElement('input');
     x.type = 'checkbox';
     x.id = objId;
@@ -491,7 +603,7 @@ function createRadio(node, groupName, labelName, onchange, initialState) {
     if (labelName === void 0) { labelName = ''; }
     if (onchange === void 0) { onchange = null; }
     if (initialState === void 0) { initialState = false; }
-    var objId = labelName.toLowerCase().split(' ').join('_');
+    var objId = safeForHtmlId(labelName);
     var x = document.createElement('input');
     x.type = 'radio';
     x.name = groupName;
@@ -507,7 +619,7 @@ function createRadio(node, groupName, labelName, onchange, initialState) {
 }
 /** Updates the element #toolboxWrapper */
 function createToolbox() {
-    var e_12, _a, e_13, _b, e_14, _c, e_15, _d;
+    var e_19, _a, e_20, _b, e_21, _c, e_22, _d;
     var node = document.getElementById('toolboxWrapper');
     node.innerHTML = '';
     {
@@ -519,7 +631,7 @@ function createToolbox() {
             { label: 'Cursando', key: 'onCourse' },
             { label: 'Pasadas', key: 'passed' },
         ];
-        var _loop_2 = function (x) {
+        var _loop_1 = function (x) {
             var fn = function (obj) {
                 filterMode[x.key] = obj.target.checked;
                 loadPensum();
@@ -530,15 +642,15 @@ function createToolbox() {
         try {
             for (var a_1 = __values(a), a_1_1 = a_1.next(); !a_1_1.done; a_1_1 = a_1.next()) {
                 var x = a_1_1.value;
-                _loop_2(x);
+                _loop_1(x);
             }
         }
-        catch (e_12_1) { e_12 = { error: e_12_1 }; }
+        catch (e_19_1) { e_19 = { error: e_19_1 }; }
         finally {
             try {
                 if (a_1_1 && !a_1_1.done && (_a = a_1.return)) _a.call(a_1);
             }
-            finally { if (e_12) throw e_12.error; }
+            finally { if (e_19) throw e_19.error; }
         }
     }
     {
@@ -550,7 +662,7 @@ function createToolbox() {
             { label: 'Cursar', key: SelectMode.OnCourse },
             { label: 'Seleccionar', key: SelectMode.Select },
         ];
-        var _loop_3 = function (x) {
+        var _loop_2 = function (x) {
             var fn = function () { return userSelectMode = x.key; };
             var selected = userSelectMode === x.key;
             createRadio(d, 'userSelect', x.label, fn, selected);
@@ -558,15 +670,15 @@ function createToolbox() {
         try {
             for (var a_2 = __values(a), a_2_1 = a_2.next(); !a_2_1.done; a_2_1 = a_2.next()) {
                 var x = a_2_1.value;
-                _loop_3(x);
+                _loop_2(x);
             }
         }
-        catch (e_13_1) { e_13 = { error: e_13_1 }; }
+        catch (e_20_1) { e_20 = { error: e_20_1 }; }
         finally {
             try {
                 if (a_2_1 && !a_2_1.done && (_b = a_2.return)) _b.call(a_2);
             }
-            finally { if (e_13) throw e_13.error; }
+            finally { if (e_20) throw e_20.error; }
         }
     }
     {
@@ -629,12 +741,12 @@ function createToolbox() {
                         .addEventListener('click', actionBtn.action);
                 }
             }
-            catch (e_14_1) { e_14 = { error: e_14_1 }; }
+            catch (e_21_1) { e_21 = { error: e_21_1 }; }
             finally {
                 try {
                     if (b_1_1 && !b_1_1.done && (_c = b_1.return)) _c.call(b_1);
                 }
-                finally { if (e_14) throw e_14.error; }
+                finally { if (e_21) throw e_21.error; }
             }
         }
         {
@@ -681,12 +793,12 @@ function createToolbox() {
                         .addEventListener('click', actionBtn.action);
                 }
             }
-            catch (e_15_1) { e_15 = { error: e_15_1 }; }
+            catch (e_22_1) { e_22 = { error: e_22_1 }; }
             finally {
                 try {
                     if (b_2_1 && !b_2_1.done && (_d = b_2.return)) _d.call(b_2);
                 }
-                finally { if (e_15) throw e_15.error; }
+                finally { if (e_22) throw e_22.error; }
             }
         }
     }
@@ -760,7 +872,7 @@ function updateGradeProgress() {
  * @param {*} data
  */
 function createNewPensumTable(data) {
-    var e_16, _a, e_17, _b;
+    var e_23, _a, e_24, _b;
     var out = document.createElement('table');
     // Create the header
     var headerRow = out.createTHead();
@@ -779,15 +891,15 @@ function createNewPensumTable(data) {
             headerRow.appendChild(a);
         }
     }
-    catch (e_16_1) { e_16 = { error: e_16_1 }; }
+    catch (e_23_1) { e_23 = { error: e_23_1 }; }
     finally {
         try {
             if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
         }
-        finally { if (e_16) throw e_16.error; }
+        finally { if (e_23) throw e_23.error; }
     }
-    var _loop_4 = function (idxCuat, cuat) {
-        var e_18, _a;
+    var _loop_3 = function (idxCuat, cuat) {
+        var e_25, _a;
         // new table per cuat
         var filteredCuat = filterMats(cuat);
         if (filteredCuat.length === 0)
@@ -849,10 +961,11 @@ function createNewPensumTable(data) {
             });
             row.appendChild(a);
         }
-        var _loop_5 = function (mat) {
+        var _loop_4 = function (mat) {
             var row = out.insertRow();
-            row.id = "r_" + mat.codigo;
-            row.classList.add("c_" + mat.codigo);
+            var code = safeForHtmlId(mat.codigo);
+            row.id = "r_" + code;
+            row.classList.add("c_" + code);
             row.classList.add("c__");
             // Selection checkbox
             {
@@ -877,9 +990,9 @@ function createNewPensumTable(data) {
             // Codigo mat.
             {
                 var r = row.insertCell();
-                r.id = "a_" + mat.codigo;
+                r.id = "a_" + code;
                 r.classList.add('text-center');
-                r.classList.add("c_" + mat.codigo);
+                r.classList.add("c_" + code);
                 r.classList.add("c__");
                 var s = document.createElement('a');
                 s.innerText = "" + mat.codigo;
@@ -909,7 +1022,7 @@ function createNewPensumTable(data) {
                     });
                     s.classList.add('preReq');
                     s.classList.add('monospace');
-                    s.classList.add("c_" + x); // mat's code
+                    s.classList.add("c_" + safeForHtmlId(x)); // mat's code
                     s.classList.add("c__");
                     r_1.appendChild(s);
                     r_1.appendChild(document.createTextNode('\t'));
@@ -926,31 +1039,31 @@ function createNewPensumTable(data) {
         };
         try {
             // Mat rows
-            for (var filteredCuat_1 = (e_18 = void 0, __values(filteredCuat)), filteredCuat_1_1 = filteredCuat_1.next(); !filteredCuat_1_1.done; filteredCuat_1_1 = filteredCuat_1.next()) {
+            for (var filteredCuat_1 = (e_25 = void 0, __values(filteredCuat)), filteredCuat_1_1 = filteredCuat_1.next(); !filteredCuat_1_1.done; filteredCuat_1_1 = filteredCuat_1.next()) {
                 var mat = filteredCuat_1_1.value;
-                _loop_5(mat);
+                _loop_4(mat);
             }
         }
-        catch (e_18_1) { e_18 = { error: e_18_1 }; }
+        catch (e_25_1) { e_25 = { error: e_25_1 }; }
         finally {
             try {
                 if (filteredCuat_1_1 && !filteredCuat_1_1.done && (_a = filteredCuat_1.return)) _a.call(filteredCuat_1);
             }
-            finally { if (e_18) throw e_18.error; }
+            finally { if (e_25) throw e_25.error; }
         }
     };
     try {
         for (var _e = __values(data.cuats.entries()), _f = _e.next(); !_f.done; _f = _e.next()) {
             var _g = __read(_f.value, 2), idxCuat = _g[0], cuat = _g[1];
-            _loop_4(idxCuat, cuat);
+            _loop_3(idxCuat, cuat);
         }
     }
-    catch (e_17_1) { e_17 = { error: e_17_1 }; }
+    catch (e_24_1) { e_24 = { error: e_24_1 }; }
     finally {
         try {
             if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
         }
-        finally { if (e_17) throw e_17.error; }
+        finally { if (e_24) throw e_24.error; }
     }
     updateTakenPrereqClasses(out);
     updateGradeProgress();
@@ -1061,7 +1174,7 @@ function createExcelWorkbookFromPensum(data, progress) {
     data.cuats.forEach(function (cuat, idxCuat) {
         var filteredCuat = cuat;
         filteredCuat.forEach(function (mat, idxMat, currentCuat) {
-            var e_19, _a, e_20, _b;
+            var e_26, _a, e_27, _b;
             ws[COL_CUAT + currentRow] = { v: idxCuat + 1, t: 'n' };
             if (idxMat === 0) {
                 mergeCells(currentRow - 1, 0, currentRow - 1 + currentCuat.length - 1, 0);
@@ -1081,12 +1194,12 @@ function createExcelWorkbookFromPensum(data, progress) {
                     ++prereqCount;
                 }
             }
-            catch (e_19_1) { e_19 = { error: e_19_1 }; }
+            catch (e_26_1) { e_26 = { error: e_26_1 }; }
             finally {
                 try {
                     if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
                 }
-                finally { if (e_19) throw e_19.error; }
+                finally { if (e_26) throw e_26.error; }
             }
             try {
                 for (var _e = __values(mat.prereqExtra), _f = _e.next(); !_f.done; _f = _e.next()) {
@@ -1095,12 +1208,12 @@ function createExcelWorkbookFromPensum(data, progress) {
                     ++prereqCount;
                 }
             }
-            catch (e_20_1) { e_20 = { error: e_20_1 }; }
+            catch (e_27_1) { e_27 = { error: e_27_1 }; }
             finally {
                 try {
                     if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
                 }
-                finally { if (e_20) throw e_20.error; }
+                finally { if (e_27) throw e_27.error; }
             }
             // Aprobada
             var aprobVal = currentProgress.has(mat.codigo) ? 1 : 0;
@@ -1177,7 +1290,7 @@ function getInfoList(data) {
  * @param {*} data
  */
 function createInfoList(data) {
-    var e_21, _a;
+    var e_28, _a;
     /** @type {HTMLTableElement} */
     var out = document.createElement('ul');
     // Separate the text before outputting.
@@ -1208,12 +1321,12 @@ function createInfoList(data) {
             out.appendChild(li);
         }
     }
-    catch (e_21_1) { e_21 = { error: e_21_1 }; }
+    catch (e_28_1) { e_28 = { error: e_28_1 }; }
     finally {
         try {
             if (outTextArr_1_1 && !outTextArr_1_1.done && (_a = outTextArr_1.return)) _a.call(outTextArr_1);
         }
-        finally { if (e_21) throw e_21.error; }
+        finally { if (e_28) throw e_28.error; }
     }
     return out;
 }
@@ -1247,6 +1360,313 @@ function createImportExportDialog() {
     node.appendChild(document.createElement('br'));
     node.appendChild(dialog.createCloseButton());
     return dialog;
+}
+function createOrgChartOptions(onTemplateRender, selected) {
+    if (onTemplateRender === void 0) { onTemplateRender = null; }
+    if (selected === void 0) { selected = null; }
+    // Generate orgchart
+    var options = new primitives.FamConfig();
+    var items = matsToOrgChart(currentPensumData.cuats.flat());
+    options = __assign(__assign({}, options), { pageFitMode: primitives.PageFitMode.None, items: items, 
+        // Rendering
+        arrowsDirection: primitives.GroupByType.Children, linesWidth: 3, linesColor: 'black', normalLevelShift: 30, lineLevelShift: 20, dotLevelShift: 20, alignBylevels: true, hideGrandParentsConnectors: true, 
+        // templates
+        templates: [getMatTemplate()], onItemRender: onTemplateRender, 
+        // Buttons
+        hasButtons: primitives.Enabled.True, buttonsPanelSize: 38, 
+        // Extras
+        hasSelectorCheckbox: primitives.Enabled.False, showCallout: false, scale: 0.7, selectedItems: selected || [] });
+    return options;
+}
+function createOrgChartDialog(selected) {
+    if (selected === void 0) { selected = null; }
+    var dialog = new DialogBox();
+    var node = dialog.contentNode;
+    // Title
+    createElement(node, 'h3', currentPensumData.carrera || 'Diagrama de pensum');
+    // Diagram
+    var chartContainer = createElement(node, 'div');
+    chartContainer.style.width = '90vw';
+    chartContainer.style.height = '60vh';
+    var options = createOrgChartOptions(function (e, d) { return onWebTemplateRender(e, d, dialog); }, selected);
+    var control = primitives.FamDiagram(chartContainer, options);
+    window['control'] = control;
+    // Zoom slider
+    node.appendChild(document.createElement('br'));
+    var sizeContainer = createElement(node, 'div');
+    createElement(sizeContainer, 'span', 'Zoom: ');
+    var size = createElement(sizeContainer, 'input');
+    size.type = 'range';
+    size.min = -4;
+    size.max = 2;
+    size.step = 0.01;
+    size.value = Math.log(0.7) / Math.log(2);
+    size.style.width = '100%';
+    size.addEventListener('input', function () {
+        var pVal = parseFloat(size.value);
+        var newVal = Math.pow(2, pVal);
+        control.setOption('scale', newVal);
+        control.update(primitives.UpdateMode.Refresh);
+    });
+    // Buttons
+    node.appendChild(createSecondaryButton("\uD83D\uDCC4 Descargar documento .pdf", function () { return downloadOrgChartPdf(); }));
+    node.appendChild(createSecondaryButton("\uD83D\uDDBC Descargar imagen .png", function () { return downloadOrgChartPng(); }));
+    node.appendChild(dialog.createCloseButton());
+    dialog.show();
+    new ResizeObserver(function () { return control.update(primitives.UpdateMode.Refresh); }).observe(node);
+    return [dialog, control];
+}
+function createOrgChartPdf() {
+    var options = createOrgChartOptions(onPdfTemplateRender);
+    var chart = primitives.FamDiagramPdfkit(__assign(__assign({}, options), { cursorItem: null, hasSelectorCheckbox: primitives.Enabled.False }));
+    var chartSize = chart.getSize();
+    var doc = new PDFDocument({
+        size: [chartSize.width + 100, chartSize.height + 150]
+    });
+    var stream = doc.pipe(blobStream());
+    doc.save();
+    doc.fontSize(25).text("[" + currentPensumData.codigo + "] " + currentPensumData.carrera);
+    chart.draw(doc, 30, 100);
+    doc.restore();
+    doc.end();
+    return stream;
+}
+function downloadOrgChartPng(resize) {
+    if (resize === void 0) { resize = 1.5; }
+    var stream = createOrgChartPdf();
+    if (typeof stream !== 'undefined') {
+        stream.on('finish', function () {
+            return __awaiter(this, void 0, void 0, function () {
+                var blob, buffer, pdf, page, scale, viewport, canvas, context, task, png, name;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            blob = stream.toBlob('application/pdf');
+                            return [4 /*yield*/, blob.arrayBuffer()];
+                        case 1:
+                            buffer = _a.sent();
+                            return [4 /*yield*/, pdfjsLib.getDocument(buffer).promise];
+                        case 2:
+                            pdf = _a.sent();
+                            console.log(pdf);
+                            return [4 /*yield*/, pdf.getPage(1)];
+                        case 3:
+                            page = _a.sent();
+                            scale = 1;
+                            viewport = page.getViewport(scale).viewBox;
+                            canvas = document.createElement('canvas');
+                            document.body.appendChild(canvas);
+                            context = canvas.getContext('2d');
+                            canvas.width = resize * viewport[2];
+                            canvas.height = resize * viewport[3];
+                            // Flip before rendering
+                            context.save();
+                            context.translate(0, canvas.height);
+                            context.scale(resize, -resize);
+                            task = page.render({ canvasContext: context, viewport: viewport });
+                            return [4 /*yield*/, task.promise];
+                        case 4:
+                            _a.sent();
+                            context.restore();
+                            png = canvas.toDataURL('image/png');
+                            // Remove canvas
+                            document.body.removeChild(canvas);
+                            name = currentPensumData.codigo + '_' + getDateIdentifier();
+                            FileSaver.saveAs(png, name + '.png');
+                            return [2 /*return*/];
+                    }
+                });
+            });
+        });
+    }
+    else {
+        alert('Error: Failed to create file pdf!');
+    }
+}
+function downloadOrgChartPdf() {
+    var stream = createOrgChartPdf();
+    if (typeof stream !== 'undefined') {
+        stream.on('finish', function () {
+            var string = stream.toBlob('application/pdf');
+            var name = currentPensumData.codigo + '_' + getDateIdentifier();
+            FileSaver.saveAs(string, name + '.pdf');
+        });
+    }
+    else {
+        alert('Error: Failed to create file pdf!');
+    }
+}
+//#endregion
+//#region OrgChart templates
+function matsToOrgChart(mats) {
+    var o = [];
+    for (var i = 0; i < mats.length; ++i) {
+        var x = mats[i];
+        var y = __assign({ id: x.codigo, parents: x.prereq || "base", primaryParent: x.prereq || null, 
+            //relativeItem: mats[i - 1] || null,
+            templateName: 'matTemplate' }, x);
+        o.push(y);
+    }
+    return o;
+}
+function onWebTemplateRender(event, data, dialog) {
+    var _a;
+    if (dialog === void 0) { dialog = null; }
+    switch (data.renderingMode) {
+        case primitives.RenderingMode.Create:
+            /* Initialize template content here */
+            break;
+        case primitives.RenderingMode.Update:
+            /* Update template content here */
+            break;
+    }
+    var itemConfig = data.context;
+    if (data.templateName == "matTemplate") {
+        var e = data.element;
+        var en = function (name) { return getElementByName(e, name); };
+        // Remove old classes, since this OrgChart lib reuses elements
+        var removeOld = [];
+        for (var i = 0, l = e.classList.length, comp = 'c_' + safeForHtmlId(itemConfig.codigo); i < l; ++i) {
+            if (/c_.{2,}/.test(e.classList[i]) && comp !== e.classList[i]) {
+                removeOld.push(e.classList[i]);
+            }
+        }
+        (_a = e.classList).remove.apply(_a, __spread(removeOld));
+        e.classList.add("c_" + safeForHtmlId(itemConfig.codigo));
+        updateSingleTakenPrereqClasses(e);
+        // var titleBackground = en('titleBackground'); //data.element.firstChild;
+        // titleBackground.style.backgroundColor = primitives.Colors.RoyalBlue;//itemConfig.itemTitleColor || primitives.Colors.RoyalBlue;
+        en('title').textContent = itemConfig.asignatura;
+        en('codigo').textContent = '[' + itemConfig.codigo + ']';
+        en('creditos').textContent = 'Creditos: ' + itemConfig.creditos;
+        en('cred_top').textContent = itemConfig.creditos.toString();
+        en('cred_top').setAttribute('value', itemConfig.creditos.toString());
+        en('creditos').textContent = 'Cuatrim.: ' + itemConfig.cuatrimestre;
+    }
+}
+function onPdfTemplateRender(doc, pos, data) {
+    var itemConfig = data.context;
+    if (data.templateName != "matTemplate")
+        return;
+    var contentSize = new primitives.Size(200, 100);
+    // Container box color
+    var code = itemConfig.codigo;
+    var statusColor;
+    if (userProgress.passed.has(code))
+        statusColor = '#e6ffe8'; // Green
+    else if (userProgress.onCourse.has(code))
+        statusColor = '#fff9de'; // Yellow
+    else
+        statusColor = '#f2f9ff'; // Default Blue
+    // Container box
+    doc.roundedRect(pos.x, pos.y, pos.width, pos.height, 5)
+        .fill(statusColor);
+    doc.roundedRect(pos.x + 0.5, pos.y + 0.5, pos.width - 1, pos.height - 1, 5)
+        .lineWidth(1)
+        .stroke('#dddddd');
+    // Credito value
+    var credValue = {
+        0: '#eb9cff',
+        1: '#c5f25c',
+        2: '#ffc773',
+        3: '#f57936',
+        def: '#cf1f1f'
+    };
+    doc.polygon([pos.x + pos.width - 30, pos.y], [pos.x + pos.width, pos.y], [pos.x + pos.width, pos.y + 30]).fill(credValue[itemConfig.creditos] || credValue['def']);
+    doc.fillColor('white')
+        .font('Helvetica', 12)
+        .text(itemConfig.creditos, pos.x + pos.width - 12, pos.y + 7, {
+        ellipsis: false,
+        width: 10,
+        height: 1,
+        align: 'right'
+    });
+    // Codigo
+    doc.fillColor('black')
+        .font('Helvetica', 14)
+        .text("[" + itemConfig.codigo + "]", pos.x + 7, pos.y + 7, {
+        ellipsis: false,
+        width: (contentSize.width - 7 - 7),
+        height: 16,
+        align: 'center'
+    });
+    // Title (asignatura)
+    doc.fillColor('black')
+        .font('Helvetica', 18)
+        .text(itemConfig.asignatura, pos.x + 7, pos.y + 7 + 16 + 5, {
+        ellipsis: false,
+        width: (contentSize.width - 7 - 7),
+        height: 60,
+        align: 'center'
+    });
+    doc.restore;
+}
+function getElementByName(parent, name) {
+    return parent.querySelector("[name = " + name + "]");
+}
+function getMatTemplate() {
+    var result = new primitives.TemplateConfig();
+    result.name = "matTemplate";
+    result.itemSize = new primitives.Size(200, 100);
+    result.minimizedItemSize = new primitives.Size(3, 3);
+    /* the following example demonstrates JSONML template see http://http://www.jsonml.org/ for details: */
+    result.itemTemplate = ["div",
+        {
+            "style": {
+                "width": result.itemSize.width + "px",
+                "height": result.itemSize.height + "px"
+            },
+            "class": ["bp-item", "bp-corner-all", "monospace", "c__", "preReq"]
+        },
+        ["div",
+            {
+                "name": "cred_top",
+                "class": ["bp-cred"],
+            }
+        ],
+        ["div",
+            {
+                "name": "codigo",
+                "class": ["bp-txt"],
+                "style": {
+                    fontSize: "12px",
+                    margin: "0 .5em",
+                    "text-align": "center",
+                }
+            }
+        ],
+        ["div",
+            {
+                "name": "title",
+                "class": ["bp-title", "bp-head"],
+                "style": {
+                    width: "100%",
+                    margin: ".5em .5em 0",
+                }
+            }
+        ],
+        ["div",
+            {
+                "name": "creditos",
+                "class": ["bp-txt"],
+                "style": {
+                    fontSize: "12px",
+                    margin: "0 .5em",
+                }
+            }
+        ],
+        ["div",
+            {
+                "name": "cuatrimestre",
+                "class": ["bp-txt"],
+                "style": {
+                    fontSize: "12px",
+                    margin: "0 .5em",
+                }
+            }
+        ],
+    ];
+    return result;
 }
 //#region LocalStorage Funcs
 /** Creates a SaveObject */
@@ -1328,7 +1748,7 @@ function fetchHtmlAsText(url, opts, forceProxy, currentProxyCallback) {
     if (forceProxy === void 0) { forceProxy = -1; }
     if (currentProxyCallback === void 0) { currentProxyCallback = null; }
     return __awaiter(this, void 0, void 0, function () {
-        var corsOverride, i, currProxy, controller, signal, timeoutId, sendDate, response, recieveDate, err_1, recieveDate;
+        var corsOverride, i, currProxy, controller, signal, timeoutId, sendDate, currUrl, response, recieveDate, err_1, recieveDate;
         return __generator(this, function (_a) {
             switch (_a.label) {
                 case 0:
@@ -1363,7 +1783,8 @@ function fetchHtmlAsText(url, opts, forceProxy, currentProxyCallback) {
                         console.warn('Timed out!');
                     }, 3e3);
                     sendDate = new Date().getTime();
-                    return [4 /*yield*/, fetch(currProxy + url, opts)];
+                    currUrl = currProxy + url;
+                    return [4 /*yield*/, fetch(currUrl, opts)];
                 case 3:
                     response = _a.sent();
                     if (currentProxyCallback)
@@ -1371,7 +1792,7 @@ function fetchHtmlAsText(url, opts, forceProxy, currentProxyCallback) {
                     clearTimeout(timeoutId);
                     if (!response.ok) return [3 /*break*/, 5];
                     recieveDate = new Date().getTime();
-                    console.info("CORS proxy '" + currProxy + "' succeeded in " + (recieveDate - sendDate) + "ms.'");
+                    console.info("CORS proxy '" + currUrl + "' succeeded in " + (recieveDate - sendDate) + " ms.'");
                     if (currentProxyCallback)
                         currentProxyCallback('success', currProxy, i);
                     return [4 /*yield*/, response.text()];
@@ -1410,12 +1831,18 @@ function sentenceCase(string) {
 /** Simple class that creates a full-screen node */
 var DialogBox = /** @class */ (function () {
     function DialogBox() {
+        var _this = this;
         this.wrapperNode = document.createElement('div');
         this.wrapperNode.classList.add('fullscreen');
         this.wrapperNode.classList.add('dialogWrapper');
         this.contentNode = document.createElement('div');
         this.contentNode.classList.add('dialogCard');
         this.wrapperNode.appendChild(this.contentNode);
+        this.wrapperNode.addEventListener('click', function (evt) {
+            if (evt.target === _this.wrapperNode) {
+                _this.hide();
+            }
+        });
         return this;
     }
     /** Sets the contentNode to a single <p> element with the given text. */
@@ -1471,7 +1898,7 @@ function createSecondaryButton(text, callback) {
 }
 function findAllpostreqs(code) {
     function subFindArr(code) {
-        var e_22, _a;
+        var e_29, _a;
         var hideList = [code];
         try {
             for (var _b = __values(currentPensumMats[code].postreq), _c = _b.next(); !_c.done; _c = _b.next()) {
@@ -1479,17 +1906,21 @@ function findAllpostreqs(code) {
                 hideList.push.apply(hideList, __spread(subFindArr(x)));
             }
         }
-        catch (e_22_1) { e_22 = { error: e_22_1 }; }
+        catch (e_29_1) { e_29 = { error: e_29_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
             }
-            finally { if (e_22) throw e_22.error; }
+            finally { if (e_29) throw e_29.error; }
         }
         return hideList;
     }
     // Set to remove duplicates.
     return __spread(new Set(subFindArr(code)));
+}
+/** Replaces spaces to underscores. */
+function safeForHtmlId(str) {
+    return str.replace(/ /g, '_');
 }
 //#endregion
 //#region Init
@@ -1585,6 +2016,9 @@ function loadPensum() {
                             btnwrp.appendChild(createSecondaryButton('💾 Guardar/Cargar selección', function () {
                                 return createImportExportDialog().show();
                             }));
+                            btnwrp.appendChild(createSecondaryButton('🌳 Diagrama (β)', function () {
+                                return createOrgChartDialog();
+                            }));
                             // btnwrp.appendChild(
                             //     createSecondaryButton('Descargar como Excel...', () =>
                             //         createAllDownloadsDialog().show()
@@ -1635,10 +2069,13 @@ function getPensumFromLocalStorage(matCode) {
         return null;
     }
 }
+function getDateIdentifier() {
+    var d = new Date();
+    return "" + d.getFullYear() + d.getMonth() + d.getDate() + "_" + d.getHours() + "h" + d.getMinutes() + "m" + d.getSeconds() + "s";
+}
 function downloadProgress() {
     var obj = createSaveObject();
-    var d = new Date();
-    var date = "" + d.getFullYear() + d.getMonth() + d.getDate() + "_" + d.getHours() + "h" + d.getMinutes() + "m" + d.getSeconds() + "s";
+    var date = getDateIdentifier();
     var name = "materias-aprobadas_" + date;
     downloadObjectAsJson(obj, name);
 }

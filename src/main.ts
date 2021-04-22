@@ -1,5 +1,5 @@
 const saveVer = 5;
-const jsVer = 1;
+const jsVer = 2;
 const SAVE_DATA_LOCALSTORAGE = 'saveData';
 var SAVE_TO_LOCALSTORAGE = true;
 var CARRERAS: { codigo: string, nombre: string, escuela: string, }[] = [];
@@ -9,6 +9,7 @@ var allIgnored = {}; // Mats that are no longer available and should be ommited 
 var currentPensumData: i_pensum = null;
 var currentPensumCode: string = '';
 var currentPensumMats: { [key: string]: i_mat } = {};
+var errorCodes = [];
 
 const filterMode = {
     pending: true,
@@ -45,10 +46,19 @@ FileSaver.saveAs = saveAs;
 declare const XLSX;
 // Autocomplete
 declare const Awesomplete;
+// OrgChart
+declare const primitives;
+declare const PDFDocument;
+declare const blobStream;
+declare const pdfjsLib;
+declare const pngcrush;
+
+
 
 const MANAGEMENT_TAKEN_CSS_CLASS = 'managementMode-taken';
 const MANAGEMENT_ONCOURSE_CSS_CLASS = 'managementMode-oncourse';
 const MANAGEMENT_SELECTED_CSS_CLASS = 'managementMode-selected';
+const MANAGEMENT_ERROR_CSS_CLASS = 'managementMode-error';
 const CURRENT_PENSUM_VERSION = 2; // Update this if new mats are added to IgnoredMats.json
 
 /** Loads the node given at 'input' into the DOM */
@@ -66,24 +76,40 @@ async function fetchPensumTable(pensumCode, requestCallback) {
     return doc;
 }
 
+/** Contenedor de un pensum generico. */
 interface i_pensum {
+    /** Nombre de carrera "INGENIERIA ELECTRICA". */
     carrera: string,
+    /** Codigo de carrera "PUB10". */
     codigo: string,
+    /** Fecha de publicacion de pensum. */
     vigencia: string,
+    /** Informacion extra en pensum: cantidad de creditos, titulo, requisistos... */
     infoCarrera: string[],
+    /** Cuatrimestres de la carrera */
     cuats: i_mat_raw[][],
+    /** Error, en caso de no poder cargar el pensum. */
     error: string | null,
+    /** Version de programa que leyo este pensum (CURRENT_PENSUM_VERSION) */
     version: number,
 }
+/** Materia extraida directamente del pensum */
 interface i_mat_raw {
+    /** Codigo de la materia "ESP101". */
     codigo: string,
+    /** Nombre de la materia "Analisis de textos discursivos I". */
     asignatura: string,
+    /** Cantidad de creditos de la materia. */
     creditos: number,
+    /** Codigos de materias prerequesitos. */
     prereq: string[],
+    /** Prerequesitos que no son materias (para graduacion). */
     prereqExtra: string[],
+    /** Numero de cuatrimestre al que pertenece esta materia. */
     cuatrimestre: number,
 }
 interface i_mat extends i_mat_raw {
+    /** Codigos de materias que dependen de esta materia. */
     postreq: string[],
 }
 
@@ -176,6 +202,7 @@ function extractPensumData(node) {
 /** Maps an array of Mats to an dict where the keys are the Mats' code */
 function matsToDict(arr: i_mat_raw[]) {
     let out: { [key: string]: i_mat } = {};
+    errorCodes = [];
 
     // Map all mats
     for (let x of arr)
@@ -184,7 +211,13 @@ function matsToDict(arr: i_mat_raw[]) {
     // find postreqs
     for (let x of arr) {
         for (let y of x.prereq) {
-            out[y].postreq.push(x.codigo);
+            let pre = out[y];
+            if (!pre) {
+                console.error(`[ERROR!]: No se encuentra la materia "${y}" (prerequisito de "${x.codigo}")`);
+                errorCodes.push(y);
+            } else {
+                pre.postreq.push(x.codigo);
+            }
         }
     }
 
@@ -216,7 +249,7 @@ function createMatDialog(code: string) {
         let a = createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary']);
         a.addEventListener('click', () => {
             dialog.hide();
-            let x = codeData.codigo; // im lazy, this part was moved.
+            let x = safeForHtmlId(codeData.codigo); // im lazy, this part was moved.
             let targetCell = document.getElementById(`a_${x}`);
             let targetRow = document.getElementById(`r_${x}`);
             targetCell.scrollIntoView({ block: 'center' });
@@ -231,21 +264,8 @@ function createMatDialog(code: string) {
 
     if (codeData.prereq.length > 0 || codeData.prereqExtra.length > 0) {
         createElement(outNode, 'h4', 'Pre-requisitos');
-        for (let x of codeData.prereq) {
-            let p = createElement(outNode, 'p');
-            let s = document.createElement('a');
-            s.innerText = `(${x}) ${currentPensumMats[x].asignatura}`;
-            s.addEventListener('click', () => {
-                dialog.hide();
-                createMatDialog(x).show();
-            });
-            s.classList.add('preReq');
-            s.classList.add('monospace');
-            s.classList.add(`c_${x}`);
-            s.classList.add(`c__`);
-
-            p.appendChild(s);
-        }
+        for (let code of codeData.prereq)
+            outNode.appendChild(createMatBtn(dialog, code));
 
         codeData.prereqExtra.forEach((x) => {
             let p = createElement(outNode, 'p');
@@ -260,21 +280,8 @@ function createMatDialog(code: string) {
 
     if (codeData.postreq.length > 0) {
         createElement(outNode, 'h4', 'Es pre-requisito de: ');
-        codeData.postreq.forEach((x) => {
-            let p = createElement(outNode, 'p');
-            let s = document.createElement('a');
-            s.innerText = `(${x}) ${currentPensumMats[x].asignatura}`;
-            s.addEventListener('click', () => {
-                dialog.hide();
-                createMatDialog(x).show();
-            });
-            s.classList.add('preReq');
-            s.classList.add('monospace');
-            s.classList.add(`c_${x}`);
-            s.classList.add(`c__`);
-
-            p.appendChild(s);
-        });
+        for (let code of codeData.postreq)
+            outNode.appendChild(createMatBtn(dialog, code));
     }
 
     outNode.appendChild(dialog.createCloseButton());
@@ -282,7 +289,25 @@ function createMatDialog(code: string) {
     return dialog;
 }
 
-/** Adds or removes MANAGEMENT_TAKEN_CLASS to the related elements */
+// Creates a single clickable mat code, for use inside dialogs.
+function createMatBtn(dialog, code) {
+    let p = document.createElement('p');
+    let s = document.createElement('a');
+    s.innerText = `(${code}) ${currentPensumMats[code]?.asignatura || '?'}`;
+    s.addEventListener('click', () => {
+        dialog.hide();
+        createMatDialog(code).show();
+    });
+    s.classList.add('preReq');
+    s.classList.add('monospace');
+    s.classList.add(`c_${safeForHtmlId(code)}`);
+    s.classList.add(`c__`);
+
+    p.appendChild(s);
+    return p;
+}
+
+/** Adds or removes MANAGEMENT_TAKEN_CLASS to the related elements. */
 function updateTakenPrereqClasses(node: HTMLElement | HTMLDocument = document) {
     for (let elem of node.getElementsByClassName('c__')) {
         elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS);
@@ -291,18 +316,59 @@ function updateTakenPrereqClasses(node: HTMLElement | HTMLDocument = document) {
     }
 
     for (let code of userProgress.passed) {
+        code = safeForHtmlId(code);
         for (let elem of node.getElementsByClassName(`c_${code}`)) {
             elem.classList.add(MANAGEMENT_TAKEN_CSS_CLASS);
         }
     }
     for (let code of userProgress.onCourse) {
+        code = safeForHtmlId(code);
         for (let elem of node.getElementsByClassName(`c_${code}`)) {
             elem.classList.add(MANAGEMENT_ONCOURSE_CSS_CLASS);
         }
     }
     for (let code of userProgress.selected) {
+        code = safeForHtmlId(code);
         for (let elem of node.getElementsByClassName(`c_${code}`)) {
             elem.classList.add(MANAGEMENT_SELECTED_CSS_CLASS);
+        }
+    }
+    for (let code of errorCodes) {
+        code = safeForHtmlId(code);
+        for (let elem of node.getElementsByClassName(`c_${code}`)) {
+            elem.classList.add(MANAGEMENT_ERROR_CSS_CLASS);
+        }
+    }
+}
+
+/** Adds or removes MANAGEMENT_TAKEN_CLASS to a single element. */
+function updateSingleTakenPrereqClasses(elem: HTMLElement) {
+    var cl = elem.classList;
+    if (!cl.contains('c__')) return;
+
+    elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS);
+    elem.classList.remove(MANAGEMENT_ONCOURSE_CSS_CLASS);
+    elem.classList.remove(MANAGEMENT_SELECTED_CSS_CLASS);
+
+    for (let code of userProgress.passed) {
+        code = safeForHtmlId(code);
+        if (cl.contains(`c_${code}`))
+            cl.add(MANAGEMENT_TAKEN_CSS_CLASS);
+    }
+    for (let code of userProgress.onCourse) {
+        code = safeForHtmlId(code);
+        if (cl.contains(`c_${code}`))
+            cl.add(MANAGEMENT_ONCOURSE_CSS_CLASS);
+    }
+    for (let code of userProgress.selected) {
+        code = safeForHtmlId(code);
+        if (cl.contains(`c_${code}`))
+            cl.add(MANAGEMENT_SELECTED_CSS_CLASS);
+    }
+    for (let code of errorCodes) {
+        code = safeForHtmlId(code);
+        if (cl.contains(`c_${code}`)) {
+            cl.add(MANAGEMENT_ERROR_CSS_CLASS);
         }
     }
 }
@@ -343,7 +409,7 @@ function analyseGradeProgress(matArray: typeof userProgress) {
 
 /** Creates n label-checkbox pairs */
 function createCheckbox(node, labelName, onchange, initialState = false) {
-    let objId = labelName.toLowerCase().split(' ').join('_');
+    let objId = safeForHtmlId(labelName);
 
     let x = document.createElement('input');
     x.type = 'checkbox';
@@ -361,7 +427,7 @@ function createCheckbox(node, labelName, onchange, initialState = false) {
 }
 
 function createRadio(node, groupName = '', labelName = '', onchange = null, initialState = false) {
-    let objId = labelName.toLowerCase().split(' ').join('_');
+    let objId = safeForHtmlId(labelName);
 
     let x = document.createElement('input');
     x.type = 'radio';
@@ -696,8 +762,9 @@ function createNewPensumTable(data: i_pensum) {
         // Mat rows
         for (const mat of filteredCuat) {
             let row = out.insertRow();
-            row.id = `r_${mat.codigo}`;
-            row.classList.add(`c_${mat.codigo}`);
+            let code = safeForHtmlId(mat.codigo);
+            row.id = `r_${code}`;
+            row.classList.add(`c_${code}`);
             row.classList.add(`c__`);
 
             // Selection checkbox
@@ -730,9 +797,9 @@ function createNewPensumTable(data: i_pensum) {
             // Codigo mat.
             {
                 let r = row.insertCell();
-                r.id = `a_${mat.codigo}`;
+                r.id = `a_${code}`;
                 r.classList.add('text-center');
-                r.classList.add(`c_${mat.codigo}`);
+                r.classList.add(`c_${code}`);
                 r.classList.add(`c__`);
 
                 let s = document.createElement('a');
@@ -771,7 +838,7 @@ function createNewPensumTable(data: i_pensum) {
                     });
                     s.classList.add('preReq');
                     s.classList.add('monospace');
-                    s.classList.add(`c_${x}`); // mat's code
+                    s.classList.add(`c_${safeForHtmlId(x)}`); // mat's code
                     s.classList.add(`c__`);
 
                     r.appendChild(s);
@@ -1119,9 +1186,403 @@ function createImportExportDialog() {
     );
 
     node.appendChild(document.createElement('br'));
-
     node.appendChild(dialog.createCloseButton());
     return dialog;
+}
+
+function createOrgChartOptions(onTemplateRender = null, selected = null) {
+    // Generate orgchart
+    var options = new primitives.FamConfig();
+    var items = matsToOrgChart(currentPensumData.cuats.flat());
+
+    options = {
+        ...options,
+        pageFitMode: primitives.PageFitMode.None,
+        items: items,
+
+        // Rendering
+        arrowsDirection: primitives.GroupByType.Children,
+        linesWidth: 3,
+        linesColor: 'black',
+        normalLevelShift: 30,
+        lineLevelShift: 20,
+        dotLevelShift: 20,
+        alignBylevels: true,
+        hideGrandParentsConnectors: true,
+
+        // templates
+        templates: [getMatTemplate()],
+        onItemRender: onTemplateRender,
+
+        // Buttons
+        hasButtons: primitives.Enabled.True,
+        buttonsPanelSize: 38,
+
+        // Extras
+        hasSelectorCheckbox: primitives.Enabled.False,
+        showCallout: false,
+        scale: 0.7,
+        selectedItems: selected || [],
+    }
+    return options;
+}
+
+
+function createOrgChartDialog(selected = null) {
+    let dialog = new DialogBox();
+    let node = dialog.contentNode;
+
+    // Title
+    createElement(node, 'h3', currentPensumData.carrera || 'Diagrama de pensum');
+
+
+    // Diagram
+    let chartContainer = createElement(node, 'div');
+    chartContainer.style.width = '90vw';
+    chartContainer.style.height = '60vh';
+
+    var options = createOrgChartOptions((e, d) => onWebTemplateRender(e, d, dialog), selected);
+    var control = primitives.FamDiagram(chartContainer, options);
+    window['control'] = control;
+
+
+    // Zoom slider
+    node.appendChild(document.createElement('br'));
+
+    var sizeContainer = createElement(node, 'div');
+    createElement(sizeContainer, 'span', 'Zoom: ');
+    var size = createElement(sizeContainer, 'input') as any;
+    size.type = 'range';
+    size.min = -4;
+    size.max = 2;
+    size.step = 0.01;
+    size.value = Math.log(0.7) / Math.log(2);
+    size.style.width = '100%';
+    size.addEventListener('input', () => {
+        var pVal = parseFloat(size.value);
+        var newVal = 2 ** pVal;
+        control.setOption('scale', newVal);
+        control.update(primitives.UpdateMode.Refresh);
+    })
+
+
+    // Buttons
+    node.appendChild(
+        createSecondaryButton(
+            `📄 Descargar documento .pdf`,
+            () => downloadOrgChartPdf()
+        )
+    );
+    node.appendChild(
+        createSecondaryButton(
+            `🖼 Descargar imagen .png`,
+            () => downloadOrgChartPng()
+        )
+    );
+    node.appendChild(dialog.createCloseButton());
+    dialog.show();
+
+    new ResizeObserver(() => control.update(primitives.UpdateMode.Refresh)).observe(node);
+
+    return [dialog, control];
+}
+
+function createOrgChartPdf() {
+    var options = createOrgChartOptions(onPdfTemplateRender);
+    var chart = primitives.FamDiagramPdfkit({
+        ...options,
+        cursorItem: null,
+        hasSelectorCheckbox: primitives.Enabled.False
+    });
+
+    var chartSize = chart.getSize();
+
+    var doc = new PDFDocument({
+        size: [chartSize.width + 100, chartSize.height + 150]
+    });
+    var stream = doc.pipe(blobStream());
+
+    doc.save();
+    doc.fontSize(25).text(`[${currentPensumData.codigo}] ${currentPensumData.carrera}`);
+
+
+    chart.draw(doc, 30, 100);
+    doc.restore();
+    doc.end();
+    return stream;
+}
+
+function downloadOrgChartPng(resize = 1.5) {
+    var stream = createOrgChartPdf();
+
+    if (typeof stream !== 'undefined') {
+        stream.on('finish', async function () {
+            var blob = stream.toBlob('application/pdf');
+            var buffer = await blob.arrayBuffer();
+
+            // Load page
+            var pdf = await pdfjsLib.getDocument(buffer).promise;
+            console.log(pdf);
+            var page = await pdf.getPage(1)
+            var scale = 1;
+            var viewport = page.getViewport(scale).viewBox;
+
+            // Render to canvas
+            var canvas = document.createElement('canvas');
+            document.body.appendChild(canvas);
+            var context = canvas.getContext('2d');
+            canvas.width = resize * viewport[2];
+            canvas.height = resize * viewport[3];
+
+            // Flip before rendering
+            context.save();
+            context.translate(0, canvas.height);
+            context.scale(resize, -resize);
+            var task = page.render({ canvasContext: context, viewport: viewport })
+            await task.promise;
+            context.restore();
+
+            // Save as png string
+            var png = canvas.toDataURL('image/png');
+
+            // Remove canvas
+            document.body.removeChild(canvas);
+
+            // Download
+            let name = currentPensumData.codigo + '_' + getDateIdentifier();
+            FileSaver.saveAs(png, name + '.png');
+        });
+    } else {
+        alert('Error: Failed to create file pdf!');
+    }
+}
+
+function downloadOrgChartPdf() {
+    var stream = createOrgChartPdf();
+    if (typeof stream !== 'undefined') {
+        stream.on('finish', function () {
+            var string = stream.toBlob('application/pdf');
+            let name = currentPensumData.codigo + '_' + getDateIdentifier();
+            FileSaver.saveAs(string, name + '.pdf');
+        });
+    } else {
+        alert('Error: Failed to create file pdf!');
+    }
+}
+
+//#endregion
+
+//#region OrgChart templates
+
+function matsToOrgChart(mats: i_mat_raw[]) {
+    let o = [];
+    for (let i = 0; i < mats.length; ++i) {
+        let x = mats[i];
+        let y = {
+            id: x.codigo,
+            parents: x.prereq || "base",
+            primaryParent: x.prereq || null,
+            //relativeItem: mats[i - 1] || null,
+            templateName: 'matTemplate',
+            ...x
+        };
+        o.push(y);
+    }
+    return o;
+}
+
+function onWebTemplateRender(event, data, dialog = null) {
+    switch (data.renderingMode) {
+        case primitives.RenderingMode.Create:
+            /* Initialize template content here */
+            break;
+        case primitives.RenderingMode.Update:
+            /* Update template content here */
+            break;
+    }
+
+    var itemConfig = data.context as i_mat;
+
+
+    if (data.templateName == "matTemplate") {
+        var e = data.element as HTMLElement;
+        var en = (name) => getElementByName(e, name);
+
+        // Remove old classes, since this OrgChart lib reuses elements
+        var removeOld = [];
+        for (
+            var i = 0, l = e.classList.length, comp = 'c_' + safeForHtmlId(itemConfig.codigo);
+            i < l; ++i) {
+            if (/c_.{2,}/.test(e.classList[i]) && comp !== e.classList[i]) {
+                removeOld.push(e.classList[i]);
+            }
+        }
+        e.classList.remove(...removeOld);
+
+        e.classList.add(`c_${safeForHtmlId(itemConfig.codigo)}`);
+        updateSingleTakenPrereqClasses(e);
+
+
+        // var titleBackground = en('titleBackground'); //data.element.firstChild;
+        // titleBackground.style.backgroundColor = primitives.Colors.RoyalBlue;//itemConfig.itemTitleColor || primitives.Colors.RoyalBlue;
+
+        en('title').textContent = itemConfig.asignatura;
+        en('codigo').textContent = '[' + itemConfig.codigo + ']';
+        en('creditos').textContent = 'Creditos: ' + itemConfig.creditos;
+        en('cred_top').textContent = itemConfig.creditos.toString();
+        en('cred_top').setAttribute('value', itemConfig.creditos.toString())
+        en('creditos').textContent = 'Cuatrim.: ' + itemConfig.cuatrimestre;
+    }
+}
+
+function onPdfTemplateRender(doc, pos, data) {
+    var itemConfig = data.context as i_mat;
+
+    if (data.templateName != "matTemplate") return
+
+    var contentSize = new primitives.Size(200, 100);
+
+    // Container box color
+    let code = itemConfig.codigo;
+    let statusColor;
+    if (userProgress.passed.has(code))
+        statusColor = '#e6ffe8';    // Green
+    else if (userProgress.onCourse.has(code))
+        statusColor = '#fff9de';    // Yellow
+    else
+        statusColor = '#f2f9ff'; // Default Blue
+
+    // Container box
+    doc.roundedRect(pos.x, pos.y, pos.width, pos.height, 5)
+        .fill(statusColor);
+
+    doc.roundedRect(pos.x + 0.5, pos.y + 0.5, pos.width - 1, pos.height - 1, 5)
+        .lineWidth(1)
+        .stroke('#dddddd');
+
+    // Credito value
+    let credValue = {
+        0: '#eb9cff',
+        1: '#c5f25c',
+        2: '#ffc773',
+        3: '#f57936',
+        def: '#cf1f1f'
+    };
+
+    doc.polygon(
+        [pos.x + pos.width - 30, pos.y],
+        [pos.x + pos.width, pos.y],
+        [pos.x + pos.width, pos.y + 30],
+    ).fill(credValue[itemConfig.creditos] || credValue['def']);
+
+    doc.fillColor('white')
+        .font('Helvetica', 12)
+        .text(itemConfig.creditos,
+            pos.x + pos.width - 12,
+            pos.y + 7,
+            {
+                ellipsis: false,
+                width: 10,
+                height: 1,
+                align: 'right'
+            });
+
+    // Codigo
+    doc.fillColor('black')
+        .font('Helvetica', 14)
+        .text(`[${itemConfig.codigo}]`,
+            pos.x + 7,
+            pos.y + 7,
+            {
+                ellipsis: false,
+                width: (contentSize.width - 7 - 7),
+                height: 16,
+                align: 'center'
+            });
+
+    // Title (asignatura)
+    doc.fillColor('black')
+        .font('Helvetica', 18)
+        .text(itemConfig.asignatura,
+            pos.x + 7,
+            pos.y + 7 + 16 + 5, {
+            ellipsis: false,
+            width: (contentSize.width - 7 - 7),
+            height: 60,
+            align: 'center'
+        });
+
+    doc.restore;
+}
+
+function getElementByName(parent: HTMLElement, name: string) {
+    return parent.querySelector(`[name = ${name}]`);
+}
+
+function getMatTemplate() {
+    var result = new primitives.TemplateConfig();
+    result.name = "matTemplate";
+    result.itemSize = new primitives.Size(200, 100);
+    result.minimizedItemSize = new primitives.Size(3, 3);
+
+    /* the following example demonstrates JSONML template see http://http://www.jsonml.org/ for details: */
+    result.itemTemplate = ["div",
+        {
+            "style": {
+                "width": result.itemSize.width + "px",
+                "height": result.itemSize.height + "px"
+            },
+            "class": ["bp-item", "bp-corner-all", "monospace", "c__", "preReq"]
+        },
+        ["div",
+            {
+                "name": "cred_top",
+                "class": ["bp-cred"],
+            }
+        ],
+        ["div",
+            {
+                "name": "codigo",
+                "class": ["bp-txt"],
+                "style": {
+                    fontSize: "12px",
+                    margin: "0 .5em",
+                    "text-align": "center",
+                }
+            }
+        ],
+        ["div",
+            {
+                "name": "title",
+                "class": ["bp-title", "bp-head"],
+                "style": {
+                    width: "100%",
+                    margin: ".5em .5em 0",
+                }
+            }
+        ],
+        ["div",
+            {
+                "name": "creditos",
+                "class": ["bp-txt"],
+                "style": {
+                    fontSize: "12px",
+                    margin: "0 .5em",
+                }
+            }
+        ],
+        ["div",
+            {
+                "name": "cuatrimestre",
+                "class": ["bp-txt"],
+                "style": {
+                    fontSize: "12px",
+                    margin: "0 .5em",
+                }
+            }
+        ],
+    ];
+    return result;
 }
 
 //#region LocalStorage Funcs
@@ -1243,7 +1704,8 @@ async function fetchHtmlAsText(
             }, 3e3);
             var sendDate = new Date().getTime();
 
-            var response = await fetch(currProxy + url, opts);
+            var currUrl = currProxy + url;
+            var response = await fetch(currUrl, opts);
 
             if (currentProxyCallback)
                 currentProxyCallback('request', currProxy, i);
@@ -1251,10 +1713,7 @@ async function fetchHtmlAsText(
             clearTimeout(timeoutId);
             if (response.ok) {
                 var recieveDate = new Date().getTime();
-                console.info(
-                    `CORS proxy '${currProxy}' succeeded in ${recieveDate - sendDate
-                    }ms.'`
-                );
+                console.info(`CORS proxy '${currUrl}' succeeded in ${recieveDate - sendDate} ms.'`);
 
                 if (currentProxyCallback)
                     currentProxyCallback('success', currProxy, i);
@@ -1315,6 +1774,12 @@ class DialogBox {
         this.contentNode = document.createElement('div');
         this.contentNode.classList.add('dialogCard');
         this.wrapperNode.appendChild(this.contentNode);
+
+        this.wrapperNode.addEventListener('click', (evt) => {
+            if (evt.target === this.wrapperNode) {
+                this.hide();
+            }
+        })
 
         return this;
     }
@@ -1386,6 +1851,11 @@ function findAllpostreqs(code) {
 
     // Set to remove duplicates.
     return [...new Set(subFindArr(code))];
+}
+
+/** Replaces spaces to underscores. */
+function safeForHtmlId(str: string) {
+    return str.replace(/ /g, '_')
 }
 
 //#endregion
@@ -1502,6 +1972,12 @@ async function loadPensum() {
                 )
             );
 
+            btnwrp.appendChild(
+                createSecondaryButton('🌳 Diagrama (β)', () =>
+                    createOrgChartDialog()
+                )
+            );
+
             // btnwrp.appendChild(
             //     createSecondaryButton('Descargar como Excel...', () =>
             //         createAllDownloadsDialog().show()
@@ -1548,10 +2024,14 @@ function getPensumFromLocalStorage(matCode) {
     }
 }
 
+function getDateIdentifier() {
+    let d = new Date();
+    return `${d.getFullYear()}${d.getMonth()}${d.getDate()}_${d.getHours()}h${d.getMinutes()}m${d.getSeconds()}s`;
+}
+
 function downloadProgress() {
     let obj = createSaveObject();
-    let d = new Date();
-    let date = `${d.getFullYear()}${d.getMonth()}${d.getDate()}_${d.getHours()}h${d.getMinutes()}m${d.getSeconds()}s`;
+    let date = getDateIdentifier();
     let name = `materias-aprobadas_${date}`;
     downloadObjectAsJson(obj, name);
 }

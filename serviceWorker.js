@@ -1,56 +1,52 @@
-self.addEventListener('install', function (e) {
-    e.waitUntil(
-        caches.open('pensum-extractor').then(function (cache) {
-            return cache.addAll([
-                './',
-                './index.html',
-                './styles.css',
+// Taken from https://serviceworke.rs/strategy-network-or-cache_service-worker_doc.html
+var CACHE = 'pensum-extractor';
 
-                './awesomplete.css',
-                './awesomplete.min.js',
-                './xlsx.full.min.js',
-                './FileSaver.min.js',
-
-                './build/main.js',
-                './carreras.json',
-                
-                './ignoredMats.json'
-            ]);
-        })
-    );
+self.addEventListener('install', function (evt) {
+    console.log('Service worker installed...');
+    evt.waitUntil(precache());
 });
 
-self.addEventListener('fetch', function (e) {
-    //console.log('[Service Worker] ' + e.request.url);
-    e.respondWith(
-        // (async () => {
-        //     let cachePromise = caches.match(e.request);
-
-        //     try {
-        //         let fetchPromise = fetch(e.request);
-        //         let fetchResponse = await fetchPromise;
-        //         return caches.open('pensum-extractor').then(function (cache) {
-        //             console.log('[Service Worker] ' + 'Cache updated for ' + e.request.url);
-        //             return cache.put(e.request, fetchResponse.clone())
-
-        //             // todo: sort out the auto update thing
-        //         });
-        //     } 
-        //     catch(error) {
-        //         return cachePromise;
-        //     }
-
-        //     console.log(cacheResponse);
-        //     if (fetchResponse.ok) {
-        //         return fetchPromise;
-        //     } else {
-        //         return cachePromise;
-        //     }
-        //     //return fetchPromise;//.catch(caches.match(e.request))
-        //     // caches.match(e.request).then(function (response) {
-        //     //     return response || fetch(e.request);
-        //     // })
-        // })()
-        fetch(e.request).catch(() => caches.match(e.request))
-    );
+self.addEventListener('fetch', function (evt) {
+    evt.respondWith(fromNetwork(evt.request, 1e3)
+        .catch(function () {
+            return fromCache(evt.request)
+        }));
 });
+
+function precache() {
+    return caches.open(CACHE).then(function (cache) {
+        return cache.addAll([
+            './',
+            './index.html',
+            './styles.css',
+
+            './lib/awesomplete.css',
+            './lib/awesomplete.min.js',
+            './lib/xlsx.full.min.js',
+            './lib/FileSaver.min.js',
+
+            './build/main.js',
+            './carreras.json',
+
+            './ignoredMats.json'
+        ])
+    })
+}
+
+function fromNetwork(request, timeout) {
+    return new Promise(function (fulfill, reject) {
+        var timeoutId = setTimeout(reject, timeout);
+        fetch(request).then(function (response) {
+            clearTimeout(timeoutId);
+            fulfill(response);
+        }, reject);
+    });
+}
+
+function fromCache(request) {
+    return caches.open(CACHE).then(function (cache) {
+        return cache.match(request).then(function (matching) {
+            return matching || Promise.reject('no-match');
+        });
+    });
+}
