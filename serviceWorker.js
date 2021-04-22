@@ -24,6 +24,14 @@ function precache() {
             './lib/awesomplete.min.js',
             './lib/xlsx.full.min.js',
             './lib/FileSaver.min.js',
+            './lib/blob-stream.js',
+
+            './lib/pdf.min.js',
+            './lib/pdf.worker.min.js',
+            './lib/pdfkit.standalone.js',
+
+            './lib/basic-primitives/primitives.js',
+            './lib/basic-primitives/css/primitives.css',
 
             './build/main.js',
             './carreras.json',
@@ -38,6 +46,8 @@ function fromNetwork(request, timeout) {
         var timeoutId = setTimeout(reject, timeout);
         fetch(request).then(function (response) {
             clearTimeout(timeoutId);
+            console.log('SUCCESS');
+            console.log(response.status);
             fulfill(response);
         }, reject);
     });

@@ -60,8 +60,10 @@
         // Extracted from https://developers.google.com/web/fundamentals/codelabs/offline
         if ('serviceWorker' in navigator) {
             navigator.serviceWorker
-                .register('./serviceWorker.js')
-                .then(function () { console.log("Service Worker Registered"); });
+                .register('./serviceWorker.js', {
+                    scope: './'
+                })
+                .then(function () { console.log("Base Service Worker Registered"); });
         }
     </script>
 </body>
