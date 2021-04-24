@@ -36,11 +36,6 @@
             "escuela": "Escuela de Administración"
         },
         {
-            "codigo": "ATH7",
-            "nombre": "[Antiguo] LICENCIATURA EN ADMINISTRACION TURISTICA Y HOTELERA",
-            "escuela": "Decanato de Turismo"
-        },
-        {
             "codigo": "ATH11",
             "nombre": "LICENCIATURA EN ADMINISTRACION TURISTICA Y HOTELERA",
             "escuela": "Decanato de Turismo"
@@ -103,11 +98,6 @@
         {
             "codigo": "MER11",
             "nombre": "LICENCIATURA EN MERCADOTECNIA",
-            "escuela": "Escuela de Mercadeo y Negocios Internacionales"
-        },
-        {
-            "codigo": "NIN7",
-            "nombre": "[Antiguo] LICENCIATURA EN NEGOCIOS INTERNACIONALES",
             "escuela": "Escuela de Mercadeo y Negocios Internacionales"
         },
         {

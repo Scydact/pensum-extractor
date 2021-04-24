@@ -2362,6 +2362,19 @@ function onWindowLoad() {
                         if (e.key === 'Enter')
                             loadPensum();
                     });
+                    // Associate input with click.
+                    document.getElementById('cargar_btn').addEventListener('click', function (e) {
+                        loadPensum();
+                    });
+                    document.getElementById('recargar_btn').addEventListener('click', function (e) {
+                        var r1 = 'cache_' + document.getElementById('codigoMateria').textContent;
+                        var r2 = 'cache_' + currentPensumData.codigo;
+                        localStorage.removeItem(r1);
+                        console.info('Removed ' + r1);
+                        localStorage.removeItem(r2);
+                        console.info('Removed ' + r2);
+                        setTimeout(loadPensum, 200);
+                    });
                     // Try to get saved data
                     loadFromLocalStorage();
                     // Load toolbox

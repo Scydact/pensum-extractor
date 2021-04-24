@@ -31,6 +31,8 @@
     --background-selected-oncourse-odd: rgba(253, 207, 55, 0.95);
     --background-selected-oncourse-even: rgba(253, 207, 55, 0.95);
 
+    --background-error: rgb(247, 156, 156);
+
     --progress-bar-green: #bfffcd;
     --progress-bar-yellow: rgb(252, 239, 181);
 
@@ -514,7 +516,7 @@ tr.managementMode-selected.managementMode-oncourse:nth-child(even) td {
     box-shadow: inset 0 0 0 2px black;
 }
 .preReq.managementMode-error {
-    background: red;
+    background: var(--background-error);
 }
 
 /* ProgressWrapper */

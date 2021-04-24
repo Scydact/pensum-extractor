@@ -2331,6 +2331,19 @@ async function onWindowLoad() {
     document.getElementById('codigoMateria').addEventListener('keyup', (e) => {
         if (e.key === 'Enter') loadPensum();
     });
+    // Associate input with click.
+    document.getElementById('cargar_btn').addEventListener('click', (e) => {
+        loadPensum();
+    });
+    document.getElementById('recargar_btn').addEventListener('click', (e) => {
+        let r1 = 'cache_' + document.getElementById('codigoMateria').textContent;
+        let r2 = 'cache_' + currentPensumData.codigo;
+        localStorage.removeItem(r1);
+        console.info('Removed ' + r1);
+        localStorage.removeItem(r2);
+        console.info('Removed ' + r2);
+        setTimeout(loadPensum, 200);
+    });
 
     // Try to get saved data
     loadFromLocalStorage();
