@@ -7,7 +7,7 @@ self.addEventListener('install', function (evt) {
 });
 
 self.addEventListener('fetch', function (evt) {
-    evt.respondWith(fromNetwork(evt.request, 1e3)
+    evt.respondWith(fromNetwork(evt.request, 5000)
         .catch(function () {
             return fromCache(evt.request)
         }));
@@ -46,8 +46,6 @@ function fromNetwork(request, timeout) {
         var timeoutId = setTimeout(reject, timeout);
         fetch(request).then(function (response) {
             clearTimeout(timeoutId);
-            console.log('SUCCESS');
-            console.log(response.status);
             fulfill(response);
         }, reject);
     });

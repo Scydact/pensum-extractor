@@ -184,6 +184,10 @@ tr:nth-child(2n) td {
     font-family: "Roboto Mono", monospace;
 }
 
+.note {
+    font-style: italic;
+}
+
 .fullscreen {
     position: fixed;
     top: 0;
@@ -243,6 +247,10 @@ tr:nth-child(2n) td {
     max-width: 95%;
     max-height: 95%;
     overflow: auto;
+}
+
+.disabled {
+    opacity: 0.4;
 }
 
 .btn-primary {

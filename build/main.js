@@ -77,7 +77,7 @@ var __spread = (this && this.__spread) || function () {
     return ar;
 };
 var saveVer = 5;
-var jsVer = 1;
+var jsVer = 2;
 var SAVE_DATA_LOCALSTORAGE = 'saveData';
 var SAVE_TO_LOCALSTORAGE = true;
 var CARRERAS = [];
@@ -86,7 +86,8 @@ var allIgnored = {}; // Mats that are no longer available and should be ommited 
 var currentPensumData = null;
 var currentPensumCode = '';
 var currentPensumMats = {};
-var errorCodes = [];
+var errorCodes = new Set();
+var errorCodesLog = [];
 var filterMode = {
     pending: true,
     onCourse: true,
@@ -216,7 +217,8 @@ function extractPensumData(node) {
 function matsToDict(arr) {
     var e_1, _a, e_2, _b, e_3, _c;
     var out = {};
-    errorCodes = [];
+    errorCodes = new Set();
+    errorCodesLog = [];
     try {
         // Map all mats
         for (var arr_1 = __values(arr), arr_1_1 = arr_1.next(); !arr_1_1.done; arr_1_1 = arr_1.next()) {
@@ -241,7 +243,8 @@ function matsToDict(arr) {
                     var pre = out[y];
                     if (!pre) {
                         console.error("[ERROR!]: No se encuentra la materia \"" + y + "\" (prerequisito de \"" + x.codigo + "\")");
-                        errorCodes.push(y);
+                        errorCodes.add(y);
+                        errorCodesLog.push([y, x.codigo]);
                     }
                     else {
                         pre.postreq.push(x.codigo);
@@ -363,9 +366,7 @@ function updateTakenPrereqClasses(node) {
     try {
         for (var _k = __values(node.getElementsByClassName('c__')), _l = _k.next(); !_l.done; _l = _k.next()) {
             var elem = _l.value;
-            elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS);
-            elem.classList.remove(MANAGEMENT_ONCOURSE_CSS_CLASS);
-            elem.classList.remove(MANAGEMENT_SELECTED_CSS_CLASS);
+            elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS, MANAGEMENT_ONCOURSE_CSS_CLASS, MANAGEMENT_SELECTED_CSS_CLASS, MANAGEMENT_ERROR_CSS_CLASS);
         }
     }
     catch (e_6_1) { e_6 = { error: e_6_1 }; }
@@ -486,9 +487,7 @@ function updateSingleTakenPrereqClasses(elem) {
     var cl = elem.classList;
     if (!cl.contains('c__'))
         return;
-    elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS);
-    elem.classList.remove(MANAGEMENT_ONCOURSE_CSS_CLASS);
-    elem.classList.remove(MANAGEMENT_SELECTED_CSS_CLASS);
+    elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS, MANAGEMENT_ONCOURSE_CSS_CLASS, MANAGEMENT_SELECTED_CSS_CLASS, MANAGEMENT_ERROR_CSS_CLASS);
     try {
         for (var _e = __values(userProgress.passed), _f = _e.next(); !_f.done; _f = _e.next()) {
             var code = _f.value;
@@ -1332,16 +1331,6 @@ function createInfoList(data) {
 }
 //#endregion
 //#region Dialogs
-// Legacy fn... integrated into createImportExportDialog()
-function createAllDownloadsDialog() {
-    var dialog = new DialogBox();
-    var node = dialog.contentNode;
-    createElement(node, 'h3', 'Descargar pensum');
-    node.appendChild(createSecondaryButton("Descargar .xlsx (Excel)", downloadCurrentPensumAsExcel));
-    node.appendChild(document.createElement('br'));
-    node.appendChild(dialog.createCloseButton());
-    return dialog;
-}
 function createImportExportDialog() {
     var dialog = new DialogBox();
     var node = dialog.contentNode;
@@ -1354,19 +1343,33 @@ function createImportExportDialog() {
     node.appendChild(document.createElement('br'));
     node.appendChild(createSecondaryButton('Exportar progreso.json', downloadProgress));
     node.appendChild(createSecondaryButton('Importar progreso.json', uploadProgress));
+    node.appendChild(createSecondaryButton('Reiniciar selección', function () {
+        if (confirm('Seguro que desea reiniciar la selección?')) {
+            userProgress.passed = new Set();
+            userProgress.onCourse = new Set();
+            userProgress.selected = new Set();
+            alert('Selección reiniciada.');
+            dialog.hide();
+            drawPensumTable();
+        }
+    }));
     node.appendChild(document.createElement('br'));
-    createElement(node, 'h3', 'Descargar pensum como Excel');
+    createElement(node, 'h3', 'Descargar pensum en otros formatos');
     node.appendChild(createSecondaryButton("Descargar .xlsx (Excel)", downloadCurrentPensumAsExcel));
+    node.appendChild(createSecondaryButton("[Para pruebas] Descargar .json", function () { return downloadPensumJson(currentPensumData); }, ['note']));
+    node.appendChild(createSecondaryButton("[Para pruebas] Cargar desde .json", loadPensumFromJson, ['note']));
     node.appendChild(document.createElement('br'));
     node.appendChild(dialog.createCloseButton());
     return dialog;
 }
+//#endregion
+//#region Org chart
 function createOrgChartOptions(onTemplateRender, selected) {
     if (onTemplateRender === void 0) { onTemplateRender = null; }
     if (selected === void 0) { selected = null; }
     // Generate orgchart
     var options = new primitives.FamConfig();
-    var items = matsToOrgChart(currentPensumData.cuats.flat());
+    var items = matsToOrgChart(currentPensumData.cuats.flat(), errorCodes);
     options = __assign(__assign({}, options), { pageFitMode: primitives.PageFitMode.None, items: items, 
         // Rendering
         arrowsDirection: primitives.GroupByType.Children, linesWidth: 3, linesColor: 'black', normalLevelShift: 30, lineLevelShift: 20, dotLevelShift: 20, alignBylevels: true, hideGrandParentsConnectors: true, 
@@ -1413,6 +1416,7 @@ function createOrgChartDialog(selected) {
     node.appendChild(createSecondaryButton("\uD83D\uDDBC Descargar imagen .png", function () { return downloadOrgChartPng(); }));
     node.appendChild(dialog.createCloseButton());
     dialog.show();
+    // @ts-ignore
     new ResizeObserver(function () { return control.update(primitives.UpdateMode.Refresh); }).observe(node);
     return [dialog, control];
 }
@@ -1498,13 +1502,28 @@ function downloadOrgChartPdf() {
 }
 //#endregion
 //#region OrgChart templates
-function matsToOrgChart(mats) {
+function matsToOrgChart(mats, errorCodes) {
+    if (errorCodes === void 0) { errorCodes = new Set(); }
     var o = [];
     for (var i = 0; i < mats.length; ++i) {
         var x = mats[i];
         var y = __assign({ id: x.codigo, parents: x.prereq || "base", primaryParent: x.prereq || null, 
             //relativeItem: mats[i - 1] || null,
-            templateName: 'matTemplate' }, x);
+            templateName: 'matTemplate', error: false }, x);
+        o.push(y);
+    }
+    for (var i = 0, ec = __spread(errorCodes), l = ec.length; i < l; ++i) {
+        var x = ec[i];
+        var y = {
+            id: x,
+            parents: "base",
+            templateName: 'matTemplate',
+            asignatura: '???',
+            codigo: x,
+            creditos: '0',
+            cuatrimestre: '???',
+            error: true,
+        };
         o.push(y);
     }
     return o;
@@ -1538,7 +1557,6 @@ function onWebTemplateRender(event, data, dialog) {
         // titleBackground.style.backgroundColor = primitives.Colors.RoyalBlue;//itemConfig.itemTitleColor || primitives.Colors.RoyalBlue;
         en('title').textContent = itemConfig.asignatura;
         en('codigo').textContent = '[' + itemConfig.codigo + ']';
-        en('creditos').textContent = 'Creditos: ' + itemConfig.creditos;
         en('cred_top').textContent = itemConfig.creditos.toString();
         en('cred_top').setAttribute('value', itemConfig.creditos.toString());
         en('creditos').textContent = 'Cuatrim.: ' + itemConfig.cuatrimestre;
@@ -1556,6 +1574,8 @@ function onPdfTemplateRender(doc, pos, data) {
         statusColor = '#e6ffe8'; // Green
     else if (userProgress.onCourse.has(code))
         statusColor = '#fff9de'; // Yellow
+    else if (errorCodes.has(code))
+        statusColor = '#ff4444'; // Red (error)
     else
         statusColor = '#f2f9ff'; // Default Blue
     // Container box
@@ -1690,6 +1710,7 @@ function loadFromObject(obj) {
     // Up to SaveVer 4
     if (obj.progress)
         userProgress.passed = new Set(obj.progress);
+    // > SaveVer 5
     if (obj.userData) {
         var ud = obj.userData;
         if (ud.passed)
@@ -1781,7 +1802,7 @@ function fetchHtmlAsText(url, opts, forceProxy, currentProxyCallback) {
                     timeoutId = setTimeout(function () {
                         controller.abort();
                         console.warn('Timed out!');
-                    }, 3e3);
+                    }, 4e3);
                     sendDate = new Date().getTime();
                     currUrl = currProxy + url;
                     return [4 /*yield*/, fetch(currUrl, opts)];
@@ -1879,6 +1900,7 @@ function downloadObjectAsJson(exportObj, exportNameWithoutExt) {
     FileSaver.saveAs(blob, exportNameWithoutExt + '.json');
 }
 function createElement(parentNode, tag, innerHTML, classes) {
+    var _a;
     if (tag === void 0) { tag = 'div'; }
     if (innerHTML === void 0) { innerHTML = null; }
     if (classes === void 0) { classes = []; }
@@ -1886,14 +1908,17 @@ function createElement(parentNode, tag, innerHTML, classes) {
     parentNode.appendChild(x);
     if (innerHTML !== null)
         x.innerHTML = innerHTML;
-    classes.forEach(function (clss) { return x.classList.add(clss); });
+    if (classes.length)
+        (_a = x.classList).add.apply(_a, __spread(classes));
     return x;
 }
-function createSecondaryButton(text, callback) {
+function createSecondaryButton(text, callback, classes) {
+    var _a;
+    if (classes === void 0) { classes = []; }
     var a = document.createElement('a');
     a.addEventListener('click', callback);
     a.innerHTML = text;
-    a.classList.add('btn-secondary');
+    (_a = a.classList).add.apply(_a, __spread(['btn-secondary'], classes));
     return a;
 }
 function findAllpostreqs(code) {
@@ -1925,10 +1950,11 @@ function safeForHtmlId(str) {
 //#endregion
 //#region Init
 /** This function is called by the <search> button */
-function loadPensum() {
+function loadPensum(customPensum) {
     var _a;
+    if (customPensum === void 0) { customPensum = null; }
     return __awaiter(this, void 0, void 0, function () {
-        var infoWrap, codigoMateriaInput, clearInfoWrap, setInfoWrap, carr, rpci, rpc, rpcn, rpcn_r, x, pensumNode, newCode, h, btnwrp, a;
+        var infoWrap, codigoMateriaInput, clearInfoWrap, setInfoWrap, carr, rpci, rpc, rpcn, rpcn_r, x, loadedFromCustomPensum, pResponse, obj, e_30, pensumNode, newCode, h, t0, btnwrp, a;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -1957,18 +1983,57 @@ function loadPensum() {
                         setInfoWrap(x.join('<br>'));
                         return [2 /*return*/];
                     }
+                    loadedFromCustomPensum = false;
+                    if (!customPensum) return [3 /*break*/, 1];
+                    // LOAD FROM LOCAL FILE
+                    if (customPensum.carrera
+                        && customPensum.codigo
+                        && customPensum.cuats) {
+                        currentPensumData = customPensum;
+                        loadedFromCustomPensum = true;
+                        console.info(customPensum.codigo + ' loaded from local import (.json).');
+                    }
+                    else {
+                        return [2 /*return*/, false];
+                    }
+                    return [3 /*break*/, 10];
+                case 1:
+                    // LOAD FROM INTERNET
                     // try to check if its on localStorage, else check online and cache if successful.
                     setInfoWrap("Buscando " + currentPensumCode + " en cache local.");
                     currentPensumData = getPensumFromLocalStorage(currentPensumCode);
-                    if (!(currentPensumData === null || !currentPensumData['version'] || currentPensumData.version < CURRENT_PENSUM_VERSION)) return [3 /*break*/, 2];
+                    if (!(currentPensumData === null || !currentPensumData['version'] || currentPensumData.version < CURRENT_PENSUM_VERSION)) return [3 /*break*/, 9];
+                    currentPensumData = null;
+                    // Try from ./pensum first
+                    setInfoWrap("Buscando " + currentPensumCode + " en versiones de respaldo.");
+                    _b.label = 2;
+                case 2:
+                    _b.trys.push([2, 5, , 6]);
+                    return [4 /*yield*/, fetch('./pensum/' + currentPensumCode + '.json')];
+                case 3:
+                    pResponse = _b.sent();
+                    return [4 /*yield*/, pResponse.json()];
+                case 4:
+                    obj = _b.sent();
+                    if (obj !== null && obj['version']) {
+                        currentPensumData = convertSaveToPensum(obj);
+                        console.info(currentPensumCode + ' found inside ./pensum/!');
+                    }
+                    return [3 /*break*/, 6];
+                case 5:
+                    e_30 = _b.sent();
+                    console.info(currentPensumCode + ' not found inside ./pensum/...');
+                    return [3 /*break*/, 6];
+                case 6:
+                    if (!!currentPensumData) return [3 /*break*/, 8];
                     return [4 /*yield*/, fetchPensumTable(currentPensumCode, function (returnCode, proxy, index) {
                             var n = index + 1;
                             switch (returnCode) {
                                 case 'success':
-                                    setInfoWrap("Pensum encontrado en " + proxy + " (intento " + n + ")");
+                                    setInfoWrap("Pensum " + currentPensumCode + " encontrado en " + proxy + " (intento " + n + ")");
                                     break;
                                 case 'request':
-                                    setInfoWrap("Buscando pensum en " + proxy + " (intento " + n + ")");
+                                    setInfoWrap("Buscando pensum " + currentPensumCode + " en " + proxy + " (intento " + n + ")");
                                     break;
                                 case 'error':
                                     setInfoWrap("Error en " + proxy + " (intento " + n + ")");
@@ -1978,9 +2043,11 @@ function loadPensum() {
                                     break;
                             }
                         })];
-                case 1:
+                case 7:
                     pensumNode = _b.sent();
                     currentPensumData = extractPensumData(pensumNode);
+                    _b.label = 8;
+                case 8:
                     // Update cache and currentPensumCode if successfuly fetched.
                     if (currentPensumData) {
                         newCode = currentPensumData.codigo;
@@ -1988,8 +2055,11 @@ function loadPensum() {
                         currentPensumCode = newCode;
                         setPensumToLocalStorage(currentPensumData);
                     }
-                    _b.label = 2;
-                case 2:
+                    return [3 /*break*/, 10];
+                case 9:
+                    console.info(currentPensumData.codigo + ' loaded from localStorage.');
+                    _b.label = 10;
+                case 10:
                     // If data was succesfully found
                     if (currentPensumData) {
                         // Set the search bar
@@ -2004,30 +2074,28 @@ function loadPensum() {
                             h.innerText = 'Detalles de la carrera: ';
                             infoWrap.appendChild(h);
                             infoWrap.appendChild(createInfoList(currentPensumData));
-                            btnwrp = createElement(infoWrap, 'div', '', [
-                                'inline-btn-wrapper',
-                            ]);
-                            a = createElement(btnwrp, 'a', '', [
-                                'btn-secondary',
-                            ]);
+                            t0 = 'Recuerde guardar una copia de su selección en su disco local (o en las nubes).';
+                            createElement(infoWrap, 'p', t0, ['note']);
+                            btnwrp = createElement(infoWrap, 'div', '', ['inline-btn-wrapper']);
+                            a = createElement(btnwrp, 'a', '', ['btn-secondary']);
                             a.href = unapecPensumUrl + currentPensumCode;
                             a.target = '_blank';
                             a.innerText = '🌐 Ver pensum original';
+                            if (loadedFromCustomPensum)
+                                a.classList.add('disabled');
                             btnwrp.appendChild(createSecondaryButton('💾 Guardar/Cargar selección', function () {
                                 return createImportExportDialog().show();
                             }));
                             btnwrp.appendChild(createSecondaryButton('🌳 Diagrama (β)', function () {
                                 return createOrgChartDialog();
                             }));
-                            // btnwrp.appendChild(
-                            //     createSecondaryButton('Descargar como Excel...', () =>
-                            //         createAllDownloadsDialog().show()
-                            //     )
-                            // );
+                            return [2 /*return*/, currentPensumData.cuats.flat().length];
                         }
                     }
                     else {
                         infoWrap.innerText = 'No se ha encontrado el pensum!';
+                        clearPensumTable();
+                        return [2 /*return*/, false];
                     }
                     return [2 /*return*/];
             }
@@ -2048,10 +2116,58 @@ function drawPensumTable() {
     else
         wrapper.appendChild(div);
 }
+function clearPensumTable() {
+    var wrapper = document.getElementById('pensumWrapper');
+    while (wrapper.firstChild)
+        wrapper.removeChild(wrapper.firstChild);
+}
+function convertPensumToSave(data) {
+    var newCuats = data.cuats.map(function (cuat) {
+        return cuat.map(function (mat) {
+            var newMat = __assign({}, mat);
+            delete newMat.cuatrimestre;
+            if (!newMat.prereq.length)
+                delete newMat.prereq;
+            else if (newMat.prereq.length === 1) {
+                newMat.prereq = newMat.prereq[0];
+            }
+            if (!newMat.prereqExtra.length)
+                delete newMat.prereqExtra;
+            else if (newMat.prereqExtra.length === 1) {
+                newMat.prereqExtra = newMat.prereqExtra[0];
+            }
+            return newMat;
+        });
+    });
+    return __assign(__assign({}, data), { cuats: newCuats });
+}
+function convertSaveToPensum(data) {
+    var newCuats = [];
+    var _loop_5 = function (i, l) {
+        newCuats.push(data.cuats[i].map(function (mat) {
+            var newMat = __assign({}, mat);
+            newMat.cuatrimestre = i + 1;
+            if (newMat.prereq === undefined)
+                newMat.prereq = [];
+            else if (typeof newMat.prereq === 'string')
+                newMat.prereq = [newMat.prereq];
+            if (newMat.prereqExtra === undefined)
+                newMat.prereqExtra = [];
+            else if (typeof newMat.prereqExtra === 'string')
+                newMat.prereqExtra = [newMat.prereqExtra];
+            return newMat;
+        }));
+    };
+    for (var i = 0, l = data.cuats.length; i < l; ++i) {
+        _loop_5(i, l);
+    }
+    return __assign(__assign({}, data), { cuats: newCuats });
+}
 function setPensumToLocalStorage(data) {
     try {
         var code = 'cache_' + data.codigo;
-        var json = JSON.stringify(data);
+        var d = convertPensumToSave(data);
+        var json = JSON.stringify(d);
         window.localStorage.setItem(code, json);
         return true;
     }
@@ -2059,19 +2175,79 @@ function setPensumToLocalStorage(data) {
         return false;
     }
 }
-function getPensumFromLocalStorage(matCode) {
+function getPensumFromLocalStorage(pensumCode) {
     try {
-        var code = 'cache_' + matCode;
+        var code = 'cache_' + pensumCode;
         var json = window.localStorage.getItem(code);
-        return JSON.parse(json);
+        var p = JSON.parse(json);
+        return convertSaveToPensum(p);
     }
     catch (_a) {
         return null;
     }
 }
+function downloadPensumJson(data) {
+    downloadObjectAsJson(convertPensumToSave(data), data.codigo);
+}
 function getDateIdentifier() {
     var d = new Date();
     return "" + d.getFullYear() + d.getMonth() + d.getDate() + "_" + d.getHours() + "h" + d.getMinutes() + "m" + d.getSeconds() + "s";
+}
+function loadPensumFromJson() {
+    var _this = this;
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.click();
+    input.addEventListener('change', function () {
+        var ext = input.files[0]['name']
+            .substring(input.files[0]['name'].lastIndexOf('.') + 1)
+            .toLowerCase();
+        if (input.files && input.files[0] && ext == 'json') {
+            var reader = new FileReader();
+            reader.onload = function (e) { return __awaiter(_this, void 0, void 0, function () {
+                var txt, obj, p, numMatsLoaded, t, e_31, t;
+                return __generator(this, function (_a) {
+                    switch (_a.label) {
+                        case 0:
+                            _a.trys.push([0, 4, , 5]);
+                            txt = e.target.result;
+                            obj = JSON.parse(txt);
+                            if (!(obj && typeof (obj) === 'object')) return [3 /*break*/, 2];
+                            p = convertSaveToPensum(obj);
+                            return [4 /*yield*/, loadPensum(currentPensumData)];
+                        case 1:
+                            numMatsLoaded = _a.sent();
+                            if (numMatsLoaded) {
+                                t = numMatsLoaded + " materias cargadas.";
+                                if (errorCodes.size) {
+                                    t += "\n" + errorCodes.size + " materias no presentes!: \n";
+                                    t += errorCodesLog.map(function (x) { return '    ' + x[0] + ' (prerequisito de ' + x[1] + ')'; }).join('\n');
+                                }
+                                alert(t);
+                            }
+                            else {
+                                alert('Formato incorrecto!');
+                            }
+                            return [2 /*return*/];
+                        case 2: throw 'No hay información dentro del .json!';
+                        case 3: return [3 /*break*/, 5];
+                        case 4:
+                            e_31 = _a.sent();
+                            t = 'No se pudo cargar el archivo!';
+                            alert(t + '\n' + e_31.toString());
+                            console.warn(t);
+                            console.warn(e_31);
+                            return [3 /*break*/, 5];
+                        case 5: return [2 /*return*/];
+                    }
+                });
+            }); };
+            reader.readAsText(input.files[0]);
+        }
+        else {
+            console.info('progress.json file could not be uploaded.');
+        }
+    });
 }
 function downloadProgress() {
     var obj = createSaveObject();
@@ -2107,9 +2283,14 @@ function uploadProgress() {
                             return;
                         }
                     }
+                    else {
+                        throw 'No hay información dentro del .json!';
+                    }
                 }
                 catch (e) {
-                    console.warn('Could not load progress.json file!');
+                    var t = 'No se pudo cargar el archivo!';
+                    alert(t + '\n' + e.toString());
+                    console.warn(t);
                     console.warn(e);
                 }
             };

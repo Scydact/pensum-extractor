@@ -22,8 +22,5 @@
   "bugs": {
     "url": "https://github.com/ScyllarusDactyl/pensum-extractor/issues"
   },
-  "homepage": "https://github.com/ScyllarusDactyl/pensum-extractor#readme",
-  "dependencies": {
-    "pdfkit": "^0.12.1"
-  }
+  "homepage": "https://github.com/ScyllarusDactyl/pensum-extractor#readme"
 }

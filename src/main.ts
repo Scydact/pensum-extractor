@@ -9,7 +9,8 @@ var allIgnored = {}; // Mats that are no longer available and should be ommited 
 var currentPensumData: i_pensum = null;
 var currentPensumCode: string = '';
 var currentPensumMats: { [key: string]: i_mat } = {};
-var errorCodes = [];
+var errorCodes = new Set<string>();
+var errorCodesLog = [];
 
 const filterMode = {
     pending: true,
@@ -51,8 +52,6 @@ declare const primitives;
 declare const PDFDocument;
 declare const blobStream;
 declare const pdfjsLib;
-declare const pngcrush;
-
 
 
 const MANAGEMENT_TAKEN_CSS_CLASS = 'managementMode-taken';
@@ -89,7 +88,7 @@ interface i_pensum {
     /** Cuatrimestres de la carrera */
     cuats: i_mat_raw[][],
     /** Error, en caso de no poder cargar el pensum. */
-    error: string | null,
+    error?: string | null,
     /** Version de programa que leyo este pensum (CURRENT_PENSUM_VERSION) */
     version: number,
 }
@@ -108,11 +107,31 @@ interface i_mat_raw {
     /** Numero de cuatrimestre al que pertenece esta materia. */
     cuatrimestre: number,
 }
+
+/** Materia procesada, con prerequisitos */
 interface i_mat extends i_mat_raw {
     /** Codigos de materias que dependen de esta materia. */
     postreq: string[],
 }
 
+/** Materia sin partes extras, usada para guardar en formato JSON. */
+interface i_mat_save {
+    /** Codigo de la materia "ESP101". */
+    codigo: string,
+    /** Nombre de la materia "Analisis de textos discursivos I". */
+    asignatura: string,
+    /** Cantidad de creditos de la materia. */
+    creditos: number,
+    /** Codigos de materias prerequesitos. */
+    prereq?: string | string[],
+    /** Prerequesitos que no son materias (para graduacion). */
+    prereqExtra?: string | string[],
+}
+
+interface i_pensum_save extends Omit<i_pensum, 'cuats'> {
+    /** Cuatrimestres de la carrera */
+    cuats: i_mat_save[][]
+}
 
 /**
  * Converts the node fetched from UNAPEC to a jObject.
@@ -202,7 +221,8 @@ function extractPensumData(node) {
 /** Maps an array of Mats to an dict where the keys are the Mats' code */
 function matsToDict(arr: i_mat_raw[]) {
     let out: { [key: string]: i_mat } = {};
-    errorCodes = [];
+    errorCodes = new Set();
+    errorCodesLog = [];
 
     // Map all mats
     for (let x of arr)
@@ -214,7 +234,8 @@ function matsToDict(arr: i_mat_raw[]) {
             let pre = out[y];
             if (!pre) {
                 console.error(`[ERROR!]: No se encuentra la materia "${y}" (prerequisito de "${x.codigo}")`);
-                errorCodes.push(y);
+                errorCodes.add(y);
+                errorCodesLog.push([y, x.codigo])
             } else {
                 pre.postreq.push(x.codigo);
             }
@@ -310,9 +331,12 @@ function createMatBtn(dialog, code) {
 /** Adds or removes MANAGEMENT_TAKEN_CLASS to the related elements. */
 function updateTakenPrereqClasses(node: HTMLElement | HTMLDocument = document) {
     for (let elem of node.getElementsByClassName('c__')) {
-        elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS);
-        elem.classList.remove(MANAGEMENT_ONCOURSE_CSS_CLASS);
-        elem.classList.remove(MANAGEMENT_SELECTED_CSS_CLASS);
+        elem.classList.remove(
+            MANAGEMENT_TAKEN_CSS_CLASS,
+            MANAGEMENT_ONCOURSE_CSS_CLASS,
+            MANAGEMENT_SELECTED_CSS_CLASS,
+            MANAGEMENT_ERROR_CSS_CLASS,
+        );
     }
 
     for (let code of userProgress.passed) {
@@ -346,9 +370,12 @@ function updateSingleTakenPrereqClasses(elem: HTMLElement) {
     var cl = elem.classList;
     if (!cl.contains('c__')) return;
 
-    elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS);
-    elem.classList.remove(MANAGEMENT_ONCOURSE_CSS_CLASS);
-    elem.classList.remove(MANAGEMENT_SELECTED_CSS_CLASS);
+    elem.classList.remove(
+        MANAGEMENT_TAKEN_CSS_CLASS,
+        MANAGEMENT_ONCOURSE_CSS_CLASS,
+        MANAGEMENT_SELECTED_CSS_CLASS,
+        MANAGEMENT_ERROR_CSS_CLASS,
+    );
 
     for (let code of userProgress.passed) {
         code = safeForHtmlId(code);
@@ -1137,24 +1164,6 @@ function createInfoList(data) {
 //#endregion
 
 //#region Dialogs
-// Legacy fn... integrated into createImportExportDialog()
-function createAllDownloadsDialog() {
-    let dialog = new DialogBox();
-    let node = dialog.contentNode;
-
-    createElement(node, 'h3', 'Descargar pensum');
-    node.appendChild(
-        createSecondaryButton(
-            `Descargar .xlsx (Excel)`,
-            downloadCurrentPensumAsExcel
-        )
-    );
-
-    node.appendChild(document.createElement('br'));
-    node.appendChild(dialog.createCloseButton());
-    return dialog;
-}
-
 function createImportExportDialog() {
     let dialog = new DialogBox();
     let node = dialog.contentNode;
@@ -1174,14 +1183,40 @@ function createImportExportDialog() {
     node.appendChild(
         createSecondaryButton('Importar progreso.json', uploadProgress)
     );
+    node.appendChild(
+        createSecondaryButton('Reiniciar selección', () => {
+            if (confirm('Seguro que desea reiniciar la selección?')) {
+                userProgress.passed = new Set();
+                userProgress.onCourse = new Set();
+                userProgress.selected = new Set();
+                alert('Selección reiniciada.');
+                dialog.hide();
+                drawPensumTable();
+            }
+        })
+    );
 
     node.appendChild(document.createElement('br'));
 
-    createElement(node, 'h3', 'Descargar pensum como Excel');
+    createElement(node, 'h3', 'Descargar pensum en otros formatos');
     node.appendChild(
         createSecondaryButton(
             `Descargar .xlsx (Excel)`,
             downloadCurrentPensumAsExcel
+        )
+    );
+    node.appendChild(
+        createSecondaryButton(
+            `[Para pruebas] Descargar .json`,
+            () => downloadPensumJson(currentPensumData),
+            ['note']
+        )
+    );
+    node.appendChild(
+        createSecondaryButton(
+            `[Para pruebas] Cargar desde .json`,
+            loadPensumFromJson,
+            ['note']
         )
     );
 
@@ -1190,10 +1225,15 @@ function createImportExportDialog() {
     return dialog;
 }
 
+//#endregion
+
+
+//#region Org chart
+
 function createOrgChartOptions(onTemplateRender = null, selected = null) {
     // Generate orgchart
     var options = new primitives.FamConfig();
-    var items = matsToOrgChart(currentPensumData.cuats.flat());
+    var items = matsToOrgChart(currentPensumData.cuats.flat(), errorCodes);
 
     options = {
         ...options,
@@ -1282,6 +1322,7 @@ function createOrgChartDialog(selected = null) {
     node.appendChild(dialog.createCloseButton());
     dialog.show();
 
+    // @ts-ignore
     new ResizeObserver(() => control.update(primitives.UpdateMode.Refresh)).observe(node);
 
     return [dialog, control];
@@ -1374,7 +1415,7 @@ function downloadOrgChartPdf() {
 
 //#region OrgChart templates
 
-function matsToOrgChart(mats: i_mat_raw[]) {
+function matsToOrgChart(mats: i_mat_raw[], errorCodes: Set<string> = new Set()) {
     let o = [];
     for (let i = 0; i < mats.length; ++i) {
         let x = mats[i];
@@ -1384,7 +1425,22 @@ function matsToOrgChart(mats: i_mat_raw[]) {
             primaryParent: x.prereq || null,
             //relativeItem: mats[i - 1] || null,
             templateName: 'matTemplate',
+            error: false,
             ...x
+        };
+        o.push(y);
+    }
+    for (let i = 0, ec = [...errorCodes], l = ec.length; i < l; ++i) {
+        let x = ec[i];
+        let y = {
+            id: x,
+            parents: "base",
+            templateName: 'matTemplate',
+            asignatura: '???',
+            codigo: x,
+            creditos: '0',
+            cuatrimestre: '???',
+            error: true,
         };
         o.push(y);
     }
@@ -1428,7 +1484,6 @@ function onWebTemplateRender(event, data, dialog = null) {
 
         en('title').textContent = itemConfig.asignatura;
         en('codigo').textContent = '[' + itemConfig.codigo + ']';
-        en('creditos').textContent = 'Creditos: ' + itemConfig.creditos;
         en('cred_top').textContent = itemConfig.creditos.toString();
         en('cred_top').setAttribute('value', itemConfig.creditos.toString())
         en('creditos').textContent = 'Cuatrim.: ' + itemConfig.cuatrimestre;
@@ -1449,6 +1504,8 @@ function onPdfTemplateRender(doc, pos, data) {
         statusColor = '#e6ffe8';    // Green
     else if (userProgress.onCourse.has(code))
         statusColor = '#fff9de';    // Yellow
+    else if (errorCodes.has(code))
+        statusColor = '#ff4444';    // Red (error)
     else
         statusColor = '#f2f9ff'; // Default Blue
 
@@ -1612,6 +1669,7 @@ function loadFromObject(obj) {
     // Up to SaveVer 4
     if (obj.progress) userProgress.passed = new Set(obj.progress);
 
+    // > SaveVer 5
     if (obj.userData) {
         let ud = obj.userData;
         if (ud.passed) userProgress.passed = new Set(ud.passed);
@@ -1623,6 +1681,8 @@ function loadFromObject(obj) {
     if (obj.selectMode) userSelectMode = obj.selectMode;
     return true;
 }
+
+
 
 
 function saveToLocalStorage() {
@@ -1701,7 +1761,7 @@ async function fetchHtmlAsText(
             var timeoutId = setTimeout(() => {
                 controller.abort();
                 console.warn('Timed out!');
-            }, 3e3);
+            }, 4e3);
             var sendDate = new Date().getTime();
 
             var currUrl = currProxy + url;
@@ -1725,10 +1785,7 @@ async function fetchHtmlAsText(
         } catch (err) {
             clearTimeout(timeoutId);
             var recieveDate = new Date().getTime();
-            console.warn(
-                `CORS proxy '${currProxy}' failed in ${recieveDate - sendDate
-                }ms.'`
-            );
+            console.warn(`CORS proxy '${currProxy}' failed in ${recieveDate - sendDate}ms.'`);
             console.warn(err);
 
             if (currentProxyCallback)
@@ -1829,15 +1886,16 @@ function createElement(
     let x = document.createElement(tag);
     parentNode.appendChild(x);
     if (innerHTML !== null) x.innerHTML = innerHTML;
-    classes.forEach((clss) => x.classList.add(clss));
+    if (classes.length)
+        x.classList.add(...classes);
     return x;
 }
 
-function createSecondaryButton(text, callback) {
+function createSecondaryButton(text, callback, classes = []) {
     let a = document.createElement('a');
     a.addEventListener('click', callback);
     a.innerHTML = text;
-    a.classList.add('btn-secondary');
+    a.classList.add('btn-secondary', ...classes);
     return a;
 }
 
@@ -1863,7 +1921,7 @@ function safeForHtmlId(str: string) {
 //#region Init
 
 /** This function is called by the <search> button */
-async function loadPensum() {
+async function loadPensum(customPensum: i_pensum = null) {
     var infoWrap = document.getElementById('infoWrapper');
 
     // currentProxyCallback('request', currProxy, i);
@@ -1897,44 +1955,81 @@ async function loadPensum() {
         return;
     }
 
-    // try to check if its on localStorage, else check online and cache if successful.
-    setInfoWrap(`Buscando ${currentPensumCode} en cache local.`);
-    currentPensumData = getPensumFromLocalStorage(currentPensumCode);
-    if (currentPensumData === null || !currentPensumData['version'] || currentPensumData.version < CURRENT_PENSUM_VERSION) {
-        let pensumNode = await fetchPensumTable(
-            currentPensumCode,
-            (returnCode, proxy, index) => {
-                let n = index + 1;
-                switch (returnCode) {
-                    case 'success':
-                        setInfoWrap(
-                            `Pensum encontrado en ${proxy} (intento ${n})`
-                        );
-                        break;
-                    case 'request':
-                        setInfoWrap(
-                            `Buscando pensum en ${proxy} (intento ${n})`
-                        );
-                        break;
-                    case 'error':
-                        setInfoWrap(`Error en ${proxy} (intento ${n})`);
-                        break;
-                    default:
-                        setInfoWrap(`??? (${proxy}) (intento ${n})`);
-                        break;
-                }
-            }
-        );
-        currentPensumData = extractPensumData(pensumNode);
+    let loadedFromCustomPensum = false;
+    if (customPensum) {
+        // LOAD FROM LOCAL FILE
+        if (customPensum.carrera
+            && customPensum.codigo
+            && customPensum.cuats) {
+            currentPensumData = customPensum;
+            loadedFromCustomPensum = true;
+            console.info(customPensum.codigo + ' loaded from local import (.json).');
+        } else {
+            return false;
+        }
 
-        // Update cache and currentPensumCode if successfuly fetched.
-        if (currentPensumData) {
-            let newCode = currentPensumData.codigo;
-            codigoMateriaInput.value = newCode;
-            currentPensumCode = newCode;
-            setPensumToLocalStorage(currentPensumData);
+    } else {
+        // LOAD FROM INTERNET
+        // try to check if its on localStorage, else check online and cache if successful.
+        setInfoWrap(`Buscando ${currentPensumCode} en cache local.`);
+        currentPensumData = getPensumFromLocalStorage(currentPensumCode);
+        if (currentPensumData === null || !currentPensumData['version'] || currentPensumData.version < CURRENT_PENSUM_VERSION) {
+            currentPensumData = null;
+            // Try from ./pensum first
+            setInfoWrap(`Buscando ${currentPensumCode} en versiones de respaldo.`);
+            try {
+                let pResponse = await fetch('./pensum/' + currentPensumCode + '.json');
+                let obj = await pResponse.json();
+                if (obj !== null && obj['version']) {
+                    currentPensumData = convertSaveToPensum(obj);
+                    console.info(currentPensumCode + ' found inside ./pensum/!');
+                }
+
+            } catch (e) {
+                console.info(currentPensumCode + ' not found inside ./pensum/...');
+            }
+
+            // Try to fetch from site (with proxies)
+            if (!currentPensumData) {
+                let pensumNode = await fetchPensumTable(
+                    currentPensumCode,
+                    (returnCode, proxy, index) => {
+                        let n = index + 1;
+                        switch (returnCode) {
+                            case 'success':
+                                setInfoWrap(
+                                    `Pensum ${currentPensumCode} encontrado en ${proxy} (intento ${n})`
+                                );
+                                break;
+                            case 'request':
+                                setInfoWrap(
+                                    `Buscando pensum ${currentPensumCode} en ${proxy} (intento ${n})`
+                                );
+                                break;
+                            case 'error':
+                                setInfoWrap(`Error en ${proxy} (intento ${n})`);
+                                break;
+                            default:
+                                setInfoWrap(`??? (${proxy}) (intento ${n})`);
+                                break;
+                        }
+                    }
+                );
+                currentPensumData = extractPensumData(pensumNode);
+            }
+
+            // Update cache and currentPensumCode if successfuly fetched.
+            if (currentPensumData) {
+                let newCode = currentPensumData.codigo;
+                codigoMateriaInput.value = newCode;
+                currentPensumCode = newCode;
+                setPensumToLocalStorage(currentPensumData);
+            }
+        } else {
+            console.info(currentPensumData.codigo + ' loaded from localStorage.');
         }
     }
+
 
     // If data was succesfully found
     if (currentPensumData) {
@@ -1953,18 +2048,18 @@ async function loadPensum() {
             infoWrap.appendChild(h);
 
             infoWrap.appendChild(createInfoList(currentPensumData));
+            var t0 = 'Recuerde guardar una copia de su selección en su disco local (o en las nubes).';
+            createElement(infoWrap, 'p', t0, ['note']);
 
-            let btnwrp = createElement(infoWrap, 'div', '', [
-                'inline-btn-wrapper',
-            ]);
+            let btnwrp = createElement(infoWrap, 'div', '', ['inline-btn-wrapper']);
 
             // Original Pensum link from UNAPEC
-            let a = createElement(btnwrp, 'a', '', [
-                'btn-secondary',
-            ]) as HTMLAnchorElement;
+            let a = createElement(btnwrp, 'a', '', ['btn-secondary']) as HTMLAnchorElement;
             a.href = unapecPensumUrl + currentPensumCode;
             a.target = '_blank';
             a.innerText = '🌐 Ver pensum original';
+            if (loadedFromCustomPensum)
+                a.classList.add('disabled');
 
             btnwrp.appendChild(
                 createSecondaryButton('💾 Guardar/Cargar selección', () =>
@@ -1978,14 +2073,12 @@ async function loadPensum() {
                 )
             );
 
-            // btnwrp.appendChild(
-            //     createSecondaryButton('Descargar como Excel...', () =>
-            //         createAllDownloadsDialog().show()
-            //     )
-            // );
+            return currentPensumData.cuats.flat().length;
         }
     } else {
         infoWrap.innerText = 'No se ha encontrado el pensum!';
+        clearPensumTable();
+        return false;
     }
 }
 
@@ -2003,10 +2096,65 @@ function drawPensumTable() {
     else wrapper.appendChild(div);
 }
 
-function setPensumToLocalStorage(data) {
+function clearPensumTable() {
+    var wrapper = document.getElementById('pensumWrapper');
+    while (wrapper.firstChild)
+        wrapper.removeChild(wrapper.firstChild);
+}
+
+function convertPensumToSave(data: i_pensum) {
+    let newCuats = data.cuats.map(cuat =>
+        cuat.map(mat => {
+            let newMat = { ...mat } as any;
+
+            delete newMat.cuatrimestre;
+
+            if (!newMat.prereq.length)
+                delete newMat.prereq
+            else if (newMat.prereq.length === 1) {
+                newMat.prereq = newMat.prereq[0];
+            }
+
+            if (!newMat.prereqExtra.length)
+                delete newMat.prereqExtra
+            else if (newMat.prereqExtra.length === 1) {
+                newMat.prereqExtra = newMat.prereqExtra[0];
+            }
+            return newMat as i_mat_save;
+        })
+    )
+    return { ...data, cuats: newCuats } as i_pensum_save
+}
+
+function convertSaveToPensum(data: i_pensum_save) {
+    let newCuats = [];
+    for (let i = 0, l = data.cuats.length; i < l; ++i) {
+        newCuats.push(data.cuats[i].map(mat => {
+            let newMat = { ...mat } as any;
+
+            newMat.cuatrimestre = i + 1;
+
+            if (newMat.prereq === undefined)
+                newMat.prereq = [];
+            else if (typeof newMat.prereq === 'string')
+                newMat.prereq = [newMat.prereq];
+
+            if (newMat.prereqExtra === undefined)
+                newMat.prereqExtra = [];
+            else if (typeof newMat.prereqExtra === 'string')
+                newMat.prereqExtra = [newMat.prereqExtra];
+
+            return newMat as i_mat_raw;
+        }))
+    }
+    return { ...data, cuats: newCuats } as i_pensum
+}
+
+function setPensumToLocalStorage(data: i_pensum) {
     try {
         let code = 'cache_' + data.codigo;
-        let json = JSON.stringify(data);
+        let d = convertPensumToSave(data);
+        let json = JSON.stringify(d);
         window.localStorage.setItem(code, json);
         return true;
     } catch {
@@ -2014,20 +2162,73 @@ function setPensumToLocalStorage(data) {
     }
 }
 
-function getPensumFromLocalStorage(matCode) {
+function getPensumFromLocalStorage(pensumCode: string) {
     try {
-        let code = 'cache_' + matCode;
+        let code = 'cache_' + pensumCode;
         let json = window.localStorage.getItem(code);
-        return JSON.parse(json);
+        let p = JSON.parse(json) as i_pensum_save;
+        return convertSaveToPensum(p);
     } catch {
         return null;
     }
+}
+
+function downloadPensumJson(data: i_pensum) {
+    downloadObjectAsJson(convertPensumToSave(data), data.codigo);
 }
 
 function getDateIdentifier() {
     let d = new Date();
     return `${d.getFullYear()}${d.getMonth()}${d.getDate()}_${d.getHours()}h${d.getMinutes()}m${d.getSeconds()}s`;
 }
+
+
+function loadPensumFromJson() {
+    let input = document.createElement('input');
+    input.type = 'file';
+    input.click();
+    input.addEventListener('change', () => {
+        let ext = input.files[0]['name']
+            .substring(input.files[0]['name'].lastIndexOf('.') + 1)
+            .toLowerCase();
+        if (input.files && input.files[0] && ext == 'json') {
+            let reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    let txt = e.target.result as string;
+                    let obj = JSON.parse(txt);
+
+                    if (obj && typeof (obj) === 'object') {
+                        let p = convertSaveToPensum(obj);
+                        let numMatsLoaded = await loadPensum(currentPensumData);
+                        if (numMatsLoaded) {
+                            let t = `${numMatsLoaded} materias cargadas.`;
+                            if (errorCodes.size) {
+                                t += `\n${errorCodes.size} materias no presentes!: \n`
+                                t += errorCodesLog.map(x => '    ' + x[0] + ' (prerequisito de ' + x[1] + ')').join('\n');
+                            }
+                            alert(t)
+                        } else {
+                            alert('Formato incorrecto!')
+                        }
+                        return;
+                    } else {
+                        throw 'No hay información dentro del .json!';
+                    }
+                } catch (e) {
+                    let t = 'No se pudo cargar el archivo!'
+                    alert(t + '\n' + e.toString())
+                    console.warn(t);
+                    console.warn(e);
+                }
+            };
+            reader.readAsText(input.files[0]);
+        } else {
+            console.info('progress.json file could not be uploaded.');
+        }
+    });
+}
+
 
 function downloadProgress() {
     let obj = createSaveObject();
@@ -2064,9 +2265,13 @@ function uploadProgress() {
                             alert(`Se han seleccionado ${userProgress.passed.size} materias de ${input.files[0].name}.`);
                             return;
                         }
+                    } else {
+                        throw 'No hay información dentro del .json!';
                     }
                 } catch (e) {
-                    console.warn('Could not load progress.json file!');
+                    let t = 'No se pudo cargar el archivo!'
+                    alert(t + '\n' + e.toString())
+                    console.warn(t);
                     console.warn(e);
                 }
             };
