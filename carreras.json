@@ -27,21 +27,41 @@
         },
         {
             "codigo": "ADM10",
+            "nombre": "[Antiguo] LICENCIATURA EN ADMINISTRACION DE EMPRESAS",
+            "escuela": "Escuela de Administración"
+        },
+        {
+            "codigo": "ADM11",
             "nombre": "LICENCIATURA EN ADMINISTRACION DE EMPRESAS",
             "escuela": "Escuela de Administración"
         },
         {
             "codigo": "ATH7",
+            "nombre": "[Antiguo] LICENCIATURA EN ADMINISTRACION TURISTICA Y HOTELERA",
+            "escuela": "Decanato de Turismo"
+        },
+        {
+            "codigo": "ATH11",
             "nombre": "LICENCIATURA EN ADMINISTRACION TURISTICA Y HOTELERA",
             "escuela": "Decanato de Turismo"
         },
         {
             "codigo": "CDG10",
+            "nombre": "[Antiguo] LICENCIATURA EN COMUNICACION DIGITAL",
+            "escuela": "Decanato de Artes y Comunicación"
+        },
+        {
+            "codigo": "CDG11",
             "nombre": "LICENCIATURA EN COMUNICACION DIGITAL",
             "escuela": "Decanato de Artes y Comunicación"
         },
         {
             "codigo": "CON10",
+            "nombre": "[Antiguo] LICENCIATURA EN CONTABILIDAD",
+            "escuela": "Escuela de Contabilidad y Finanzas"
+        },
+        {
+            "codigo": "CON11",
             "nombre": "LICENCIATURA EN CONTABILIDAD",
             "escuela": "Escuela de Contabilidad y Finanzas"
         },
@@ -52,11 +72,21 @@
         },
         {
             "codigo": "DIN10",
+            "nombre": "[Antiguo] LICENCIATURA EN DISEÑO DE INTERIORES",
+            "escuela": "Decanato de Artes y Comunicación"
+        },
+        {
+            "codigo": "DIN11",
             "nombre": "LICENCIATURA EN DISEÑO DE INTERIORES",
             "escuela": "Decanato de Artes y Comunicación"
         },
         {
             "codigo": "DIG10",
+            "nombre": "[Antiguo] LICENCIATURA EN DISEÑO GRAFICO",
+            "escuela": "Decanato de Artes y Comunicación"
+        },
+        {
+            "codigo": "DIG11",
             "nombre": "LICENCIATURA EN DISEÑO GRAFICO",
             "escuela": "Decanato de Artes y Comunicación"
         },
@@ -67,16 +97,31 @@
         },
         {
             "codigo": "MER10",
+            "nombre": "[Antiguo] LICENCIATURA EN MERCADOTECNIA",
+            "escuela": "Escuela de Mercadeo y Negocios Internacionales"
+        },
+        {
+            "codigo": "MER11",
             "nombre": "LICENCIATURA EN MERCADOTECNIA",
             "escuela": "Escuela de Mercadeo y Negocios Internacionales"
         },
         {
             "codigo": "NIN7",
+            "nombre": "[Antiguo] LICENCIATURA EN NEGOCIOS INTERNACIONALES",
+            "escuela": "Escuela de Mercadeo y Negocios Internacionales"
+        },
+        {
+            "codigo": "NIN11",
             "nombre": "LICENCIATURA EN NEGOCIOS INTERNACIONALES",
             "escuela": "Escuela de Mercadeo y Negocios Internacionales"
         },
         {
             "codigo": "PUB10",
+            "nombre": "[Antiguo] LICENCIATURA EN PUBLICIDAD",
+            "escuela": "Decanato de Artes y Comunicación"
+        },
+        {
+            "codigo": "PUB11",
             "nombre": "LICENCIATURA EN PUBLICIDAD",
             "escuela": "Decanato de Artes y Comunicación"
         },

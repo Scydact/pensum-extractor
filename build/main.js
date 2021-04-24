@@ -77,7 +77,7 @@ var __spread = (this && this.__spread) || function () {
     return ar;
 };
 var saveVer = 5;
-var jsVer = 2;
+var jsVer = 3;
 var SAVE_DATA_LOCALSTORAGE = 'saveData';
 var SAVE_TO_LOCALSTORAGE = true;
 var CARRERAS = [];
@@ -1774,6 +1774,7 @@ function fetchHtmlAsText(url, opts, forceProxy, currentProxyCallback) {
             switch (_a.label) {
                 case 0:
                     corsOverride = [
+                        '',
                         'https://api.allorigins.win/raw?url=',
                         'https://yacdn.org/serve/',
                         'https://cors-anywhere.herokuapp.com/',
@@ -2214,7 +2215,7 @@ function loadPensumFromJson() {
                             obj = JSON.parse(txt);
                             if (!(obj && typeof (obj) === 'object')) return [3 /*break*/, 2];
                             p = convertSaveToPensum(obj);
-                            return [4 /*yield*/, loadPensum(currentPensumData)];
+                            return [4 /*yield*/, loadPensum(p)];
                         case 1:
                             numMatsLoaded = _a.sent();
                             if (numMatsLoaded) {

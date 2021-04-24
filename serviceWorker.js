@@ -34,9 +34,6 @@ function precache() {
             './lib/basic-primitives/css/primitives.css',
 
             './build/main.js',
-            './carreras.json',
-
-            './ignoredMats.json'
         ])
     })
 }

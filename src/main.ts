@@ -1,5 +1,5 @@
 const saveVer = 5;
-const jsVer = 2;
+const jsVer = 3;
 const SAVE_DATA_LOCALSTORAGE = 'saveData';
 var SAVE_TO_LOCALSTORAGE = true;
 var CARRERAS: { codigo: string, nombre: string, escuela: string, }[] = [];
@@ -49,7 +49,9 @@ declare const XLSX;
 declare const Awesomplete;
 // OrgChart
 declare const primitives;
+// Export OrgChart as PDF
 declare const PDFDocument;
+// Render OrgChart PDF to PNG
 declare const blobStream;
 declare const pdfjsLib;
 
@@ -1735,6 +1737,7 @@ async function fetchHtmlAsText(
     currentProxyCallback = null
 ) {
     const corsOverride = [
+        '',                                     // no proxy
         'https://api.allorigins.win/raw?url=',
         'https://yacdn.org/serve/',
         'https://cors-anywhere.herokuapp.com/', // has request limit (200 per hour)
@@ -2200,7 +2203,7 @@ function loadPensumFromJson() {
 
                     if (obj && typeof (obj) === 'object') {
                         let p = convertSaveToPensum(obj);
-                        let numMatsLoaded = await loadPensum(currentPensumData);
+                        let numMatsLoaded = await loadPensum(p);
                         if (numMatsLoaded) {
                             let t = `${numMatsLoaded} materias cargadas.`;
                             if (errorCodes.size) {
