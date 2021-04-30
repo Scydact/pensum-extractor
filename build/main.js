@@ -643,7 +643,7 @@ function createToolbox() {
         //updateSelectionBox();
         var actions = [
             {
-                label: 'Aprobar materias en curso"',
+                label: 'Aprobar materias en curso',
                 action: function () {
                     __spread(userProgress.onCourse).forEach(function (x) {
                         removeBySelectMode(x, SelectMode.OnCourse);
@@ -1807,7 +1807,7 @@ function loadPensum(customPensum) {
                         rpci = Math.round(Math.random() * (carr.length - 1));
                         rpc = (_a = carr[rpci]) !== null && _a !== void 0 ? _a : { codigo: "DIG10", nombre: "LICENCIATURA EN DISEÑO GRAFICO", escuela: "Decanato de Artes y Comunicación" };
                         rpcn = rpc.nombre.split(' ').filter(function (x) { return !['LICENCIATURA', 'EN', 'DE', 'INGENIERIA', '[Antiguo]'].includes(x); }).join(' ');
-                        rpcn_r = rpcn.slice(0, Math.round(rpcn.length * (0.5 + 0.25 * (Math.random() - 0.3)))) + '...';
+                        rpcn_r = rpcn.slice(0, Math.round(rpcn.length * (0.7 + 0.25 * (Math.random() - 0.3)))) + '...';
                         x = [
                             "Favor inserte un codigo de pensum (ej " + rpc.codigo + ").",
                             '',
