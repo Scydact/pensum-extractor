@@ -76,8 +76,8 @@ var __spread = (this && this.__spread) || function () {
     for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
     return ar;
 };
-var saveVer = 5;
-var jsVer = 3;
+var saveVer = 6;
+var jsVer = 4;
 var SAVE_DATA_LOCALSTORAGE = 'saveData';
 var SAVE_TO_LOCALSTORAGE = true;
 var CARRERAS = [];
@@ -97,13 +97,11 @@ var currentProgress = new Set();
 var userProgress = {
     passed: new Set(),
     onCourse: new Set(),
-    selected: new Set(),
 };
 var SelectMode;
 (function (SelectMode) {
     SelectMode[SelectMode["Passed"] = 0] = "Passed";
     SelectMode[SelectMode["OnCourse"] = 1] = "OnCourse";
-    SelectMode[SelectMode["Select"] = 2] = "Select";
 })(SelectMode || (SelectMode = {}));
 var userSelectMode = SelectMode.Passed;
 function getUserProgressList(mode) {
@@ -111,7 +109,6 @@ function getUserProgressList(mode) {
     var a = (_a = {},
         _a[SelectMode.Passed] = 'passed',
         _a[SelectMode.OnCourse] = 'onCourse',
-        _a[SelectMode.Select] = 'selected',
         _a);
     return userProgress[a[mode]];
 }
@@ -361,35 +358,35 @@ function createMatBtn(dialog, code) {
 }
 /** Adds or removes MANAGEMENT_TAKEN_CLASS to the related elements. */
 function updateTakenPrereqClasses(node) {
-    var e_6, _a, e_7, _b, e_8, _c, e_9, _d, e_10, _e, e_11, _f, e_12, _g, e_13, _h, e_14, _j;
+    var e_6, _a, e_7, _b, e_8, _c, e_9, _d, e_10, _e, e_11, _f, e_12, _g;
     if (node === void 0) { node = document; }
     try {
-        for (var _k = __values(node.getElementsByClassName('c__')), _l = _k.next(); !_l.done; _l = _k.next()) {
-            var elem = _l.value;
+        for (var _h = __values(node.getElementsByClassName('c__')), _j = _h.next(); !_j.done; _j = _h.next()) {
+            var elem = _j.value;
             elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS, MANAGEMENT_ONCOURSE_CSS_CLASS, MANAGEMENT_SELECTED_CSS_CLASS, MANAGEMENT_ERROR_CSS_CLASS);
         }
     }
     catch (e_6_1) { e_6 = { error: e_6_1 }; }
     finally {
         try {
-            if (_l && !_l.done && (_a = _k.return)) _a.call(_k);
+            if (_j && !_j.done && (_a = _h.return)) _a.call(_h);
         }
         finally { if (e_6) throw e_6.error; }
     }
     try {
-        for (var _m = __values(userProgress.passed), _o = _m.next(); !_o.done; _o = _m.next()) {
-            var code = _o.value;
+        for (var _k = __values(userProgress.passed), _l = _k.next(); !_l.done; _l = _k.next()) {
+            var code = _l.value;
             code = safeForHtmlId(code);
             try {
-                for (var _p = (e_8 = void 0, __values(node.getElementsByClassName("c_" + code))), _q = _p.next(); !_q.done; _q = _p.next()) {
-                    var elem = _q.value;
+                for (var _m = (e_8 = void 0, __values(node.getElementsByClassName("c_" + code))), _o = _m.next(); !_o.done; _o = _m.next()) {
+                    var elem = _o.value;
                     elem.classList.add(MANAGEMENT_TAKEN_CSS_CLASS);
                 }
             }
             catch (e_8_1) { e_8 = { error: e_8_1 }; }
             finally {
                 try {
-                    if (_q && !_q.done && (_c = _p.return)) _c.call(_p);
+                    if (_o && !_o.done && (_c = _m.return)) _c.call(_m);
                 }
                 finally { if (e_8) throw e_8.error; }
             }
@@ -398,24 +395,24 @@ function updateTakenPrereqClasses(node) {
     catch (e_7_1) { e_7 = { error: e_7_1 }; }
     finally {
         try {
-            if (_o && !_o.done && (_b = _m.return)) _b.call(_m);
+            if (_l && !_l.done && (_b = _k.return)) _b.call(_k);
         }
         finally { if (e_7) throw e_7.error; }
     }
     try {
-        for (var _r = __values(userProgress.onCourse), _s = _r.next(); !_s.done; _s = _r.next()) {
-            var code = _s.value;
+        for (var _p = __values(userProgress.onCourse), _q = _p.next(); !_q.done; _q = _p.next()) {
+            var code = _q.value;
             code = safeForHtmlId(code);
             try {
-                for (var _t = (e_10 = void 0, __values(node.getElementsByClassName("c_" + code))), _u = _t.next(); !_u.done; _u = _t.next()) {
-                    var elem = _u.value;
+                for (var _r = (e_10 = void 0, __values(node.getElementsByClassName("c_" + code))), _s = _r.next(); !_s.done; _s = _r.next()) {
+                    var elem = _s.value;
                     elem.classList.add(MANAGEMENT_ONCOURSE_CSS_CLASS);
                 }
             }
             catch (e_10_1) { e_10 = { error: e_10_1 }; }
             finally {
                 try {
-                    if (_u && !_u.done && (_e = _t.return)) _e.call(_t);
+                    if (_s && !_s.done && (_e = _r.return)) _e.call(_r);
                 }
                 finally { if (e_10) throw e_10.error; }
             }
@@ -424,24 +421,24 @@ function updateTakenPrereqClasses(node) {
     catch (e_9_1) { e_9 = { error: e_9_1 }; }
     finally {
         try {
-            if (_s && !_s.done && (_d = _r.return)) _d.call(_r);
+            if (_q && !_q.done && (_d = _p.return)) _d.call(_p);
         }
         finally { if (e_9) throw e_9.error; }
     }
     try {
-        for (var _v = __values(userProgress.selected), _w = _v.next(); !_w.done; _w = _v.next()) {
-            var code = _w.value;
+        for (var errorCodes_1 = __values(errorCodes), errorCodes_1_1 = errorCodes_1.next(); !errorCodes_1_1.done; errorCodes_1_1 = errorCodes_1.next()) {
+            var code = errorCodes_1_1.value;
             code = safeForHtmlId(code);
             try {
-                for (var _x = (e_12 = void 0, __values(node.getElementsByClassName("c_" + code))), _y = _x.next(); !_y.done; _y = _x.next()) {
-                    var elem = _y.value;
-                    elem.classList.add(MANAGEMENT_SELECTED_CSS_CLASS);
+                for (var _t = (e_12 = void 0, __values(node.getElementsByClassName("c_" + code))), _u = _t.next(); !_u.done; _u = _t.next()) {
+                    var elem = _u.value;
+                    elem.classList.add(MANAGEMENT_ERROR_CSS_CLASS);
                 }
             }
             catch (e_12_1) { e_12 = { error: e_12_1 }; }
             finally {
                 try {
-                    if (_y && !_y.done && (_g = _x.return)) _g.call(_x);
+                    if (_u && !_u.done && (_g = _t.return)) _g.call(_t);
                 }
                 finally { if (e_12) throw e_12.error; }
             }
@@ -450,88 +447,47 @@ function updateTakenPrereqClasses(node) {
     catch (e_11_1) { e_11 = { error: e_11_1 }; }
     finally {
         try {
-            if (_w && !_w.done && (_f = _v.return)) _f.call(_v);
+            if (errorCodes_1_1 && !errorCodes_1_1.done && (_f = errorCodes_1.return)) _f.call(errorCodes_1);
         }
         finally { if (e_11) throw e_11.error; }
-    }
-    try {
-        for (var errorCodes_1 = __values(errorCodes), errorCodes_1_1 = errorCodes_1.next(); !errorCodes_1_1.done; errorCodes_1_1 = errorCodes_1.next()) {
-            var code = errorCodes_1_1.value;
-            code = safeForHtmlId(code);
-            try {
-                for (var _z = (e_14 = void 0, __values(node.getElementsByClassName("c_" + code))), _0 = _z.next(); !_0.done; _0 = _z.next()) {
-                    var elem = _0.value;
-                    elem.classList.add(MANAGEMENT_ERROR_CSS_CLASS);
-                }
-            }
-            catch (e_14_1) { e_14 = { error: e_14_1 }; }
-            finally {
-                try {
-                    if (_0 && !_0.done && (_j = _z.return)) _j.call(_z);
-                }
-                finally { if (e_14) throw e_14.error; }
-            }
-        }
-    }
-    catch (e_13_1) { e_13 = { error: e_13_1 }; }
-    finally {
-        try {
-            if (errorCodes_1_1 && !errorCodes_1_1.done && (_h = errorCodes_1.return)) _h.call(errorCodes_1);
-        }
-        finally { if (e_13) throw e_13.error; }
     }
 }
 /** Adds or removes MANAGEMENT_TAKEN_CLASS to a single element. */
 function updateSingleTakenPrereqClasses(elem) {
-    var e_15, _a, e_16, _b, e_17, _c, e_18, _d;
+    var e_13, _a, e_14, _b, e_15, _c;
     var cl = elem.classList;
     if (!cl.contains('c__'))
         return;
     elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS, MANAGEMENT_ONCOURSE_CSS_CLASS, MANAGEMENT_SELECTED_CSS_CLASS, MANAGEMENT_ERROR_CSS_CLASS);
     try {
-        for (var _e = __values(userProgress.passed), _f = _e.next(); !_f.done; _f = _e.next()) {
-            var code = _f.value;
+        for (var _d = __values(userProgress.passed), _e = _d.next(); !_e.done; _e = _d.next()) {
+            var code = _e.value;
             code = safeForHtmlId(code);
             if (cl.contains("c_" + code))
                 cl.add(MANAGEMENT_TAKEN_CSS_CLASS);
         }
     }
-    catch (e_15_1) { e_15 = { error: e_15_1 }; }
+    catch (e_13_1) { e_13 = { error: e_13_1 }; }
     finally {
         try {
-            if (_f && !_f.done && (_a = _e.return)) _a.call(_e);
+            if (_e && !_e.done && (_a = _d.return)) _a.call(_d);
         }
-        finally { if (e_15) throw e_15.error; }
+        finally { if (e_13) throw e_13.error; }
     }
     try {
-        for (var _g = __values(userProgress.onCourse), _h = _g.next(); !_h.done; _h = _g.next()) {
-            var code = _h.value;
+        for (var _f = __values(userProgress.onCourse), _g = _f.next(); !_g.done; _g = _f.next()) {
+            var code = _g.value;
             code = safeForHtmlId(code);
             if (cl.contains("c_" + code))
                 cl.add(MANAGEMENT_ONCOURSE_CSS_CLASS);
         }
     }
-    catch (e_16_1) { e_16 = { error: e_16_1 }; }
+    catch (e_14_1) { e_14 = { error: e_14_1 }; }
     finally {
         try {
-            if (_h && !_h.done && (_b = _g.return)) _b.call(_g);
+            if (_g && !_g.done && (_b = _f.return)) _b.call(_f);
         }
-        finally { if (e_16) throw e_16.error; }
-    }
-    try {
-        for (var _j = __values(userProgress.selected), _k = _j.next(); !_k.done; _k = _j.next()) {
-            var code = _k.value;
-            code = safeForHtmlId(code);
-            if (cl.contains("c_" + code))
-                cl.add(MANAGEMENT_SELECTED_CSS_CLASS);
-        }
-    }
-    catch (e_17_1) { e_17 = { error: e_17_1 }; }
-    finally {
-        try {
-            if (_k && !_k.done && (_c = _j.return)) _c.call(_j);
-        }
-        finally { if (e_17) throw e_17.error; }
+        finally { if (e_14) throw e_14.error; }
     }
     try {
         for (var errorCodes_2 = __values(errorCodes), errorCodes_2_1 = errorCodes_2.next(); !errorCodes_2_1.done; errorCodes_2_1 = errorCodes_2.next()) {
@@ -542,12 +498,12 @@ function updateSingleTakenPrereqClasses(elem) {
             }
         }
     }
-    catch (e_18_1) { e_18 = { error: e_18_1 }; }
+    catch (e_15_1) { e_15 = { error: e_15_1 }; }
     finally {
         try {
-            if (errorCodes_2_1 && !errorCodes_2_1.done && (_d = errorCodes_2.return)) _d.call(errorCodes_2);
+            if (errorCodes_2_1 && !errorCodes_2_1.done && (_c = errorCodes_2.return)) _c.call(errorCodes_2);
         }
-        finally { if (e_18) throw e_18.error; }
+        finally { if (e_15) throw e_15.error; }
     }
 }
 /**
@@ -618,7 +574,7 @@ function createRadio(node, groupName, labelName, onchange, initialState) {
 }
 /** Updates the element #toolboxWrapper */
 function createToolbox() {
-    var e_19, _a, e_20, _b, e_21, _c, e_22, _d;
+    var e_16, _a, e_17, _b, e_18, _c;
     var node = document.getElementById('toolboxWrapper');
     node.innerHTML = '';
     {
@@ -633,7 +589,7 @@ function createToolbox() {
         var _loop_1 = function (x) {
             var fn = function (obj) {
                 filterMode[x.key] = obj.target.checked;
-                loadPensum();
+                drawPensumTable();
                 // TODO: Try to make filtering a bit more dynamic (dont redraw entire table)
             };
             createCheckbox(d, x.label, fn, filterMode[x.key]);
@@ -644,12 +600,12 @@ function createToolbox() {
                 _loop_1(x);
             }
         }
-        catch (e_19_1) { e_19 = { error: e_19_1 }; }
+        catch (e_16_1) { e_16 = { error: e_16_1 }; }
         finally {
             try {
                 if (a_1_1 && !a_1_1.done && (_a = a_1.return)) _a.call(a_1);
             }
-            finally { if (e_19) throw e_19.error; }
+            finally { if (e_16) throw e_16.error; }
         }
     }
     {
@@ -659,7 +615,6 @@ function createToolbox() {
         var a = [
             { label: 'Aprobar', key: SelectMode.Passed },
             { label: 'Cursar', key: SelectMode.OnCourse },
-            { label: 'Seleccionar', key: SelectMode.Select },
         ];
         var _loop_2 = function (x) {
             var fn = function () { return userSelectMode = x.key; };
@@ -672,133 +627,46 @@ function createToolbox() {
                 _loop_2(x);
             }
         }
-        catch (e_20_1) { e_20 = { error: e_20_1 }; }
+        catch (e_17_1) { e_17 = { error: e_17_1 }; }
         finally {
             try {
                 if (a_2_1 && !a_2_1.done && (_b = a_2.return)) _b.call(a_2);
             }
-            finally { if (e_20) throw e_20.error; }
+            finally { if (e_17) throw e_17.error; }
         }
     }
     {
         var wrapper = createElement(node, 'div');
-        createElement(wrapper, 'h4', 'Seleccionados:');
-        {
-            var dw = createElement(wrapper, 'div', null, []);
-            dw.id = 'selectedWrapper';
-            updateSelectionBox();
-        }
-        var ibw = createElement(wrapper, 'div', null, ['inline-btn-wrapper']);
-        {
-            var b = [
-                {
-                    label: 'Deseleccionar todo',
-                    action: function () {
-                        userProgress.selected.clear();
-                        updateTakenPrereqClasses();
-                        updateSelectionBox();
-                    },
+        var title = createElement(wrapper, 'h4', 'Acciones:');
+        var dw = createElement(wrapper, 'div', null, []);
+        dw.id = 'actionsWrapper';
+        //updateSelectionBox();
+        var actions = [
+            {
+                label: 'Aprobar materias en curso"',
+                action: function () {
+                    __spread(userProgress.onCourse).forEach(function (x) {
+                        removeBySelectMode(x, SelectMode.OnCourse);
+                        addBySelectMode(x, SelectMode.Passed);
+                    });
+                    updateTakenPrereqClasses();
+                    updateGradeProgress();
                 },
-                {
-                    label: 'Seleccionar visibles',
-                    action: function () {
-                        userProgress.selected = new Set(filterMats(Object.values(currentPensumMats))
-                            .map(function (x) { return x.codigo; }));
-                        updateTakenPrereqClasses();
-                        updateSelectionBox();
-                    },
-                },
-                {
-                    label: 'Seleccionar Cursando',
-                    action: function () {
-                        userProgress.selected = new Set(__spread(userProgress.onCourse));
-                        updateTakenPrereqClasses();
-                        updateSelectionBox();
-                    },
-                },
-                {
-                    label: 'Invertir selección',
-                    action: function () {
-                        var new_select = new Set();
-                        Object.values(currentPensumMats)
-                            .map(function (x) { return x.codigo; })
-                            .forEach(function (x) { if (!userProgress.selected.has(x))
-                            new_select.add(x); });
-                        userProgress.selected = new_select;
-                        updateTakenPrereqClasses();
-                        updateSelectionBox();
-                    },
-                },
-            ];
-            var di = createElement(ibw, 'div', null, ['dropdown-wrapper']);
-            var dul = createElement(di, 'ul', null, ['dropdown-ul']);
-            createElement(di, 'span', 'Seleccionar...', ['dropdown-text', 'btn-secondary']);
-            try {
-                for (var b_1 = __values(b), b_1_1 = b_1.next(); !b_1_1.done; b_1_1 = b_1.next()) {
-                    var actionBtn = b_1_1.value;
-                    createElement(dul, 'li', actionBtn.label, [])
-                        .addEventListener('click', actionBtn.action);
-                }
-            }
-            catch (e_21_1) { e_21 = { error: e_21_1 }; }
-            finally {
-                try {
-                    if (b_1_1 && !b_1_1.done && (_c = b_1.return)) _c.call(b_1);
-                }
-                finally { if (e_21) throw e_21.error; }
+            },
+        ];
+        try {
+            for (var actions_1 = __values(actions), actions_1_1 = actions_1.next(); !actions_1_1.done; actions_1_1 = actions_1.next()) {
+                var actionBtn = actions_1_1.value;
+                createElement(dw, 'span', actionBtn.label, ['btn-secondary'])
+                    .addEventListener('click', actionBtn.action);
             }
         }
-        {
-            var b = [
-                {
-                    label: 'Asignar como "Pendiente(s)"',
-                    action: function () {
-                        userProgress.selected.forEach(function (x) {
-                            removeBySelectMode(x, SelectMode.Passed);
-                            removeBySelectMode(x, SelectMode.OnCourse);
-                        });
-                        updateTakenPrereqClasses();
-                        updateGradeProgress();
-                    },
-                },
-                {
-                    label: 'Asignar como "Cursando"',
-                    action: function () {
-                        userProgress.selected.forEach(function (x) {
-                            addBySelectMode(x, SelectMode.OnCourse);
-                        });
-                        updateTakenPrereqClasses();
-                        updateGradeProgress();
-                    },
-                },
-                {
-                    label: 'Asignar como "Aprobada(s)"',
-                    action: function () {
-                        userProgress.selected.forEach(function (x) {
-                            addBySelectMode(x, SelectMode.Passed);
-                        });
-                        updateTakenPrereqClasses();
-                        updateGradeProgress();
-                    },
-                },
-            ];
-            var di = createElement(ibw, 'div', null, ['dropdown-wrapper']);
-            var dul = createElement(di, 'ul', null, ['dropdown-ul']);
-            createElement(di, 'span', 'Acciones...', ['dropdown-text', 'btn-secondary']);
+        catch (e_18_1) { e_18 = { error: e_18_1 }; }
+        finally {
             try {
-                for (var b_2 = __values(b), b_2_1 = b_2.next(); !b_2_1.done; b_2_1 = b_2.next()) {
-                    var actionBtn = b_2_1.value;
-                    createElement(dul, 'li', actionBtn.label, [])
-                        .addEventListener('click', actionBtn.action);
-                }
+                if (actions_1_1 && !actions_1_1.done && (_c = actions_1.return)) _c.call(actions_1);
             }
-            catch (e_22_1) { e_22 = { error: e_22_1 }; }
-            finally {
-                try {
-                    if (b_2_1 && !b_2_1.done && (_d = b_2.return)) _d.call(b_2);
-                }
-                finally { if (e_22) throw e_22.error; }
-            }
+            finally { if (e_18) throw e_18.error; }
         }
     }
 }
@@ -809,30 +677,6 @@ function processSelectedData(data) {
         creditos: mats.reduce(function (acc, v) { return acc += v.creditos; }, 0),
     };
     return out;
-}
-function updateSelectionBox() {
-    var node = document.getElementById('selectedWrapper');
-    if (!node)
-        return;
-    node.innerHTML = '';
-    var data = userProgress.selected;
-    var pData = processSelectedData(data);
-    var dataTable = document.createElement('table');
-    {
-        var r = dataTable.insertRow();
-        var c1 = r.insertCell();
-        c1.innerText = 'Materias seleccionadas: ';
-        var c2 = r.insertCell();
-        c2.innerText = pData.materias.toString();
-    }
-    {
-        var r = dataTable.insertRow();
-        var c1 = r.insertCell();
-        c1.innerText = 'Creditos seleccionadas: ';
-        var c2 = r.insertCell();
-        c2.innerText = pData.creditos.toString();
-    }
-    node.appendChild(dataTable);
 }
 /** Updates the element #progressWrapper with data
  * related to the user's mats selection */
@@ -871,7 +715,7 @@ function updateGradeProgress() {
  * @param {*} data
  */
 function createNewPensumTable(data) {
-    var e_23, _a, e_24, _b;
+    var e_19, _a, e_20, _b;
     var out = document.createElement('table');
     // Create the header
     var headerRow = out.createTHead();
@@ -890,15 +734,15 @@ function createNewPensumTable(data) {
             headerRow.appendChild(a);
         }
     }
-    catch (e_23_1) { e_23 = { error: e_23_1 }; }
+    catch (e_19_1) { e_19 = { error: e_19_1 }; }
     finally {
         try {
             if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
         }
-        finally { if (e_23) throw e_23.error; }
+        finally { if (e_19) throw e_19.error; }
     }
     var _loop_3 = function (idxCuat, cuat) {
-        var e_25, _a;
+        var e_21, _a;
         // new table per cuat
         var filteredCuat = filterMats(cuat);
         if (filteredCuat.length === 0)
@@ -917,7 +761,7 @@ function createNewPensumTable(data) {
             a.addEventListener('click', function () {
                 // Check if all are checked
                 var currentCuatMats = cuat.map(function (x) { return x.codigo; });
-                if (userSelectMode === SelectMode.Select) {
+                if (false /*userSelectMode === SelectMode.Select*/) {
                     // Standard behaviour
                     var selectSet_1 = getUserProgressList(userSelectMode);
                     var selectedCuatMats = currentCuatMats.filter(function (x) { return selectSet_1.has(x); });
@@ -956,7 +800,7 @@ function createNewPensumTable(data) {
                         unselected.forEach(function (x) { return addBySelectMode(x, userSelectMode); });
                     }
                 }
-                loadPensum();
+                drawPensumTable();
             });
             row.appendChild(a);
         }
@@ -982,7 +826,7 @@ function createNewPensumTable(data) {
                         addBySelectMode(mat.codigo, userSelectMode);
                     updateTakenPrereqClasses();
                     updateGradeProgress();
-                    loadPensum();
+                    drawPensumTable();
                 });
                 r.appendChild(s);
             }
@@ -1038,17 +882,17 @@ function createNewPensumTable(data) {
         };
         try {
             // Mat rows
-            for (var filteredCuat_1 = (e_25 = void 0, __values(filteredCuat)), filteredCuat_1_1 = filteredCuat_1.next(); !filteredCuat_1_1.done; filteredCuat_1_1 = filteredCuat_1.next()) {
+            for (var filteredCuat_1 = (e_21 = void 0, __values(filteredCuat)), filteredCuat_1_1 = filteredCuat_1.next(); !filteredCuat_1_1.done; filteredCuat_1_1 = filteredCuat_1.next()) {
                 var mat = filteredCuat_1_1.value;
                 _loop_4(mat);
             }
         }
-        catch (e_25_1) { e_25 = { error: e_25_1 }; }
+        catch (e_21_1) { e_21 = { error: e_21_1 }; }
         finally {
             try {
                 if (filteredCuat_1_1 && !filteredCuat_1_1.done && (_a = filteredCuat_1.return)) _a.call(filteredCuat_1);
             }
-            finally { if (e_25) throw e_25.error; }
+            finally { if (e_21) throw e_21.error; }
         }
     };
     try {
@@ -1057,16 +901,15 @@ function createNewPensumTable(data) {
             _loop_3(idxCuat, cuat);
         }
     }
-    catch (e_24_1) { e_24 = { error: e_24_1 }; }
+    catch (e_20_1) { e_20 = { error: e_20_1 }; }
     finally {
         try {
             if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
         }
-        finally { if (e_24) throw e_24.error; }
+        finally { if (e_20) throw e_20.error; }
     }
     updateTakenPrereqClasses(out);
     updateGradeProgress();
-    updateSelectionBox();
     return out;
 }
 //** Filters the given mat[] according to filterMode */
@@ -1081,10 +924,6 @@ function filterMats(mats) {
 }
 function addBySelectMode(mat, mode) {
     switch (mode) {
-        case (SelectMode.Select):
-            userProgress.selected.add(mat);
-            updateSelectionBox();
-            break;
         case (SelectMode.OnCourse):
             userProgress.passed.delete(mat);
             userProgress.onCourse.add(mat);
@@ -1099,10 +938,6 @@ function addBySelectMode(mat, mode) {
 }
 function removeBySelectMode(mat, mode) {
     switch (mode) {
-        case (SelectMode.Select):
-            userProgress.selected.delete(mat);
-            updateSelectionBox();
-            break;
         case (SelectMode.OnCourse):
             userProgress.onCourse.delete(mat);
             break;
@@ -1173,7 +1008,7 @@ function createExcelWorkbookFromPensum(data, progress) {
     data.cuats.forEach(function (cuat, idxCuat) {
         var filteredCuat = cuat;
         filteredCuat.forEach(function (mat, idxMat, currentCuat) {
-            var e_26, _a, e_27, _b;
+            var e_22, _a, e_23, _b;
             ws[COL_CUAT + currentRow] = { v: idxCuat + 1, t: 'n' };
             if (idxMat === 0) {
                 mergeCells(currentRow - 1, 0, currentRow - 1 + currentCuat.length - 1, 0);
@@ -1193,12 +1028,12 @@ function createExcelWorkbookFromPensum(data, progress) {
                     ++prereqCount;
                 }
             }
-            catch (e_26_1) { e_26 = { error: e_26_1 }; }
+            catch (e_22_1) { e_22 = { error: e_22_1 }; }
             finally {
                 try {
                     if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
                 }
-                finally { if (e_26) throw e_26.error; }
+                finally { if (e_22) throw e_22.error; }
             }
             try {
                 for (var _e = __values(mat.prereqExtra), _f = _e.next(); !_f.done; _f = _e.next()) {
@@ -1207,12 +1042,12 @@ function createExcelWorkbookFromPensum(data, progress) {
                     ++prereqCount;
                 }
             }
-            catch (e_27_1) { e_27 = { error: e_27_1 }; }
+            catch (e_23_1) { e_23 = { error: e_23_1 }; }
             finally {
                 try {
                     if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
                 }
-                finally { if (e_27) throw e_27.error; }
+                finally { if (e_23) throw e_23.error; }
             }
             // Aprobada
             var aprobVal = currentProgress.has(mat.codigo) ? 1 : 0;
@@ -1289,7 +1124,7 @@ function getInfoList(data) {
  * @param {*} data
  */
 function createInfoList(data) {
-    var e_28, _a;
+    var e_24, _a;
     /** @type {HTMLTableElement} */
     var out = document.createElement('ul');
     // Separate the text before outputting.
@@ -1320,12 +1155,12 @@ function createInfoList(data) {
             out.appendChild(li);
         }
     }
-    catch (e_28_1) { e_28 = { error: e_28_1 }; }
+    catch (e_24_1) { e_24 = { error: e_24_1 }; }
     finally {
         try {
             if (outTextArr_1_1 && !outTextArr_1_1.done && (_a = outTextArr_1.return)) _a.call(outTextArr_1);
         }
-        finally { if (e_28) throw e_28.error; }
+        finally { if (e_24) throw e_24.error; }
     }
     return out;
 }
@@ -1347,7 +1182,6 @@ function createImportExportDialog() {
         if (confirm('Seguro que desea reiniciar la selección?')) {
             userProgress.passed = new Set();
             userProgress.onCourse = new Set();
-            userProgress.selected = new Set();
             alert('Selección reiniciada.');
             dialog.hide();
             drawPensumTable();
@@ -1697,7 +1531,6 @@ function createSaveObject() {
         userData: {
             passed: __spread(userProgress.passed),
             onCourse: __spread(userProgress.onCourse),
-            selected: __spread(userProgress.selected),
         },
         filterMode: __assign({}, filterMode),
         selectMode: userSelectMode,
@@ -1717,12 +1550,13 @@ function loadFromObject(obj) {
             userProgress.passed = new Set(ud.passed);
         if (ud.onCourse)
             userProgress.onCourse = new Set(ud.onCourse);
-        if (ud.selected)
-            userProgress.selected = new Set(ud.selected);
+        //if (ud.selected) userProgress.selected = new Set(ud.selected);
     }
     if (obj.filterMode)
         Object.assign(filterMode, obj.filterMode);
-    if (obj.selectMode)
+    // Check invalid selectModes
+    var enumLastVal = Object.keys(SelectMode).length / 2;
+    if (obj.selectMode && obj.selectMode < enumLastVal)
         userSelectMode = obj.selectMode;
     return true;
 }
@@ -1924,7 +1758,7 @@ function createSecondaryButton(text, callback, classes) {
 }
 function findAllpostreqs(code) {
     function subFindArr(code) {
-        var e_29, _a;
+        var e_25, _a;
         var hideList = [code];
         try {
             for (var _b = __values(currentPensumMats[code].postreq), _c = _b.next(); !_c.done; _c = _b.next()) {
@@ -1932,12 +1766,12 @@ function findAllpostreqs(code) {
                 hideList.push.apply(hideList, __spread(subFindArr(x)));
             }
         }
-        catch (e_29_1) { e_29 = { error: e_29_1 }; }
+        catch (e_25_1) { e_25 = { error: e_25_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
             }
-            finally { if (e_29) throw e_29.error; }
+            finally { if (e_25) throw e_25.error; }
         }
         return hideList;
     }
@@ -1955,7 +1789,7 @@ function loadPensum(customPensum) {
     var _a;
     if (customPensum === void 0) { customPensum = null; }
     return __awaiter(this, void 0, void 0, function () {
-        var infoWrap, codigoMateriaInput, clearInfoWrap, setInfoWrap, carr, rpci, rpc, rpcn, rpcn_r, x, loadedFromCustomPensum, pResponse, obj, e_30, pensumNode, newCode, h, t0, btnwrp, a;
+        var infoWrap, codigoMateriaInput, clearInfoWrap, setInfoWrap, carr, rpci, rpc, rpcn, rpcn_r, x, loadedFromCustomPensum, pResponse, obj, e_26, pensumNode, newCode, h, t0, btnwrp, a;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -2026,7 +1860,7 @@ function loadPensum(customPensum) {
                     }
                     return [3 /*break*/, 6];
                 case 5:
-                    e_30 = _b.sent();
+                    e_26 = _b.sent();
                     console.info(currentPensumCode + ' not found inside ./pensum/...');
                     return [3 /*break*/, 6];
                 case 6:
@@ -2210,7 +2044,7 @@ function loadPensumFromJson() {
         if (input.files && input.files[0] && ext == 'json') {
             var reader = new FileReader();
             reader.onload = function (e) { return __awaiter(_this, void 0, void 0, function () {
-                var txt, obj, p, numMatsLoaded, t, e_31, t;
+                var txt, obj, p, numMatsLoaded, t, e_27, t;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
@@ -2237,11 +2071,11 @@ function loadPensumFromJson() {
                         case 2: throw 'No hay información dentro del .json!';
                         case 3: return [3 /*break*/, 5];
                         case 4:
-                            e_31 = _a.sent();
+                            e_27 = _a.sent();
                             t = 'No se pudo cargar el archivo!';
-                            alert(t + '\n' + e_31.toString());
+                            alert(t + '\n' + e_27.toString());
                             console.warn(t);
-                            console.warn(e_31);
+                            console.warn(e_27);
                             return [3 /*break*/, 5];
                         case 5: return [2 /*return*/];
                     }

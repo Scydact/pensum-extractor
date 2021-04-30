@@ -1,5 +1,5 @@
-const saveVer = 5;
-const jsVer = 3;
+const saveVer = 6;
+const jsVer = 4;
 const SAVE_DATA_LOCALSTORAGE = 'saveData';
 var SAVE_TO_LOCALSTORAGE = true;
 var CARRERAS: { codigo: string, nombre: string, escuela: string, }[] = [];
@@ -21,19 +21,16 @@ var currentProgress: Set<string> = new Set();
 var userProgress = {
     passed: new Set<string>(),
     onCourse: new Set<string>(),
-    selected: new Set<string>(),
 }
 enum SelectMode {
     Passed,
     OnCourse,
-    Select,
 }
 var userSelectMode = SelectMode.Passed;
 function getUserProgressList(mode: SelectMode) {
     const a = {
         [SelectMode.Passed]: 'passed',
         [SelectMode.OnCourse]: 'onCourse',
-        [SelectMode.Select]: 'selected',
     }
     return userProgress[a[mode]] as Set<string>;
 }
@@ -353,12 +350,6 @@ function updateTakenPrereqClasses(node: HTMLElement | HTMLDocument = document) {
             elem.classList.add(MANAGEMENT_ONCOURSE_CSS_CLASS);
         }
     }
-    for (let code of userProgress.selected) {
-        code = safeForHtmlId(code);
-        for (let elem of node.getElementsByClassName(`c_${code}`)) {
-            elem.classList.add(MANAGEMENT_SELECTED_CSS_CLASS);
-        }
-    }
     for (let code of errorCodes) {
         code = safeForHtmlId(code);
         for (let elem of node.getElementsByClassName(`c_${code}`)) {
@@ -388,11 +379,6 @@ function updateSingleTakenPrereqClasses(elem: HTMLElement) {
         code = safeForHtmlId(code);
         if (cl.contains(`c_${code}`))
             cl.add(MANAGEMENT_ONCOURSE_CSS_CLASS);
-    }
-    for (let code of userProgress.selected) {
-        code = safeForHtmlId(code);
-        if (cl.contains(`c_${code}`))
-            cl.add(MANAGEMENT_SELECTED_CSS_CLASS);
     }
     for (let code of errorCodes) {
         code = safeForHtmlId(code);
@@ -492,7 +478,7 @@ function createToolbox() {
         for (let x of a) {
             let fn = obj => {
                 filterMode[x.key] = obj.target.checked;
-                loadPensum();
+                drawPensumTable();
                 // TODO: Try to make filtering a bit more dynamic (dont redraw entire table)
             }
             createCheckbox(d, x.label, fn, filterMode[x.key]);
@@ -507,7 +493,7 @@ function createToolbox() {
         let a = [
             { label: 'Aprobar', key: SelectMode.Passed },
             { label: 'Cursar', key: SelectMode.OnCourse },
-            { label: 'Seleccionar', key: SelectMode.Select },
+            //{ label: 'Seleccionar', key: SelectMode.Select },
         ];
         for (let x of a) {
             let fn = () => userSelectMode = x.key;
@@ -518,108 +504,31 @@ function createToolbox() {
 
     {
         let wrapper = createElement(node, 'div');
-        createElement(wrapper, 'h4', 'Seleccionados:');
+        let title = createElement(wrapper, 'h4', 'Acciones:');
 
-        {
-            let dw = createElement(wrapper, 'div', null, []);
-            dw.id = 'selectedWrapper';
-            updateSelectionBox();
-        }
 
-        let ibw = createElement(wrapper, 'div', null, ['inline-btn-wrapper']);
-        {
-            let b = [
-                {
-                    label: 'Deseleccionar todo',
-                    action: () => {
-                        userProgress.selected.clear();
-                        updateTakenPrereqClasses();
-                        updateSelectionBox();
-                    },
+        let dw = createElement(wrapper, 'div', null, []);
+        dw.id = 'actionsWrapper';
+        //updateSelectionBox();
+        let actions = [
+            {
+                label: 'Aprobar materias en curso"',
+                action: () => {
+                    [...userProgress.onCourse].forEach(x => {
+                        removeBySelectMode(x, SelectMode.OnCourse);
+                        addBySelectMode(x, SelectMode.Passed);
+                    });
+                    updateTakenPrereqClasses();
+                    updateGradeProgress();
                 },
-                {
-                    label: 'Seleccionar visibles',
-                    action: () => {
-                        userProgress.selected = new Set(
-                            filterMats(Object.values(currentPensumMats))
-                                .map(x => x.codigo));
-                        updateTakenPrereqClasses();
-                        updateSelectionBox();
-                    },
-                },
-                {
-                    label: 'Seleccionar Cursando',
-                    action: () => {
-                        userProgress.selected = new Set([...userProgress.onCourse]);
-                        updateTakenPrereqClasses();
-                        updateSelectionBox();
-                    },
-                },
-                {
-                    label: 'Invertir selección',
-                    action: () => {
-                        let new_select = new Set<string>();
-                        Object.values(currentPensumMats)
-                            .map(x => x.codigo)
-                            .forEach(x => { if (!userProgress.selected.has(x)) new_select.add(x); })
-                        userProgress.selected = new_select;
-                        updateTakenPrereqClasses();
-                        updateSelectionBox();
-                    },
-                },
-            ];
-            let di = createElement(ibw, 'div', null, ['dropdown-wrapper']);
-            let dul = createElement(di, 'ul', null, ['dropdown-ul']);
-            createElement(di, 'span', 'Seleccionar...', ['dropdown-text', 'btn-secondary']);
-            for (let actionBtn of b) {
-                createElement(dul, 'li', actionBtn.label, [])
-                    .addEventListener('click', actionBtn.action);
-            }
-        }
-
-        {
-            let b = [
-                {
-                    label: 'Asignar como "Pendiente(s)"',
-                    action: () => {
-                        userProgress.selected.forEach(x => {
-                            removeBySelectMode(x, SelectMode.Passed);
-                            removeBySelectMode(x, SelectMode.OnCourse);
-                        });
-                        updateTakenPrereqClasses();
-                        updateGradeProgress();
-                    },
-                },
-                {
-                    label: 'Asignar como "Cursando"',
-                    action: () => {
-                        userProgress.selected.forEach(x => {
-                            addBySelectMode(x, SelectMode.OnCourse);
-                        });
-                        updateTakenPrereqClasses();
-                        updateGradeProgress();
-                    },
-                },
-                {
-                    label: 'Asignar como "Aprobada(s)"',
-                    action: () => {
-                        userProgress.selected.forEach(x => {
-                            addBySelectMode(x, SelectMode.Passed);
-                        });
-                        updateTakenPrereqClasses();
-                        updateGradeProgress();
-                    },
-                },
-            ];
-            let di = createElement(ibw, 'div', null, ['dropdown-wrapper']);
-            let dul = createElement(di, 'ul', null, ['dropdown-ul']);
-            createElement(di, 'span', 'Acciones...', ['dropdown-text', 'btn-secondary']);
-            for (let actionBtn of b) {
-                createElement(dul, 'li', actionBtn.label, [])
-                    .addEventListener('click', actionBtn.action);
-            }
+            },
+        ];
+        for (let actionBtn of actions) {
+            createElement(dw, 'span', actionBtn.label, ['btn-secondary'])
+                .addEventListener('click', actionBtn.action);
         }
     }
+
 }
 
 function processSelectedData(data: Set<string>) {
@@ -630,33 +539,6 @@ function processSelectedData(data: Set<string>) {
         // if any more iterations are needed, use traditional loop pls!
     }
     return out;
-}
-
-function updateSelectionBox() {
-    let node = document.getElementById('selectedWrapper');
-    if (!node) return;
-    node.innerHTML = '';
-
-    let data = userProgress.selected;
-    let pData = processSelectedData(data);
-
-    let dataTable = document.createElement('table');
-    {
-        let r = dataTable.insertRow();
-        let c1 = r.insertCell();
-        c1.innerText = 'Materias seleccionadas: ';
-        let c2 = r.insertCell();
-        c2.innerText = pData.materias.toString();
-    }
-    {
-        let r = dataTable.insertRow();
-        let c1 = r.insertCell();
-        c1.innerText = 'Creditos seleccionadas: ';
-        let c2 = r.insertCell();
-        c2.innerText = pData.creditos.toString();
-    }
-
-    node.appendChild(dataTable);
 }
 
 /** Updates the element #progressWrapper with data
@@ -742,7 +624,7 @@ function createNewPensumTable(data: i_pensum) {
                 // Check if all are checked
                 let currentCuatMats = cuat.map(x => x.codigo);
 
-                if (userSelectMode === SelectMode.Select) {
+                if (false /*userSelectMode === SelectMode.Select*/) {
                     // Standard behaviour
                     let selectSet = getUserProgressList(userSelectMode);
                     let selectedCuatMats = currentCuatMats.filter(x => selectSet.has(x));
@@ -783,7 +665,7 @@ function createNewPensumTable(data: i_pensum) {
                     }
                 }
 
-                loadPensum();
+                drawPensumTable();
             });
             row.appendChild(a);
         }
@@ -816,7 +698,7 @@ function createNewPensumTable(data: i_pensum) {
                     updateTakenPrereqClasses();
                     updateGradeProgress();
 
-                    loadPensum();
+                    drawPensumTable();
                 });
 
                 r.appendChild(s);
@@ -890,7 +772,6 @@ function createNewPensumTable(data: i_pensum) {
 
     updateTakenPrereqClasses(out);
     updateGradeProgress();
-    updateSelectionBox();
 
     return out;
 }
@@ -908,10 +789,6 @@ function filterMats(mats: i_mat_raw[]) {
 
 function addBySelectMode(mat: string, mode: SelectMode) {
     switch (mode) {
-        case (SelectMode.Select):
-            userProgress.selected.add(mat);
-            updateSelectionBox();
-            break;
         case (SelectMode.OnCourse):
             userProgress.passed.delete(mat);
             userProgress.onCourse.add(mat);
@@ -927,10 +804,6 @@ function addBySelectMode(mat: string, mode: SelectMode) {
 
 function removeBySelectMode(mat: string, mode: SelectMode) {
     switch (mode) {
-        case (SelectMode.Select):
-            userProgress.selected.delete(mat);
-            updateSelectionBox();
-            break;
         case (SelectMode.OnCourse):
             userProgress.onCourse.delete(mat);
             break;
@@ -1190,7 +1063,6 @@ function createImportExportDialog() {
             if (confirm('Seguro que desea reiniciar la selección?')) {
                 userProgress.passed = new Set();
                 userProgress.onCourse = new Set();
-                userProgress.selected = new Set();
                 alert('Selección reiniciada.');
                 dialog.hide();
                 drawPensumTable();
@@ -1656,7 +1528,6 @@ function createSaveObject() {
         userData: {
             passed: [...userProgress.passed],
             onCourse: [...userProgress.onCourse],
-            selected: [...userProgress.selected],
         },
         filterMode: { ...filterMode },
         selectMode: userSelectMode,
@@ -1676,11 +1547,14 @@ function loadFromObject(obj) {
         let ud = obj.userData;
         if (ud.passed) userProgress.passed = new Set(ud.passed);
         if (ud.onCourse) userProgress.onCourse = new Set(ud.onCourse);
-        if (ud.selected) userProgress.selected = new Set(ud.selected);
+        //if (ud.selected) userProgress.selected = new Set(ud.selected);
     }
 
     if (obj.filterMode) Object.assign(filterMode, obj.filterMode);
-    if (obj.selectMode) userSelectMode = obj.selectMode;
+
+    // Check invalid selectModes
+    var enumLastVal = Object.keys(SelectMode).length / 2;
+    if (obj.selectMode && obj.selectMode < enumLastVal) userSelectMode = obj.selectMode;
     return true;
 }
 
@@ -1955,7 +1829,7 @@ async function loadPensum(customPensum: i_pensum = null) {
             'y aparecerá un listado con las distintas carreras y sus respectivos códigos.',
             '',
             '<span>Una vez cargado el pensum, no tenga miedo de dar click en todos los botones a ver que hacen!',
-            'Click en cualquier codigo de materia ' + 
+            'Click en cualquier codigo de materia ' +
             '(ej. <span class="monospace">MAT101</span>) para ver mas detalles de la materia.</span>'
         ];
         setInfoWrap(x.join('<br>'));
