@@ -405,6 +405,11 @@ tr:nth-child(2n) td {
     background: var(--background-selected-even);
 }
 
+.filter-mode label,
+.select-mode label {
+    cursor: pointer;
+}
+
 .filter-mode input {
     display: none;
 }
@@ -434,6 +439,11 @@ tr:nth-child(2n) td {
 }
 .filter-mode input:checked + label:nth-of-type(3) {
     background: var(--background-selected-taken-even);
+}
+
+.filter-mode input:checked + label:hover,
+.select-mode label:hover {
+    filter: brightness(0.65);
 }
 
 tr.managementMode-taken td {
