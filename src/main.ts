@@ -512,7 +512,7 @@ function createToolbox() {
         //updateSelectionBox();
         let actions = [
             {
-                label: 'Aprobar materias en curso"',
+                label: 'Aprobar materias en curso',
                 action: () => {
                     [...userProgress.onCourse].forEach(x => {
                         removeBySelectMode(x, SelectMode.OnCourse);
@@ -1820,7 +1820,7 @@ async function loadPensum(customPensum: i_pensum = null) {
         let rpci = Math.round(Math.random() * (carr.length - 1));
         let rpc = carr[rpci] ?? { codigo: "DIG10", nombre: "LICENCIATURA EN DISEÑO GRAFICO", escuela: "Decanato de Artes y Comunicación" };
         let rpcn = rpc.nombre.split(' ').filter(x => !['LICENCIATURA', 'EN', 'DE', 'INGENIERIA', '[Antiguo]'].includes(x)).join(' ');
-        let rpcn_r = rpcn.slice(0, Math.round(rpcn.length * (0.5 + 0.25 * (Math.random() - 0.3)))) + '...';
+        let rpcn_r = rpcn.slice(0, Math.round(rpcn.length * (0.7 + 0.25 * (Math.random() - 0.3)))) + '...';
         let x = [
             `Favor inserte un codigo de pensum (ej ${rpc.codigo}).`,
             '',
