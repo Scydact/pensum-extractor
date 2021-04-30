@@ -628,7 +628,7 @@ function createToolbox() {
         var a = [
             { label: 'Pendientes', key: 'pending' },
             { label: 'Cursando', key: 'onCourse' },
-            { label: 'Pasadas', key: 'passed' },
+            { label: 'Aprobadas', key: 'passed' },
         ];
         var _loop_1 = function (x) {
             var fn = function (obj) {
@@ -657,7 +657,7 @@ function createToolbox() {
         createElement(wrapper, 'h4', 'Modo de interacción');
         var d = createElement(wrapper, 'form', null, ['select-mode']);
         var a = [
-            { label: 'Pasar', key: SelectMode.Passed },
+            { label: 'Aprobar', key: SelectMode.Passed },
             { label: 'Cursar', key: SelectMode.OnCourse },
             { label: 'Seleccionar', key: SelectMode.Select },
         ];
@@ -772,7 +772,7 @@ function createToolbox() {
                     },
                 },
                 {
-                    label: 'Asignar como "Pasada(s)"',
+                    label: 'Asignar como "Aprobada(s)"',
                     action: function () {
                         userProgress.selected.forEach(function (x) {
                             addBySelectMode(x, SelectMode.Passed);
@@ -821,14 +821,14 @@ function updateSelectionBox() {
     {
         var r = dataTable.insertRow();
         var c1 = r.insertCell();
-        c1.innerText = 'Materias';
+        c1.innerText = 'Materias seleccionadas: ';
         var c2 = r.insertCell();
         c2.innerText = pData.materias.toString();
     }
     {
         var r = dataTable.insertRow();
         var c1 = r.insertCell();
-        c1.innerText = 'Creditos';
+        c1.innerText = 'Creditos seleccionadas: ';
         var c2 = r.insertCell();
         c2.innerText = pData.creditos.toString();
     }
@@ -1972,7 +1972,7 @@ function loadPensum(customPensum) {
                         carr = CARRERAS.slice(0, 16);
                         rpci = Math.round(Math.random() * (carr.length - 1));
                         rpc = (_a = carr[rpci]) !== null && _a !== void 0 ? _a : { codigo: "DIG10", nombre: "LICENCIATURA EN DISEÑO GRAFICO", escuela: "Decanato de Artes y Comunicación" };
-                        rpcn = rpc.nombre.split(' ').filter(function (x) { return !['LICENCIATURA', 'EN', 'DE', 'INGENIERIA'].includes(x); }).join(' ');
+                        rpcn = rpc.nombre.split(' ').filter(function (x) { return !['LICENCIATURA', 'EN', 'DE', 'INGENIERIA', '[Antiguo]'].includes(x); }).join(' ');
                         rpcn_r = rpcn.slice(0, Math.round(rpcn.length * (0.5 + 0.25 * (Math.random() - 0.3)))) + '...';
                         x = [
                             "Favor inserte un codigo de pensum (ej " + rpc.codigo + ").",
@@ -1980,6 +1980,10 @@ function loadPensum(customPensum) {
                             'Tambien puede empezar a escribir el nombre de la carrera ' +
                                 ("(" + rpcn_r + "), ") +
                                 'y aparecerá un listado con las distintas carreras y sus respectivos códigos.',
+                            '',
+                            '<span>Una vez cargado el pensum, no tenga miedo de dar click en todos los botones a ver que hacen!',
+                            'Click en cualquier codigo de materia ' +
+                                '(ej. <span class="monospace">MAT101</span>) para ver mas detalles de la materia.</span>'
                         ];
                         setInfoWrap(x.join('<br>'));
                         return [2 /*return*/];

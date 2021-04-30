@@ -487,7 +487,7 @@ function createToolbox() {
         let a = [
             { label: 'Pendientes', key: 'pending' },
             { label: 'Cursando', key: 'onCourse' },
-            { label: 'Pasadas', key: 'passed' },
+            { label: 'Aprobadas', key: 'passed' },
         ];
         for (let x of a) {
             let fn = obj => {
@@ -505,7 +505,7 @@ function createToolbox() {
         let d = createElement(wrapper, 'form', null, ['select-mode']);
 
         let a = [
-            { label: 'Pasar', key: SelectMode.Passed },
+            { label: 'Aprobar', key: SelectMode.Passed },
             { label: 'Cursar', key: SelectMode.OnCourse },
             { label: 'Seleccionar', key: SelectMode.Select },
         ];
@@ -601,7 +601,7 @@ function createToolbox() {
                     },
                 },
                 {
-                    label: 'Asignar como "Pasada(s)"',
+                    label: 'Asignar como "Aprobada(s)"',
                     action: () => {
                         userProgress.selected.forEach(x => {
                             addBySelectMode(x, SelectMode.Passed);
@@ -644,14 +644,14 @@ function updateSelectionBox() {
     {
         let r = dataTable.insertRow();
         let c1 = r.insertCell();
-        c1.innerText = 'Materias';
+        c1.innerText = 'Materias seleccionadas: ';
         let c2 = r.insertCell();
         c2.innerText = pData.materias.toString();
     }
     {
         let r = dataTable.insertRow();
         let c1 = r.insertCell();
-        c1.innerText = 'Creditos';
+        c1.innerText = 'Creditos seleccionadas: ';
         let c2 = r.insertCell();
         c2.innerText = pData.creditos.toString();
     }
@@ -1945,7 +1945,7 @@ async function loadPensum(customPensum: i_pensum = null) {
         let carr = CARRERAS.slice(0, 16); // 17 and onward are too long and not so popular.
         let rpci = Math.round(Math.random() * (carr.length - 1));
         let rpc = carr[rpci] ?? { codigo: "DIG10", nombre: "LICENCIATURA EN DISEÑO GRAFICO", escuela: "Decanato de Artes y Comunicación" };
-        let rpcn = rpc.nombre.split(' ').filter(x => !['LICENCIATURA', 'EN', 'DE', 'INGENIERIA'].includes(x)).join(' ');
+        let rpcn = rpc.nombre.split(' ').filter(x => !['LICENCIATURA', 'EN', 'DE', 'INGENIERIA', '[Antiguo]'].includes(x)).join(' ');
         let rpcn_r = rpcn.slice(0, Math.round(rpcn.length * (0.5 + 0.25 * (Math.random() - 0.3)))) + '...';
         let x = [
             `Favor inserte un codigo de pensum (ej ${rpc.codigo}).`,
@@ -1953,6 +1953,10 @@ async function loadPensum(customPensum: i_pensum = null) {
             'Tambien puede empezar a escribir el nombre de la carrera ' +
             `(${rpcn_r}), ` +
             'y aparecerá un listado con las distintas carreras y sus respectivos códigos.',
+            '',
+            '<span>Una vez cargado el pensum, no tenga miedo de dar click en todos los botones a ver que hacen!',
+            'Click en cualquier codigo de materia ' + 
+            '(ej. <span class="monospace">MAT101</span>) para ver mas detalles de la materia.</span>'
         ];
         setInfoWrap(x.join('<br>'));
         return;
