@@ -121,6 +121,11 @@
             "escuela": "Decanato de Artes y Comunicación"
         },
         {
+            "codigo": "CIN11",
+            "nombre": "LICENCIATURA EN CINEMATOGRAFÍA",
+            "escuela": "Decanato de Artes y Comunicación"
+        },
+        {
             "codigo": "LES11",
             "nombre": "LICENCIATURA EN LENGUA ESPAÑOLA Y LITERATURA ORIENTADA A LA EDUCACION SECUNDARIA",
             "escuela": "Decanato de Estudios Generales"
@@ -139,6 +144,6 @@
             "codigo": "TAF11",
             "nombre": "TECNICO ANALISTA FINANCIERO",
             "escuela": "Escuela de Contabilidad y Finanzas"
-        }        
+        }
     ]
 }
