@@ -592,7 +592,7 @@ function createNewPensumTable(data: i_pensum) {
         '✔',
         'Codigo',
         'Asignatura',
-        'Créditos',
+        'Cr',
         'Pre-requisitos',
     ]) {
         let a = document.createElement('th');
@@ -664,7 +664,7 @@ function createNewPensumTable(data: i_pensum) {
                         unselected.forEach(x => addBySelectMode(x, userSelectMode));
                     }
                 }
-
+                // TODO: Dont redraw on every action...
                 drawPensumTable();
             });
             row.appendChild(a);

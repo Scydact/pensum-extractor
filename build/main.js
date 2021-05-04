@@ -725,7 +725,7 @@ function createNewPensumTable(data) {
             '✔',
             'Codigo',
             'Asignatura',
-            'Créditos',
+            'Cr',
             'Pre-requisitos',
         ]), _d = _c.next(); !_d.done; _d = _c.next()) {
             var x = _d.value;
@@ -800,6 +800,7 @@ function createNewPensumTable(data) {
                         unselected.forEach(function (x) { return addBySelectMode(x, userSelectMode); });
                     }
                 }
+                // TODO: Dont redraw on every action...
                 drawPensumTable();
             });
             row.appendChild(a);

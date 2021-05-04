@@ -111,9 +111,9 @@ h6 {
 
 .card {
     /* border       : 3px solid black; */
-    margin: 1rem;
-    padding: 1.5rem;
-    border-radius: 1rem;
+    margin: 0 1em 1em;
+    padding: 1.5em;
+    border-radius: 1em;
     background: var(--background);
     box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.2);
 
@@ -139,14 +139,17 @@ thead th {
     height: 2rem;
     box-shadow: 0 2px 0 0 black;
     z-index: 1;
+    word-wrap: break-all;
 }
 
 table {
     border-collapse: collapse;
+    table-layout: fixed;
 }
 
 td {
     height: 2rem;
+    padding: 0;
 }
 
 tr:nth-child(2n) td {
@@ -344,6 +347,7 @@ tr:nth-child(2n) td {
         padding: 3rem 0 1rem;
         margin-left: 0;
         margin-right: 0;
+        font-size: 0.75rem;
     }
 }
 
@@ -687,14 +691,14 @@ div.bp-head {
     display: inline-flex;
     justify-content: center;
     align-items: center;
-    margin: 0 .5em;
+    margin: 0 0.5em;
     cursor: pointer;
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.7);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.7);
 }
 
 .help-btn:hover {
     transform: scale(1.2);
-    box-shadow: 0px 0px 5px 0px rgba(0,0,0,0.3);
+    box-shadow: 0px 0px 5px 0px rgba(0, 0, 0, 0.3);
 }
 
 .hidden {
