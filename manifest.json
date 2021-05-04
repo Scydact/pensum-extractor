@@ -1,0 +1,16 @@
+{
+  "name": "Pensum UNAPEC",
+  "short_name": "Pensum",
+  "start_url": ".",
+  "display": "standalone",
+  "background_color": "#21557F",
+  "description": "Seguidor de pensum para carreras de UNAPEC.",
+  "theme_color": "#0070cc",
+  "icons": [
+    {
+      "src": "./favicon/favicon-256x256.png",
+      "sizes": "256x256",
+      "type": "image/png"
+    }
+  ]
+}

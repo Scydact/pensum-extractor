@@ -77,7 +77,7 @@ var __spread = (this && this.__spread) || function () {
     return ar;
 };
 var saveVer = 6;
-var jsVer = 4;
+var jsVer = 5;
 var SAVE_DATA_LOCALSTORAGE = 'saveData';
 var SAVE_TO_LOCALSTORAGE = true;
 var CARRERAS = [];
@@ -1809,17 +1809,15 @@ function loadPensum(customPensum) {
                         rpcn = rpc.nombre.split(' ').filter(function (x) { return !['LICENCIATURA', 'EN', 'DE', 'INGENIERIA', '[Antiguo]'].includes(x); }).join(' ');
                         rpcn_r = rpcn.slice(0, Math.round(rpcn.length * (0.7 + 0.25 * (Math.random() - 0.3)))) + '...';
                         x = [
-                            "Favor inserte un codigo de pensum (ej " + rpc.codigo + ").",
-                            '',
+                            "<b>Favor inserte un codigo de pensum (ej " + rpc.codigo + ").</b>",
                             'Tambien puede empezar a escribir el nombre de la carrera ' +
                                 ("(" + rpcn_r + "), ") +
                                 'y aparecerá un listado con las distintas carreras y sus respectivos códigos.',
-                            '',
-                            '<span>Una vez cargado el pensum, no tenga miedo de dar click en todos los botones a ver que hacen!',
+                            '<span>Una vez cargado el pensum, no tenga miedo de dar click en todos los botones para ver que hacen!',
                             'Click en cualquier codigo de materia ' +
-                                '(ej. <span class="monospace">MAT101</span>) para ver mas detalles de la materia.</span>'
+                                '(ej. <span class="monospace">MAT101</span>) para ver más detalles de la materia.</span>'
                         ];
-                        setInfoWrap(x.join('<br>'));
+                        setInfoWrap('<ul>' + x.map(function (x) { return '<li>' + x + '</li>'; }).join('') + '</ul>');
                         return [2 /*return*/];
                     }
                     loadedFromCustomPensum = false;

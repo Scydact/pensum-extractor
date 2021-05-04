@@ -1,5 +1,5 @@
 const saveVer = 6;
-const jsVer = 4;
+const jsVer = 5;
 const SAVE_DATA_LOCALSTORAGE = 'saveData';
 var SAVE_TO_LOCALSTORAGE = true;
 var CARRERAS: { codigo: string, nombre: string, escuela: string, }[] = [];
@@ -1822,17 +1822,15 @@ async function loadPensum(customPensum: i_pensum = null) {
         let rpcn = rpc.nombre.split(' ').filter(x => !['LICENCIATURA', 'EN', 'DE', 'INGENIERIA', '[Antiguo]'].includes(x)).join(' ');
         let rpcn_r = rpcn.slice(0, Math.round(rpcn.length * (0.7 + 0.25 * (Math.random() - 0.3)))) + '...';
         let x = [
-            `Favor inserte un codigo de pensum (ej ${rpc.codigo}).`,
-            '',
+            `<b>Favor inserte un codigo de pensum (ej ${rpc.codigo}).</b>`,
             'Tambien puede empezar a escribir el nombre de la carrera ' +
             `(${rpcn_r}), ` +
             'y aparecerá un listado con las distintas carreras y sus respectivos códigos.',
-            '',
-            '<span>Una vez cargado el pensum, no tenga miedo de dar click en todos los botones a ver que hacen!',
+            '<span>Una vez cargado el pensum, no tenga miedo de dar click en todos los botones para ver que hacen!',
             'Click en cualquier codigo de materia ' +
-            '(ej. <span class="monospace">MAT101</span>) para ver mas detalles de la materia.</span>'
+            '(ej. <span class="monospace">MAT101</span>) para ver más detalles de la materia.</span>'
         ];
-        setInfoWrap(x.join('<br>'));
+        setInfoWrap('<ul>' + x.map(x => '<li>' + x + '</li>').join('') + '</ul>');
         return;
     }
 
