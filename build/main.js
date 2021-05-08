@@ -94,6 +94,12 @@ var filterMode = {
     passed: true,
 };
 var currentProgress = new Set();
+/**
+ * TODO: Allow ctrl+z on these things... maybe via a userProgress methods:
+ * DoState - push to doStack, clears UndoStack.
+ * UndoState - pops from doStack, push to undoStack.
+ * ClearState - clears both stacks.
+ */
 var userProgress = {
     passed: new Set(),
     onCourse: new Set(),
@@ -269,108 +275,26 @@ function matsToDict(arr) {
     }
     return out;
 }
-/** Create mat dialog showing its dependencies and other options... */
-function dialog_Mat(code) {
-    var e_4, _a, e_5, _b;
-    var codeData = currentPensumMats[code];
-    if (!codeData)
-        return new DialogBox().setMsg('Informacion no disponible para ' + code);
-    var dialog = new DialogBox();
-    var outNode = dialog.contentNode;
-    createElement(outNode, 'h3', "(" + codeData.codigo + ") '" + codeData.asignatura + "'");
-    createElement(outNode, 'p', "Codigo: \t" + codeData.codigo);
-    createElement(outNode, 'p', "Creditos: \t" + codeData.creditos);
-    createElement(outNode, 'p', "Cuatrimestre: \t" + codeData.cuatrimestre);
-    // Localizar en pensum
-    if (filterMats([codeData]).length === 0) {
-        createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary', 'btn-disabled']);
-        createElement(outNode, 'span', 'Esta materia no está visible actualmente.', ['explanatory']);
-    }
-    else {
-        var a = createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary']);
-        a.addEventListener('click', function () {
-            dialog.hide();
-            var x = safeForHtmlId(codeData.codigo); // im lazy, this part was moved.
-            var targetCell = document.getElementById("a_" + x);
-            var targetRow = document.getElementById("r_" + x);
-            targetCell.scrollIntoView({ block: 'center' });
-            targetRow.classList.remove('highlightRow');
-            targetRow.classList.add('highlightRow');
-            setTimeout(function () { return targetRow.classList.remove('highlightRow'); }, 3e3);
-        });
-    }
-    // Localizar en diagrama
-    {
-        var a = createElement(outNode, 'a', 'Localizar en diagrama (β)', ['btn-secondary']);
-        a.addEventListener('click', function () {
-            dialog.hide();
-            dialog_OrgChart(codeData.codigo).show();
-        });
-    }
-    if (codeData.prereq.length > 0 || codeData.prereqExtra.length > 0) {
-        createElement(outNode, 'h4', 'Pre-requisitos');
-        try {
-            for (var _c = __values(codeData.prereq), _d = _c.next(); !_d.done; _d = _c.next()) {
-                var code_1 = _d.value;
-                outNode.appendChild(createMatBtn(dialog, code_1));
-            }
-        }
-        catch (e_4_1) { e_4 = { error: e_4_1 }; }
-        finally {
-            try {
-                if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
-            }
-            finally { if (e_4) throw e_4.error; }
-        }
-        codeData.prereqExtra.forEach(function (x) {
-            var p = createElement(outNode, 'p');
-            var s = document.createElement('a');
-            s.textContent = x;
-            s.classList.add('preReq');
-            s.classList.add('preReqExtra');
-            p.appendChild(s);
-        });
-    }
-    if (codeData.postreq.length > 0) {
-        createElement(outNode, 'h4', 'Es pre-requisito de: ');
-        try {
-            for (var _e = __values(codeData.postreq), _f = _e.next(); !_f.done; _f = _e.next()) {
-                var code_2 = _f.value;
-                outNode.appendChild(createMatBtn(dialog, code_2));
-            }
-        }
-        catch (e_5_1) { e_5 = { error: e_5_1 }; }
-        finally {
-            try {
-                if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
-            }
-            finally { if (e_5) throw e_5.error; }
-        }
-    }
-    outNode.appendChild(dialog.createCloseButton());
-    updatePrereqClasses(outNode);
-    return dialog;
-}
 // Creates a single clickable mat code, for use inside dialogs.
-function createMatBtn(dialog, code) {
+function createMatBtn(dialog, code, simple) {
     var _a;
-    var p = document.createElement('p');
+    if (simple === void 0) { simple = false; }
     var s = document.createElement('a');
-    s.textContent = "(" + code + ") " + (((_a = currentPensumMats[code]) === null || _a === void 0 ? void 0 : _a.asignatura) || '?');
+    s.textContent = simple ? code : "(" + code + ") " + (((_a = currentPensumMats[code]) === null || _a === void 0 ? void 0 : _a.asignatura) || '?');
     s.addEventListener('click', function () {
-        dialog.hide();
+        if (dialog)
+            dialog.hide();
         dialog_Mat(code).show();
     });
     s.classList.add('preReq');
     s.classList.add('monospace');
     s.classList.add("c_" + safeForHtmlId(code));
     s.classList.add("c__");
-    p.appendChild(s);
-    return p;
+    return s;
 }
 /** Adds or removes MANAGEMENT_TAKEN_CLASS to the related elements. */
 function updatePrereqClasses(node) {
-    var e_6, _a, e_7, _b, e_8, _c, e_9, _d, e_10, _e, e_11, _f, e_12, _g;
+    var e_4, _a, e_5, _b, e_6, _c, e_7, _d, e_8, _e, e_9, _f, e_10, _g;
     if (node === void 0) { node = document; }
     try {
         // getElementsByClassName has O(1) complexity, since the DOM tracks them.
@@ -379,27 +303,53 @@ function updatePrereqClasses(node) {
             elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS, MANAGEMENT_ONCOURSE_CSS_CLASS, MANAGEMENT_SELECTED_CSS_CLASS, MANAGEMENT_ERROR_CSS_CLASS);
         }
     }
-    catch (e_6_1) { e_6 = { error: e_6_1 }; }
+    catch (e_4_1) { e_4 = { error: e_4_1 }; }
     finally {
         try {
             if (_j && !_j.done && (_a = _h.return)) _a.call(_h);
         }
-        finally { if (e_6) throw e_6.error; }
+        finally { if (e_4) throw e_4.error; }
     }
     try {
         for (var _k = __values(userProgress.passed), _l = _k.next(); !_l.done; _l = _k.next()) {
             var code = _l.value;
             code = safeForHtmlId(code);
             try {
-                for (var _m = (e_8 = void 0, __values(node.getElementsByClassName("c_" + code))), _o = _m.next(); !_o.done; _o = _m.next()) {
+                for (var _m = (e_6 = void 0, __values(node.getElementsByClassName("c_" + code))), _o = _m.next(); !_o.done; _o = _m.next()) {
                     var elem = _o.value;
                     elem.classList.add(MANAGEMENT_TAKEN_CSS_CLASS);
+                }
+            }
+            catch (e_6_1) { e_6 = { error: e_6_1 }; }
+            finally {
+                try {
+                    if (_o && !_o.done && (_c = _m.return)) _c.call(_m);
+                }
+                finally { if (e_6) throw e_6.error; }
+            }
+        }
+    }
+    catch (e_5_1) { e_5 = { error: e_5_1 }; }
+    finally {
+        try {
+            if (_l && !_l.done && (_b = _k.return)) _b.call(_k);
+        }
+        finally { if (e_5) throw e_5.error; }
+    }
+    try {
+        for (var _p = __values(userProgress.onCourse), _q = _p.next(); !_q.done; _q = _p.next()) {
+            var code = _q.value;
+            code = safeForHtmlId(code);
+            try {
+                for (var _r = (e_8 = void 0, __values(node.getElementsByClassName("c_" + code))), _s = _r.next(); !_s.done; _s = _r.next()) {
+                    var elem = _s.value;
+                    elem.classList.add(MANAGEMENT_ONCOURSE_CSS_CLASS);
                 }
             }
             catch (e_8_1) { e_8 = { error: e_8_1 }; }
             finally {
                 try {
-                    if (_o && !_o.done && (_c = _m.return)) _c.call(_m);
+                    if (_s && !_s.done && (_e = _r.return)) _e.call(_r);
                 }
                 finally { if (e_8) throw e_8.error; }
             }
@@ -408,24 +358,24 @@ function updatePrereqClasses(node) {
     catch (e_7_1) { e_7 = { error: e_7_1 }; }
     finally {
         try {
-            if (_l && !_l.done && (_b = _k.return)) _b.call(_k);
+            if (_q && !_q.done && (_d = _p.return)) _d.call(_p);
         }
         finally { if (e_7) throw e_7.error; }
     }
     try {
-        for (var _p = __values(userProgress.onCourse), _q = _p.next(); !_q.done; _q = _p.next()) {
-            var code = _q.value;
+        for (var errorCodes_1 = __values(errorCodes), errorCodes_1_1 = errorCodes_1.next(); !errorCodes_1_1.done; errorCodes_1_1 = errorCodes_1.next()) {
+            var code = errorCodes_1_1.value;
             code = safeForHtmlId(code);
             try {
-                for (var _r = (e_10 = void 0, __values(node.getElementsByClassName("c_" + code))), _s = _r.next(); !_s.done; _s = _r.next()) {
-                    var elem = _s.value;
-                    elem.classList.add(MANAGEMENT_ONCOURSE_CSS_CLASS);
+                for (var _t = (e_10 = void 0, __values(node.getElementsByClassName("c_" + code))), _u = _t.next(); !_u.done; _u = _t.next()) {
+                    var elem = _u.value;
+                    elem.classList.add(MANAGEMENT_ERROR_CSS_CLASS);
                 }
             }
             catch (e_10_1) { e_10 = { error: e_10_1 }; }
             finally {
                 try {
-                    if (_s && !_s.done && (_e = _r.return)) _e.call(_r);
+                    if (_u && !_u.done && (_g = _t.return)) _g.call(_t);
                 }
                 finally { if (e_10) throw e_10.error; }
             }
@@ -434,40 +384,14 @@ function updatePrereqClasses(node) {
     catch (e_9_1) { e_9 = { error: e_9_1 }; }
     finally {
         try {
-            if (_q && !_q.done && (_d = _p.return)) _d.call(_p);
-        }
-        finally { if (e_9) throw e_9.error; }
-    }
-    try {
-        for (var errorCodes_1 = __values(errorCodes), errorCodes_1_1 = errorCodes_1.next(); !errorCodes_1_1.done; errorCodes_1_1 = errorCodes_1.next()) {
-            var code = errorCodes_1_1.value;
-            code = safeForHtmlId(code);
-            try {
-                for (var _t = (e_12 = void 0, __values(node.getElementsByClassName("c_" + code))), _u = _t.next(); !_u.done; _u = _t.next()) {
-                    var elem = _u.value;
-                    elem.classList.add(MANAGEMENT_ERROR_CSS_CLASS);
-                }
-            }
-            catch (e_12_1) { e_12 = { error: e_12_1 }; }
-            finally {
-                try {
-                    if (_u && !_u.done && (_g = _t.return)) _g.call(_t);
-                }
-                finally { if (e_12) throw e_12.error; }
-            }
-        }
-    }
-    catch (e_11_1) { e_11 = { error: e_11_1 }; }
-    finally {
-        try {
             if (errorCodes_1_1 && !errorCodes_1_1.done && (_f = errorCodes_1.return)) _f.call(errorCodes_1);
         }
-        finally { if (e_11) throw e_11.error; }
+        finally { if (e_9) throw e_9.error; }
     }
 }
 /** Adds or removes MANAGEMENT_TAKEN_CLASS to a single element. */
 function updatePrereqClassesSingle(elem) {
-    var e_13, _a, e_14, _b, e_15, _c;
+    var e_11, _a, e_12, _b, e_13, _c;
     var cl = elem.classList;
     if (!cl.contains('c__'))
         return;
@@ -480,12 +404,12 @@ function updatePrereqClassesSingle(elem) {
                 cl.add(MANAGEMENT_TAKEN_CSS_CLASS);
         }
     }
-    catch (e_13_1) { e_13 = { error: e_13_1 }; }
+    catch (e_11_1) { e_11 = { error: e_11_1 }; }
     finally {
         try {
             if (_e && !_e.done && (_a = _d.return)) _a.call(_d);
         }
-        finally { if (e_13) throw e_13.error; }
+        finally { if (e_11) throw e_11.error; }
     }
     try {
         for (var _f = __values(userProgress.onCourse), _g = _f.next(); !_g.done; _g = _f.next()) {
@@ -495,12 +419,12 @@ function updatePrereqClassesSingle(elem) {
                 cl.add(MANAGEMENT_ONCOURSE_CSS_CLASS);
         }
     }
-    catch (e_14_1) { e_14 = { error: e_14_1 }; }
+    catch (e_12_1) { e_12 = { error: e_12_1 }; }
     finally {
         try {
             if (_g && !_g.done && (_b = _f.return)) _b.call(_f);
         }
-        finally { if (e_14) throw e_14.error; }
+        finally { if (e_12) throw e_12.error; }
     }
     try {
         for (var errorCodes_2 = __values(errorCodes), errorCodes_2_1 = errorCodes_2.next(); !errorCodes_2_1.done; errorCodes_2_1 = errorCodes_2.next()) {
@@ -511,12 +435,12 @@ function updatePrereqClassesSingle(elem) {
             }
         }
     }
-    catch (e_15_1) { e_15 = { error: e_15_1 }; }
+    catch (e_13_1) { e_13 = { error: e_13_1 }; }
     finally {
         try {
             if (errorCodes_2_1 && !errorCodes_2_1.done && (_c = errorCodes_2.return)) _c.call(errorCodes_2);
         }
-        finally { if (e_15) throw e_15.error; }
+        finally { if (e_13) throw e_13.error; }
     }
 }
 /**
@@ -587,7 +511,7 @@ function createRadio(node, groupName, labelName, onchange, initialState) {
 }
 /** Updates the element #toolboxWrapper */
 function createToolbox() {
-    var e_16, _a, e_17, _b, e_18, _c;
+    var e_14, _a, e_15, _b, e_16, _c;
     var node = document.getElementById('toolboxWrapper');
     node.innerHTML = '';
     {
@@ -613,12 +537,12 @@ function createToolbox() {
                 _loop_1(x);
             }
         }
-        catch (e_16_1) { e_16 = { error: e_16_1 }; }
+        catch (e_14_1) { e_14 = { error: e_14_1 }; }
         finally {
             try {
                 if (a_1_1 && !a_1_1.done && (_a = a_1.return)) _a.call(a_1);
             }
-            finally { if (e_16) throw e_16.error; }
+            finally { if (e_14) throw e_14.error; }
         }
     }
     {
@@ -640,12 +564,12 @@ function createToolbox() {
                 _loop_2(x);
             }
         }
-        catch (e_17_1) { e_17 = { error: e_17_1 }; }
+        catch (e_15_1) { e_15 = { error: e_15_1 }; }
         finally {
             try {
                 if (a_2_1 && !a_2_1.done && (_b = a_2.return)) _b.call(a_2);
             }
-            finally { if (e_17) throw e_17.error; }
+            finally { if (e_15) throw e_15.error; }
         }
     }
     {
@@ -666,6 +590,10 @@ function createToolbox() {
                     updateGradeProgress();
                 },
             },
+            {
+                label: 'Calcular indice',
+                action: function () { return dialog_IndiceCuatrimestral().show(); },
+            },
         ];
         try {
             for (var actions_1 = __values(actions), actions_1_1 = actions_1.next(); !actions_1_1.done; actions_1_1 = actions_1.next()) {
@@ -674,12 +602,12 @@ function createToolbox() {
                     .addEventListener('click', actionBtn.action);
             }
         }
-        catch (e_18_1) { e_18 = { error: e_18_1 }; }
+        catch (e_16_1) { e_16 = { error: e_16_1 }; }
         finally {
             try {
                 if (actions_1_1 && !actions_1_1.done && (_c = actions_1.return)) _c.call(actions_1);
             }
-            finally { if (e_18) throw e_18.error; }
+            finally { if (e_16) throw e_16.error; }
         }
     }
 }
@@ -728,7 +656,7 @@ function updateGradeProgress() {
  * @param {*} data
  */
 function createPensumTable(data) {
-    var e_19, _a, e_20, _b;
+    var e_17, _a, e_18, _b;
     var out = document.createElement('table');
     // Create the header
     var headerRow = out.createTHead();
@@ -747,15 +675,15 @@ function createPensumTable(data) {
             headerRow.appendChild(a);
         }
     }
-    catch (e_19_1) { e_19 = { error: e_19_1 }; }
+    catch (e_17_1) { e_17 = { error: e_17_1 }; }
     finally {
         try {
             if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
         }
-        finally { if (e_19) throw e_19.error; }
+        finally { if (e_17) throw e_17.error; }
     }
     var _loop_3 = function (idxCuat, cuat) {
-        var e_21, _a;
+        var e_19, _a;
         // new table per cuat
         var filteredCuat = filterMats(cuat);
         if (filteredCuat.length === 0)
@@ -863,15 +791,7 @@ function createPensumTable(data) {
             {
                 var r_1 = row.insertCell();
                 mat.prereq.forEach(function (x) {
-                    var s = document.createElement('a');
-                    s.textContent = x;
-                    s.addEventListener('click', function () {
-                        dialog_Mat(x).show();
-                    });
-                    s.classList.add('preReq');
-                    s.classList.add('monospace');
-                    s.classList.add("c_" + safeForHtmlId(x)); // mat's code
-                    s.classList.add("c__");
+                    var s = createMatBtn(null, x, true);
                     r_1.appendChild(s);
                     r_1.appendChild(document.createTextNode('\t'));
                 });
@@ -887,17 +807,17 @@ function createPensumTable(data) {
         };
         try {
             // Mat rows
-            for (var filteredCuat_1 = (e_21 = void 0, __values(filteredCuat)), filteredCuat_1_1 = filteredCuat_1.next(); !filteredCuat_1_1.done; filteredCuat_1_1 = filteredCuat_1.next()) {
+            for (var filteredCuat_1 = (e_19 = void 0, __values(filteredCuat)), filteredCuat_1_1 = filteredCuat_1.next(); !filteredCuat_1_1.done; filteredCuat_1_1 = filteredCuat_1.next()) {
                 var mat = filteredCuat_1_1.value;
                 _loop_4(mat);
             }
         }
-        catch (e_21_1) { e_21 = { error: e_21_1 }; }
+        catch (e_19_1) { e_19 = { error: e_19_1 }; }
         finally {
             try {
                 if (filteredCuat_1_1 && !filteredCuat_1_1.done && (_a = filteredCuat_1.return)) _a.call(filteredCuat_1);
             }
-            finally { if (e_21) throw e_21.error; }
+            finally { if (e_19) throw e_19.error; }
         }
     };
     try {
@@ -906,12 +826,12 @@ function createPensumTable(data) {
             _loop_3(idxCuat, cuat);
         }
     }
-    catch (e_20_1) { e_20 = { error: e_20_1 }; }
+    catch (e_18_1) { e_18 = { error: e_18_1 }; }
     finally {
         try {
             if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
         }
-        finally { if (e_20) throw e_20.error; }
+        finally { if (e_18) throw e_18.error; }
     }
     updatePrereqClasses(out);
     updateGradeProgress();
@@ -1013,7 +933,7 @@ function createExcelWorkbookFromPensum(data, progress) {
     data.cuats.forEach(function (cuat, idxCuat) {
         var filteredCuat = cuat;
         filteredCuat.forEach(function (mat, idxMat, currentCuat) {
-            var e_22, _a, e_23, _b;
+            var e_20, _a, e_21, _b;
             ws[COL_CUAT + currentRow] = { v: idxCuat + 1, t: 'n' };
             if (idxMat === 0) {
                 mergeCells(currentRow - 1, 0, currentRow - 1 + currentCuat.length - 1, 0);
@@ -1033,12 +953,12 @@ function createExcelWorkbookFromPensum(data, progress) {
                     ++prereqCount;
                 }
             }
-            catch (e_22_1) { e_22 = { error: e_22_1 }; }
+            catch (e_20_1) { e_20 = { error: e_20_1 }; }
             finally {
                 try {
                     if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
                 }
-                finally { if (e_22) throw e_22.error; }
+                finally { if (e_20) throw e_20.error; }
             }
             try {
                 for (var _e = __values(mat.prereqExtra), _f = _e.next(); !_f.done; _f = _e.next()) {
@@ -1047,12 +967,12 @@ function createExcelWorkbookFromPensum(data, progress) {
                     ++prereqCount;
                 }
             }
-            catch (e_23_1) { e_23 = { error: e_23_1 }; }
+            catch (e_21_1) { e_21 = { error: e_21_1 }; }
             finally {
                 try {
                     if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
                 }
-                finally { if (e_23) throw e_23.error; }
+                finally { if (e_21) throw e_21.error; }
             }
             // Aprobada
             var aprobVal = currentProgress.has(mat.codigo) ? 1 : 0;
@@ -1108,7 +1028,7 @@ function downloadCurrentPensumAsExcel() {
  * @param {*} data
  */
 function createInfoList(data) {
-    var e_24, _a;
+    var e_22, _a;
     /** @type {HTMLTableElement} */
     var out = document.createElement('ul');
     // Separate the text before outputting.
@@ -1141,12 +1061,12 @@ function createInfoList(data) {
             out.appendChild(li);
         }
     }
-    catch (e_24_1) { e_24 = { error: e_24_1 }; }
+    catch (e_22_1) { e_22 = { error: e_22_1 }; }
     finally {
         try {
             if (outTextArr_1_1 && !outTextArr_1_1.done && (_a = outTextArr_1.return)) _a.call(outTextArr_1);
         }
-        finally { if (e_24) throw e_24.error; }
+        finally { if (e_22) throw e_22.error; }
     }
     return out;
 }
@@ -1173,6 +1093,88 @@ function parseInfoList(data) {
 }
 //#endregion
 //#region Dialogs
+/** Create mat dialog showing its dependencies and other options... */
+function dialog_Mat(code) {
+    var e_23, _a, e_24, _b;
+    var codeData = currentPensumMats[code];
+    if (!codeData)
+        return new DialogBox().setMsg('Informacion no disponible para ' + code);
+    var dialog = new DialogBox();
+    var outNode = dialog.contentNode;
+    createElement(outNode, 'h3', "(" + codeData.codigo + ") '" + codeData.asignatura + "'");
+    createElement(outNode, 'p', "Codigo: \t" + codeData.codigo);
+    createElement(outNode, 'p', "Creditos: \t" + codeData.creditos);
+    createElement(outNode, 'p', "Cuatrimestre: \t" + codeData.cuatrimestre);
+    // Localizar en pensum
+    if (filterMats([codeData]).length === 0) {
+        createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary', 'btn-disabled']);
+        createElement(outNode, 'span', 'Esta materia no está visible actualmente.', ['explanatory']);
+    }
+    else {
+        var a = createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary']);
+        a.addEventListener('click', function () {
+            dialog.hide();
+            var x = safeForHtmlId(codeData.codigo); // im lazy, this part was moved.
+            var targetCell = document.getElementById("a_" + x);
+            var targetRow = document.getElementById("r_" + x);
+            targetCell.scrollIntoView({ block: 'center' });
+            targetRow.classList.remove('highlightRow');
+            targetRow.classList.add('highlightRow');
+            setTimeout(function () { return targetRow.classList.remove('highlightRow'); }, 3e3);
+        });
+    }
+    // Localizar en diagrama
+    {
+        var a = createElement(outNode, 'a', 'Localizar en diagrama (β)', ['btn-secondary']);
+        a.addEventListener('click', function () {
+            dialog.hide();
+            dialog_OrgChart(codeData.codigo).show();
+        });
+    }
+    if (codeData.prereq.length > 0 || codeData.prereqExtra.length > 0) {
+        createElement(outNode, 'h4', 'Pre-requisitos');
+        try {
+            for (var _c = __values(codeData.prereq), _d = _c.next(); !_d.done; _d = _c.next()) {
+                var code_1 = _d.value;
+                outNode.appendChild(createMatBtn(dialog, code_1));
+            }
+        }
+        catch (e_23_1) { e_23 = { error: e_23_1 }; }
+        finally {
+            try {
+                if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
+            }
+            finally { if (e_23) throw e_23.error; }
+        }
+        codeData.prereqExtra.forEach(function (x) {
+            var p = createElement(outNode, 'p');
+            var s = document.createElement('a');
+            s.textContent = x;
+            s.classList.add('preReq');
+            s.classList.add('preReqExtra');
+            p.appendChild(s);
+        });
+    }
+    if (codeData.postreq.length > 0) {
+        createElement(outNode, 'h4', 'Es pre-requisito de: ');
+        try {
+            for (var _e = __values(codeData.postreq), _f = _e.next(); !_f.done; _f = _e.next()) {
+                var code_2 = _f.value;
+                outNode.appendChild(createMatBtn(dialog, code_2));
+            }
+        }
+        catch (e_24_1) { e_24 = { error: e_24_1 }; }
+        finally {
+            try {
+                if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
+            }
+            finally { if (e_24) throw e_24.error; }
+        }
+    }
+    outNode.appendChild(dialog.createCloseButton());
+    updatePrereqClasses(outNode);
+    return dialog;
+}
 function dialog_ImportExport() {
     var dialog = new DialogBox();
     var node = dialog.contentNode;
@@ -1203,24 +1205,152 @@ function dialog_ImportExport() {
     node.appendChild(dialog.createCloseButton());
     return dialog;
 }
-//#endregion
-//#region Org chart
-function createOrgChartOptions(onTemplateRender, cursorItem) {
-    if (onTemplateRender === void 0) { onTemplateRender = null; }
-    if (cursorItem === void 0) { cursorItem = null; }
-    // Generate orgchart
-    var options = new primitives.FamConfig();
-    var items = matsToOrgChart(currentPensumData.cuats.flat(), errorCodes);
-    options = __assign(__assign({}, options), { pageFitMode: primitives.PageFitMode.None, items: items, 
-        // Rendering
-        arrowsDirection: primitives.GroupByType.Children, linesWidth: 3, linesColor: 'black', normalLevelShift: 30, lineLevelShift: 20, dotLevelShift: 20, alignBylevels: true, hideGrandParentsConnectors: true, 
-        // templates
-        templates: [getMatTemplate()], onItemRender: onTemplateRender, 
-        // Buttons
-        hasButtons: primitives.Enabled.True, buttonsPanelSize: 38, 
-        // Extras
-        hasSelectorCheckbox: primitives.Enabled.False, showCallout: false, cursorItem: cursorItem });
-    return options;
+function dialog_IndiceCuatrimestral() {
+    var e_25, _a;
+    //TODO: Finish me!!
+    var dialog = new DialogBox();
+    var outNode = dialog.contentNode;
+    createElement(outNode, 'h3', 'Calcular indice');
+    var _b = analyseGradeProgress(userProgress), onCourseCreds = _b.onCourseCreds, passedCreds = _b.passedCreds, onCourseMats = __spread(userProgress.onCourse), matTracker = [], indiceCuat = {
+        mats: 0,
+        val: 0,
+    }, indiceGlobal = {
+        mats: 0,
+        val: 3,
+        newVal: 3,
+    };
+    if (onCourseCreds === 0) {
+        outNode.append("\n            Para usar esta funcion, se necesita \n            seleccionar al menos una materia \n            como \"cursando\" (en amarillo).", dialog.createCloseButton());
+        return dialog;
+    }
+    /* TODO: Create table with:
+        - Code
+        - Desc
+        - Cr
+        - Value (custom selector, limited to ABCDF, allow typing, only 1 character)
+       On value update, recalculate all indexes.
+       Calculate (approximated) global index by giving: current index + num of taken creds
+    */
+    var table = createElement(outNode, 'table'), thead = table.createTHead(), tbody = table.createTBody();
+    table.style.width = '100%';
+    // Head
+    ['Codigo', 'Asignatura', 'Cr.', 'Grado']
+        .forEach(function (x) { return createElement(thead, 'th', x); });
+    var _loop_5 = function (code) {
+        var mat = currentPensumMats[code];
+        if (!mat)
+            return "continue";
+        var creds = mat.creditos, asignatura = mat.asignatura, value = 4, input = document.createElement('select'), row = tbody.insertRow(), outObj = { code: code, creds: creds, asignatura: asignatura, mat: mat, value: value, input: input, row: row };
+        matTracker.push(outObj);
+        // Row elements
+        [createMatBtn(dialog, code, true), asignatura, creds.toString(), input]
+            .forEach(function (x) { return row.insertCell().append(x); });
+        // Input config
+        [
+            ['A', '4'],
+            ['B', '3'],
+            ['C', '2'],
+            ['D', '1'],
+            ['F', '0']
+        ].forEach(function (x) {
+            var opt = document.createElement('option');
+            opt.textContent = x[0];
+            opt.value = x[1];
+            input.append(opt);
+        });
+        // Input change events
+        input.onchange = function (evt) {
+            outObj.value = parseInt(evt.target.value) || 0;
+            updateIndiceCuat(); // Defined below
+        };
+    };
+    try {
+        // Rows
+        for (var onCourseMats_1 = __values(onCourseMats), onCourseMats_1_1 = onCourseMats_1.next(); !onCourseMats_1_1.done; onCourseMats_1_1 = onCourseMats_1.next()) {
+            var code = onCourseMats_1_1.value;
+            _loop_5(code);
+        }
+    }
+    catch (e_25_1) { e_25 = { error: e_25_1 }; }
+    finally {
+        try {
+            if (onCourseMats_1_1 && !onCourseMats_1_1.done && (_a = onCourseMats_1.return)) _a.call(onCourseMats_1);
+        }
+        finally { if (e_25) throw e_25.error; }
+    }
+    updatePrereqClasses(tbody);
+    createElement(outNode, 'hr');
+    // Indice cuatrimestral
+    var resultCuatWrapper = createElement(outNode, 'div', null, ['col2', 'form']);
+    createElement(resultCuatWrapper, 'label', 'Indice cuatrimestral: ');
+    var resultCuatNode = createElement(resultCuatWrapper, 'span', '#');
+    // Global fn
+    createElement(outNode, 'hr');
+    var globalWrapper = createElement(outNode, 'div', null, ['col2', 'form']);
+    createElement(globalWrapper, 'label', 'Indice acumulado pasado: ');
+    var globalIndex = createElement(globalWrapper, 'input');
+    createElement(globalWrapper, 'label', 'Creditos acumulados pasados: ');
+    var globalCreds = createElement(globalWrapper, 'input');
+    createElement(outNode, 'hr');
+    var resultGlobalWrapper = createElement(outNode, 'div', null, ['col2', 'form']);
+    createElement(resultGlobalWrapper, 'label', 'Indice acumulado: ');
+    var globalOutput = createElement(resultGlobalWrapper, 'span', '#');
+    // Global fn setup
+    globalIndex.type = 'number';
+    globalIndex.min = '0';
+    globalIndex.max = '4';
+    globalIndex.step = '0.01';
+    globalIndex.value = '3';
+    indiceGlobal.val = 3;
+    globalIndex.oninput = function () {
+        var x = parseFloat(globalIndex.value);
+        if (x < 0)
+            x = 0;
+        if (x > 4)
+            x = 4;
+        globalIndex.value = x.toString();
+        indiceGlobal.val = x;
+        updateIndiceGlobal();
+    };
+    globalCreds.type = 'number';
+    globalCreds.min = '0';
+    globalCreds.step = '1';
+    globalCreds.value = passedCreds.toString();
+    indiceGlobal.mats = passedCreds;
+    globalCreds.oninput = function () {
+        var x = parseInt(globalCreds.value);
+        if (x < 0)
+            x = 0;
+        globalCreds.value = x.toString();
+        indiceGlobal.mats = x;
+        updateIndiceGlobal();
+    };
+    // Run initial update()
+    updateIndiceCuat();
+    outNode.append(dialog.createCloseButton());
+    dialog.onShow = function () { return matTracker[0].input.focus(); };
+    return dialog;
+    // Functions
+    function updateIndiceCuat() {
+        var _a = matTracker.reduce(function (cum, x) {
+            cum.total += x.creds;
+            cum.weightSum += x.creds * x.value;
+            return cum;
+        }, { total: 0, weightSum: 0 }), total = _a.total, weightSum = _a.weightSum;
+        var val = (weightSum / total);
+        resultCuatNode.textContent = val.toFixed(3);
+        indiceCuat.mats = total;
+        indiceCuat.val = val;
+        updateIndiceGlobal();
+        return val;
+    }
+    function updateIndiceGlobal() {
+        var val = (indiceCuat.mats * indiceCuat.val + indiceGlobal.mats * indiceGlobal.val) / (indiceCuat.mats + indiceGlobal.mats);
+        indiceGlobal.newVal = val;
+        globalOutput.textContent = val.toFixed(3);
+        console.log(indiceCuat, indiceGlobal);
+        return val;
+    }
 }
 function dialog_OrgChart(selected) {
     if (selected === void 0) { selected = null; }
@@ -1271,6 +1401,25 @@ function dialog_OrgChart(selected) {
     };
     dialog['control'] = control;
     return dialog;
+}
+//#endregion
+//#region Org chart
+function createOrgChartOptions(onTemplateRender, cursorItem) {
+    if (onTemplateRender === void 0) { onTemplateRender = null; }
+    if (cursorItem === void 0) { cursorItem = null; }
+    // Generate orgchart
+    var options = new primitives.FamConfig();
+    var items = matsToOrgChart(currentPensumData.cuats.flat(), errorCodes);
+    options = __assign(__assign({}, options), { pageFitMode: primitives.PageFitMode.None, items: items, 
+        // Rendering
+        arrowsDirection: primitives.GroupByType.Children, linesWidth: 3, linesColor: 'black', normalLevelShift: 30, lineLevelShift: 20, dotLevelShift: 20, alignBylevels: true, hideGrandParentsConnectors: true, 
+        // templates
+        templates: [getMatTemplate()], onItemRender: onTemplateRender, 
+        // Buttons
+        hasButtons: primitives.Enabled.True, buttonsPanelSize: 38, 
+        // Extras
+        hasSelectorCheckbox: primitives.Enabled.False, showCallout: false, cursorItem: cursorItem });
+    return options;
 }
 function createOrgChartPdf() {
     var options = createOrgChartOptions(onPdfTemplateRender);
@@ -1795,15 +1944,24 @@ function downloadObjectAsJson(exportObj, exportNameWithoutExt) {
 }
 function createElement(parentNode, tag, innerHTML, classes) {
     var _a;
+    if (parentNode === void 0) { parentNode = null; }
     if (tag === void 0) { tag = 'div'; }
     if (innerHTML === void 0) { innerHTML = null; }
     if (classes === void 0) { classes = []; }
     var x = document.createElement(tag);
-    parentNode.appendChild(x);
+    if (parentNode)
+        parentNode.appendChild(x);
     if (innerHTML !== null)
         x.innerHTML = innerHTML;
     if (classes.length)
         (_a = x.classList).add.apply(_a, __spread(classes));
+    return x;
+}
+function createBr(parentNode) {
+    if (parentNode === void 0) { parentNode = null; }
+    var x = document.createElement('br');
+    if (parentNode)
+        parentNode.appendChild(x);
     return x;
 }
 function createSecondaryButton(text, callback, classes) {
@@ -1817,7 +1975,7 @@ function createSecondaryButton(text, callback, classes) {
 }
 function findAllpostreqs(code) {
     function subFindArr(code) {
-        var e_25, _a;
+        var e_26, _a;
         var hideList = [code];
         try {
             for (var _b = __values(currentPensumMats[code].postreq), _c = _b.next(); !_c.done; _c = _b.next()) {
@@ -1825,12 +1983,12 @@ function findAllpostreqs(code) {
                 hideList.push.apply(hideList, __spread(subFindArr(x)));
             }
         }
-        catch (e_25_1) { e_25 = { error: e_25_1 }; }
+        catch (e_26_1) { e_26 = { error: e_26_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
             }
-            finally { if (e_25) throw e_25.error; }
+            finally { if (e_26) throw e_26.error; }
         }
         return hideList;
     }
@@ -1848,7 +2006,7 @@ function loadPensum(customPensum) {
     var _a;
     if (customPensum === void 0) { customPensum = null; }
     return __awaiter(this, void 0, void 0, function () {
-        var infoWrap, codigoMateriaInput, clearInfoWrap, setInfoWrap, carr, rpci, rpc, rpcn, rpcn_r, x, loadedFromCustomPensum, pResponse, obj, e_26, pensumNode, newCode, h, t0, btnwrp, a;
+        var infoWrap, codigoMateriaInput, clearInfoWrap, setInfoWrap, carr, rpci, rpc, rpcn, rpcn_r, x, loadedFromCustomPensum, pResponse, obj, e_27, pensumNode, newCode, h, t0, btnwrp, a;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -1917,7 +2075,7 @@ function loadPensum(customPensum) {
                     }
                     return [3 /*break*/, 6];
                 case 5:
-                    e_26 = _b.sent();
+                    e_27 = _b.sent();
                     console.info(currentPensumCode + ' not found inside ./pensum/...');
                     return [3 /*break*/, 6];
                 case 6:
@@ -2039,7 +2197,7 @@ function convertPensumToSave(data) {
 }
 function convertSaveToPensum(data) {
     var newCuats = [];
-    var _loop_5 = function (i, l) {
+    var _loop_6 = function (i, l) {
         newCuats.push(data.cuats[i].map(function (mat) {
             var newMat = __assign({}, mat);
             newMat.cuatrimestre = i + 1;
@@ -2055,7 +2213,7 @@ function convertSaveToPensum(data) {
         }));
     };
     for (var i = 0, l = data.cuats.length; i < l; ++i) {
-        _loop_5(i, l);
+        _loop_6(i, l);
     }
     return __assign(__assign({}, data), { cuats: newCuats });
 }
@@ -2101,7 +2259,7 @@ function loadPensumFromJson() {
         if (input.files && input.files[0] && ext == 'json') {
             var reader = new FileReader();
             reader.onload = function (e) { return __awaiter(_this, void 0, void 0, function () {
-                var txt, obj, p, numMatsLoaded, t, e_27, t;
+                var txt, obj, p, numMatsLoaded, t, e_28, t;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
@@ -2128,11 +2286,11 @@ function loadPensumFromJson() {
                         case 2: throw 'No hay información dentro del .json!';
                         case 3: return [3 /*break*/, 5];
                         case 4:
-                            e_27 = _a.sent();
+                            e_28 = _a.sent();
                             t = 'No se pudo cargar el archivo!';
-                            alert(t + '\n' + e_27.toString());
+                            alert(t + '\n' + e_28.toString());
                             console.warn(t);
-                            console.warn(e_27);
+                            console.warn(e_28);
                             return [3 /*break*/, 5];
                         case 5: return [2 /*return*/];
                     }

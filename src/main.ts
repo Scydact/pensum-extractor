@@ -18,6 +18,14 @@ const filterMode = {
     passed: true,
 };
 var currentProgress: Set<string> = new Set();
+
+
+/**
+ * TODO: Allow ctrl+z on these things... maybe via a userProgress methods:
+ * DoState - push to doStack, clears UndoStack.
+ * UndoState - pops from doStack, push to undoStack.
+ * ClearState - clears both stacks.
+ */
 var userProgress = {
     passed: new Set<string>(),
     onCourse: new Set<string>(),
@@ -248,88 +256,12 @@ function matsToDict(arr: i_mat_raw[]) {
     return out;
 }
 
-/** Create mat dialog showing its dependencies and other options... */
-function dialog_Mat(code: string) {
-    let codeData = currentPensumMats[code];
-    if (!codeData)
-        return new DialogBox().setMsg('Informacion no disponible para ' + code);
-
-    let dialog = new DialogBox();
-    let outNode = dialog.contentNode;
-
-    createElement(
-        outNode,
-        'h3',
-        `(${codeData.codigo}) '${codeData.asignatura}'`
-    );
-    createElement(outNode, 'p', `Codigo: \t${codeData.codigo}`);
-    createElement(outNode, 'p', `Creditos: \t${codeData.creditos}`);
-    createElement(outNode, 'p', `Cuatrimestre: \t${codeData.cuatrimestre}`);
-
-    // Localizar en pensum
-    if (filterMats([codeData]).length === 0) {
-        createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary', 'btn-disabled']);
-        createElement(outNode, 'span', 'Esta materia no está visible actualmente.', ['explanatory']);
-    } else {
-        let a = createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary']);
-        a.addEventListener('click', () => {
-            dialog.hide();
-            let x = safeForHtmlId(codeData.codigo); // im lazy, this part was moved.
-            let targetCell = document.getElementById(`a_${x}`);
-            let targetRow = document.getElementById(`r_${x}`);
-            targetCell.scrollIntoView({ block: 'center' });
-            targetRow.classList.remove('highlightRow');
-            targetRow.classList.add('highlightRow');
-            setTimeout(
-                () => targetRow.classList.remove('highlightRow'),
-                3e3
-            );
-        });
-    }
-
-    // Localizar en diagrama
-    {
-        let a = createElement(outNode, 'a', 'Localizar en diagrama (β)', ['btn-secondary']);
-        a.addEventListener('click', () => {
-            dialog.hide();
-            dialog_OrgChart(codeData.codigo).show();
-        });
-    }
-
-    if (codeData.prereq.length > 0 || codeData.prereqExtra.length > 0) {
-        createElement(outNode, 'h4', 'Pre-requisitos');
-        for (let code of codeData.prereq)
-            outNode.appendChild(createMatBtn(dialog, code));
-
-        codeData.prereqExtra.forEach((x) => {
-            let p = createElement(outNode, 'p');
-            let s = document.createElement('a');
-            s.textContent = x;
-            s.classList.add('preReq');
-            s.classList.add('preReqExtra');
-
-            p.appendChild(s);
-        });
-    }
-
-    if (codeData.postreq.length > 0) {
-        createElement(outNode, 'h4', 'Es pre-requisito de: ');
-        for (let code of codeData.postreq)
-            outNode.appendChild(createMatBtn(dialog, code));
-    }
-
-    outNode.appendChild(dialog.createCloseButton());
-    updatePrereqClasses(outNode);
-    return dialog;
-}
-
 // Creates a single clickable mat code, for use inside dialogs.
-function createMatBtn(dialog, code) {
-    let p = document.createElement('p');
+function createMatBtn(dialog, code, simple = false) {
     let s = document.createElement('a');
-    s.textContent = `(${code}) ${currentPensumMats[code]?.asignatura || '?'}`;
+    s.textContent = simple ? code : `(${code}) ${currentPensumMats[code]?.asignatura || '?'}`;
     s.addEventListener('click', () => {
-        dialog.hide();
+        if (dialog) dialog.hide();
         dialog_Mat(code).show();
     });
     s.classList.add('preReq');
@@ -337,8 +269,7 @@ function createMatBtn(dialog, code) {
     s.classList.add(`c_${safeForHtmlId(code)}`);
     s.classList.add(`c__`);
 
-    p.appendChild(s);
-    return p;
+    return s;
 }
 
 /** Adds or removes MANAGEMENT_TAKEN_CLASS to the related elements. */
@@ -536,6 +467,10 @@ function createToolbox() {
                     updatePrereqClasses();
                     updateGradeProgress();
                 },
+            },
+            {
+                label: 'Calcular indice',
+                action: () => dialog_IndiceCuatrimestral().show(),
             },
         ];
         for (let actionBtn of actions) {
@@ -747,15 +682,7 @@ function createPensumTable(data: i_pensum) {
                 let r = row.insertCell();
 
                 mat.prereq.forEach((x) => {
-                    let s = document.createElement('a');
-                    s.textContent = x;
-                    s.addEventListener('click', () => {
-                        dialog_Mat(x).show();
-                    });
-                    s.classList.add('preReq');
-                    s.classList.add('monospace');
-                    s.classList.add(`c_${safeForHtmlId(x)}`); // mat's code
-                    s.classList.add(`c__`);
+                    let s = createMatBtn(null, x, true)
 
                     r.appendChild(s);
                     r.appendChild(document.createTextNode('\t'));
@@ -1049,6 +976,82 @@ function parseInfoList(data) {
 //#endregion
 
 //#region Dialogs
+/** Create mat dialog showing its dependencies and other options... */
+function dialog_Mat(code: string) {
+    let codeData = currentPensumMats[code];
+    if (!codeData)
+        return new DialogBox().setMsg('Informacion no disponible para ' + code);
+
+    let dialog = new DialogBox();
+    let outNode = dialog.contentNode;
+
+    createElement(
+        outNode,
+        'h3',
+        `(${codeData.codigo}) '${codeData.asignatura}'`
+    );
+    createElement(outNode, 'p', `Codigo: \t${codeData.codigo}`);
+    createElement(outNode, 'p', `Creditos: \t${codeData.creditos}`);
+    createElement(outNode, 'p', `Cuatrimestre: \t${codeData.cuatrimestre}`);
+
+    // Localizar en pensum
+    if (filterMats([codeData]).length === 0) {
+        createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary', 'btn-disabled']);
+        createElement(outNode, 'span', 'Esta materia no está visible actualmente.', ['explanatory']);
+    } else {
+        let a = createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary']);
+        a.addEventListener('click', () => {
+            dialog.hide();
+            let x = safeForHtmlId(codeData.codigo); // im lazy, this part was moved.
+            let targetCell = document.getElementById(`a_${x}`);
+            let targetRow = document.getElementById(`r_${x}`);
+            targetCell.scrollIntoView({ block: 'center' });
+            targetRow.classList.remove('highlightRow');
+            targetRow.classList.add('highlightRow');
+            setTimeout(
+                () => targetRow.classList.remove('highlightRow'),
+                3e3
+            );
+        });
+    }
+
+    // Localizar en diagrama
+    {
+        let a = createElement(outNode, 'a', 'Localizar en diagrama (β)', ['btn-secondary']);
+        a.addEventListener('click', () => {
+            dialog.hide();
+            dialog_OrgChart(codeData.codigo).show();
+        });
+    }
+
+    if (codeData.prereq.length > 0 || codeData.prereqExtra.length > 0) {
+        createElement(outNode, 'h4', 'Pre-requisitos');
+        for (let code of codeData.prereq)
+            outNode.appendChild(createMatBtn(dialog, code));
+
+        codeData.prereqExtra.forEach((x) => {
+            let p = createElement(outNode, 'p');
+            let s = document.createElement('a');
+            s.textContent = x;
+            s.classList.add('preReq');
+            s.classList.add('preReqExtra');
+
+            p.appendChild(s);
+        });
+    }
+
+    if (codeData.postreq.length > 0) {
+        createElement(outNode, 'h4', 'Es pre-requisito de: ');
+        for (let code of codeData.postreq)
+            outNode.appendChild(createMatBtn(dialog, code));
+    }
+
+    outNode.appendChild(dialog.createCloseButton());
+    updatePrereqClasses(outNode);
+    return dialog;
+}
+
+
 function dialog_ImportExport() {
     let dialog = new DialogBox();
     let node = dialog.contentNode;
@@ -1109,47 +1112,195 @@ function dialog_ImportExport() {
     return dialog;
 }
 
-//#endregion
+
+function dialog_IndiceCuatrimestral() {
+    //TODO: Finish me!!
+    let dialog = new DialogBox();
+    let outNode = dialog.contentNode;
+
+    createElement(outNode, 'h3', 'Calcular indice');
 
 
-//#region Org chart
+    let { onCourseCreds, passedCreds } = analyseGradeProgress(userProgress),
+        onCourseMats = [...userProgress.onCourse],
+        matTracker = [] as {
+            code: string,
+            creds: number,
+            value: number,
+            asignatura: string,
+            mat: i_mat,
+            input: HTMLSelectElement,
+            row: HTMLTableRowElement,
+        }[],
+        indiceCuat = {
+            mats: 0,
+            val: 0,
+        },
+        indiceGlobal = {
+            mats: 0,
+            val: 3,
+            newVal: 3,
+        }
 
-function createOrgChartOptions(onTemplateRender = null, cursorItem = null) {
-    // Generate orgchart
-    var options = new primitives.FamConfig();
-    var items = matsToOrgChart(currentPensumData.cuats.flat(), errorCodes);
-
-    options = {
-        ...options,
-        pageFitMode: primitives.PageFitMode.None,
-        items: items,
-
-        // Rendering
-        arrowsDirection: primitives.GroupByType.Children,
-        linesWidth: 3,
-        linesColor: 'black',
-        normalLevelShift: 30,
-        lineLevelShift: 20,
-        dotLevelShift: 20,
-        alignBylevels: true,
-        hideGrandParentsConnectors: true,
-
-        // templates
-        templates: [getMatTemplate()],
-        onItemRender: onTemplateRender,
-
-        // Buttons
-        hasButtons: primitives.Enabled.True,
-        buttonsPanelSize: 38,
-
-        // Extras
-        hasSelectorCheckbox: primitives.Enabled.False,
-        showCallout: false,
-        cursorItem: cursorItem,
+    if (onCourseCreds === 0) {
+        outNode.append(`
+            Para usar esta funcion, se necesita 
+            seleccionar al menos una materia 
+            como "cursando" (en amarillo).`,
+            dialog.createCloseButton());
+        return dialog;
     }
-    return options;
-}
 
+    /* TODO: Create table with: 
+        - Code
+        - Desc
+        - Cr
+        - Value (custom selector, limited to ABCDF, allow typing, only 1 character)
+       On value update, recalculate all indexes.
+       Calculate (approximated) global index by giving: current index + num of taken creds 
+    */
+
+    let table = createElement(outNode, 'table') as HTMLTableElement,
+        thead = table.createTHead(),
+        tbody = table.createTBody();
+
+    table.style.width = '100%';
+
+    // Head
+    ['Codigo', 'Asignatura', 'Cr.', 'Grado']
+        .forEach(x => createElement(thead, 'th', x));
+
+    // Rows
+    for (let code of onCourseMats) {
+        let mat = currentPensumMats[code];
+        if (!mat) continue;
+
+        let creds = mat.creditos,
+            asignatura = mat.asignatura,
+            value = 4,
+            input = document.createElement('select'),
+            row = tbody.insertRow(),
+            outObj = { code, creds, asignatura, mat, value, input, row };
+        matTracker.push(outObj);
+
+        // Row elements
+        [createMatBtn(dialog, code, true), asignatura, creds.toString(), input]
+            .forEach(x => row.insertCell().append(x));
+
+        // Input config
+        [
+            ['A', '4'],
+            ['B', '3'],
+            ['C', '2'],
+            ['D', '1'],
+            ['F', '0']
+        ].forEach(x => {
+            let opt = document.createElement('option');
+            opt.textContent = x[0];
+            opt.value = x[1];
+            input.append(opt);
+        })
+
+        // Input change events
+        input.onchange = (evt) => {
+            outObj.value = parseInt((evt.target as HTMLSelectElement).value) || 0;
+            updateIndiceCuat(); // Defined below
+        }
+    }
+
+    updatePrereqClasses(tbody);
+
+    createElement(outNode, 'hr');
+
+
+    // Indice cuatrimestral
+    let resultCuatWrapper = createElement(outNode, 'div', null, ['col2', 'form']);
+    createElement(resultCuatWrapper, 'label', 'Indice cuatrimestral: ');
+    let resultCuatNode = createElement(resultCuatWrapper, 'span', '#');
+
+
+    // Global fn
+    createElement(outNode, 'hr');
+    let globalWrapper = createElement(outNode, 'div', null, ['col2', 'form']);
+
+    createElement(globalWrapper, 'label', 'Indice acumulado pasado: ');
+    let globalIndex = createElement(globalWrapper, 'input') as HTMLInputElement;
+
+    createElement(globalWrapper, 'label', 'Creditos acumulados pasados: ');
+    let globalCreds = createElement(globalWrapper, 'input') as HTMLInputElement;
+
+    createElement(outNode, 'hr');
+    let resultGlobalWrapper = createElement(outNode, 'div', null, ['col2', 'form']);
+    createElement(resultGlobalWrapper, 'label', 'Indice acumulado: ');
+    let globalOutput = createElement(resultGlobalWrapper, 'span', '#');
+
+
+    // Global fn setup
+    globalIndex.type = 'number';
+    globalIndex.min = '0';
+    globalIndex.max = '4';
+    globalIndex.step = '0.01';
+    globalIndex.value = '3'
+    indiceGlobal.val = 3;
+    globalIndex.oninput = () => {
+        let x = parseFloat(globalIndex.value);
+        if (x < 0) x = 0;
+        if (x > 4) x = 4;
+
+        globalIndex.value = x.toString();
+        indiceGlobal.val = x;
+        updateIndiceGlobal();
+    }
+
+    globalCreds.type = 'number';
+    globalCreds.min = '0';
+    globalCreds.step = '1';
+    globalCreds.value = passedCreds.toString()
+    indiceGlobal.mats = passedCreds;
+    globalCreds.oninput = () => {
+        let x = parseInt(globalCreds.value);
+        if (x < 0) x = 0;
+
+        globalCreds.value = x.toString();
+        indiceGlobal.mats = x;
+        updateIndiceGlobal();
+    }
+
+
+    // Run initial update()
+    updateIndiceCuat();
+    outNode.append(dialog.createCloseButton());
+    dialog.onShow = () => matTracker[0].input.focus();
+    return dialog;
+
+
+    // Functions
+    function updateIndiceCuat() {
+        let { total, weightSum } = matTracker.reduce((cum, x) => {
+            cum.total += x.creds;
+            cum.weightSum += x.creds * x.value;
+            return cum;
+        }, { total: 0, weightSum: 0 });
+
+        let val = (weightSum / total);
+        resultCuatNode.textContent = val.toFixed(3);
+
+        indiceCuat.mats = total;
+        indiceCuat.val = val;
+
+        updateIndiceGlobal();
+        return val;
+    }
+
+    function updateIndiceGlobal() {
+        let val = (indiceCuat.mats * indiceCuat.val + indiceGlobal.mats * indiceGlobal.val) / (indiceCuat.mats + indiceGlobal.mats);
+        indiceGlobal.newVal = val;
+        globalOutput.textContent = val.toFixed(3);
+
+        console.log(indiceCuat, indiceGlobal);
+        return val;
+    }
+}
 
 function dialog_OrgChart(selected = null) {
     let dialog = new DialogBox();
@@ -1220,6 +1371,46 @@ function dialog_OrgChart(selected = null) {
     dialog['control'] = control;
 
     return dialog;
+}
+//#endregion
+
+
+//#region Org chart
+
+function createOrgChartOptions(onTemplateRender = null, cursorItem = null) {
+    // Generate orgchart
+    var options = new primitives.FamConfig();
+    var items = matsToOrgChart(currentPensumData.cuats.flat(), errorCodes);
+
+    options = {
+        ...options,
+        pageFitMode: primitives.PageFitMode.None,
+        items: items,
+
+        // Rendering
+        arrowsDirection: primitives.GroupByType.Children,
+        linesWidth: 3,
+        linesColor: 'black',
+        normalLevelShift: 30,
+        lineLevelShift: 20,
+        dotLevelShift: 20,
+        alignBylevels: true,
+        hideGrandParentsConnectors: true,
+
+        // templates
+        templates: [getMatTemplate()],
+        onItemRender: onTemplateRender,
+
+        // Buttons
+        hasButtons: primitives.Enabled.True,
+        buttonsPanelSize: 38,
+
+        // Extras
+        hasSelectorCheckbox: primitives.Enabled.False,
+        showCallout: false,
+        cursorItem: cursorItem,
+    }
+    return options;
 }
 
 function createOrgChartPdf() {
@@ -1744,13 +1935,13 @@ class DialogBox {
     /** The node that will contain the info to show.
      *
      * Remember to add a close button! */
-    contentNode;
+    contentNode: HTMLDivElement;
 
     /** Wrapper node that holds contentNode.
      *
      * This node determines the visibility of the DialogBox,
      * and will display as a fixed fullscreen element. */
-    wrapperNode;
+    wrapperNode: HTMLDivElement;
 
     constructor() {
         this.wrapperNode = document.createElement('div');
@@ -1811,17 +2002,23 @@ function downloadObjectAsJson(exportObj, exportNameWithoutExt) {
     FileSaver.saveAs(blob, exportNameWithoutExt + '.json');
 }
 
-function createElement(
-    parentNode,
+function createElement<T extends HTMLElement>(
+    parentNode = null,
     tag = 'div',
     innerHTML = null,
     classes = []
 ) {
-    let x = document.createElement(tag);
-    parentNode.appendChild(x);
+    let x = <T>document.createElement(tag);
+    if (parentNode) parentNode.appendChild(x);
     if (innerHTML !== null) x.innerHTML = innerHTML;
     if (classes.length)
         x.classList.add(...classes);
+    return x;
+}
+
+function createBr(parentNode = null) {
+    let x = document.createElement('br');
+    if (parentNode) parentNode.appendChild(x);
     return x;
 }
 
