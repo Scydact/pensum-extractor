@@ -681,6 +681,26 @@ div.bp-head {
     background: rgb(241, 87, 40);
 }
 
+@keyframes highlight-bp {
+    0% {
+        border-color: var(--c1);
+        background: var(--c1);
+    }
+    50% {
+        border-color: var(--c2);
+        background: var(--c2);
+    }
+    100% {
+        border-color: var(--c1);
+        background: var(--c1);
+    }
+}
+.bp-cursor-frame {
+    --c1: #f825ff;
+    --c2: #2534ff;
+    animation: highlight-bp 700ms ease 10;
+}
+
 .help-btn {
     border-radius: 1000px;
     background-color: darkblue;

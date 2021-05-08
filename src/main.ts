@@ -35,6 +35,10 @@ function getUserProgressList(mode: SelectMode) {
     return userProgress[a[mode]] as Set<string>;
 }
 
+const orgChartSettings = {
+    scale: 0.7,
+}
+
 // The version of FileSaver used here places this method on the global namespace
 declare const saveAs;
 declare const FileSaver: { saveAs };
@@ -245,7 +249,7 @@ function matsToDict(arr: i_mat_raw[]) {
 }
 
 /** Create mat dialog showing its dependencies and other options... */
-function createMatDialog(code: string) {
+function dialog_Mat(code: string) {
     let codeData = currentPensumMats[code];
     if (!codeData)
         return new DialogBox().setMsg('Informacion no disponible para ' + code);
@@ -262,6 +266,7 @@ function createMatDialog(code: string) {
     createElement(outNode, 'p', `Creditos: \t${codeData.creditos}`);
     createElement(outNode, 'p', `Cuatrimestre: \t${codeData.cuatrimestre}`);
 
+    // Localizar en pensum
     if (filterMats([codeData]).length === 0) {
         createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary', 'btn-disabled']);
         createElement(outNode, 'span', 'Esta materia no está visible actualmente.', ['explanatory']);
@@ -282,6 +287,15 @@ function createMatDialog(code: string) {
         });
     }
 
+    // Localizar en diagrama
+    {
+        let a = createElement(outNode, 'a', 'Localizar en diagrama (β)', ['btn-secondary']);
+        a.addEventListener('click', () => {
+            dialog.hide();
+            dialog_OrgChart(codeData.codigo).show();
+        });
+    }
+
     if (codeData.prereq.length > 0 || codeData.prereqExtra.length > 0) {
         createElement(outNode, 'h4', 'Pre-requisitos');
         for (let code of codeData.prereq)
@@ -290,7 +304,7 @@ function createMatDialog(code: string) {
         codeData.prereqExtra.forEach((x) => {
             let p = createElement(outNode, 'p');
             let s = document.createElement('a');
-            s.innerText = x;
+            s.textContent = x;
             s.classList.add('preReq');
             s.classList.add('preReqExtra');
 
@@ -305,7 +319,7 @@ function createMatDialog(code: string) {
     }
 
     outNode.appendChild(dialog.createCloseButton());
-    updateTakenPrereqClasses(outNode);
+    updatePrereqClasses(outNode);
     return dialog;
 }
 
@@ -313,10 +327,10 @@ function createMatDialog(code: string) {
 function createMatBtn(dialog, code) {
     let p = document.createElement('p');
     let s = document.createElement('a');
-    s.innerText = `(${code}) ${currentPensumMats[code]?.asignatura || '?'}`;
+    s.textContent = `(${code}) ${currentPensumMats[code]?.asignatura || '?'}`;
     s.addEventListener('click', () => {
         dialog.hide();
-        createMatDialog(code).show();
+        dialog_Mat(code).show();
     });
     s.classList.add('preReq');
     s.classList.add('monospace');
@@ -328,7 +342,8 @@ function createMatBtn(dialog, code) {
 }
 
 /** Adds or removes MANAGEMENT_TAKEN_CLASS to the related elements. */
-function updateTakenPrereqClasses(node: HTMLElement | HTMLDocument = document) {
+function updatePrereqClasses(node: HTMLElement | HTMLDocument = document) {
+    // getElementsByClassName has O(1) complexity, since the DOM tracks them.
     for (let elem of node.getElementsByClassName('c__')) {
         elem.classList.remove(
             MANAGEMENT_TAKEN_CSS_CLASS,
@@ -359,7 +374,7 @@ function updateTakenPrereqClasses(node: HTMLElement | HTMLDocument = document) {
 }
 
 /** Adds or removes MANAGEMENT_TAKEN_CLASS to a single element. */
-function updateSingleTakenPrereqClasses(elem: HTMLElement) {
+function updatePrereqClassesSingle(elem: HTMLElement) {
     var cl = elem.classList;
     if (!cl.contains('c__')) return;
 
@@ -434,7 +449,7 @@ function createCheckbox(node, labelName, onchange, initialState = false) {
     node.appendChild(x);
 
     let l = document.createElement('label');
-    l.innerText = labelName;
+    l.textContent = labelName;
     l.htmlFor = objId;
     node.appendChild(l);
 
@@ -453,7 +468,7 @@ function createRadio(node, groupName = '', labelName = '', onchange = null, init
     node.appendChild(x);
 
     let l = document.createElement('label');
-    l.innerText = labelName;
+    l.textContent = labelName;
     l.htmlFor = objId;
     node.appendChild(l);
 
@@ -518,7 +533,7 @@ function createToolbox() {
                         removeBySelectMode(x, SelectMode.OnCourse);
                         addBySelectMode(x, SelectMode.Passed);
                     });
-                    updateTakenPrereqClasses();
+                    updatePrereqClasses();
                     updateGradeProgress();
                 },
             },
@@ -582,7 +597,7 @@ function updateGradeProgress() {
  *  - Prereq
  * @param {*} data
  */
-function createNewPensumTable(data: i_pensum) {
+function createPensumTable(data: i_pensum) {
     let out = document.createElement('table');
 
     // Create the header
@@ -596,7 +611,7 @@ function createNewPensumTable(data: i_pensum) {
         'Pre-requisitos',
     ]) {
         let a = document.createElement('th');
-        a.innerText = x;
+        a.textContent = x;
         headerRow.appendChild(a);
     }
 
@@ -606,68 +621,58 @@ function createNewPensumTable(data: i_pensum) {
         const filteredCuat = filterMats(cuat);
         if (filteredCuat.length === 0) continue;
 
+        const tbody = out.createTBody();
+        tbody.dataset.cuat = (idxCuat + 1).toString();
+        tbody.classList.add('cuatLimit');
+
         // First row (cuat number)
         {
-            let row = out.insertRow();
-            let a = document.createElement('th');
+            let row = tbody.insertRow();
+            let th = document.createElement('th');
 
-            a.rowSpan = filteredCuat.length + 1;
+            th.rowSpan = filteredCuat.length + 1;
             let t = (filteredCuat.length === 1) ? 'C.' : 'Cuat. ';
-            let p = createElement(a, 'p', `${t}${idxCuat + 1}`, ['vertical-text']);
+            let p = createElement(th, 'p', `${t}${idxCuat + 1}`, ['vertical-text']);
 
             row.classList.add('cuatLimit');
-            a.classList.add('cuatHeader');
+            th.classList.add('cuatHeader');
 
             // Allow all cuats selection
             // TODO: Do with a SELECT_MODE TOOL instead
-            a.addEventListener('click', () => {
+            const selectAllUnderCuat = () => {
                 // Check if all are checked
                 let currentCuatMats = cuat.map(x => x.codigo);
+                let { passed, onCourse } = userProgress;
+                let [main, second] = (userSelectMode === SelectMode.Passed) ? [passed, onCourse] : [onCourse, passed];
 
-                if (false /*userSelectMode === SelectMode.Select*/) {
-                    // Standard behaviour
-                    let selectSet = getUserProgressList(userSelectMode);
-                    let selectedCuatMats = currentCuatMats.filter(x => selectSet.has(x));
+                /**
+                 * Cases:
+                 * - All unselected: just add all
+                 * - All on both, none unselected: finish adding all (same as prev.)
+                 * - All on main: remove all;
+                 * - Some holes: set holes only.
+                 */
+                let onMain = currentCuatMats.filter(x => main.has(x));
+                let onSecond = currentCuatMats.filter(x => second.has(x));
+                let unselected = currentCuatMats.filter(x => !main.has(x) && !second.has(x));
+                let n = currentCuatMats.length;
 
-                    // If all are checked, uncheck, else check.
-                    if (currentCuatMats.length === selectedCuatMats.length) {
-                        currentCuatMats.forEach(x => removeBySelectMode(x, userSelectMode));
-                    } else {
-                        currentCuatMats.forEach(x => addBySelectMode(x, userSelectMode));
-                    }
-                }
-                else {
-                    let { passed, onCourse } = userProgress;
-                    let [main, second] = (userSelectMode === SelectMode.Passed) ? [passed, onCourse] : [onCourse, passed];
+                let allOnMain = onMain.length === n;
+                let allOnBoth = onMain.length + onSecond.length === n;
+                let allUnselected = unselected.length === n;
 
-                    /**
-                     * Cases:
-                     * - All unselected: just add all
-                     * - All on both, none unselected: finish adding all (same as prev.)
-                     * - All on main: remove all;
-                     * - Some holes: set holes only.
-                     */
-                    let onMain = currentCuatMats.filter(x => main.has(x));
-                    let onSecond = currentCuatMats.filter(x => second.has(x));
-                    let unselected = currentCuatMats.filter(x => !main.has(x) && !second.has(x));
-                    let n = currentCuatMats.length;
-
-                    let allOnMain = onMain.length === n;
-                    let allOnBoth = onMain.length + onSecond.length === n;
-                    let allUnselected = unselected.length === n;
-
-                    if (allOnMain) {
-                        onMain.forEach(x => removeBySelectMode(x, userSelectMode));
-                    } else if (allUnselected || allOnBoth) {
-                        currentCuatMats.forEach(x => addBySelectMode(x, userSelectMode));
-                    } else { // someUnselected
-                        unselected.forEach(x => addBySelectMode(x, userSelectMode));
-                    }
+                if (allOnMain) {
+                    onMain.forEach(x => removeBySelectMode(x, userSelectMode));
+                } else if (allUnselected || allOnBoth) {
+                    currentCuatMats.forEach(x => addBySelectMode(x, userSelectMode));
+                } else { // someUnselected
+                    unselected.forEach(x => addBySelectMode(x, userSelectMode));
                 }
                 // TODO: Dont redraw on every action...
                 drawPensumTable();
-            });
-            row.appendChild(a);
+            }
+            th.addEventListener('click', selectAllUnderCuat);
+            row.appendChild(th);
         }
 
         // Mat rows
@@ -680,60 +685,60 @@ function createNewPensumTable(data: i_pensum) {
 
             // Selection checkbox
             {
-                let r = row.insertCell();
-                r.classList.add('text-center');
-                r.classList.add('managementMode-cell');
+                let cell = row.insertCell();
+                cell.classList.add('text-center');
+                cell.classList.add('managementMode-cell');
 
-                let s = document.createElement('div');
-                s.classList.add('mat-clickable')
+                let cellContent = document.createElement('div');
+                cellContent.classList.add('mat-clickable')
                 //if (userProgress.passed.has(mat.codigo)) s.checked = true;
 
-                s.addEventListener('click', () => {
+                const selectSingleMat = () => {
                     let selectSet = getUserProgressList(userSelectMode);
                     if (selectSet.has(mat.codigo))
                         removeBySelectMode(mat.codigo, userSelectMode);
                     else
                         addBySelectMode(mat.codigo, userSelectMode);
 
-                    updateTakenPrereqClasses();
+                    updatePrereqClasses();
                     updateGradeProgress();
 
                     drawPensumTable();
-                });
-
-                r.appendChild(s);
+                }
+                cellContent.addEventListener('click', selectSingleMat);
+                cell.appendChild(cellContent);
             }
 
 
             // Codigo mat.
             {
-                let r = row.insertCell();
-                r.id = `a_${code}`;
-                r.classList.add('text-center');
-                r.classList.add(`c_${code}`);
-                r.classList.add(`c__`);
+                let cell = row.insertCell();
+                cell.id = `a_${code}`;
+                cell.classList.add('text-center');
+                cell.classList.add(`c_${code}`);
+                cell.classList.add(`c__`);
 
-                let s = document.createElement('a');
-                s.innerText = `${mat.codigo}`;
-                s.addEventListener('click', () => {
-                    createMatDialog(mat.codigo).show();
+                let cellContent = document.createElement('a');
+                cellContent.textContent = `${mat.codigo}`;
+                cellContent.addEventListener('click', () => {
+                    dialog_Mat(mat.codigo).show();
                 });
-                s.classList.add('codigo');
-                s.classList.add('monospace');
+                cellContent.classList.add('codigo');
+                cellContent.classList.add('monospace');
 
-                r.appendChild(s);
+                cell.appendChild(cellContent);
             }
 
 
             // Asignatura
-            row.insertCell().innerText = mat.asignatura;
+            row.insertCell().textContent = mat.asignatura;
 
 
             // Creditos
             {
-                let r = row.insertCell();
-                r.innerText = mat.creditos.toString();
-                r.classList.add('text-center');
+                let cell = row.insertCell();
+                cell.textContent = mat.creditos.toString();
+                cell.classList.add('text-center');
             }
 
 
@@ -743,9 +748,9 @@ function createNewPensumTable(data: i_pensum) {
 
                 mat.prereq.forEach((x) => {
                     let s = document.createElement('a');
-                    s.innerText = x;
+                    s.textContent = x;
                     s.addEventListener('click', () => {
-                        createMatDialog(x).show();
+                        dialog_Mat(x).show();
                     });
                     s.classList.add('preReq');
                     s.classList.add('monospace');
@@ -758,7 +763,7 @@ function createNewPensumTable(data: i_pensum) {
 
                 mat.prereqExtra.forEach((x) => {
                     let s = document.createElement('a');
-                    s.innerText = x;
+                    s.textContent = x;
                     s.classList.add('preReq');
                     s.classList.add('preReqExtra');
 
@@ -770,7 +775,7 @@ function createNewPensumTable(data: i_pensum) {
         }
     }
 
-    updateTakenPrereqClasses(out);
+    updatePrereqClasses(out);
     updateGradeProgress();
 
     return out;
@@ -976,8 +981,52 @@ function downloadCurrentPensumAsExcel() {
     downloadXlsx(wb_out, wb.Props.Title);
 }
 
+
+/**
+ * Creates a table that contains the pensum's general info.
+ * @param {*} data
+ */
+function createInfoList(data) {
+    /** @type {HTMLTableElement} */
+    let out = document.createElement('ul');
+
+    // Separate the text before outputting.
+    let outTextArr = parseInfoList(data);
+
+    // Format the text as a list
+    for (let x of outTextArr) {
+        let li = document.createElement('li');
+        switch (x.type) {
+            case 'simple':
+                li.textContent = x.data;
+                break;
+            case 'double':
+                var t0 = sentenceCase(x.data[0]),
+                    t1 = x.data[1];
+                li.innerHTML = `<b>${t0}:</b>\t${t1}`;
+                break;
+            case 'double_sublist':
+                var t0 = sentenceCase(x.data[0]);
+                li.innerHTML = `<b>${t0}: </b>`;
+
+                var subul = document.createElement('ul');
+                x.data[1].forEach((elem) => {
+                    let subli = document.createElement('li');
+                    subli.textContent = elem + '.';
+                    subul.appendChild(subli);
+                });
+                li.appendChild(subul);
+                break;
+        }
+        out.appendChild(li);
+    }
+
+    return out;
+}
+
+
 /** Extracts and separates the information on 'data.infoCarrera' */
-function getInfoList(data) {
+function parseInfoList(data) {
     return data.infoCarrera.map((x) => {
         let splitOnFirstColon = [
             x.substring(0, x.indexOf(': ')),
@@ -997,49 +1046,10 @@ function getInfoList(data) {
     });
 }
 
-/**
- * Creates a table that contains the pensum's general info.
- * @param {*} data
- */
-function createInfoList(data) {
-    /** @type {HTMLTableElement} */
-    let out = document.createElement('ul');
-
-    // Separate the text before outputting.
-    let outTextArr = getInfoList(data);
-
-    // Format the text as a list
-    for (let x of outTextArr) {
-        let li = document.createElement('li');
-        switch (x.type) {
-            case 'simple':
-                li.innerText = x.data;
-                break;
-            case 'double':
-                li.innerHTML = `<b>${sentenceCase(x.data[0])}:</b>\t${x.data[1]
-                    }`;
-                break;
-            case 'double_sublist':
-                li.innerHTML = `<b>${sentenceCase(x.data[0])}: </b>`;
-                var subul = document.createElement('ul');
-                x.data[1].forEach((elem) => {
-                    let subli = document.createElement('li');
-                    subli.innerHTML = elem + '.';
-                    subul.appendChild(subli);
-                });
-                li.appendChild(subul);
-                break;
-        }
-        out.appendChild(li);
-    }
-
-    return out;
-}
-
 //#endregion
 
 //#region Dialogs
-function createImportExportDialog() {
+function dialog_ImportExport() {
     let dialog = new DialogBox();
     let node = dialog.contentNode;
 
@@ -1104,7 +1114,7 @@ function createImportExportDialog() {
 
 //#region Org chart
 
-function createOrgChartOptions(onTemplateRender = null, selected = null) {
+function createOrgChartOptions(onTemplateRender = null, cursorItem = null) {
     // Generate orgchart
     var options = new primitives.FamConfig();
     var items = matsToOrgChart(currentPensumData.cuats.flat(), errorCodes);
@@ -1135,14 +1145,13 @@ function createOrgChartOptions(onTemplateRender = null, selected = null) {
         // Extras
         hasSelectorCheckbox: primitives.Enabled.False,
         showCallout: false,
-        scale: 0.7,
-        selectedItems: selected || [],
+        cursorItem: cursorItem,
     }
     return options;
 }
 
 
-function createOrgChartDialog(selected = null) {
+function dialog_OrgChart(selected = null) {
     let dialog = new DialogBox();
     let node = dialog.contentNode;
 
@@ -1155,8 +1164,10 @@ function createOrgChartDialog(selected = null) {
     chartContainer.style.width = '90vw';
     chartContainer.style.height = '60vh';
 
-    var options = createOrgChartOptions((e, d) => onWebTemplateRender(e, d, dialog), selected);
+    var options = createOrgChartOptions((evt, data) => onWebTemplateRender(evt, data, dialog), selected);
+    options.scale = orgChartSettings.scale;
     var control = primitives.FamDiagram(chartContainer, options);
+    if (selected) control.update(primitives.UpdateMode.Refresh, true);
     window['control'] = control;
 
 
@@ -1170,14 +1181,17 @@ function createOrgChartDialog(selected = null) {
     size.min = -4;
     size.max = 2;
     size.step = 0.01;
-    size.value = Math.log(0.7) / Math.log(2);
+    size.value = Math.log(orgChartSettings.scale) / Math.log(2);
     size.style.width = '100%';
-    size.addEventListener('input', () => {
+    var zoomFn = () => {
         var pVal = parseFloat(size.value);
         var newVal = 2 ** pVal;
         control.setOption('scale', newVal);
+        orgChartSettings.scale = newVal;
         control.update(primitives.UpdateMode.Refresh);
-    })
+    };
+    zoomFn = debounce(zoomFn, 10);
+    size.addEventListener('input', zoomFn)
 
 
     // Buttons
@@ -1194,12 +1208,18 @@ function createOrgChartDialog(selected = null) {
         )
     );
     node.appendChild(dialog.createCloseButton());
-    dialog.show();
 
     // @ts-ignore
-    new ResizeObserver(() => control.update(primitives.UpdateMode.Refresh)).observe(node);
+    var resizeObserver = new ResizeObserver(() => control.update(primitives.UpdateMode.Refresh));
+    resizeObserver.observe(node);
 
-    return [dialog, control];
+    dialog.onHide = () => {
+        resizeObserver.disconnect();
+        control.destroy();
+    };
+    dialog['control'] = control;
+
+    return dialog;
 }
 
 function createOrgChartPdf() {
@@ -1227,10 +1247,11 @@ function createOrgChartPdf() {
     return stream;
 }
 
-function downloadOrgChartPng(resize = 1.5) {
-    var stream = createOrgChartPdf();
+function createOrgChartPng(resize = 1.5) {
+    return new Promise((resolve, reject) => {
+        var stream = createOrgChartPdf();
+        if (stream == null) reject('Error: Failed to create file pdf!');
 
-    if (typeof stream !== 'undefined') {
         stream.on('finish', async function () {
             var blob = stream.toBlob('application/pdf');
             var buffer = await blob.arrayBuffer();
@@ -1263,26 +1284,30 @@ function downloadOrgChartPng(resize = 1.5) {
             // Remove canvas
             document.body.removeChild(canvas);
 
-            // Download
-            let name = currentPensumData.codigo + '_' + getDateIdentifier();
-            FileSaver.saveAs(png, name + '.png');
+            resolve(png);
         });
-    } else {
-        alert('Error: Failed to create file pdf!');
-    }
+    })
+}
+
+function downloadOrgChartPng(resize = 1.5) {
+    createOrgChartPng(resize).then((png) => {
+        if (!png) return;
+        let name = currentPensumData.codigo + '_' + getDateIdentifier();
+        FileSaver.saveAs(png, name + '.png');
+    }).catch(alert);
 }
 
 function downloadOrgChartPdf() {
     var stream = createOrgChartPdf();
-    if (typeof stream !== 'undefined') {
-        stream.on('finish', function () {
-            var string = stream.toBlob('application/pdf');
-            let name = currentPensumData.codigo + '_' + getDateIdentifier();
-            FileSaver.saveAs(string, name + '.pdf');
-        });
-    } else {
+    if (stream == null) {
         alert('Error: Failed to create file pdf!');
+        return;
     }
+    stream.on('finish', function () {
+        var string = stream.toBlob('application/pdf');
+        let name = currentPensumData.codigo + '_' + getDateIdentifier();
+        FileSaver.saveAs(string, name + '.pdf');
+    });
 }
 
 //#endregion
@@ -1321,7 +1346,15 @@ function matsToOrgChart(mats: i_mat_raw[], errorCodes: Set<string> = new Set()) 
     return o;
 }
 
-function onWebTemplateRender(event, data, dialog = null) {
+function onWebTemplateRender(event, data, dialog: DialogBox) {
+    if (data.templateName != "matTemplate") return;
+
+    var itemConfig = data.context as i_mat,
+        e = data.element as HTMLElement,
+        en = (name) => getElementByName(e, name),
+        comp = 'c_' + safeForHtmlId(itemConfig.codigo),
+        removeOld = []// Remove old classes, since this OrgChart lib reuses elements
+
     switch (data.renderingMode) {
         case primitives.RenderingMode.Create:
             /* Initialize template content here */
@@ -1331,37 +1364,29 @@ function onWebTemplateRender(event, data, dialog = null) {
             break;
     }
 
-    var itemConfig = data.context as i_mat;
-
-
-    if (data.templateName == "matTemplate") {
-        var e = data.element as HTMLElement;
-        var en = (name) => getElementByName(e, name);
-
-        // Remove old classes, since this OrgChart lib reuses elements
-        var removeOld = [];
-        for (
-            var i = 0, l = e.classList.length, comp = 'c_' + safeForHtmlId(itemConfig.codigo);
-            i < l; ++i) {
-            if (/c_.{2,}/.test(e.classList[i]) && comp !== e.classList[i]) {
-                removeOld.push(e.classList[i]);
-            }
+    e.onclick = () => {
+        dialog.hide();
+        dialog_Mat(itemConfig.codigo).show();
+    };
+    for (var i = 0, l = e.classList.length; i < l; ++i) {
+        if (/c_.{2,}/.test(e.classList[i]) && comp !== e.classList[i]) {
+            removeOld.push(e.classList[i]);
         }
-        e.classList.remove(...removeOld);
-
-        e.classList.add(`c_${safeForHtmlId(itemConfig.codigo)}`);
-        updateSingleTakenPrereqClasses(e);
-
-
-        // var titleBackground = en('titleBackground'); //data.element.firstChild;
-        // titleBackground.style.backgroundColor = primitives.Colors.RoyalBlue;//itemConfig.itemTitleColor || primitives.Colors.RoyalBlue;
-
-        en('title').textContent = itemConfig.asignatura;
-        en('codigo').textContent = '[' + itemConfig.codigo + ']';
-        en('cred_top').textContent = itemConfig.creditos.toString();
-        en('cred_top').setAttribute('value', itemConfig.creditos.toString())
-        en('creditos').textContent = 'Cuatrim.: ' + itemConfig.cuatrimestre;
     }
+    e.classList.remove(...removeOld);
+
+    e.classList.add(comp);
+    updatePrereqClassesSingle(e);
+
+
+    // var titleBackground = en('titleBackground'); //data.element.firstChild;
+    // titleBackground.style.backgroundColor = primitives.Colors.RoyalBlue;//itemConfig.itemTitleColor || primitives.Colors.RoyalBlue;
+
+    en('title').textContent = itemConfig.asignatura;
+    en('codigo').textContent = '[' + itemConfig.codigo + ']';
+    en('cred_top').textContent = itemConfig.creditos.toString();
+    en('cred_top').setAttribute('value', itemConfig.creditos.toString())
+    en('creditos').textContent = 'Cuatrim.: ' + itemConfig.cuatrimestre;
 }
 
 function onPdfTemplateRender(doc, pos, data) {
@@ -1463,7 +1488,7 @@ function getMatTemplate() {
                 "width": result.itemSize.width + "px",
                 "height": result.itemSize.height + "px"
             },
-            "class": ["bp-item", "bp-corner-all", "monospace", "c__", "preReq"]
+            "class": ["bp-item", "bp-corner-all", "c__", "preReq"]
         },
         ["div",
             {
@@ -1474,7 +1499,7 @@ function getMatTemplate() {
         ["div",
             {
                 "name": "codigo",
-                "class": ["bp-txt"],
+                "class": ["bp-txt", "monospace"],
                 "style": {
                     fontSize: "12px",
                     margin: "0 .5em",
@@ -1485,7 +1510,7 @@ function getMatTemplate() {
         ["div",
             {
                 "name": "title",
-                "class": ["bp-title", "bp-head"],
+                "class": ["bp-title", "bp-head", "monospace"],
                 "style": {
                     width: "100%",
                     margin: ".5em .5em 0",
@@ -1687,6 +1712,33 @@ function sentenceCase(string) {
     return sentence.charAt(0).toUpperCase() + sentence.slice(1);
 }
 
+/**
+ * Returns a function, that, as long as it continues to be invoked, will not
+ * be triggered. The function will be called after it stops being called for
+ * N milliseconds. If `immediate` is passed, trigger the function on the
+ * leading edge, instead of the trailing.
+ * 
+ * Extracted from https://davidwalsh.name/javascript-debounce-function.
+ * @param func 
+ * @param wait Delay time, in ms.
+ * @param immediate If true, trigger the function on the leading edge, instead of the trailing.
+ * @returns 
+ */
+function debounce(func, wait, immediate = false) {
+    var timeout;
+    return function () {
+        var context = this, args = arguments;
+        var later = function () {
+            timeout = null;
+            if (!immediate) func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow) func.apply(context, args);
+    };
+};
+
 /** Simple class that creates a full-screen node */
 class DialogBox {
     /** The node that will contain the info to show.
@@ -1718,6 +1770,9 @@ class DialogBox {
         return this;
     }
 
+    onHide = null;
+    onShow = null;
+
     /** Sets the contentNode to a single <p> element with the given text. */
     setMsg(str) {
         createElement(this.contentNode, 'p', str);
@@ -1728,19 +1783,21 @@ class DialogBox {
     /** Adds the wrapperNode to the document, thus showing the DialogBox. */
     show() {
         document.body.appendChild(this.wrapperNode);
+        if (this.onShow && typeof this.onShow == 'function') this.onShow.call();
         return this;
     }
 
     /** Removes the wrapperNode from the document, thus hiding the DialogBox. */
     hide() {
         document.body.removeChild(this.wrapperNode);
+        if (this.onHide && typeof this.onHide == 'function') this.onHide.call();
         return this;
     }
 
     /** Creates a generic 'close' button that can be appended to contentNode. */
     createCloseButton() {
         let a = document.createElement('a');
-        a.innerText = 'Cerrar';
+        a.textContent = 'Cerrar';
         a.addEventListener('click', () => this.hide());
         a.classList.add('btn-primary');
         return a;
@@ -1923,7 +1980,7 @@ async function loadPensum(customPensum: i_pensum = null) {
         {
             clearInfoWrap();
             let h = document.createElement('h3');
-            h.innerText = 'Detalles de la carrera: ';
+            h.textContent = 'Detalles de la carrera: ';
             infoWrap.appendChild(h);
 
             infoWrap.appendChild(createInfoList(currentPensumData));
@@ -1936,26 +1993,26 @@ async function loadPensum(customPensum: i_pensum = null) {
             let a = createElement(btnwrp, 'a', '', ['btn-secondary']) as HTMLAnchorElement;
             a.href = unapecPensumUrl + currentPensumCode;
             a.target = '_blank';
-            a.innerText = '🌐 Ver pensum original';
+            a.textContent = '🌐 Ver pensum original';
             if (loadedFromCustomPensum)
                 a.classList.add('disabled');
 
             btnwrp.appendChild(
                 createSecondaryButton('💾 Guardar/Cargar selección', () =>
-                    createImportExportDialog().show()
+                    dialog_ImportExport().show()
                 )
             );
 
             btnwrp.appendChild(
                 createSecondaryButton('🌳 Diagrama (β)', () =>
-                    createOrgChartDialog()
+                    dialog_OrgChart().show()
                 )
             );
 
             return currentPensumData.cuats.flat().length;
         }
     } else {
-        infoWrap.innerText = 'No se ha encontrado el pensum!';
+        infoWrap.textContent = 'No se ha encontrado el pensum!';
         clearPensumTable();
         return false;
     }
@@ -1966,10 +2023,10 @@ function drawPensumTable() {
     let div = document.createElement('div');
     {
         let h = document.createElement('h1');
-        h.innerText = currentPensumData.carrera;
+        h.textContent = currentPensumData.carrera;
         div.appendChild(h);
     }
-    div.appendChild(createNewPensumTable(currentPensumData));
+    div.appendChild(createPensumTable(currentPensumData));
 
     if (wrapper.firstChild) wrapper.replaceChild(div, wrapper.firstChild);
     else wrapper.appendChild(div);
@@ -2171,8 +2228,8 @@ async function onWindowLoad() {
     {
         let a = document.getElementById('versionSpan');
         let b = document.getElementById('saveVersionSpan');
-        if (a) a.innerText = jsVer.toString();
-        if (b) b.innerText = saveVer.toString();
+        if (a) a.textContent = jsVer.toString();
+        if (b) b.textContent = saveVer.toString();
     }
 
 

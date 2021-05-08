@@ -112,6 +112,9 @@ function getUserProgressList(mode) {
         _a);
     return userProgress[a[mode]];
 }
+var orgChartSettings = {
+    scale: 0.7,
+};
 FileSaver.saveAs = saveAs;
 var MANAGEMENT_TAKEN_CSS_CLASS = 'managementMode-taken';
 var MANAGEMENT_ONCOURSE_CSS_CLASS = 'managementMode-oncourse';
@@ -267,7 +270,7 @@ function matsToDict(arr) {
     return out;
 }
 /** Create mat dialog showing its dependencies and other options... */
-function createMatDialog(code) {
+function dialog_Mat(code) {
     var e_4, _a, e_5, _b;
     var codeData = currentPensumMats[code];
     if (!codeData)
@@ -278,6 +281,7 @@ function createMatDialog(code) {
     createElement(outNode, 'p', "Codigo: \t" + codeData.codigo);
     createElement(outNode, 'p', "Creditos: \t" + codeData.creditos);
     createElement(outNode, 'p', "Cuatrimestre: \t" + codeData.cuatrimestre);
+    // Localizar en pensum
     if (filterMats([codeData]).length === 0) {
         createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary', 'btn-disabled']);
         createElement(outNode, 'span', 'Esta materia no está visible actualmente.', ['explanatory']);
@@ -293,6 +297,14 @@ function createMatDialog(code) {
             targetRow.classList.remove('highlightRow');
             targetRow.classList.add('highlightRow');
             setTimeout(function () { return targetRow.classList.remove('highlightRow'); }, 3e3);
+        });
+    }
+    // Localizar en diagrama
+    {
+        var a = createElement(outNode, 'a', 'Localizar en diagrama (β)', ['btn-secondary']);
+        a.addEventListener('click', function () {
+            dialog.hide();
+            dialog_OrgChart(codeData.codigo).show();
         });
     }
     if (codeData.prereq.length > 0 || codeData.prereqExtra.length > 0) {
@@ -313,7 +325,7 @@ function createMatDialog(code) {
         codeData.prereqExtra.forEach(function (x) {
             var p = createElement(outNode, 'p');
             var s = document.createElement('a');
-            s.innerText = x;
+            s.textContent = x;
             s.classList.add('preReq');
             s.classList.add('preReqExtra');
             p.appendChild(s);
@@ -336,7 +348,7 @@ function createMatDialog(code) {
         }
     }
     outNode.appendChild(dialog.createCloseButton());
-    updateTakenPrereqClasses(outNode);
+    updatePrereqClasses(outNode);
     return dialog;
 }
 // Creates a single clickable mat code, for use inside dialogs.
@@ -344,10 +356,10 @@ function createMatBtn(dialog, code) {
     var _a;
     var p = document.createElement('p');
     var s = document.createElement('a');
-    s.innerText = "(" + code + ") " + (((_a = currentPensumMats[code]) === null || _a === void 0 ? void 0 : _a.asignatura) || '?');
+    s.textContent = "(" + code + ") " + (((_a = currentPensumMats[code]) === null || _a === void 0 ? void 0 : _a.asignatura) || '?');
     s.addEventListener('click', function () {
         dialog.hide();
-        createMatDialog(code).show();
+        dialog_Mat(code).show();
     });
     s.classList.add('preReq');
     s.classList.add('monospace');
@@ -357,10 +369,11 @@ function createMatBtn(dialog, code) {
     return p;
 }
 /** Adds or removes MANAGEMENT_TAKEN_CLASS to the related elements. */
-function updateTakenPrereqClasses(node) {
+function updatePrereqClasses(node) {
     var e_6, _a, e_7, _b, e_8, _c, e_9, _d, e_10, _e, e_11, _f, e_12, _g;
     if (node === void 0) { node = document; }
     try {
+        // getElementsByClassName has O(1) complexity, since the DOM tracks them.
         for (var _h = __values(node.getElementsByClassName('c__')), _j = _h.next(); !_j.done; _j = _h.next()) {
             var elem = _j.value;
             elem.classList.remove(MANAGEMENT_TAKEN_CSS_CLASS, MANAGEMENT_ONCOURSE_CSS_CLASS, MANAGEMENT_SELECTED_CSS_CLASS, MANAGEMENT_ERROR_CSS_CLASS);
@@ -453,7 +466,7 @@ function updateTakenPrereqClasses(node) {
     }
 }
 /** Adds or removes MANAGEMENT_TAKEN_CLASS to a single element. */
-function updateSingleTakenPrereqClasses(elem) {
+function updatePrereqClassesSingle(elem) {
     var e_13, _a, e_14, _b, e_15, _c;
     var cl = elem.classList;
     if (!cl.contains('c__'))
@@ -548,7 +561,7 @@ function createCheckbox(node, labelName, onchange, initialState) {
     x.addEventListener('change', onchange);
     node.appendChild(x);
     var l = document.createElement('label');
-    l.innerText = labelName;
+    l.textContent = labelName;
     l.htmlFor = objId;
     node.appendChild(l);
     return [x, l];
@@ -567,7 +580,7 @@ function createRadio(node, groupName, labelName, onchange, initialState) {
     x.addEventListener('change', onchange);
     node.appendChild(x);
     var l = document.createElement('label');
-    l.innerText = labelName;
+    l.textContent = labelName;
     l.htmlFor = objId;
     node.appendChild(l);
     return [x, l];
@@ -649,7 +662,7 @@ function createToolbox() {
                         removeBySelectMode(x, SelectMode.OnCourse);
                         addBySelectMode(x, SelectMode.Passed);
                     });
-                    updateTakenPrereqClasses();
+                    updatePrereqClasses();
                     updateGradeProgress();
                 },
             },
@@ -714,7 +727,7 @@ function updateGradeProgress() {
  *  - Prereq
  * @param {*} data
  */
-function createNewPensumTable(data) {
+function createPensumTable(data) {
     var e_19, _a, e_20, _b;
     var out = document.createElement('table');
     // Create the header
@@ -730,7 +743,7 @@ function createNewPensumTable(data) {
         ]), _d = _c.next(); !_d.done; _d = _c.next()) {
             var x = _d.value;
             var a = document.createElement('th');
-            a.innerText = x;
+            a.textContent = x;
             headerRow.appendChild(a);
         }
     }
@@ -747,63 +760,53 @@ function createNewPensumTable(data) {
         var filteredCuat = filterMats(cuat);
         if (filteredCuat.length === 0)
             return "continue";
+        var tbody = out.createTBody();
+        tbody.dataset.cuat = (idxCuat + 1).toString();
+        tbody.classList.add('cuatLimit');
         // First row (cuat number)
         {
-            var row = out.insertRow();
-            var a = document.createElement('th');
-            a.rowSpan = filteredCuat.length + 1;
+            var row = tbody.insertRow();
+            var th = document.createElement('th');
+            th.rowSpan = filteredCuat.length + 1;
             var t = (filteredCuat.length === 1) ? 'C.' : 'Cuat. ';
-            var p = createElement(a, 'p', "" + t + (idxCuat + 1), ['vertical-text']);
+            var p = createElement(th, 'p', "" + t + (idxCuat + 1), ['vertical-text']);
             row.classList.add('cuatLimit');
-            a.classList.add('cuatHeader');
+            th.classList.add('cuatHeader');
             // Allow all cuats selection
             // TODO: Do with a SELECT_MODE TOOL instead
-            a.addEventListener('click', function () {
+            var selectAllUnderCuat = function () {
                 // Check if all are checked
                 var currentCuatMats = cuat.map(function (x) { return x.codigo; });
-                if (false /*userSelectMode === SelectMode.Select*/) {
-                    // Standard behaviour
-                    var selectSet_1 = getUserProgressList(userSelectMode);
-                    var selectedCuatMats = currentCuatMats.filter(function (x) { return selectSet_1.has(x); });
-                    // If all are checked, uncheck, else check.
-                    if (currentCuatMats.length === selectedCuatMats.length) {
-                        currentCuatMats.forEach(function (x) { return removeBySelectMode(x, userSelectMode); });
-                    }
-                    else {
-                        currentCuatMats.forEach(function (x) { return addBySelectMode(x, userSelectMode); });
-                    }
+                var passed = userProgress.passed, onCourse = userProgress.onCourse;
+                var _a = __read((userSelectMode === SelectMode.Passed) ? [passed, onCourse] : [onCourse, passed], 2), main = _a[0], second = _a[1];
+                /**
+                 * Cases:
+                 * - All unselected: just add all
+                 * - All on both, none unselected: finish adding all (same as prev.)
+                 * - All on main: remove all;
+                 * - Some holes: set holes only.
+                 */
+                var onMain = currentCuatMats.filter(function (x) { return main.has(x); });
+                var onSecond = currentCuatMats.filter(function (x) { return second.has(x); });
+                var unselected = currentCuatMats.filter(function (x) { return !main.has(x) && !second.has(x); });
+                var n = currentCuatMats.length;
+                var allOnMain = onMain.length === n;
+                var allOnBoth = onMain.length + onSecond.length === n;
+                var allUnselected = unselected.length === n;
+                if (allOnMain) {
+                    onMain.forEach(function (x) { return removeBySelectMode(x, userSelectMode); });
                 }
-                else {
-                    var passed = userProgress.passed, onCourse = userProgress.onCourse;
-                    var _a = __read((userSelectMode === SelectMode.Passed) ? [passed, onCourse] : [onCourse, passed], 2), main_1 = _a[0], second_1 = _a[1];
-                    /**
-                     * Cases:
-                     * - All unselected: just add all
-                     * - All on both, none unselected: finish adding all (same as prev.)
-                     * - All on main: remove all;
-                     * - Some holes: set holes only.
-                     */
-                    var onMain = currentCuatMats.filter(function (x) { return main_1.has(x); });
-                    var onSecond = currentCuatMats.filter(function (x) { return second_1.has(x); });
-                    var unselected = currentCuatMats.filter(function (x) { return !main_1.has(x) && !second_1.has(x); });
-                    var n = currentCuatMats.length;
-                    var allOnMain = onMain.length === n;
-                    var allOnBoth = onMain.length + onSecond.length === n;
-                    var allUnselected = unselected.length === n;
-                    if (allOnMain) {
-                        onMain.forEach(function (x) { return removeBySelectMode(x, userSelectMode); });
-                    }
-                    else if (allUnselected || allOnBoth) {
-                        currentCuatMats.forEach(function (x) { return addBySelectMode(x, userSelectMode); });
-                    }
-                    else { // someUnselected
-                        unselected.forEach(function (x) { return addBySelectMode(x, userSelectMode); });
-                    }
+                else if (allUnselected || allOnBoth) {
+                    currentCuatMats.forEach(function (x) { return addBySelectMode(x, userSelectMode); });
+                }
+                else { // someUnselected
+                    unselected.forEach(function (x) { return addBySelectMode(x, userSelectMode); });
                 }
                 // TODO: Dont redraw on every action...
                 drawPensumTable();
-            });
-            row.appendChild(a);
+            };
+            th.addEventListener('click', selectAllUnderCuat);
+            row.appendChild(th);
         }
         var _loop_4 = function (mat) {
             var row = out.insertRow();
@@ -813,56 +816,57 @@ function createNewPensumTable(data) {
             row.classList.add("c__");
             // Selection checkbox
             {
-                var r = row.insertCell();
-                r.classList.add('text-center');
-                r.classList.add('managementMode-cell');
-                var s = document.createElement('div');
-                s.classList.add('mat-clickable');
+                var cell = row.insertCell();
+                cell.classList.add('text-center');
+                cell.classList.add('managementMode-cell');
+                var cellContent = document.createElement('div');
+                cellContent.classList.add('mat-clickable');
                 //if (userProgress.passed.has(mat.codigo)) s.checked = true;
-                s.addEventListener('click', function () {
+                var selectSingleMat = function () {
                     var selectSet = getUserProgressList(userSelectMode);
                     if (selectSet.has(mat.codigo))
                         removeBySelectMode(mat.codigo, userSelectMode);
                     else
                         addBySelectMode(mat.codigo, userSelectMode);
-                    updateTakenPrereqClasses();
+                    updatePrereqClasses();
                     updateGradeProgress();
                     drawPensumTable();
-                });
-                r.appendChild(s);
+                };
+                cellContent.addEventListener('click', selectSingleMat);
+                cell.appendChild(cellContent);
             }
             // Codigo mat.
             {
-                var r = row.insertCell();
-                r.id = "a_" + code;
-                r.classList.add('text-center');
-                r.classList.add("c_" + code);
-                r.classList.add("c__");
-                var s = document.createElement('a');
-                s.innerText = "" + mat.codigo;
-                s.addEventListener('click', function () {
-                    createMatDialog(mat.codigo).show();
+                var cell = row.insertCell();
+                cell.id = "a_" + code;
+                cell.classList.add('text-center');
+                cell.classList.add("c_" + code);
+                cell.classList.add("c__");
+                var cellContent = document.createElement('a');
+                cellContent.textContent = "" + mat.codigo;
+                cellContent.addEventListener('click', function () {
+                    dialog_Mat(mat.codigo).show();
                 });
-                s.classList.add('codigo');
-                s.classList.add('monospace');
-                r.appendChild(s);
+                cellContent.classList.add('codigo');
+                cellContent.classList.add('monospace');
+                cell.appendChild(cellContent);
             }
             // Asignatura
-            row.insertCell().innerText = mat.asignatura;
+            row.insertCell().textContent = mat.asignatura;
             // Creditos
             {
-                var r = row.insertCell();
-                r.innerText = mat.creditos.toString();
-                r.classList.add('text-center');
+                var cell = row.insertCell();
+                cell.textContent = mat.creditos.toString();
+                cell.classList.add('text-center');
             }
             // Prereqs
             {
                 var r_1 = row.insertCell();
                 mat.prereq.forEach(function (x) {
                     var s = document.createElement('a');
-                    s.innerText = x;
+                    s.textContent = x;
                     s.addEventListener('click', function () {
-                        createMatDialog(x).show();
+                        dialog_Mat(x).show();
                     });
                     s.classList.add('preReq');
                     s.classList.add('monospace');
@@ -873,7 +877,7 @@ function createNewPensumTable(data) {
                 });
                 mat.prereqExtra.forEach(function (x) {
                     var s = document.createElement('a');
-                    s.innerText = x;
+                    s.textContent = x;
                     s.classList.add('preReq');
                     s.classList.add('preReqExtra');
                     r_1.appendChild(s);
@@ -909,7 +913,7 @@ function createNewPensumTable(data) {
         }
         finally { if (e_20) throw e_20.error; }
     }
-    updateTakenPrereqClasses(out);
+    updatePrereqClasses(out);
     updateGradeProgress();
     return out;
 }
@@ -1099,8 +1103,55 @@ function downloadCurrentPensumAsExcel() {
     var wb_out = writeExcelWorkbookAsXlsx(wb);
     downloadXlsx(wb_out, wb.Props.Title);
 }
+/**
+ * Creates a table that contains the pensum's general info.
+ * @param {*} data
+ */
+function createInfoList(data) {
+    var e_24, _a;
+    /** @type {HTMLTableElement} */
+    var out = document.createElement('ul');
+    // Separate the text before outputting.
+    var outTextArr = parseInfoList(data);
+    try {
+        // Format the text as a list
+        for (var outTextArr_1 = __values(outTextArr), outTextArr_1_1 = outTextArr_1.next(); !outTextArr_1_1.done; outTextArr_1_1 = outTextArr_1.next()) {
+            var x = outTextArr_1_1.value;
+            var li = document.createElement('li');
+            switch (x.type) {
+                case 'simple':
+                    li.textContent = x.data;
+                    break;
+                case 'double':
+                    var t0 = sentenceCase(x.data[0]), t1 = x.data[1];
+                    li.innerHTML = "<b>" + t0 + ":</b>\t" + t1;
+                    break;
+                case 'double_sublist':
+                    var t0 = sentenceCase(x.data[0]);
+                    li.innerHTML = "<b>" + t0 + ": </b>";
+                    var subul = document.createElement('ul');
+                    x.data[1].forEach(function (elem) {
+                        var subli = document.createElement('li');
+                        subli.textContent = elem + '.';
+                        subul.appendChild(subli);
+                    });
+                    li.appendChild(subul);
+                    break;
+            }
+            out.appendChild(li);
+        }
+    }
+    catch (e_24_1) { e_24 = { error: e_24_1 }; }
+    finally {
+        try {
+            if (outTextArr_1_1 && !outTextArr_1_1.done && (_a = outTextArr_1.return)) _a.call(outTextArr_1);
+        }
+        finally { if (e_24) throw e_24.error; }
+    }
+    return out;
+}
 /** Extracts and separates the information on 'data.infoCarrera' */
-function getInfoList(data) {
+function parseInfoList(data) {
     return data.infoCarrera.map(function (x) {
         var splitOnFirstColon = [
             x.substring(0, x.indexOf(': ')),
@@ -1120,54 +1171,9 @@ function getInfoList(data) {
         }
     });
 }
-/**
- * Creates a table that contains the pensum's general info.
- * @param {*} data
- */
-function createInfoList(data) {
-    var e_24, _a;
-    /** @type {HTMLTableElement} */
-    var out = document.createElement('ul');
-    // Separate the text before outputting.
-    var outTextArr = getInfoList(data);
-    try {
-        // Format the text as a list
-        for (var outTextArr_1 = __values(outTextArr), outTextArr_1_1 = outTextArr_1.next(); !outTextArr_1_1.done; outTextArr_1_1 = outTextArr_1.next()) {
-            var x = outTextArr_1_1.value;
-            var li = document.createElement('li');
-            switch (x.type) {
-                case 'simple':
-                    li.innerText = x.data;
-                    break;
-                case 'double':
-                    li.innerHTML = "<b>" + sentenceCase(x.data[0]) + ":</b>\t" + x.data[1];
-                    break;
-                case 'double_sublist':
-                    li.innerHTML = "<b>" + sentenceCase(x.data[0]) + ": </b>";
-                    var subul = document.createElement('ul');
-                    x.data[1].forEach(function (elem) {
-                        var subli = document.createElement('li');
-                        subli.innerHTML = elem + '.';
-                        subul.appendChild(subli);
-                    });
-                    li.appendChild(subul);
-                    break;
-            }
-            out.appendChild(li);
-        }
-    }
-    catch (e_24_1) { e_24 = { error: e_24_1 }; }
-    finally {
-        try {
-            if (outTextArr_1_1 && !outTextArr_1_1.done && (_a = outTextArr_1.return)) _a.call(outTextArr_1);
-        }
-        finally { if (e_24) throw e_24.error; }
-    }
-    return out;
-}
 //#endregion
 //#region Dialogs
-function createImportExportDialog() {
+function dialog_ImportExport() {
     var dialog = new DialogBox();
     var node = dialog.contentNode;
     createElement(node, 'h3', 'Exportar/importar progreso');
@@ -1199,9 +1205,9 @@ function createImportExportDialog() {
 }
 //#endregion
 //#region Org chart
-function createOrgChartOptions(onTemplateRender, selected) {
+function createOrgChartOptions(onTemplateRender, cursorItem) {
     if (onTemplateRender === void 0) { onTemplateRender = null; }
-    if (selected === void 0) { selected = null; }
+    if (cursorItem === void 0) { cursorItem = null; }
     // Generate orgchart
     var options = new primitives.FamConfig();
     var items = matsToOrgChart(currentPensumData.cuats.flat(), errorCodes);
@@ -1213,10 +1219,10 @@ function createOrgChartOptions(onTemplateRender, selected) {
         // Buttons
         hasButtons: primitives.Enabled.True, buttonsPanelSize: 38, 
         // Extras
-        hasSelectorCheckbox: primitives.Enabled.False, showCallout: false, scale: 0.7, selectedItems: selected || [] });
+        hasSelectorCheckbox: primitives.Enabled.False, showCallout: false, cursorItem: cursorItem });
     return options;
 }
-function createOrgChartDialog(selected) {
+function dialog_OrgChart(selected) {
     if (selected === void 0) { selected = null; }
     var dialog = new DialogBox();
     var node = dialog.contentNode;
@@ -1226,8 +1232,11 @@ function createOrgChartDialog(selected) {
     var chartContainer = createElement(node, 'div');
     chartContainer.style.width = '90vw';
     chartContainer.style.height = '60vh';
-    var options = createOrgChartOptions(function (e, d) { return onWebTemplateRender(e, d, dialog); }, selected);
+    var options = createOrgChartOptions(function (evt, data) { return onWebTemplateRender(evt, data, dialog); }, selected);
+    options.scale = orgChartSettings.scale;
     var control = primitives.FamDiagram(chartContainer, options);
+    if (selected)
+        control.update(primitives.UpdateMode.Refresh, true);
     window['control'] = control;
     // Zoom slider
     node.appendChild(document.createElement('br'));
@@ -1238,22 +1247,30 @@ function createOrgChartDialog(selected) {
     size.min = -4;
     size.max = 2;
     size.step = 0.01;
-    size.value = Math.log(0.7) / Math.log(2);
+    size.value = Math.log(orgChartSettings.scale) / Math.log(2);
     size.style.width = '100%';
-    size.addEventListener('input', function () {
+    var zoomFn = function () {
         var pVal = parseFloat(size.value);
         var newVal = Math.pow(2, pVal);
         control.setOption('scale', newVal);
+        orgChartSettings.scale = newVal;
         control.update(primitives.UpdateMode.Refresh);
-    });
+    };
+    zoomFn = debounce(zoomFn, 10);
+    size.addEventListener('input', zoomFn);
     // Buttons
     node.appendChild(createSecondaryButton("\uD83D\uDCC4 Descargar documento .pdf", function () { return downloadOrgChartPdf(); }));
     node.appendChild(createSecondaryButton("\uD83D\uDDBC Descargar imagen .png", function () { return downloadOrgChartPng(); }));
     node.appendChild(dialog.createCloseButton());
-    dialog.show();
     // @ts-ignore
-    new ResizeObserver(function () { return control.update(primitives.UpdateMode.Refresh); }).observe(node);
-    return [dialog, control];
+    var resizeObserver = new ResizeObserver(function () { return control.update(primitives.UpdateMode.Refresh); });
+    resizeObserver.observe(node);
+    dialog.onHide = function () {
+        resizeObserver.disconnect();
+        control.destroy();
+    };
+    dialog['control'] = control;
+    return dialog;
 }
 function createOrgChartPdf() {
     var options = createOrgChartOptions(onPdfTemplateRender);
@@ -1270,13 +1287,15 @@ function createOrgChartPdf() {
     doc.end();
     return stream;
 }
-function downloadOrgChartPng(resize) {
+function createOrgChartPng(resize) {
     if (resize === void 0) { resize = 1.5; }
-    var stream = createOrgChartPdf();
-    if (typeof stream !== 'undefined') {
+    return new Promise(function (resolve, reject) {
+        var stream = createOrgChartPdf();
+        if (stream == null)
+            reject('Error: Failed to create file pdf!');
         stream.on('finish', function () {
             return __awaiter(this, void 0, void 0, function () {
-                var blob, buffer, pdf, page, scale, viewport, canvas, context, task, png, name;
+                var blob, buffer, pdf, page, scale, viewport, canvas, context, task, png;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
@@ -1310,30 +1329,34 @@ function downloadOrgChartPng(resize) {
                             png = canvas.toDataURL('image/png');
                             // Remove canvas
                             document.body.removeChild(canvas);
-                            name = currentPensumData.codigo + '_' + getDateIdentifier();
-                            FileSaver.saveAs(png, name + '.png');
+                            resolve(png);
                             return [2 /*return*/];
                     }
                 });
             });
         });
-    }
-    else {
-        alert('Error: Failed to create file pdf!');
-    }
+    });
+}
+function downloadOrgChartPng(resize) {
+    if (resize === void 0) { resize = 1.5; }
+    createOrgChartPng(resize).then(function (png) {
+        if (!png)
+            return;
+        var name = currentPensumData.codigo + '_' + getDateIdentifier();
+        FileSaver.saveAs(png, name + '.png');
+    }).catch(alert);
 }
 function downloadOrgChartPdf() {
     var stream = createOrgChartPdf();
-    if (typeof stream !== 'undefined') {
-        stream.on('finish', function () {
-            var string = stream.toBlob('application/pdf');
-            var name = currentPensumData.codigo + '_' + getDateIdentifier();
-            FileSaver.saveAs(string, name + '.pdf');
-        });
-    }
-    else {
+    if (stream == null) {
         alert('Error: Failed to create file pdf!');
+        return;
     }
+    stream.on('finish', function () {
+        var string = stream.toBlob('application/pdf');
+        var name = currentPensumData.codigo + '_' + getDateIdentifier();
+        FileSaver.saveAs(string, name + '.pdf');
+    });
 }
 //#endregion
 //#region OrgChart templates
@@ -1365,7 +1388,9 @@ function matsToOrgChart(mats, errorCodes) {
 }
 function onWebTemplateRender(event, data, dialog) {
     var _a;
-    if (dialog === void 0) { dialog = null; }
+    if (data.templateName != "matTemplate")
+        return;
+    var itemConfig = data.context, e = data.element, en = function (name) { return getElementByName(e, name); }, comp = 'c_' + safeForHtmlId(itemConfig.codigo), removeOld = []; // Remove old classes, since this OrgChart lib reuses elements
     switch (data.renderingMode) {
         case primitives.RenderingMode.Create:
             /* Initialize template content here */
@@ -1374,28 +1399,25 @@ function onWebTemplateRender(event, data, dialog) {
             /* Update template content here */
             break;
     }
-    var itemConfig = data.context;
-    if (data.templateName == "matTemplate") {
-        var e = data.element;
-        var en = function (name) { return getElementByName(e, name); };
-        // Remove old classes, since this OrgChart lib reuses elements
-        var removeOld = [];
-        for (var i = 0, l = e.classList.length, comp = 'c_' + safeForHtmlId(itemConfig.codigo); i < l; ++i) {
-            if (/c_.{2,}/.test(e.classList[i]) && comp !== e.classList[i]) {
-                removeOld.push(e.classList[i]);
-            }
+    e.onclick = function () {
+        dialog.hide();
+        dialog_Mat(itemConfig.codigo).show();
+    };
+    for (var i = 0, l = e.classList.length; i < l; ++i) {
+        if (/c_.{2,}/.test(e.classList[i]) && comp !== e.classList[i]) {
+            removeOld.push(e.classList[i]);
         }
-        (_a = e.classList).remove.apply(_a, __spread(removeOld));
-        e.classList.add("c_" + safeForHtmlId(itemConfig.codigo));
-        updateSingleTakenPrereqClasses(e);
-        // var titleBackground = en('titleBackground'); //data.element.firstChild;
-        // titleBackground.style.backgroundColor = primitives.Colors.RoyalBlue;//itemConfig.itemTitleColor || primitives.Colors.RoyalBlue;
-        en('title').textContent = itemConfig.asignatura;
-        en('codigo').textContent = '[' + itemConfig.codigo + ']';
-        en('cred_top').textContent = itemConfig.creditos.toString();
-        en('cred_top').setAttribute('value', itemConfig.creditos.toString());
-        en('creditos').textContent = 'Cuatrim.: ' + itemConfig.cuatrimestre;
     }
+    (_a = e.classList).remove.apply(_a, __spread(removeOld));
+    e.classList.add(comp);
+    updatePrereqClassesSingle(e);
+    // var titleBackground = en('titleBackground'); //data.element.firstChild;
+    // titleBackground.style.backgroundColor = primitives.Colors.RoyalBlue;//itemConfig.itemTitleColor || primitives.Colors.RoyalBlue;
+    en('title').textContent = itemConfig.asignatura;
+    en('codigo').textContent = '[' + itemConfig.codigo + ']';
+    en('cred_top').textContent = itemConfig.creditos.toString();
+    en('cred_top').setAttribute('value', itemConfig.creditos.toString());
+    en('creditos').textContent = 'Cuatrim.: ' + itemConfig.cuatrimestre;
 }
 function onPdfTemplateRender(doc, pos, data) {
     var itemConfig = data.context;
@@ -1471,7 +1493,7 @@ function getMatTemplate() {
                 "width": result.itemSize.width + "px",
                 "height": result.itemSize.height + "px"
             },
-            "class": ["bp-item", "bp-corner-all", "monospace", "c__", "preReq"]
+            "class": ["bp-item", "bp-corner-all", "c__", "preReq"]
         },
         ["div",
             {
@@ -1482,7 +1504,7 @@ function getMatTemplate() {
         ["div",
             {
                 "name": "codigo",
-                "class": ["bp-txt"],
+                "class": ["bp-txt", "monospace"],
                 "style": {
                     fontSize: "12px",
                     margin: "0 .5em",
@@ -1493,7 +1515,7 @@ function getMatTemplate() {
         ["div",
             {
                 "name": "title",
-                "class": ["bp-title", "bp-head"],
+                "class": ["bp-title", "bp-head", "monospace"],
                 "style": {
                     width: "100%",
                     margin: ".5em .5em 0",
@@ -1685,10 +1707,42 @@ function sentenceCase(string) {
     var sentence = string.toLowerCase();
     return sentence.charAt(0).toUpperCase() + sentence.slice(1);
 }
+/**
+ * Returns a function, that, as long as it continues to be invoked, will not
+ * be triggered. The function will be called after it stops being called for
+ * N milliseconds. If `immediate` is passed, trigger the function on the
+ * leading edge, instead of the trailing.
+ *
+ * Extracted from https://davidwalsh.name/javascript-debounce-function.
+ * @param func
+ * @param wait Delay time, in ms.
+ * @param immediate If true, trigger the function on the leading edge, instead of the trailing.
+ * @returns
+ */
+function debounce(func, wait, immediate) {
+    if (immediate === void 0) { immediate = false; }
+    var timeout;
+    return function () {
+        var context = this, args = arguments;
+        var later = function () {
+            timeout = null;
+            if (!immediate)
+                func.apply(context, args);
+        };
+        var callNow = immediate && !timeout;
+        clearTimeout(timeout);
+        timeout = setTimeout(later, wait);
+        if (callNow)
+            func.apply(context, args);
+    };
+}
+;
 /** Simple class that creates a full-screen node */
 var DialogBox = /** @class */ (function () {
     function DialogBox() {
         var _this = this;
+        this.onHide = null;
+        this.onShow = null;
         this.wrapperNode = document.createElement('div');
         this.wrapperNode.classList.add('fullscreen');
         this.wrapperNode.classList.add('dialogWrapper');
@@ -1711,18 +1765,22 @@ var DialogBox = /** @class */ (function () {
     /** Adds the wrapperNode to the document, thus showing the DialogBox. */
     DialogBox.prototype.show = function () {
         document.body.appendChild(this.wrapperNode);
+        if (this.onShow && typeof this.onShow == 'function')
+            this.onShow.call();
         return this;
     };
     /** Removes the wrapperNode from the document, thus hiding the DialogBox. */
     DialogBox.prototype.hide = function () {
         document.body.removeChild(this.wrapperNode);
+        if (this.onHide && typeof this.onHide == 'function')
+            this.onHide.call();
         return this;
     };
     /** Creates a generic 'close' button that can be appended to contentNode. */
     DialogBox.prototype.createCloseButton = function () {
         var _this = this;
         var a = document.createElement('a');
-        a.innerText = 'Cerrar';
+        a.textContent = 'Cerrar';
         a.addEventListener('click', function () { return _this.hide(); });
         a.classList.add('btn-primary');
         return a;
@@ -1909,7 +1967,7 @@ function loadPensum(customPensum) {
                         {
                             clearInfoWrap();
                             h = document.createElement('h3');
-                            h.innerText = 'Detalles de la carrera: ';
+                            h.textContent = 'Detalles de la carrera: ';
                             infoWrap.appendChild(h);
                             infoWrap.appendChild(createInfoList(currentPensumData));
                             t0 = 'Recuerde guardar una copia de su selección en su disco local (o en las nubes).';
@@ -1918,20 +1976,20 @@ function loadPensum(customPensum) {
                             a = createElement(btnwrp, 'a', '', ['btn-secondary']);
                             a.href = unapecPensumUrl + currentPensumCode;
                             a.target = '_blank';
-                            a.innerText = '🌐 Ver pensum original';
+                            a.textContent = '🌐 Ver pensum original';
                             if (loadedFromCustomPensum)
                                 a.classList.add('disabled');
                             btnwrp.appendChild(createSecondaryButton('💾 Guardar/Cargar selección', function () {
-                                return createImportExportDialog().show();
+                                return dialog_ImportExport().show();
                             }));
                             btnwrp.appendChild(createSecondaryButton('🌳 Diagrama (β)', function () {
-                                return createOrgChartDialog();
+                                return dialog_OrgChart().show();
                             }));
                             return [2 /*return*/, currentPensumData.cuats.flat().length];
                         }
                     }
                     else {
-                        infoWrap.innerText = 'No se ha encontrado el pensum!';
+                        infoWrap.textContent = 'No se ha encontrado el pensum!';
                         clearPensumTable();
                         return [2 /*return*/, false];
                     }
@@ -1945,10 +2003,10 @@ function drawPensumTable() {
     var div = document.createElement('div');
     {
         var h = document.createElement('h1');
-        h.innerText = currentPensumData.carrera;
+        h.textContent = currentPensumData.carrera;
         div.appendChild(h);
     }
-    div.appendChild(createNewPensumTable(currentPensumData));
+    div.appendChild(createPensumTable(currentPensumData));
     if (wrapper.firstChild)
         wrapper.replaceChild(div, wrapper.firstChild);
     else
@@ -2154,9 +2212,9 @@ function onWindowLoad() {
                         a = document.getElementById('versionSpan');
                         b = document.getElementById('saveVersionSpan');
                         if (a)
-                            a.innerText = jsVer.toString();
+                            a.textContent = jsVer.toString();
                         if (b)
-                            b.innerText = saveVer.toString();
+                            b.textContent = saveVer.toString();
                     }
                     _c.label = 1;
                 case 1:
