@@ -1207,7 +1207,6 @@ function dialog_ImportExport() {
 }
 function dialog_IndiceCuatrimestral() {
     var e_25, _a;
-    //TODO: Finish me!!
     var dialog = new DialogBox();
     var outNode = dialog.contentNode;
     createElement(outNode, 'h3', 'Calcular indice');
@@ -1223,7 +1222,7 @@ function dialog_IndiceCuatrimestral() {
         outNode.append("\n            Para usar esta funcion, se necesita \n            seleccionar al menos una materia \n            como \"cursando\" (en amarillo).", dialog.createCloseButton());
         return dialog;
     }
-    /* TODO: Create table with:
+    /* Create table with:
         - Code
         - Desc
         - Cr
@@ -1281,20 +1280,21 @@ function dialog_IndiceCuatrimestral() {
     updatePrereqClasses(tbody);
     createElement(outNode, 'hr');
     // Indice cuatrimestral
-    var resultCuatWrapper = createElement(outNode, 'div', null, ['col2', 'form']);
-    createElement(resultCuatWrapper, 'label', 'Indice cuatrimestral: ');
-    var resultCuatNode = createElement(resultCuatWrapper, 'span', '#');
+    var outWrapper = createElement(outNode, 'div', null, ['col2', 'form']);
+    createElement(outWrapper, 'label', 'Índice cuatrimestral: ');
+    var resultCuatNode = createElement(outWrapper, 'input', '#');
+    resultCuatNode.setAttribute('disabled', '');
     // Global fn
-    createElement(outNode, 'hr');
-    var globalWrapper = createElement(outNode, 'div', null, ['col2', 'form']);
-    createElement(globalWrapper, 'label', 'Indice acumulado pasado: ');
-    var globalIndex = createElement(globalWrapper, 'input');
-    createElement(globalWrapper, 'label', 'Creditos acumulados pasados: ');
-    var globalCreds = createElement(globalWrapper, 'input');
-    createElement(outNode, 'hr');
-    var resultGlobalWrapper = createElement(outNode, 'div', null, ['col2', 'form']);
-    createElement(resultGlobalWrapper, 'label', 'Indice acumulado: ');
-    var globalOutput = createElement(resultGlobalWrapper, 'span', '#');
+    createElement(outWrapper, 'hr');
+    outWrapper.append(createSecondaryButton('¿Como conseguir el índice acumulado exacto?', function () { return dialog_conseguirIndiceAcumulado(passedCreds, updateIndiceGlobalValues).show(); }, ['span2']));
+    createElement(outWrapper, 'label', 'Horas PGA (créditos acumulados): ');
+    var globalCreds = createElement(outWrapper, 'input');
+    createElement(outWrapper, 'label', 'PGA (índice acumulado): ');
+    var globalIndex = createElement(outWrapper, 'input');
+    createElement(outWrapper, 'hr');
+    createElement(outWrapper, 'label', 'Índice acumulado: ');
+    var globalOutput = createElement(outWrapper, 'input', '#');
+    globalOutput.setAttribute('disabled', '');
     // Global fn setup
     globalIndex.type = 'number';
     globalIndex.min = '0';
@@ -1338,7 +1338,7 @@ function dialog_IndiceCuatrimestral() {
             return cum;
         }, { total: 0, weightSum: 0 }), total = _a.total, weightSum = _a.weightSum;
         var val = (weightSum / total);
-        resultCuatNode.textContent = val.toFixed(3);
+        resultCuatNode.value = val.toFixed(3);
         indiceCuat.mats = total;
         indiceCuat.val = val;
         updateIndiceGlobal();
@@ -1347,10 +1347,88 @@ function dialog_IndiceCuatrimestral() {
     function updateIndiceGlobal() {
         var val = (indiceCuat.mats * indiceCuat.val + indiceGlobal.mats * indiceGlobal.val) / (indiceCuat.mats + indiceGlobal.mats);
         indiceGlobal.newVal = val;
-        globalOutput.textContent = val.toFixed(3);
+        globalOutput.value = val.toFixed(3);
         console.log(indiceCuat, indiceGlobal);
         return val;
     }
+    function updateIndiceGlobalValues(horas, puntosCalidad) {
+        var pga = puntosCalidad / horas;
+        if (pga < 0)
+            pga = 0;
+        if (pga > 4)
+            pga = 4;
+        globalIndex.value = pga.toString();
+        indiceGlobal.val = pga;
+        globalCreds.value = horas.toString();
+        indiceGlobal.mats = horas;
+        updateIndiceGlobal();
+    }
+}
+function dialog_conseguirIndiceAcumulado(passedCreds, updateFn) {
+    var dialog = new DialogBox();
+    var node = dialog.contentNode;
+    node.classList.add('alert-width');
+    createElement(node, 'h3', 'Cómo conseguir el indice acumulado exacto');
+    var ul = createElement(node, 'ol');
+    [
+        'Entrar a <a href="https://landing.unapec.edu.do/banner/">Banner</a>.',
+        'En "Servicios academicos", ingresar a <a href="https://sso.unapec.edu.do/ssomanager/c/SSB?pkg=bwskotrn.P_ViewTermTran">"Histórico académico"</a>.',
+        'En "Opciones de Histórico académico", seleccionar el "Nivel Hist Acad" a "GRADO", y luego click a "Enviar".',
+        "Se le presenta un historial de todas las notas de todas las materias en todos los cuatrimestres.\n        Una vez aqu\u00ED, se debe bajar hasta que se encuentre la tabla \"TOTALES DE HIST\u00D3RICO ACAD\u00C9MICO (GRADO)\" (antes de la tabla \"CURSOS EN PROGRESO\").",
+        'Copiar el valor de "Horas PGA" a esta pagina.',
+        'Dividir "Puntos de Calidad" entre las "Horas PGA", y copiarlo en la entrada "PGA" de esta pagina.',
+    ].forEach(function (x) { return createElement(ul, 'li', x); });
+    // Update PGA form
+    var outWrapper = createElement(node, 'div', null, ['form', 'col2']);
+    createElement(outWrapper, 'hr');
+    createElement(outWrapper, 'label', 'Horas PGA: ');
+    var globalCreds = createElement(outWrapper, 'input');
+    createElement(outWrapper, 'label', 'Puntos de Calidad: ');
+    var globalIndex = createElement(outWrapper, 'input');
+    createElement(outWrapper, 'hr');
+    createElement(outWrapper, 'label', 'PGA: ');
+    var globalOutput = createElement(outWrapper, 'input', '#');
+    globalOutput.setAttribute('disabled', '');
+    // Global fn setup
+    globalIndex.type = 'number';
+    globalIndex.min = '0';
+    globalIndex.step = '1';
+    globalIndex.value = (Math.round(passedCreds * (3 + Math.random()))).toString();
+    globalIndex.oninput = function () {
+        var puntos = parseInt(globalIndex.value);
+        if (puntos < 0)
+            puntos = 0;
+        globalIndex.value = puntos.toString();
+        updatePGA();
+    };
+    globalCreds.type = 'number';
+    globalCreds.min = '0';
+    globalCreds.step = '1';
+    globalCreds.value = passedCreds.toString();
+    globalCreds.oninput = function () {
+        var horas = parseInt(globalCreds.value);
+        if (horas < 0)
+            horas = 0;
+        globalCreds.value = horas.toString();
+        updatePGA();
+    };
+    function updatePGA() {
+        var horas = parseInt(globalCreds.value), puntos = parseInt(globalIndex.value);
+        globalOutput.value = (puntos / horas).toString();
+        if (puntos / horas > 4)
+            globalOutput.classList.add('red');
+        else
+            globalOutput.classList.remove('red');
+        return puntos / horas;
+    }
+    updatePGA();
+    node.append(createSecondaryButton('Actualizar', function () {
+        var horas = parseInt(globalCreds.value), puntos = parseInt(globalIndex.value);
+        updateFn(horas, puntos);
+        dialog.hide();
+    }));
+    node.append(dialog.createCloseButton());
+    return dialog;
 }
 function dialog_OrgChart(selected) {
     if (selected === void 0) { selected = null; }

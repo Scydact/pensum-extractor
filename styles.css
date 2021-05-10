@@ -109,6 +109,40 @@ h6 {
     grid-template-columns: auto 1fr;
 }
 
+.col2.form hr {
+    grid-column: span 2;
+    width: 100%;
+}
+
+.span2 {
+    grid-column: span 2;
+}
+
+.form label {
+    margin-right: 1em;
+}
+
+.form input:disabled {
+    color: inherit;
+}
+
+ol li {
+    margin-bottom: 1em;
+}
+
+input {
+    font-size: medium;
+    padding: 0.2em 0.5em;
+}
+
+.red {
+    color: red !important;
+}
+
+.alert-width {
+    max-width: max(40em, 50%) !important;
+}
+
 .card {
     /* border       : 3px solid black; */
     margin: 0 1em 1em;
@@ -148,7 +182,7 @@ table {
 
 td {
     height: 2rem;
-    padding: 0;
+    padding: 0 0.2rem;
 }
 
 tr:nth-child(2n) td {
