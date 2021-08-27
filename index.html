@@ -89,6 +89,10 @@
                     document.documentElement.setAttribute('data-theme', 'light');
                     toggleSwitch.checked = false;
                 }
+                document.documentElement.classList.add('theme-switching');
+                setTimeout(function() {
+                    document.documentElement.classList.remove('theme-switching');
+                }, 1000);
             }
 
             //listener for changing themes
@@ -103,9 +107,11 @@
 </head>
 
 <body>
-    <label id="theme-switch" class="theme-switch" for="checkbox_theme">
-        <input type="checkbox" id="checkbox_theme">
-    </label>
+    <div id="theme-switch-container">
+        <label id="theme-switch" class="theme-switch" for="checkbox_theme">
+            <input type="checkbox" id="checkbox_theme">
+        </label>
+    </div>
     <main>
         <div class='card'>
 
