@@ -72,13 +72,15 @@ var __read = (this && this.__read) || function (o, n) {
     }
     return ar;
 };
-var __spread = (this && this.__spread) || function () {
-    for (var ar = [], i = 0; i < arguments.length; i++) ar = ar.concat(__read(arguments[i]));
-    return ar;
+var __spreadArray = (this && this.__spreadArray) || function (to, from) {
+    for (var i = 0, il = from.length, j = to.length; i < il; i++, j++)
+        to[j] = from[i];
+    return to;
 };
 var saveVer = 6;
 var jsVer = 5;
 var SAVE_DATA_LOCALSTORAGE = 'saveData';
+var PENSUM_DATA_LOCALSTORAGE = 'pensumData';
 var SAVE_TO_LOCALSTORAGE = true;
 var CARRERAS = [];
 var unapecPensumUrl = 'https://servicios.unapec.edu.do/pensum/Main/Detalles/';
@@ -94,12 +96,10 @@ var filterMode = {
     passed: true,
 };
 var currentProgress = new Set();
-/**
- * TODO: Allow ctrl+z on these things... maybe via a userProgress methods:
- * DoState - push to doStack, clears UndoStack.
- * UndoState - pops from doStack, push to undoStack.
- * ClearState - clears both stacks.
- */
+var DEBUG_HISTORY = {
+    do: [],
+    redo: [],
+};
 var userProgress = {
     passed: new Set(),
     onCourse: new Set(),
@@ -126,7 +126,9 @@ var MANAGEMENT_TAKEN_CSS_CLASS = 'managementMode-taken';
 var MANAGEMENT_ONCOURSE_CSS_CLASS = 'managementMode-oncourse';
 var MANAGEMENT_SELECTED_CSS_CLASS = 'managementMode-selected';
 var MANAGEMENT_ERROR_CSS_CLASS = 'managementMode-error';
+var DESING_MODE_CSS_CLASS = 'DESIGN-MODE';
 var CURRENT_PENSUM_VERSION = 2; // Update this if new mats are added to IgnoredMats.json
+//#region Basics 
 /** Loads the node given at 'input' into the DOM */
 function fetchPensumTable(pensumCode, requestCallback) {
     return __awaiter(this, void 0, void 0, function () {
@@ -219,6 +221,8 @@ function extractPensumData(node) {
     }
     return out;
 }
+//#endregion
+//#region  Pensum helpers
 /** Maps an array of Mats to an dict where the keys are the Mats' code */
 function matsToDict(arr) {
     var e_1, _a, e_2, _b, e_3, _c;
@@ -474,6 +478,8 @@ function analyseGradeProgress(matArray) {
     }
     return out;
 }
+//#endregion
+//#region HTML Helpers
 /** Creates n label-checkbox pairs */
 function createCheckbox(node, labelName, onchange, initialState) {
     if (initialState === void 0) { initialState = false; }
@@ -552,6 +558,7 @@ function createToolbox() {
         var a = [
             { label: 'Aprobar', key: SelectMode.Passed },
             { label: 'Cursar', key: SelectMode.OnCourse },
+            //{ label: 'Seleccionar', key: SelectMode.Select },
         ];
         var _loop_2 = function (x) {
             var fn = function () { return userSelectMode = x.key; };
@@ -582,7 +589,7 @@ function createToolbox() {
             {
                 label: 'Aprobar materias en curso',
                 action: function () {
-                    __spread(userProgress.onCourse).forEach(function (x) {
+                    __spreadArray([], __read(userProgress.onCourse)).forEach(function (x) {
                         removeBySelectMode(x, SelectMode.OnCourse);
                         addBySelectMode(x, SelectMode.Passed);
                     });
@@ -611,11 +618,14 @@ function createToolbox() {
         }
     }
 }
+//#endregion
+//#region Pensum stuff v2
 function processSelectedData(data) {
     var mats = Object.values(currentPensumMats).filter(function (x) { return data.has(x.codigo); });
     var out = {
         materias: mats.length,
         creditos: mats.reduce(function (acc, v) { return acc += v.creditos; }, 0),
+        // if any more iterations are needed, use traditional loop pls!
     };
     return out;
 }
@@ -656,34 +666,19 @@ function updateGradeProgress() {
  * @param {*} data
  */
 function createPensumTable(data) {
-    var e_17, _a, e_18, _b;
+    var e_17, _a;
     var out = document.createElement('table');
     // Create the header
     var headerRow = out.createTHead();
-    try {
-        for (var _c = __values([
-            'Ct',
-            '✔',
-            'Codigo',
-            'Asignatura',
-            'Cr',
-            'Pre-requisitos',
-        ]), _d = _c.next(); !_d.done; _d = _c.next()) {
-            var x = _d.value;
-            var a = document.createElement('th');
-            a.textContent = x;
-            headerRow.appendChild(a);
-        }
-    }
-    catch (e_17_1) { e_17 = { error: e_17_1 }; }
-    finally {
-        try {
-            if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
-        }
-        finally { if (e_17) throw e_17.error; }
-    }
+    createElement(headerRow, 'th', 'Ct');
+    createElement(headerRow, 'th', '✔');
+    createElement(headerRow, 'th', 'Codigo');
+    createElement(headerRow, 'th', 'Asignatura');
+    createElement(headerRow, 'th', 'Cr');
+    createElement(headerRow, 'th', 'Pre-requisitos');
+    createElement(headerRow, 'th', 'Opciones', [DESING_MODE_CSS_CLASS]);
     var _loop_3 = function (idxCuat, cuat) {
-        var e_19, _a;
+        var e_18, _e;
         // new table per cuat
         var filteredCuat = filterMats(cuat);
         if (filteredCuat.length === 0)
@@ -804,34 +799,40 @@ function createPensumTable(data) {
                     r_1.appendChild(document.createTextNode('\t'));
                 });
             }
+            // Debug options
+            {
+                var r = row.insertCell();
+                r.classList.add(DESING_MODE_CSS_CLASS);
+                addDebugModeButtons(r, mat.codigo);
+            }
         };
         try {
             // Mat rows
-            for (var filteredCuat_1 = (e_19 = void 0, __values(filteredCuat)), filteredCuat_1_1 = filteredCuat_1.next(); !filteredCuat_1_1.done; filteredCuat_1_1 = filteredCuat_1.next()) {
+            for (var filteredCuat_1 = (e_18 = void 0, __values(filteredCuat)), filteredCuat_1_1 = filteredCuat_1.next(); !filteredCuat_1_1.done; filteredCuat_1_1 = filteredCuat_1.next()) {
                 var mat = filteredCuat_1_1.value;
                 _loop_4(mat);
             }
         }
-        catch (e_19_1) { e_19 = { error: e_19_1 }; }
+        catch (e_18_1) { e_18 = { error: e_18_1 }; }
         finally {
             try {
-                if (filteredCuat_1_1 && !filteredCuat_1_1.done && (_a = filteredCuat_1.return)) _a.call(filteredCuat_1);
+                if (filteredCuat_1_1 && !filteredCuat_1_1.done && (_e = filteredCuat_1.return)) _e.call(filteredCuat_1);
             }
-            finally { if (e_19) throw e_19.error; }
+            finally { if (e_18) throw e_18.error; }
         }
     };
     try {
-        for (var _e = __values(data.cuats.entries()), _f = _e.next(); !_f.done; _f = _e.next()) {
-            var _g = __read(_f.value, 2), idxCuat = _g[0], cuat = _g[1];
+        for (var _b = __values(data.cuats.entries()), _c = _b.next(); !_c.done; _c = _b.next()) {
+            var _d = __read(_c.value, 2), idxCuat = _d[0], cuat = _d[1];
             _loop_3(idxCuat, cuat);
         }
     }
-    catch (e_18_1) { e_18 = { error: e_18_1 }; }
+    catch (e_17_1) { e_17 = { error: e_17_1 }; }
     finally {
         try {
-            if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
+            if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
         }
-        finally { if (e_18) throw e_18.error; }
+        finally { if (e_17) throw e_17.error; }
     }
     updatePrereqClasses(out);
     updateGradeProgress();
@@ -873,6 +874,147 @@ function removeBySelectMode(mat, mode) {
             break;
     }
 }
+//#endregion
+//#region Debug mode helper functions
+// Yes, I know all of this "debug" stuff is unoptimized as heck.
+function DEBUG_KEYBOARD_EVENTS() {
+    document.addEventListener('keyup', function (e) {
+        if (!e.ctrlKey)
+            return;
+        switch (e.key.toLowerCase()) {
+            case 'z':
+                debug_undo();
+                break;
+            case 'y':
+                debug_redo();
+                break;
+        }
+    });
+}
+function debug_undo() {
+    var save = DEBUG_HISTORY.do.pop();
+    if (save) {
+        DEBUG_HISTORY.redo.push(save);
+        var pensum = convertSaveToPensum(save);
+        loadPensum(pensum);
+    }
+}
+function debug_redo() {
+    var save = DEBUG_HISTORY.redo.pop();
+    if (save) {
+        DEBUG_HISTORY.do.push(save);
+        var pensum = convertSaveToPensum(save);
+        loadPensum(pensum);
+    }
+}
+function debug_do() {
+    var save = convertPensumToSave(currentPensumData);
+    DEBUG_HISTORY.do.push(save);
+    DEBUG_HISTORY.redo.splice(DEBUG_HISTORY.redo.length);
+}
+function updateMat(x, pensum) {
+    if (!pensum)
+        pensum = currentPensumData;
+    var codigo = x['codigo'];
+    if (!codigo) {
+        console.warn('Invalid mat object!');
+        console.warn(x);
+        return;
+    }
+    var mat = getPensumMatReference(codigo, pensum);
+    if (!mat) {
+        console.warn("Mat code \"" + codigo + "\" not found!");
+        return;
+    }
+}
+function getPensumMatReference(codigo, pensum) {
+    var e_19, _a, e_20, _b;
+    if (!pensum)
+        pensum = currentPensumData;
+    try {
+        for (var _c = __values(pensum.cuats), _d = _c.next(); !_d.done; _d = _c.next()) {
+            var cuat = _d.value;
+            try {
+                for (var cuat_1 = (e_20 = void 0, __values(cuat)), cuat_1_1 = cuat_1.next(); !cuat_1_1.done; cuat_1_1 = cuat_1.next()) {
+                    var mat = cuat_1_1.value;
+                    if (mat.codigo == codigo)
+                        return mat;
+                }
+            }
+            catch (e_20_1) { e_20 = { error: e_20_1 }; }
+            finally {
+                try {
+                    if (cuat_1_1 && !cuat_1_1.done && (_b = cuat_1.return)) _b.call(cuat_1);
+                }
+                finally { if (e_20) throw e_20.error; }
+            }
+        }
+    }
+    catch (e_19_1) { e_19 = { error: e_19_1 }; }
+    finally {
+        try {
+            if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
+        }
+        finally { if (e_19) throw e_19.error; }
+    }
+}
+// Helper function
+function array_move(arr, old_index, new_index) {
+    // https://stackoverflow.com/questions/5306680/move-an-array-element-from-one-array-position-to-another
+    if (new_index >= arr.length)
+        new_index = 0;
+    if (new_index < 0)
+        new_index = arr.length + new_index;
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+    return arr; // for testing
+}
+;
+function addDebugModeButtons(r, codigo) {
+    var pensum = currentPensumData;
+    var mat = getPensumMatReference(codigo);
+    if (!mat)
+        return;
+    var cuat = currentPensumData.cuats[mat.cuatrimestre - 1];
+    if (!cuat)
+        return;
+    r.append(createSecondaryButton('⬆', function () {
+        var idx = cuat.indexOf(mat);
+        if (idx === -1)
+            return;
+        debug_do();
+        array_move(cuat, idx, idx - 1);
+        loadPensum(currentPensumData);
+    }, ['inline-block']));
+    r.append(createSecondaryButton('⬇', function () {
+        var idx = cuat.indexOf(mat);
+        if (idx === -1)
+            return;
+        debug_do();
+        array_move(cuat, idx, idx + 1);
+        loadPensum(currentPensumData);
+    }, ['inline-block']));
+    r.append(createSecondaryButton('❌', function () {
+        var idx = cuat.indexOf(mat);
+        if (idx === -1)
+            return;
+        if (confirm("Seguro que desea borrar \"[" + mat.codigo + "] " + mat.asignatura + "\"?")) {
+            debug_do();
+            cuat.splice(idx, 1);
+            loadPensum(currentPensumData);
+        }
+    }, ['inline-block']));
+    /**
+     * TODO:
+     *  - Editar "detalles de carrera (incluido codigo)"
+     *  - Mover materia de cuatrimestre
+     *  - Crear nuevo cuatrimestre
+     *  - Editar materia (prereqs with auto list...)
+     *  - Eliminar materia
+     *  - Cargar desde tabla excel (CSV) (con plantilla).
+     */
+}
+//#endregion
+//#region Export stuff
 /**
  * Recreates the pensumData, as a new formatted table.
  * Cols:
@@ -933,7 +1075,7 @@ function createExcelWorkbookFromPensum(data, progress) {
     data.cuats.forEach(function (cuat, idxCuat) {
         var filteredCuat = cuat;
         filteredCuat.forEach(function (mat, idxMat, currentCuat) {
-            var e_20, _a, e_21, _b;
+            var e_21, _a, e_22, _b;
             ws[COL_CUAT + currentRow] = { v: idxCuat + 1, t: 'n' };
             if (idxMat === 0) {
                 mergeCells(currentRow - 1, 0, currentRow - 1 + currentCuat.length - 1, 0);
@@ -953,12 +1095,12 @@ function createExcelWorkbookFromPensum(data, progress) {
                     ++prereqCount;
                 }
             }
-            catch (e_20_1) { e_20 = { error: e_20_1 }; }
+            catch (e_21_1) { e_21 = { error: e_21_1 }; }
             finally {
                 try {
                     if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
                 }
-                finally { if (e_20) throw e_20.error; }
+                finally { if (e_21) throw e_21.error; }
             }
             try {
                 for (var _e = __values(mat.prereqExtra), _f = _e.next(); !_f.done; _f = _e.next()) {
@@ -967,12 +1109,12 @@ function createExcelWorkbookFromPensum(data, progress) {
                     ++prereqCount;
                 }
             }
-            catch (e_21_1) { e_21 = { error: e_21_1 }; }
+            catch (e_22_1) { e_22 = { error: e_22_1 }; }
             finally {
                 try {
                     if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
                 }
-                finally { if (e_21) throw e_21.error; }
+                finally { if (e_22) throw e_22.error; }
             }
             // Aprobada
             var aprobVal = currentProgress.has(mat.codigo) ? 1 : 0;
@@ -1023,12 +1165,14 @@ function downloadCurrentPensumAsExcel() {
     var wb_out = writeExcelWorkbookAsXlsx(wb);
     downloadXlsx(wb_out, wb.Props.Title);
 }
+//#endregion
+//#region Info list
 /**
  * Creates a table that contains the pensum's general info.
  * @param {*} data
  */
 function createInfoList(data) {
-    var e_22, _a;
+    var e_23, _a;
     /** @type {HTMLTableElement} */
     var out = document.createElement('ul');
     // Separate the text before outputting.
@@ -1061,12 +1205,12 @@ function createInfoList(data) {
             out.appendChild(li);
         }
     }
-    catch (e_22_1) { e_22 = { error: e_22_1 }; }
+    catch (e_23_1) { e_23 = { error: e_23_1 }; }
     finally {
         try {
             if (outTextArr_1_1 && !outTextArr_1_1.done && (_a = outTextArr_1.return)) _a.call(outTextArr_1);
         }
-        finally { if (e_22) throw e_22.error; }
+        finally { if (e_23) throw e_23.error; }
     }
     return out;
 }
@@ -1095,7 +1239,7 @@ function parseInfoList(data) {
 //#region Dialogs
 /** Create mat dialog showing its dependencies and other options... */
 function dialog_Mat(code) {
-    var e_23, _a, e_24, _b;
+    var e_24, _a, e_25, _b;
     var codeData = currentPensumMats[code];
     if (!codeData)
         return new DialogBox().setMsg('Informacion no disponible para ' + code);
@@ -1133,21 +1277,22 @@ function dialog_Mat(code) {
     }
     if (codeData.prereq.length > 0 || codeData.prereqExtra.length > 0) {
         createElement(outNode, 'h4', 'Pre-requisitos');
+        var reqlist = createElement(outNode, 'div', null, ['preReqList']);
         try {
             for (var _c = __values(codeData.prereq), _d = _c.next(); !_d.done; _d = _c.next()) {
                 var code_1 = _d.value;
-                outNode.appendChild(createMatBtn(dialog, code_1));
+                reqlist.appendChild(createMatBtn(dialog, code_1));
             }
         }
-        catch (e_23_1) { e_23 = { error: e_23_1 }; }
+        catch (e_24_1) { e_24 = { error: e_24_1 }; }
         finally {
             try {
                 if (_d && !_d.done && (_a = _c.return)) _a.call(_c);
             }
-            finally { if (e_23) throw e_23.error; }
+            finally { if (e_24) throw e_24.error; }
         }
         codeData.prereqExtra.forEach(function (x) {
-            var p = createElement(outNode, 'p');
+            var p = createElement(reqlist, 'p');
             var s = document.createElement('a');
             s.textContent = x;
             s.classList.add('preReq');
@@ -1157,20 +1302,22 @@ function dialog_Mat(code) {
     }
     if (codeData.postreq.length > 0) {
         createElement(outNode, 'h4', 'Es pre-requisito de: ');
+        var reqlist = createElement(outNode, 'div', null, ['preReqList']);
         try {
             for (var _e = __values(codeData.postreq), _f = _e.next(); !_f.done; _f = _e.next()) {
                 var code_2 = _f.value;
-                outNode.appendChild(createMatBtn(dialog, code_2));
+                reqlist.appendChild(createMatBtn(dialog, code_2));
             }
         }
-        catch (e_24_1) { e_24 = { error: e_24_1 }; }
+        catch (e_25_1) { e_25 = { error: e_25_1 }; }
         finally {
             try {
                 if (_f && !_f.done && (_b = _e.return)) _b.call(_e);
             }
-            finally { if (e_24) throw e_24.error; }
+            finally { if (e_25) throw e_25.error; }
         }
     }
+    createBr(outNode);
     outNode.appendChild(dialog.createCloseButton());
     updatePrereqClasses(outNode);
     return dialog;
@@ -1206,11 +1353,11 @@ function dialog_ImportExport() {
     return dialog;
 }
 function dialog_IndiceCuatrimestral() {
-    var e_25, _a;
+    var e_26, _a;
     var dialog = new DialogBox();
     var outNode = dialog.contentNode;
     createElement(outNode, 'h3', 'Calcular indice');
-    var _b = analyseGradeProgress(userProgress), onCourseCreds = _b.onCourseCreds, passedCreds = _b.passedCreds, onCourseMats = __spread(userProgress.onCourse), matTracker = [], indiceCuat = {
+    var _b = analyseGradeProgress(userProgress), onCourseCreds = _b.onCourseCreds, passedCreds = _b.passedCreds, onCourseMats = __spreadArray([], __read(userProgress.onCourse)), matTracker = [], indiceCuat = {
         mats: 0,
         val: 0,
     }, indiceGlobal = {
@@ -1270,12 +1417,12 @@ function dialog_IndiceCuatrimestral() {
             _loop_5(code);
         }
     }
-    catch (e_25_1) { e_25 = { error: e_25_1 }; }
+    catch (e_26_1) { e_26 = { error: e_26_1 }; }
     finally {
         try {
             if (onCourseMats_1_1 && !onCourseMats_1_1.done && (_a = onCourseMats_1.return)) _a.call(onCourseMats_1);
         }
-        finally { if (e_25) throw e_25.error; }
+        finally { if (e_26) throw e_26.error; }
     }
     updatePrereqClasses(tbody);
     createElement(outNode, 'hr');
@@ -1597,7 +1744,7 @@ function matsToOrgChart(mats, errorCodes) {
             templateName: 'matTemplate', error: false }, x);
         o.push(y);
     }
-    for (var i = 0, ec = __spread(errorCodes), l = ec.length; i < l; ++i) {
+    for (var i = 0, ec = __spreadArray([], __read(errorCodes)), l = ec.length; i < l; ++i) {
         var x = ec[i];
         var y = {
             id: x,
@@ -1635,7 +1782,7 @@ function onWebTemplateRender(event, data, dialog) {
             removeOld.push(e.classList[i]);
         }
     }
-    (_a = e.classList).remove.apply(_a, __spread(removeOld));
+    (_a = e.classList).remove.apply(_a, __spreadArray([], __read(removeOld)));
     e.classList.add(comp);
     updatePrereqClassesSingle(e);
     // var titleBackground = en('titleBackground'); //data.element.firstChild;
@@ -1772,6 +1919,7 @@ function getMatTemplate() {
     ];
     return result;
 }
+//#endregion
 //#region LocalStorage Funcs
 /** Creates a SaveObject */
 function createSaveObject() {
@@ -1779,8 +1927,8 @@ function createSaveObject() {
         saveVer: saveVer,
         currentCodeAtInputForm: document.getElementById('codigoMateria').value,
         userData: {
-            passed: __spread(userProgress.passed),
-            onCourse: __spread(userProgress.onCourse),
+            passed: __spreadArray([], __read(userProgress.passed)),
+            onCourse: __spreadArray([], __read(userProgress.onCourse)),
         },
         filterMode: __assign({}, filterMode),
         selectMode: userSelectMode,
@@ -1811,31 +1959,51 @@ function loadFromObject(obj) {
     return true;
 }
 function saveToLocalStorage() {
-    var out = createSaveObject();
     if (!SAVE_TO_LOCALSTORAGE)
-        return false;
+        return;
+    // Save data (mat codes)
+    var out = createSaveObject();
     try {
         localStorage.setItem(SAVE_DATA_LOCALSTORAGE, JSON.stringify(out));
-        return true;
     }
     catch (err) {
         console.warn('Could not save saveData to localStorage');
         console.warn(err);
-        return false;
     }
+    // Pensum data cache
+    try {
+        var d = convertPensumToSave(currentPensumData);
+        var json = JSON.stringify(d);
+        localStorage.setItem(PENSUM_DATA_LOCALSTORAGE, json);
+    }
+    catch (err) {
+        console.warn('Could not save pensumData to localStorage');
+        console.warn(err);
+    }
+    return json;
 }
 function loadFromLocalStorage() {
     var saveData = localStorage.getItem(SAVE_DATA_LOCALSTORAGE);
-    if (saveData === null)
-        return false;
-    var out = JSON.parse(saveData);
-    loadFromObject(out);
-    // Version management and cache clearing.
-    if (out.saveVer !== saveVer) {
-        console.info("Updated from " + out.saveVer + " to version " + saveVer + ".");
-        localStorage.clear();
+    if (saveData !== null) {
+        var out = JSON.parse(saveData);
+        loadFromObject(out);
+        // Version management and cache clearing.
+        if (out.saveVer !== saveVer) {
+            console.info("Updated from " + out.saveVer + " to version " + saveVer + ".");
+            localStorage.clear();
+        }
     }
-    return true;
+    var pensumData = localStorage.getItem(PENSUM_DATA_LOCALSTORAGE);
+    if (pensumData !== null) {
+        try {
+            var p = JSON.parse(pensumData);
+            var pensum = convertSaveToPensum(p);
+            return pensum;
+        }
+        catch (_a) {
+            console.warn('Could not load pensum data from local storage!');
+        }
+    }
 }
 //#endregion
 //#region Helper functions
@@ -1865,7 +2033,7 @@ function fetchHtmlAsText(url, opts, forceProxy, currentProxyCallback) {
                         'https://crossorigin.me/',
                         'https://cors-proxy.htmldriven.com/?url=',
                         'https://thingproxy.freeboard.io/fetch/',
-                        'http://www.whateverorigin.org/get?url=',
+                        'http://www.whateverorigin.org/get?url=', // problems with https requests, deprecated?
                     ];
                     i = 0;
                     _a.label = 1;
@@ -2032,7 +2200,7 @@ function createElement(parentNode, tag, innerHTML, classes) {
     if (innerHTML !== null)
         x.innerHTML = innerHTML;
     if (classes.length)
-        (_a = x.classList).add.apply(_a, __spread(classes));
+        (_a = x.classList).add.apply(_a, __spreadArray([], __read(classes)));
     return x;
 }
 function createBr(parentNode) {
@@ -2048,30 +2216,30 @@ function createSecondaryButton(text, callback, classes) {
     var a = document.createElement('a');
     a.addEventListener('click', callback);
     a.innerHTML = text;
-    (_a = a.classList).add.apply(_a, __spread(['btn-secondary'], classes));
+    (_a = a.classList).add.apply(_a, __spreadArray(['btn-secondary'], __read(classes)));
     return a;
 }
 function findAllpostreqs(code) {
     function subFindArr(code) {
-        var e_26, _a;
+        var e_27, _a;
         var hideList = [code];
         try {
             for (var _b = __values(currentPensumMats[code].postreq), _c = _b.next(); !_c.done; _c = _b.next()) {
                 var x = _c.value;
-                hideList.push.apply(hideList, __spread(subFindArr(x)));
+                hideList.push.apply(hideList, __spreadArray([], __read(subFindArr(x))));
             }
         }
-        catch (e_26_1) { e_26 = { error: e_26_1 }; }
+        catch (e_27_1) { e_27 = { error: e_27_1 }; }
         finally {
             try {
                 if (_c && !_c.done && (_a = _b.return)) _a.call(_b);
             }
-            finally { if (e_26) throw e_26.error; }
+            finally { if (e_27) throw e_27.error; }
         }
         return hideList;
     }
     // Set to remove duplicates.
-    return __spread(new Set(subFindArr(code)));
+    return __spreadArray([], __read(new Set(subFindArr(code))));
 }
 /** Replaces spaces to underscores. */
 function safeForHtmlId(str) {
@@ -2084,7 +2252,7 @@ function loadPensum(customPensum) {
     var _a;
     if (customPensum === void 0) { customPensum = null; }
     return __awaiter(this, void 0, void 0, function () {
-        var infoWrap, codigoMateriaInput, clearInfoWrap, setInfoWrap, carr, rpci, rpc, rpcn, rpcn_r, x, loadedFromCustomPensum, pResponse, obj, e_27, pensumNode, newCode, h, t0, btnwrp, a;
+        var infoWrap, codigoMateriaInput, clearInfoWrap, setInfoWrap, carr, rpci, rpc, rpcn, rpcn_r, x, loadedFromCustomPensum, pResponse, obj, e_28, pensumNode, newCode, h, t0, btnwrp, a;
         return __generator(this, function (_b) {
             switch (_b.label) {
                 case 0:
@@ -2153,7 +2321,7 @@ function loadPensum(customPensum) {
                     }
                     return [3 /*break*/, 6];
                 case 5:
-                    e_27 = _b.sent();
+                    e_28 = _b.sent();
                     console.info(currentPensumCode + ' not found inside ./pensum/...');
                     return [3 /*break*/, 6];
                 case 6:
@@ -2329,6 +2497,7 @@ function loadPensumFromJson() {
     var _this = this;
     var input = document.createElement('input');
     input.type = 'file';
+    input.accept = ".json";
     input.click();
     input.addEventListener('change', function () {
         var ext = input.files[0]['name']
@@ -2337,7 +2506,7 @@ function loadPensumFromJson() {
         if (input.files && input.files[0] && ext == 'json') {
             var reader = new FileReader();
             reader.onload = function (e) { return __awaiter(_this, void 0, void 0, function () {
-                var txt, obj, p, numMatsLoaded, t, e_28, t;
+                var txt, obj, p, numMatsLoaded, t, e_29, t;
                 return __generator(this, function (_a) {
                     switch (_a.label) {
                         case 0:
@@ -2364,11 +2533,11 @@ function loadPensumFromJson() {
                         case 2: throw 'No hay información dentro del .json!';
                         case 3: return [3 /*break*/, 5];
                         case 4:
-                            e_28 = _a.sent();
+                            e_29 = _a.sent();
                             t = 'No se pudo cargar el archivo!';
-                            alert(t + '\n' + e_28.toString());
+                            alert(t + '\n' + e_29.toString());
                             console.warn(t);
-                            console.warn(e_28);
+                            console.warn(e_29);
                             return [3 /*break*/, 5];
                         case 5: return [2 /*return*/];
                     }
@@ -2404,13 +2573,13 @@ function uploadProgress() {
                     if (obj) {
                         if (Array.isArray(obj)) {
                             userProgress.passed = new Set(obj);
-                            loadPensum();
+                            drawPensumTable();
                             alert("Se han seleccionado " + userProgress.passed.size + " materias de " + input.files[0].name + ".");
                             return;
                         }
                         if (typeof (obj) === 'object') {
                             loadFromObject(obj);
-                            loadPensum();
+                            drawPensumTable();
                             alert("Se han seleccionado " + userProgress.passed.size + " materias de " + input.files[0].name + ".");
                             return;
                         }
@@ -2433,6 +2602,30 @@ function uploadProgress() {
         }
     });
 }
+function createAdvancedButtons() {
+    var out = document.getElementById('advanced-wrapper');
+    if (!out)
+        return;
+    // Btn recargar
+    var recargar = createSecondaryButton('Forzar recargar pensum', function (e) {
+        var r1 = 'cache_' + document.getElementById('codigoMateria').textContent;
+        var r2 = 'cache_' + currentPensumData.codigo;
+        localStorage.removeItem(r1);
+        console.info('Removed ' + r1);
+        localStorage.removeItem(r2);
+        console.info('Removed ' + r2);
+        setTimeout(loadPensum, 200);
+    });
+    out.append(recargar);
+    // Btn subir pensum
+    var propio_pensum = createSecondaryButton('Subir pensum propio [JSON]', loadPensumFromJson);
+    out.append(propio_pensum);
+    // Modo desarrollo de pensum
+    var design_mode_btn = createSecondaryButton('Modo desarrollo de pensum [Toggle]', function () {
+        document.body.classList.toggle(DESING_MODE_CSS_CLASS);
+    });
+    out.append(design_mode_btn);
+}
 function RESET_PROGRESS() {
     SAVE_TO_LOCALSTORAGE = false;
     localStorage.removeItem(SAVE_DATA_LOCALSTORAGE);
@@ -2440,7 +2633,7 @@ function RESET_PROGRESS() {
 }
 function onWindowLoad() {
     return __awaiter(this, void 0, void 0, function () {
-        var a, b, carr, input, list, _a, tempIgnored, _b;
+        var a, b, carr, input, list, _a, tempIgnored, _b, possible_pensum;
         return __generator(this, function (_c) {
             switch (_c.label) {
                 case 0:
@@ -2460,7 +2653,7 @@ function onWindowLoad() {
                 case 3:
                     carr = _c.sent();
                     if (carr && carr.carreras) {
-                        CARRERAS = __spread(carr.carreras);
+                        CARRERAS = __spreadArray([], __read(carr.carreras));
                     }
                     input = document.getElementById('codigoMateria');
                     list = CARRERAS.map(function (x) { return [
@@ -2497,21 +2690,15 @@ function onWindowLoad() {
                     document.getElementById('cargar_btn').addEventListener('click', function (e) {
                         loadPensum();
                     });
-                    document.getElementById('recargar_btn').addEventListener('click', function (e) {
-                        var r1 = 'cache_' + document.getElementById('codigoMateria').textContent;
-                        var r2 = 'cache_' + currentPensumData.codigo;
-                        localStorage.removeItem(r1);
-                        console.info('Removed ' + r1);
-                        localStorage.removeItem(r2);
-                        console.info('Removed ' + r2);
-                        setTimeout(loadPensum, 200);
-                    });
-                    // Try to get saved data
-                    loadFromLocalStorage();
+                    // Buttons inside "Advanced" section
+                    createAdvancedButtons();
+                    possible_pensum = loadFromLocalStorage();
                     // Load toolbox
                     createToolbox();
                     // Do first load
-                    loadPensum();
+                    loadPensum(possible_pensum);
+                    // Design mode stuff
+                    DEBUG_KEYBOARD_EVENTS();
                     return [2 /*return*/];
             }
         });

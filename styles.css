@@ -9,9 +9,11 @@
     --wallpaper: #dddddd;
     --background: #f3f3f3;
     --background1: #f7f7f7;
+    --background2: #fff;
     --tableOdd: rgba(96, 96, 255, 0.1);
     --bgCuat: linear-gradient(90deg, transparent 0%, var(--tableOdd) 100%);
     --bgCuat-hover: rgba(96, 96, 255, 0.5);
+    --frCuatHeader: rgba(0, 0, 128, 0.8);
 
     --background-taken: rgb(156, 247, 163);
     --background-taken-hover: rgb(7, 182, 22);
@@ -32,12 +34,72 @@
     --background-selected-oncourse-even: rgba(253, 207, 55, 0.95);
 
     --background-error: rgb(247, 156, 156);
+    --background-prereq: rgb(167, 168, 255);
+    --background-prereq-hover: rgb(106, 109, 253);
+    --background-prereqextra: hsl(281, 100%, 86%);
+
+    --background-btn-secondary: rgba(0, 0, 0, 0.05);
+    --background-btn-secondary-hover: rgba(0, 0, 0, 0.15);
+
+    --codigo-materia-border: rgba(0,0,0,0.1);
+    --codigo-materia-bottom:  rgba(0,0,0,0.5);
+    --codigo-materia-bottom-focus: var(--background-prereq-hover);
 
     --progress-bar-green: #bfffcd;
     --progress-bar-yellow: rgb(252, 239, 181);
 
     --br: 0.5em;
     --bs: inset 0 0 0 2px black;
+    --card-bs: 0 0 10px 0px rgba(0, 0, 0, 0.2);
+
+    --dark-theme-msg: "🌞      Cambiar a modo oscuro";
+}
+
+[data-theme="dark"] {
+    color: white;
+    --wallpaper: #1a1a1a;
+    --background: #252525;
+    --background1: #2e2e2e;
+    --background2: #444;
+    --bgCuat-hover: rgba(96, 96, 255, 0.5);
+    --frCuatHeader: rgba(162, 162, 255, 0.8);
+
+    --background-taken: hsl(125, 87%, 27%);
+    --background-taken-hover: hsl(125, 93%, 37%);
+    --background-taken-odd: rgba(55, 253, 71, 0.15);
+    --background-taken-even: rgba(55, 253, 71, 0.3);
+
+    --background-oncourse: hsl(49, 99%, 28%);
+    --background-oncourse-hover: hsl(54, 85%, 38%);
+    --background-oncourse-odd: hsla(46, 98%, 60%, 0.25);
+    --background-oncourse-even: hsla(46, 98%, 60%, 0.45);
+
+    --background-selected: hsl(207, 78%, 41%);
+    --background-selected-odd: hsla(219, 98%, 60%, 0.35);
+    --background-selected-even: hsla(219, 98%, 60%, 0.45);
+    --background-selected-taken-odd: hsla(125, 98%, 30%, 0.95);
+    --background-selected-taken-even: hsla(125, 98%, 30%, 0.95);
+    --background-selected-oncourse-odd: hsla(46, 98%, 30%, 0.95);
+    --background-selected-oncourse-even: hsla(46, 98%, 30%, 0.95);
+
+    --background-error: rgb(122, 18, 18);
+    --background-prereq: rgb(78, 80, 199);
+    --background-prereq-hover: rgb(106, 109, 253);
+    --background-prereqextra: hsl(281, 100%, 30%);
+
+    --background-btn-secondary: rgba(255, 255, 255, 0.05);
+    --background-btn-secondary-hover: rgba(255, 255, 255, 0.15);
+
+    --codigo-materia-border: rgba(255,255,255,0.5);
+    --codigo-materia-bottom:  rgba(255,255,255,0.5);
+
+    --progress-bar-green: hsl(133, 100%, 30%);
+    --progress-bar-yellow: hsl(49, 92%, 30%);
+
+    --bs: inset 0 0 0 2px white;
+    --card-bs: 0 0 10px 0px rgba(0, 0, 0, 0.2);
+    
+    --dark-theme-msg: "🌙      Cambiar a modo claro";
 }
 
 html {
@@ -63,6 +125,7 @@ main {
     flex: 1 0 auto; /* For footer at bottom */
 
     margin: auto;
+    padding-top: 1em;
     display: flex;
     flex-direction: column;
     flex-wrap: wrap;
@@ -149,7 +212,7 @@ input {
     padding: 1.5em;
     border-radius: 1em;
     background: var(--background);
-    box-shadow: 0 0 10px 0px rgba(0, 0, 0, 0.2);
+    box-shadow: var(--card-bs);
 
     display: flex;
     flex-direction: column;
@@ -164,6 +227,18 @@ input {
 #codigoMateria {
     font-size: x-large;
     text-align: center;
+    background-color: var(--wallpaper);
+    color: inherit;
+
+    border: 1px solid var(--codigo-materia-border);
+    border-bottom: .2em solid var(--codigo-materia-bottom);
+    transition: border ease .25s;
+    box-shadow: var(--card-bs);
+    margin: .2em;
+}
+
+#codigoMateria:focus {
+    border-color: var(--codigo-materia-bottom-focus);
 }
 
 thead th {
@@ -197,7 +272,7 @@ tr:nth-child(2n) td {
 .cuatHeader {
     max-width: 2.5rem;
     background: var(--bgCuat);
-    color: rgba(0, 0, 128, 0.8);
+    color: var(--frCuatHeader);
 }
 
 .cuatHeader:hover {
@@ -271,8 +346,8 @@ tr:nth-child(2n) td {
     align-items: center;
     justify-content: center;
     z-index: 2;
-    background: rgba(0, 0, 0, 0.2);
-    backdrop-filter: blur(3px);
+    background: rgba(0, 0, 0, 0.3);
+    backdrop-filter: blur(1.2px);
 }
 
 .dialogCard {
@@ -324,13 +399,13 @@ tr:nth-child(2n) td {
 
     border: none;
     text-decoration: none;
-    color: black;
-    background: rgba(0, 0, 0, 0.05);
+    background: var(--background-btn-secondary);
+    color: inherit;
     box-shadow: var(--bs);
 }
 
 .btn-secondary:hover:not(.btn-disabled) {
-    background: rgba(0, 0, 0, 0.15);
+    background: var(--background-btn-secondary-hover);
 }
 .btn-disabled {
     opacity: 0.6;
@@ -526,21 +601,21 @@ tr.managementMode-selected.managementMode-oncourse:nth-child(even) td {
 }
 
 .preReq {
-    margin: 0.1rem;
-    padding: 0.1rem 0.5rem 0.2rem;
-    border-radius: 0.3rem;
-    background: rgb(167, 168, 255);
+    margin: 0.1em 0.05em;
+    padding: 0.1em 0.5em 0.2em;
+    border-radius: 0.3em;
+    background: var(--background-prereq);
     cursor: pointer;
     display: inline-block;
 }
 
 .preReq:hover {
-    background: rgb(106, 109, 253);
+    background: var(--background-prereq-hover);
 }
 
 .preReqExtra,
 .preReqExtra:hover {
-    background: rgb(130, 219, 160);
+    background: var(--background-prereqextra);
     cursor: default;
 }
 
@@ -564,6 +639,10 @@ tr.managementMode-selected.managementMode-oncourse:nth-child(even) td {
 }
 .preReq.managementMode-error {
     background: var(--background-error);
+}
+
+.preReqList .preReq {
+    display: block;
 }
 
 /* ProgressWrapper */
@@ -755,5 +834,55 @@ div.bp-head {
 }
 
 .hidden {
+    display: none;
+}
+
+.inline-block {
+    display: inline-block;
+}
+
+#advanced-wrapper {
+    margin: auto;
+    min-width: 20em;
+    max-width: 30em;
+    border-radius: var(--br);
+    padding: .5em;
+    border: 1px solid var(--codigo-materia-border);
+}
+
+#checkbox_theme {
+    display: none;
+}
+
+#theme-switch {
+    position: absolute;
+    top: 0;
+    right: 0;
+    transform: translate(80%,0);
+    transition: transform ease 200ms;
+}
+#theme-switch:hover {
+    transform: translate(0,0);
+}
+
+#theme-switch::before, 
+#theme-swith::after {
+    content: var(--dark-theme-msg);
+    overflow: hidden;
+    position: relative;
+    white-space: pre;
+
+    text-shadow: 0 0 5px rgba(0,0,0,0.2);
+    display: block;
+    padding: .5em 1em .2em 1.2em;
+    background-color: var(--background2);
+    height: 2em;
+    width: 14em;
+    border-bottom-left-radius: 2em;
+    box-shadow: var(--card-bs);
+}
+
+
+body:not(.DESIGN-MODE) .DESIGN-MODE {
     display: none;
 }

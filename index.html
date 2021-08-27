@@ -46,17 +46,78 @@
 
     <!-- Style -->
     <link rel="stylesheet" href="styles.css">
+
+    <script>
+        // https://stackoverflow.com/questions/56300132/how-to-override-css-prefers-color-scheme-setting
+        //determines if the user has a set theme
+        function detectColorScheme() {
+            var theme = "light";    //default to light
+
+            //local storage is used to override OS theme settings
+            if (localStorage.getItem("theme")) {
+                if (localStorage.getItem("theme") == "dark") {
+                    var theme = "dark";
+                }
+            } else if (!window.matchMedia) {
+                //matchMedia method not supported
+                return false;
+            } else if (window.matchMedia("(prefers-color-scheme: dark)").matches) {
+                //OS theme setting detected as dark
+                var theme = "dark";
+            }
+
+            //dark theme preferred, set document with a `data-theme` attribute
+            if (theme == "dark") {
+                document.documentElement.setAttribute("data-theme", "dark");
+            }
+        }
+        detectColorScheme();
+
+
+        window.addEventListener('load', function () {
+            //identify the toggle switch HTML element
+            const toggleSwitch = document.querySelector('#theme-switch input[type="checkbox"]');
+
+            //function that changes the theme, and sets a localStorage variable to track the theme between page loads
+            function switchTheme(e) {
+                if (e.target.checked) {
+                    localStorage.setItem('theme', 'dark');
+                    document.documentElement.setAttribute('data-theme', 'dark');
+                    toggleSwitch.checked = true;
+                } else {
+                    localStorage.setItem('theme', 'light');
+                    document.documentElement.setAttribute('data-theme', 'light');
+                    toggleSwitch.checked = false;
+                }
+            }
+
+            //listener for changing themes
+            toggleSwitch.addEventListener('change', switchTheme, false);
+
+            //pre-check the dark-theme checkbox if dark-theme is set
+            if (document.documentElement.getAttribute("data-theme") == "dark") {
+                toggleSwitch.checked = true;
+            }
+        });
+    </script>
 </head>
 
 <body>
+    <label id="theme-switch" class="theme-switch" for="checkbox_theme">
+        <input type="checkbox" id="checkbox_theme">
+    </label>
     <main>
         <div class='card'>
+
             <img src="./img/logo_hd.png" alt="LOGO UNAPEC" width="350px">
             <h2>Selección de pensums de UNAPEC</h2>
             <label for="codigoMateria">Código de la carrera: </label>
             <input type="text" name="codigoMaterias" id="codigoMateria" value=''>
             <input class="btn-primary" type="button" value="Cargar" id="cargar_btn">
-            <input class="btn-secondary" type="button" value="Forzar redescarga" id="recargar_btn">
+            <br>
+            <details class="inline-btn-wrapper" id="advanced-wrapper">
+                <summary>Avanzado</summary>
+            </details>
             <br>
         </div>
         <div id='infoWrapper' class="card"></div>
@@ -65,7 +126,7 @@
         <div id='pensumWrapper' class="card"></div>
     </main>
     <footer>
-        <span>ScyDact 2021</span>
+        <span>Fernando Rivas 2021</span>
         <br><a href="http://scydact.github.io/">scydact.github.io</a>
         <br><span>UNAPEC Pensum extractor</span>
         <br><span class='footer-version'>
@@ -77,7 +138,8 @@
         <br><br>
 
         <span>En caso de problemas o sugerencias, favor escribir a
-            <a href="mailto:scydact@gmail.com?subject=[Pensum Extractor]">scydact@gmail.com</a>
+            <a
+                href="mailto:fernandorivasrosario@gmail.com?subject=[Pensum Extractor]">fernandorivasrosario@gmail.com</a>
         </span>
         <br>
         <br>

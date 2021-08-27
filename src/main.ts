@@ -1,6 +1,7 @@
 const saveVer = 6;
 const jsVer = 5;
 const SAVE_DATA_LOCALSTORAGE = 'saveData';
+const PENSUM_DATA_LOCALSTORAGE = 'pensumData';
 var SAVE_TO_LOCALSTORAGE = true;
 var CARRERAS: { codigo: string, nombre: string, escuela: string, }[] = [];
 var unapecPensumUrl = 'https://servicios.unapec.edu.do/pensum/Main/Detalles/';
@@ -19,13 +20,11 @@ const filterMode = {
 };
 var currentProgress: Set<string> = new Set();
 
+const DEBUG_HISTORY = {
+    do: [],
+    redo: [],
+}
 
-/**
- * TODO: Allow ctrl+z on these things... maybe via a userProgress methods:
- * DoState - push to doStack, clears UndoStack.
- * UndoState - pops from doStack, push to undoStack.
- * ClearState - clears both stacks.
- */
 var userProgress = {
     passed: new Set<string>(),
     onCourse: new Set<string>(),
@@ -69,8 +68,10 @@ const MANAGEMENT_TAKEN_CSS_CLASS = 'managementMode-taken';
 const MANAGEMENT_ONCOURSE_CSS_CLASS = 'managementMode-oncourse';
 const MANAGEMENT_SELECTED_CSS_CLASS = 'managementMode-selected';
 const MANAGEMENT_ERROR_CSS_CLASS = 'managementMode-error';
+const DESING_MODE_CSS_CLASS = 'DESIGN-MODE';
 const CURRENT_PENSUM_VERSION = 2; // Update this if new mats are added to IgnoredMats.json
 
+//#region Basics 
 /** Loads the node given at 'input' into the DOM */
 async function fetchPensumTable(pensumCode, requestCallback) {
     var urlToLoad = unapecPensumUrl + pensumCode;
@@ -229,6 +230,9 @@ function extractPensumData(node) {
     return out;
 }
 
+//#endregion
+
+//#region  Pensum helpers
 /** Maps an array of Mats to an dict where the keys are the Mats' code */
 function matsToDict(arr: i_mat_raw[]) {
     let out: { [key: string]: i_mat } = {};
@@ -367,7 +371,10 @@ function analyseGradeProgress(matArray: typeof userProgress) {
 
     return out;
 }
+//#endregion
 
+
+//#region HTML Helpers
 /** Creates n label-checkbox pairs */
 function createCheckbox(node, labelName, onchange, initialState = false) {
     let objId = safeForHtmlId(labelName);
@@ -480,7 +487,10 @@ function createToolbox() {
     }
 
 }
+//#endregion
 
+
+//#region Pensum stuff v2
 function processSelectedData(data: Set<string>) {
     let mats = Object.values(currentPensumMats).filter(x => data.has(x.codigo));
     let out = {
@@ -537,18 +547,14 @@ function createPensumTable(data: i_pensum) {
 
     // Create the header
     let headerRow = out.createTHead();
-    for (let x of [
-        'Ct',
-        '✔',
-        'Codigo',
-        'Asignatura',
-        'Cr',
-        'Pre-requisitos',
-    ]) {
-        let a = document.createElement('th');
-        a.textContent = x;
-        headerRow.appendChild(a);
-    }
+    createElement(headerRow, 'th', 'Ct');
+    createElement(headerRow, 'th', '✔');
+    createElement(headerRow, 'th', 'Codigo');
+    createElement(headerRow, 'th', 'Asignatura');
+    createElement(headerRow, 'th', 'Cr');
+    createElement(headerRow, 'th', 'Pre-requisitos');
+    createElement(headerRow, 'th', 'Opciones', [DESING_MODE_CSS_CLASS]);
+
 
     for (const [idxCuat, cuat] of data.cuats.entries()) {
 
@@ -699,6 +705,15 @@ function createPensumTable(data: i_pensum) {
                 });
             }
 
+            // Debug options
+            {
+                let r = row.insertCell();
+                r.classList.add(DESING_MODE_CSS_CLASS);
+
+                addDebugModeButtons(r, mat.codigo);
+
+            }
+
         }
     }
 
@@ -746,7 +761,143 @@ function removeBySelectMode(mat: string, mode: SelectMode) {
             break;
     }
 }
+//#endregion
 
+
+
+//#region Debug mode helper functions
+// Yes, I know all of this "debug" stuff is unoptimized as heck.
+function DEBUG_KEYBOARD_EVENTS() { 
+    document.addEventListener('keyup', (e) => {
+        if (!e.ctrlKey) return;
+
+        switch (e.key.toLowerCase()) {
+            case 'z':
+                debug_undo();
+                break;
+            case 'y':
+                debug_redo();
+                break;
+        }
+    })
+}
+
+function debug_undo() {
+    const save = DEBUG_HISTORY.do.pop();
+    if (save) {
+        DEBUG_HISTORY.redo.push(save);
+        const pensum = convertSaveToPensum(save);
+        loadPensum(pensum);
+    }
+}
+
+function debug_redo() {
+    const save = DEBUG_HISTORY.redo.pop();
+    if (save) {
+        DEBUG_HISTORY.do.push(save);
+        const pensum = convertSaveToPensum(save);
+        loadPensum(pensum);
+    }
+}
+
+function debug_do() {
+    const save = convertPensumToSave(currentPensumData);
+    DEBUG_HISTORY.do.push(save);
+    DEBUG_HISTORY.redo.splice(DEBUG_HISTORY.redo.length);
+}
+
+function updateMat(x: object, pensum: i_pensum) {
+    if (!pensum) pensum = currentPensumData;
+
+    const codigo = x['codigo']
+    if (!codigo) {
+        console.warn('Invalid mat object!');
+        console.warn(x);
+        return;
+    }
+
+    const mat = getPensumMatReference(codigo, pensum);
+    if (!mat) {
+        console.warn(`Mat code "${codigo}" not found!`);
+        return;
+    }
+
+
+}
+
+function getPensumMatReference(codigo: string, pensum?: i_pensum) {
+    if (!pensum) pensum = currentPensumData;
+
+    for (const cuat of pensum.cuats) {
+        for (const mat of cuat) {
+            if (mat.codigo == codigo) return mat;
+        }
+    }
+}
+
+// Helper function
+function array_move(arr, old_index, new_index) {
+    // https://stackoverflow.com/questions/5306680/move-an-array-element-from-one-array-position-to-another
+    if (new_index >= arr.length)
+        new_index = 0;
+    if (new_index < 0)
+        new_index = arr.length + new_index;
+
+    arr.splice(new_index, 0, arr.splice(old_index, 1)[0]);
+    return arr; // for testing
+};
+
+
+function addDebugModeButtons(r: HTMLTableDataCellElement, codigo: string) {
+    const pensum = currentPensumData;
+
+    const mat = getPensumMatReference(codigo);
+    if (!mat) return;
+
+    const cuat = currentPensumData.cuats[mat.cuatrimestre - 1];
+    if (!cuat) return;
+
+    r.append(createSecondaryButton('⬆', () => {
+        const idx = cuat.indexOf(mat);
+        if (idx === -1) return;
+        debug_do();
+        array_move(cuat, idx, idx - 1);
+        loadPensum(currentPensumData);
+    }, ['inline-block']));
+
+    r.append(createSecondaryButton('⬇', () => {
+        const idx = cuat.indexOf(mat);
+        if (idx === -1) return;
+        debug_do();
+        array_move(cuat, idx, idx + 1);
+        loadPensum(currentPensumData);
+    }, ['inline-block']));
+
+    r.append(createSecondaryButton('❌', () => {
+        const idx = cuat.indexOf(mat);
+        if (idx === -1) return;
+        if (confirm(`Seguro que desea borrar "[${mat.codigo}] ${mat.asignatura}"?`)) {
+            debug_do();
+            cuat.splice(idx, 1);
+            loadPensum(currentPensumData);
+        }
+    }, ['inline-block']));
+
+    /**
+     * TODO:
+     *  - Editar "detalles de carrera (incluido codigo)"
+     *  - Mover materia de cuatrimestre
+     *  - Crear nuevo cuatrimestre
+     *  - Editar materia (prereqs with auto list...)
+     *  - Eliminar materia
+     *  - Cargar desde tabla excel (CSV) (con plantilla).
+     */
+}
+
+
+//#endregion
+
+//#region Export stuff
 /**
  * Recreates the pensumData, as a new formatted table.
  * Cols:
@@ -907,8 +1058,9 @@ function downloadCurrentPensumAsExcel() {
     let wb_out = writeExcelWorkbookAsXlsx(wb);
     downloadXlsx(wb_out, wb.Props.Title);
 }
+//#endregion
 
-
+//#region Info list
 /**
  * Creates a table that contains the pensum's general info.
  * @param {*} data
@@ -1026,11 +1178,13 @@ function dialog_Mat(code: string) {
 
     if (codeData.prereq.length > 0 || codeData.prereqExtra.length > 0) {
         createElement(outNode, 'h4', 'Pre-requisitos');
+        var reqlist = createElement(outNode, 'div', null, ['preReqList']);
+
         for (let code of codeData.prereq)
-            outNode.appendChild(createMatBtn(dialog, code));
+            reqlist.appendChild(createMatBtn(dialog, code));
 
         codeData.prereqExtra.forEach((x) => {
-            let p = createElement(outNode, 'p');
+            let p = createElement(reqlist, 'p');
             let s = document.createElement('a');
             s.textContent = x;
             s.classList.add('preReq');
@@ -1042,10 +1196,13 @@ function dialog_Mat(code: string) {
 
     if (codeData.postreq.length > 0) {
         createElement(outNode, 'h4', 'Es pre-requisito de: ');
+        var reqlist = createElement(outNode, 'div', null, ['preReqList']);
+
         for (let code of codeData.postreq)
-            outNode.appendChild(createMatBtn(dialog, code));
+            reqlist.appendChild(createMatBtn(dialog, code));
     }
 
+    createBr(outNode);
     outNode.appendChild(dialog.createCloseButton());
     updatePrereqClasses(outNode);
     return dialog;
@@ -1607,7 +1764,6 @@ function downloadOrgChartPdf() {
 //#endregion
 
 //#region OrgChart templates
-
 function matsToOrgChart(mats: i_mat_raw[], errorCodes: Set<string> = new Set()) {
     let o = [];
     for (let i = 0; i < mats.length; ++i) {
@@ -1834,6 +1990,7 @@ function getMatTemplate() {
     ];
     return result;
 }
+//#endregion
 
 //#region LocalStorage Funcs
 
@@ -1881,33 +2038,56 @@ function loadFromObject(obj) {
 
 
 function saveToLocalStorage() {
+    if (!SAVE_TO_LOCALSTORAGE) return;
+
+    // Save data (mat codes)
     let out = createSaveObject();
-    if (!SAVE_TO_LOCALSTORAGE) return false;
 
     try {
         localStorage.setItem(SAVE_DATA_LOCALSTORAGE, JSON.stringify(out));
-        return true;
     } catch (err) {
         console.warn('Could not save saveData to localStorage');
         console.warn(err);
-        return false;
     }
+
+    // Pensum data cache
+    try {
+        var d = convertPensumToSave(currentPensumData);
+        var json = JSON.stringify(d);
+        localStorage.setItem(PENSUM_DATA_LOCALSTORAGE, json);
+    } catch (err) {
+        console.warn('Could not save pensumData to localStorage');
+        console.warn(err);
+    }
+    return json;
 }
 
 
 function loadFromLocalStorage() {
+
     let saveData = localStorage.getItem(SAVE_DATA_LOCALSTORAGE);
-    if (saveData === null) return false;
+    if (saveData !== null) {
+        let out = JSON.parse(saveData);
+        loadFromObject(out);
 
-    let out = JSON.parse(saveData);
-    loadFromObject(out);
-
-    // Version management and cache clearing.
-    if (out.saveVer !== saveVer) {
-        console.info(`Updated from ${out.saveVer} to version ${saveVer}.`);
-        localStorage.clear();
+        // Version management and cache clearing.
+        if (out.saveVer !== saveVer) {
+            console.info(`Updated from ${out.saveVer} to version ${saveVer}.`);
+            localStorage.clear();
+        }
     }
-    return true;
+
+    let pensumData = localStorage.getItem(PENSUM_DATA_LOCALSTORAGE);
+    if (pensumData !== null) {
+        try {
+            let p = JSON.parse(pensumData) as i_pensum_save;
+            const pensum = convertSaveToPensum(p);
+            return pensum;
+        } catch {
+            console.warn('Could not load pensum data from local storage!');
+        }
+    }
+
 }
 
 //#endregion
@@ -2422,6 +2602,7 @@ function getDateIdentifier() {
 function loadPensumFromJson() {
     let input = document.createElement('input');
     input.type = 'file';
+    input.accept = ".json";
     input.click();
     input.addEventListener('change', () => {
         let ext = input.files[0]['name']
@@ -2491,13 +2672,13 @@ function uploadProgress() {
                     if (obj) {
                         if (Array.isArray(obj)) {
                             userProgress.passed = new Set(obj);
-                            loadPensum();
+                            drawPensumTable();
                             alert(`Se han seleccionado ${userProgress.passed.size} materias de ${input.files[0].name}.`);
                             return;
                         }
                         if (typeof (obj) === 'object') {
                             loadFromObject(obj);
-                            loadPensum();
+                            drawPensumTable();
                             alert(`Se han seleccionado ${userProgress.passed.size} materias de ${input.files[0].name}.`);
                             return;
                         }
@@ -2517,6 +2698,36 @@ function uploadProgress() {
         }
     });
 }
+
+function createAdvancedButtons() {
+    const out = document.getElementById('advanced-wrapper');
+    if (!out) return;
+
+
+    // Btn recargar
+    let recargar = createSecondaryButton('Forzar recargar pensum', (e) => {
+        let r1 = 'cache_' + document.getElementById('codigoMateria').textContent;
+        let r2 = 'cache_' + currentPensumData.codigo;
+        localStorage.removeItem(r1);
+        console.info('Removed ' + r1);
+        localStorage.removeItem(r2);
+        console.info('Removed ' + r2);
+        setTimeout(loadPensum, 200);
+    })
+    out.append(recargar);
+
+
+    // Btn subir pensum
+    let propio_pensum = createSecondaryButton('Subir pensum propio [JSON]', loadPensumFromJson);
+    out.append(propio_pensum);
+
+    // Modo desarrollo de pensum
+    let design_mode_btn = createSecondaryButton('Modo desarrollo de pensum [Toggle]', () => {
+        document.body.classList.toggle(DESING_MODE_CSS_CLASS);
+    });
+    out.append(design_mode_btn);
+}
+
 
 function RESET_PROGRESS() {
     SAVE_TO_LOCALSTORAGE = false;
@@ -2568,24 +2779,22 @@ async function onWindowLoad() {
     document.getElementById('cargar_btn').addEventListener('click', (e) => {
         loadPensum();
     });
-    document.getElementById('recargar_btn').addEventListener('click', (e) => {
-        let r1 = 'cache_' + document.getElementById('codigoMateria').textContent;
-        let r2 = 'cache_' + currentPensumData.codigo;
-        localStorage.removeItem(r1);
-        console.info('Removed ' + r1);
-        localStorage.removeItem(r2);
-        console.info('Removed ' + r2);
-        setTimeout(loadPensum, 200);
-    });
+
+    // Buttons inside "Advanced" section
+    createAdvancedButtons();
+
 
     // Try to get saved data
-    loadFromLocalStorage();
+    const possible_pensum = loadFromLocalStorage();
 
     // Load toolbox
     createToolbox();
 
     // Do first load
-    loadPensum();
+    loadPensum(possible_pensum);
+
+    // Design mode stuff
+    DEBUG_KEYBOARD_EVENTS();
 }
 
 window.addEventListener('load', onWindowLoad);

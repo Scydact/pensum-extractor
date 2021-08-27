@@ -1,0 +1,84 @@
+{
+    "$schema": "http://json-schema.org/draft-07/schema",
+    "$id": "pensum-extractor-schema-01",
+    "title": "Pensum",
+    "description": "Pensum para uso en UNAPEC Pensum Extractor",
+    "type": "object",
+    "properties": {
+        "carrera": {
+            "description": "Nombre de la carrera del pensum",
+            "type": "string"
+        },
+        "codigo": {
+            "description": "Codigo del pensum (ej. FIN07)",
+            "type": "string"
+        },
+        "vigencia": {
+            "description": "Fecha de vigencia del pensum (ej. 01/01/1998)",
+            "type": "string"
+        },
+        "infoCarrera": {
+            "description": "Lista de detalles de la carrera (ej. Total de creditos, titulo a recibir, requisitos de graduacion...)",
+            "type": "array"
+        },
+        "error": {
+            "description": "Error, si hubo en la carga. No es necesario.",
+            "type": ["string", "null"]
+        },
+        "version": {
+            "description": "Version del pensum. Puede ser un numero (ej. 2)",
+            "type": "integer"
+        },
+        "cuats": {
+            "description": "Lista de cuatrimestres, cada uno con sus materias.",
+            "type": "array",
+            "items": {
+                "type": "object",
+                "properties": {
+                    "codigo": {
+                        "type": "string",
+                        "description": "Codigo de la materia (ej. MAT101)"
+                    },
+                    "asignatura": {
+                        "type": "string",
+                        "description": "Nombre de la materia (ej. Matematica preuniversitaria)"
+                    },
+                    "creditos": {
+                        "type": "integer",
+                        "description": "Creditos de la materia"
+                    },
+                    "prereq": {
+                        "description": "Codigos prerequisitos de esta materia (ej. MAT100)",
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        ]
+                    },
+                    "prereqExtra": {
+                        "description": "Prerequisitos que no son materias, sino texto explicativo (ej. '90% de los creditos')",
+                        "anyOf": [
+                            {
+                                "type": "string"
+                            },
+                            {
+                                "type": "array",
+                                "items": {
+                                    "type": "string"
+                                }
+                            }
+                        ]
+                    }
+                },
+                "required": ["codigo", "asignatura", "creditos"]
+            }
+        }
+    },
+    "required": ["carrera", "codigo", "vigencia", "infoCarrera", "cuats", "version"]
+}
