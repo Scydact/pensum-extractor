@@ -14,6 +14,7 @@
     --bgCuat: linear-gradient(90deg, transparent 0%, var(--tableOdd) 100%);
     --bgCuat-hover: rgba(96, 96, 255, 0.5);
     --frCuatHeader: rgba(0, 0, 128, 0.8);
+    --borderLimit: black;
 
     --background-taken: rgb(156, 247, 163);
     --background-taken-hover: rgb(7, 182, 22);
@@ -63,6 +64,7 @@
     --background2: #444;
     --bgCuat-hover: rgba(96, 96, 255, 0.5);
     --frCuatHeader: rgba(162, 162, 255, 0.8);
+    --borderLimit: white;
 
     --background-taken: hsl(125, 87%, 27%);
     --background-taken-hover: hsl(125, 93%, 37%);
@@ -246,9 +248,9 @@ thead th {
     position: sticky;
     top: 0;
     height: 2rem;
-    box-shadow: 0 2px 0 0 black;
     z-index: 1;
     word-wrap: break-all;
+    box-shadow: inset 0 -2px 0 0 var(--borderLimit);
 }
 
 table {
@@ -266,7 +268,7 @@ tr:nth-child(2n) td {
 
 .cuatLimit + tr td,
 .cuatHeader {
-    border-top: 1px solid black;
+    box-shadow: 0 -1px 0 0 var(--borderLimit); /* box-shadow doesn't change the final size, while border does. */
 }
 
 .cuatHeader {
@@ -456,6 +458,14 @@ tr:nth-child(2n) td {
         margin-left: 0;
         margin-right: 0;
         font-size: 0.75rem;
+    }
+}
+
+@media only screen and (min-width: 700px) {
+    /* Avoid ultra wide pages cuz of titles or descriptions. */
+    #infoWrapper > ul,
+    h1, h2, h3 {
+        max-width: 70vw;
     }
 }
 
@@ -907,4 +917,5 @@ body {
 
 body:not(.DESIGN-MODE) .DESIGN-MODE {
     display: none;
+    pointer-events: none;
 }

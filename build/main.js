@@ -126,7 +126,7 @@ var MANAGEMENT_TAKEN_CSS_CLASS = 'managementMode-taken';
 var MANAGEMENT_ONCOURSE_CSS_CLASS = 'managementMode-oncourse';
 var MANAGEMENT_SELECTED_CSS_CLASS = 'managementMode-selected';
 var MANAGEMENT_ERROR_CSS_CLASS = 'managementMode-error';
-var DESING_MODE_CSS_CLASS = 'DESIGN-MODE';
+var DESIGN_MODE_CSS_CLASS = 'DESIGN-MODE';
 var CURRENT_PENSUM_VERSION = 2; // Update this if new mats are added to IgnoredMats.json
 //#region Basics 
 /** Loads the node given at 'input' into the DOM */
@@ -676,7 +676,7 @@ function createPensumTable(data) {
     createElement(headerRow, 'th', 'Asignatura');
     createElement(headerRow, 'th', 'Cr');
     createElement(headerRow, 'th', 'Pre-requisitos');
-    createElement(headerRow, 'th', 'Opciones', [DESING_MODE_CSS_CLASS]);
+    createElement(headerRow, 'th', 'Opciones', [DESIGN_MODE_CSS_CLASS]);
     var _loop_3 = function (idxCuat, cuat) {
         var e_18, _e;
         // new table per cuat
@@ -802,7 +802,7 @@ function createPensumTable(data) {
             // Debug options
             {
                 var r = row.insertCell();
-                r.classList.add(DESING_MODE_CSS_CLASS);
+                r.classList.add(DESIGN_MODE_CSS_CLASS);
                 addDebugModeButtons(r, mat.codigo);
             }
         };
@@ -891,6 +891,7 @@ function DEBUG_KEYBOARD_EVENTS() {
         }
     });
 }
+/** Loads a pensum data save from the history stack. */
 function debug_undo() {
     var save = DEBUG_HISTORY.do.pop();
     if (save) {
@@ -899,6 +900,7 @@ function debug_undo() {
         loadPensum(pensum);
     }
 }
+/** Loads a pensum data save from the history redo stack, reverting a undo. */
 function debug_redo() {
     var save = DEBUG_HISTORY.redo.pop();
     if (save) {
@@ -907,6 +909,7 @@ function debug_redo() {
         loadPensum(pensum);
     }
 }
+/** Saves current pensum data to the history stack. */
 function debug_do() {
     var save = convertPensumToSave(currentPensumData);
     DEBUG_HISTORY.do.push(save);
@@ -994,14 +997,26 @@ function addDebugModeButtons(r, codigo) {
         loadPensum(currentPensumData);
     }, ['inline-block']));
     r.append(createSecondaryButton('❌', function () {
+        // Delete button
         var idx = cuat.indexOf(mat);
         if (idx === -1)
             return;
-        if (confirm("Seguro que desea borrar \"[" + mat.codigo + "] " + mat.asignatura + "\"?")) {
-            debug_do();
-            cuat.splice(idx, 1);
-            loadPensum(currentPensumData);
+        if (!window['DELETE_WARNING']) {
+            alert("Para deshacer un borrado accidental, presionar Ctrl + Z. \n                Para rehacer un Ctrl + Z, use Ctrl + Y.");
+            window['DELETE_WARNING'] = true;
         }
+        debug_do();
+        cuat.splice(idx, 1);
+        loadPensum(currentPensumData);
+    }, ['inline-block']));
+    r.append(createSecondaryButton('✏', function () {
+        // Edit mat button
+        var mat = currentPensumData.cuats.flat().filter(function (x) { return x.codigo === codigo; })[0];
+        if (!mat) {
+            alert('Error!: Materia no encontrada?');
+            return;
+        }
+        dialog_AddOrEditMat(mat).show();
     }, ['inline-block']));
     /**
      * TODO:
@@ -1235,6 +1250,18 @@ function parseInfoList(data) {
         }
     });
 }
+function locateMatOnPensumTable(code) {
+    if (code === void 0) { code = ''; }
+    var x = safeForHtmlId(code); // im lazy, this part was moved.
+    var targetCell = document.getElementById("a_" + x);
+    var targetRow = document.getElementById("r_" + x);
+    if (!targetRow)
+        return;
+    targetCell.scrollIntoView({ block: 'center' });
+    targetRow.classList.remove('highlightRow');
+    targetRow.classList.add('highlightRow');
+    setTimeout(function () { return targetRow.classList.remove('highlightRow'); }, 3e3);
+}
 //#endregion
 //#region Dialogs
 /** Create mat dialog showing its dependencies and other options... */
@@ -1258,13 +1285,7 @@ function dialog_Mat(code) {
         var a = createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary']);
         a.addEventListener('click', function () {
             dialog.hide();
-            var x = safeForHtmlId(codeData.codigo); // im lazy, this part was moved.
-            var targetCell = document.getElementById("a_" + x);
-            var targetRow = document.getElementById("r_" + x);
-            targetCell.scrollIntoView({ block: 'center' });
-            targetRow.classList.remove('highlightRow');
-            targetRow.classList.add('highlightRow');
-            setTimeout(function () { return targetRow.classList.remove('highlightRow'); }, 3e3);
+            locateMatOnPensumTable(codeData.codigo);
         });
     }
     // Localizar en diagrama
@@ -1346,8 +1367,7 @@ function dialog_ImportExport() {
     node.appendChild(document.createElement('br'));
     createElement(node, 'h3', 'Descargar pensum en otros formatos');
     node.appendChild(createSecondaryButton("Descargar .xlsx (Excel)", downloadCurrentPensumAsExcel));
-    node.appendChild(createSecondaryButton("[Para pruebas] Descargar .json", function () { return downloadPensumJson(currentPensumData); }, ['note']));
-    node.appendChild(createSecondaryButton("[Para pruebas] Cargar desde .json", loadPensumFromJson, ['note']));
+    node.appendChild(createSecondaryButton("Descargar .csv (Solo materias)", downloadCuatsAsCSV));
     node.appendChild(document.createElement('br'));
     node.appendChild(dialog.createCloseButton());
     return dialog;
@@ -1625,6 +1645,133 @@ function dialog_OrgChart(selected) {
         control.destroy();
     };
     dialog['control'] = control;
+    return dialog;
+}
+function dialog_CambiarInfoCarrera() {
+    var dialog = new DialogBox();
+    var node = dialog.contentNode;
+    // Title
+    createElement(node, 'h3', 'Informacion de la carrera ' + currentPensumData.carrera);
+    var formDiv = createElement(node, 'div', null, ['col2', 'form']);
+    var inputs = {
+        carrera: createInput(formDiv, 'Carrera: ', currentPensumData.carrera),
+        codigo: createInput(formDiv, 'Codigo: ', currentPensumData.codigo),
+        vigencia: createInput(formDiv, 'Vigencia: ', currentPensumData.vigencia),
+    };
+    createBr(node);
+    createElement(node, 'p', 'Separar con linea nueva para agregar nuevo requisito.', ['note']);
+    createElement(node, 'p', 'Separar con punto para hacer sub-lista.', ['note']);
+    var textNode = createElement(node, 'textarea');
+    textNode.cols = 64;
+    textNode.rows = 16;
+    textNode.value = currentPensumData.infoCarrera.join('\n');
+    node.appendChild(createSecondaryButton("Validar cambios \u2714", function () {
+        debug_do();
+        Object.entries(inputs).map(function (_a) {
+            var _b = __read(_a, 2), key = _b[0], htmlInputElement = _b[1];
+            currentPensumData[key] = htmlInputElement.value;
+        });
+        currentPensumData.infoCarrera = textNode.value.trim().split('\n');
+        loadPensum(currentPensumData);
+        dialog.hide();
+    }));
+    node.appendChild(dialog.createCloseButton());
+    return dialog;
+}
+function dialog_AddOrEditMat(currentMatInput) {
+    var dialog = new DialogBox();
+    var node = dialog.contentNode;
+    var currentMat = currentMatInput || {
+        cuatrimestre: 1,
+        codigo: '',
+        asignatura: '',
+        creditos: 1,
+        prereq: [],
+        prereqExtra: [],
+    };
+    var formDiv = createElement(node, 'div', null, ['col2', 'form']);
+    var inputs = {
+        cuatrimestre: createInput(formDiv, 'Cuatrimestre: ', currentMat.cuatrimestre.toString(), 'Cuatrimestre numero X.'),
+        codigo: createInput(formDiv, 'Codigo: ', currentMat.codigo, 'XXX000'),
+        asignatura: createInput(formDiv, 'Asignatura: ', currentMat.asignatura, 'Nombre de la asignatura'),
+        creditos: createInput(formDiv, 'Creditos: ', currentMat.creditos.toString(), 'Numero de creditos'),
+    };
+    createBr(node);
+    createElement(node, 'p', 'Colocar cada prerequisito en una linea nueva.', ['note']);
+    createBr(node);
+    createElement(node, 'label', 'Prerequisitos: ');
+    createElement(node, 'span', 'Codigos de materias que son prerequisitos', ['note']);
+    createBr(node);
+    var textNodePreReq = createElement(node, 'textarea');
+    textNodePreReq.cols = 64;
+    textNodePreReq.rows = 8;
+    textNodePreReq.value = currentMat.prereq.join('\n');
+    createBr(node);
+    createElement(node, 'label', 'Prerequisitos extra: ');
+    createElement(node, 'span', 'Textual, por ejemplo "Requiere 70% de creditos".', ['note']);
+    createBr(node);
+    var textNodePreReqExtra = createElement(node, 'textarea');
+    textNodePreReqExtra.cols = 64;
+    textNodePreReqExtra.rows = 8;
+    textNodePreReqExtra.value = currentMat.prereqExtra.join('\n');
+    node.appendChild(createSecondaryButton("Aceptar \u2714", function () {
+        debug_do();
+        var newMat = {
+            asignatura: inputs.asignatura.value.trim(),
+            codigo: inputs.codigo.value.trim(),
+            creditos: Number(inputs.creditos.value),
+            cuatrimestre: Number(inputs.cuatrimestre.value),
+            prereq: textNodePreReq.value.trim().split('\n'),
+            prereqExtra: textNodePreReqExtra.value.trim().split('\n'),
+        };
+        if (newMat.prereq[0] === '')
+            newMat.prereq = [];
+        if (newMat.prereqExtra[0] === '')
+            newMat.prereqExtra = [];
+        if (currentMatInput) {
+            // Edit current mat
+            Object.assign(currentMatInput, newMat);
+        }
+        else {
+            // Insert a new mat
+            var cuatIdx = newMat.cuatrimestre - 1;
+            var cuats = currentPensumData.cuats;
+            if (!cuats[cuatIdx])
+                cuats[cuatIdx] = [newMat];
+            else
+                cuats[cuatIdx].push(newMat);
+            // Fix empty cuats
+            cuats = Array.from(cuats, function (cuat) { return cuat || []; });
+            currentPensumData.cuats = cuats;
+        }
+        loadPensum(currentPensumData);
+        locateMatOnPensumTable(newMat.codigo);
+        dialog.hide();
+    }));
+    node.appendChild(dialog.createCloseButton());
+    return dialog;
+}
+function dialog_DebugDownload() {
+    var dialog = new DialogBox();
+    var node = dialog.contentNode;
+    var btns = [
+        // JSON
+        createElement(null, 'h2', 'JSON (completo)'),
+        createSecondaryButton("\u2B07 Descargar .json", function () { return downloadPensumJson(currentPensumData); }),
+        createSecondaryButton("\u2B06 Cargar .json", loadPensumFromJson),
+        // Descargar/cargar materias
+        createElement(null, 'h2', 'CSV (Solo materias)'),
+        createSecondaryButton('⬇ Descargar .csv', function () {
+            alert('No abrir directamente con excel!'
+                + '\nExcel tiene un bug en el cual el CSV no abre en UTF-8. Se debe ir a Data -> Get and transform data -> From text/CSV.');
+            downloadCuatsAsCSV();
+        }),
+        createSecondaryButton('⬆ Cargar .csv', function () {
+            loadCuatsFromCSV();
+        }),
+    ];
+    node.append.apply(node, __spreadArray([], __read(btns)));
+    node.appendChild(dialog.createCloseButton());
     return dialog;
 }
 //#endregion
@@ -2210,6 +2357,18 @@ function createBr(parentNode) {
         parentNode.appendChild(x);
     return x;
 }
+function createInput(node, labelText, value, placeholder) {
+    if (value === void 0) { value = ''; }
+    if (placeholder === void 0) { placeholder = ''; }
+    var label = createElement(node, 'label', '<span>' + labelText + '</span>');
+    var input = createElement(label, 'input');
+    input.type = 'text';
+    input.value = value;
+    input.style.minWidth = '16em';
+    input.placeholder = placeholder;
+    label.style.display = 'contents';
+    return input;
+}
 function createSecondaryButton(text, callback, classes) {
     var _a;
     if (classes === void 0) { classes = []; }
@@ -2425,6 +2584,7 @@ function convertPensumToSave(data) {
     var newCuats = data.cuats.map(function (cuat) {
         return cuat.map(function (mat) {
             var newMat = __assign({}, mat);
+            // Cuatrismestre not needed on the save, thus removed to make the save smaller.
             delete newMat.cuatrimestre;
             if (!newMat.prereq.length)
                 delete newMat.prereq;
@@ -2622,9 +2782,212 @@ function createAdvancedButtons() {
     out.append(propio_pensum);
     // Modo desarrollo de pensum
     var design_mode_btn = createSecondaryButton('Modo desarrollo de pensum [Toggle]', function () {
-        document.body.classList.toggle(DESING_MODE_CSS_CLASS);
+        document.body.classList.toggle(DESIGN_MODE_CSS_CLASS);
     });
     out.append(design_mode_btn);
+    // Opciones de modo desarrollo
+    var design_mode_div = createElement(out, 'div', '<h4>Modo desarrollo de pensum</h4>', [DESIGN_MODE_CSS_CLASS, 'card', 'inline-btn-wrapper']);
+    design_mode_div.style.position = 'fixed';
+    design_mode_div.style.top = '1rem';
+    design_mode_div.style.left = '1rem';
+    design_mode_div.style.width = '20em';
+    design_mode_div.style.background = 'var(--background1);';
+    var btns = [
+        // Importar/exportar desde archivo
+        createSecondaryButton('💿 Importar/Exportar desde archivo', function () {
+            dialog_DebugDownload().show();
+        }),
+        // Cambiar informacion carrera
+        createSecondaryButton('✏ Editar informacion de carrera', function () {
+            dialog_CambiarInfoCarrera().show();
+        }),
+        // Borrar todo
+        createSecondaryButton('❌ Borrar todas las materias', function () {
+            var deleteOK = confirm('Seguro que desea borrar todas las materias '
+                + ("(" + Object.keys(currentPensumMats).length + ")")
+                + ("de " + currentPensumData.codigo + "?)"));
+            if (deleteOK) {
+                debug_do();
+                currentPensumData.cuats = [];
+                loadPensum(currentPensumData);
+            }
+        }),
+        // Agregar materia
+        createSecondaryButton('➕ Agregar materia', function () {
+            dialog_AddOrEditMat().show();
+        }),
+    ];
+    design_mode_div.append.apply(design_mode_div, __spreadArray([], __read(btns)));
+}
+function parseCSV(str, separator) {
+    if (separator === void 0) { separator = ','; }
+    // Src: https://stackoverflow.com/a/14991797
+    var arr = [];
+    var quote = false; // 'true' means we're inside a quoted field
+    // Iterate over each character, keep track of current row and column (of the returned array)
+    for (var row = 0, col = 0, c = 0; c < str.length; c++) {
+        var cc = str[c], nc = str[c + 1]; // Current character, next character
+        arr[row] = arr[row] || []; // Create a new row if necessary
+        arr[row][col] = arr[row][col] || ''; // Create a new column (start with empty string) if necessary
+        // If the current character is a quotation mark, and we're inside a
+        // quoted field, and the next character is also a quotation mark,
+        // add a quotation mark to the current column and skip the next character
+        if (cc == '"' && quote && nc == '"') {
+            arr[row][col] += cc;
+            ++c;
+            continue;
+        }
+        // If it's just one quotation mark, begin/end quoted field
+        if (cc == '"') {
+            quote = !quote;
+            continue;
+        }
+        // If it's a comma and we're not in a quoted field, move on to the next column
+        if (cc == separator && !quote) {
+            ++col;
+            continue;
+        }
+        // If it's a newline (CRLF) and we're not in a quoted field, skip the next character
+        // and move on to the next row and move to column 0 of that new row
+        if (cc == '\r' && nc == '\n' && !quote) {
+            ++row;
+            col = 0;
+            ++c;
+            continue;
+        }
+        // If it's a newline (LF or CR) and we're not in a quoted field,
+        // move on to the next row and move to column 0 of that new row
+        if (cc == '\n' && !quote) {
+            ++row;
+            col = 0;
+            continue;
+        }
+        if (cc == '\r' && !quote) {
+            ++row;
+            col = 0;
+            continue;
+        }
+        // Otherwise, append the current character to the current column
+        arr[row][col] += cc;
+    }
+    return arr;
+}
+function csv2cuats(csvText) {
+    // This thing could result in very bad stuff with the wrong input.
+    var e_30, _a;
+    var matList = parseCSV(csvText)
+        .slice(1) // First line is headers. Slice it away.
+        .map(function (line) {
+        var _a = __read(line, 6), cuat = _a[0], code = _a[1], asig = _a[2], cr = _a[3], prereq = _a[4], prereqExtra = _a[5];
+        var out = {
+            cuatrimestre: Number(cuat),
+            codigo: code.trim(),
+            asignatura: asig.trim(),
+            creditos: Number(cr),
+            prereq: (prereq.trim() === '') ? [] : prereq.trim().split(';').map(function (x) { return x.trim(); }),
+            prereqExtra: (prereqExtra.trim() === '') ? [] : prereqExtra.trim().split(';').map(function (x) { return x.trim(); }),
+        };
+        return out;
+    });
+    var cuats = [];
+    try {
+        for (var matList_1 = __values(matList), matList_1_1 = matList_1.next(); !matList_1_1.done; matList_1_1 = matList_1.next()) {
+            var mat = matList_1_1.value;
+            var idx = mat.cuatrimestre - 1;
+            if (!cuats[idx])
+                cuats[idx] = [];
+            cuats[idx].push(mat);
+        }
+    }
+    catch (e_30_1) { e_30 = { error: e_30_1 }; }
+    finally {
+        try {
+            if (matList_1_1 && !matList_1_1.done && (_a = matList_1.return)) _a.call(matList_1);
+        }
+        finally { if (e_30) throw e_30.error; }
+    }
+    // Don't allow [empty] on cuats.;
+    cuats = Array.from(cuats, function (x) { return x || []; });
+    return cuats;
+}
+function cuats2csv(cuats) {
+    var mats = cuats.flat();
+    var header = [
+        'Cuatrimestre',
+        'Codigo',
+        'Asignatura',
+        'Creditos',
+        'Prerequisitos (separados por punto y coma \';\')',
+        'Prerequisitos Extra (separados por punto y coma \';\')'
+    ];
+    var lines = mats.map(function (mat) {
+        var rows = [
+            mat.cuatrimestre,
+            mat.codigo,
+            mat.asignatura,
+            mat.creditos,
+            mat.prereq.join('; '),
+            mat.prereqExtra.join('; '),
+        ].map(function (x) {
+            x = x.toString();
+            if (x.match(',')) // Wrap in quotes if comma is inside.
+                return "\"" + x.replace(/"/g, '""') + "\""; // Escape quote char (") 
+            else
+                return x;
+        });
+        return rows;
+    });
+    return __spreadArray([header], __read(lines)).map(function (x) { return x.join(','); }) // Join each line parts
+        .join('\n'); // Join all lines into a string.
+}
+function loadCuatsFromCSV() {
+    var _this = this;
+    var input = document.createElement('input');
+    input.type = 'file';
+    input.accept = ".csv";
+    input.click();
+    input.addEventListener('change', function () {
+        var ext = input.files[0]['name']
+            .substring(input.files[0]['name'].lastIndexOf('.') + 1)
+            .toLowerCase();
+        if (input.files && input.files[0] && ext == 'csv') {
+            var reader = new FileReader();
+            reader.onload = function (e) { return __awaiter(_this, void 0, void 0, function () {
+                var txt, cuats, t;
+                return __generator(this, function (_a) {
+                    try {
+                        txt = e.target.result;
+                        cuats = csv2cuats(txt);
+                        debug_do();
+                        currentPensumData.cuats = cuats;
+                        loadPensum(currentPensumData);
+                        alert("Se han cargado " + Object.keys(currentPensumMats).length + " materias.");
+                        return [2 /*return*/];
+                    }
+                    catch (e) {
+                        t = 'No se pudo cargar el archivo!';
+                        alert(t + '\n' + e.toString());
+                        console.warn(t);
+                        console.warn(e);
+                    }
+                    return [2 /*return*/];
+                });
+            }); };
+            reader.readAsText(input.files[0]);
+        }
+        else {
+            console.info('mats.csv file could not be uploaded.');
+        }
+    });
+}
+function downloadCuatsAsCSV() {
+    var csvString = cuats2csv(currentPensumData.cuats);
+    var date = getDateIdentifier();
+    var name = "cuatrismetres_" + currentPensumData.codigo + "_" + date;
+    var blob = new Blob([csvString], {
+        type: 'data:text/csv;charset=utf-8',
+    });
+    FileSaver.saveAs(blob, name + '.csv');
 }
 function RESET_PROGRESS() {
     SAVE_TO_LOCALSTORAGE = false;

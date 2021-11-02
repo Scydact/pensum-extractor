@@ -41,6 +41,16 @@
             "escuela": "Decanato de Turismo"
         },
         {
+            "codigo": "ATH7-MARK",
+            "nombre": "[Antiguo] LICENCIATURA EN ADMINISTRACION TURISTICA Y HOTELERA MENCION MARKETING Y GESTION TURISTICO",
+            "escuela": "Decanato de Turismo"
+        },
+        {
+            "codigo": "ATH7-SERVBANQ",
+            "nombre": "[Antiguo] LICENCIATURA EN ADMINISTRACION TURISTICA Y HOTELERA MENCION GESTION DE SERVICIOS Y BANQUETES",
+            "escuela": "Decanato de Turismo"
+        },
+        {
             "codigo": "CDG10",
             "nombre": "[Antiguo] LICENCIATURA EN COMUNICACION DIGITAL",
             "escuela": "Decanato de Artes y Comunicación"

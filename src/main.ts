@@ -68,7 +68,7 @@ const MANAGEMENT_TAKEN_CSS_CLASS = 'managementMode-taken';
 const MANAGEMENT_ONCOURSE_CSS_CLASS = 'managementMode-oncourse';
 const MANAGEMENT_SELECTED_CSS_CLASS = 'managementMode-selected';
 const MANAGEMENT_ERROR_CSS_CLASS = 'managementMode-error';
-const DESING_MODE_CSS_CLASS = 'DESIGN-MODE';
+const DESIGN_MODE_CSS_CLASS = 'DESIGN-MODE';
 const CURRENT_PENSUM_VERSION = 2; // Update this if new mats are added to IgnoredMats.json
 
 //#region Basics 
@@ -553,7 +553,7 @@ function createPensumTable(data: i_pensum) {
     createElement(headerRow, 'th', 'Asignatura');
     createElement(headerRow, 'th', 'Cr');
     createElement(headerRow, 'th', 'Pre-requisitos');
-    createElement(headerRow, 'th', 'Opciones', [DESING_MODE_CSS_CLASS]);
+    createElement(headerRow, 'th', 'Opciones', [DESIGN_MODE_CSS_CLASS]);
 
 
     for (const [idxCuat, cuat] of data.cuats.entries()) {
@@ -708,7 +708,7 @@ function createPensumTable(data: i_pensum) {
             // Debug options
             {
                 let r = row.insertCell();
-                r.classList.add(DESING_MODE_CSS_CLASS);
+                r.classList.add(DESIGN_MODE_CSS_CLASS);
 
                 addDebugModeButtons(r, mat.codigo);
 
@@ -782,6 +782,7 @@ function DEBUG_KEYBOARD_EVENTS() {
     })
 }
 
+/** Loads a pensum data save from the history stack. */
 function debug_undo() {
     const save = DEBUG_HISTORY.do.pop();
     if (save) {
@@ -791,6 +792,7 @@ function debug_undo() {
     }
 }
 
+/** Loads a pensum data save from the history redo stack, reverting a undo. */
 function debug_redo() {
     const save = DEBUG_HISTORY.redo.pop();
     if (save) {
@@ -800,6 +802,7 @@ function debug_redo() {
     }
 }
 
+/** Saves current pensum data to the history stack. */
 function debug_do() {
     const save = convertPensumToSave(currentPensumData);
     DEBUG_HISTORY.do.push(save);
@@ -848,7 +851,7 @@ function array_move(arr, old_index, new_index) {
 };
 
 
-function addDebugModeButtons(r: HTMLTableDataCellElement, codigo: string) {
+function addDebugModeButtons(r: HTMLTableCellElement, codigo: string) {
     const pensum = currentPensumData;
 
     const mat = getPensumMatReference(codigo);
@@ -874,13 +877,31 @@ function addDebugModeButtons(r: HTMLTableDataCellElement, codigo: string) {
     }, ['inline-block']));
 
     r.append(createSecondaryButton('❌', () => {
+        // Delete button
         const idx = cuat.indexOf(mat);
         if (idx === -1) return;
-        if (confirm(`Seguro que desea borrar "[${mat.codigo}] ${mat.asignatura}"?`)) {
-            debug_do();
-            cuat.splice(idx, 1);
-            loadPensum(currentPensumData);
+
+        if (!window['DELETE_WARNING']) {
+            alert(`Para deshacer un borrado accidental, presionar Ctrl + Z. 
+                Para rehacer un Ctrl + Z, use Ctrl + Y.`)
+            window['DELETE_WARNING'] = true; 
         }
+
+        debug_do();
+        cuat.splice(idx, 1);
+        loadPensum(currentPensumData);
+    }, ['inline-block']));
+
+    r.append(createSecondaryButton('✏', () => {
+        // Edit mat button
+        const mat = currentPensumData.cuats.flat().filter(x => x.codigo === codigo)[0];
+        if (!mat) {
+            alert('Error!: Materia no encontrada?');
+            return;
+        }
+        
+        dialog_AddOrEditMat(mat).show();
+
     }, ['inline-block']));
 
     /**
@@ -1125,6 +1146,23 @@ function parseInfoList(data) {
     });
 }
 
+
+function locateMatOnPensumTable(code = '') {
+    let x = safeForHtmlId(code); // im lazy, this part was moved.
+    let targetCell = document.getElementById(`a_${x}`);
+    let targetRow = document.getElementById(`r_${x}`);
+
+    if (!targetRow) return;
+
+    targetCell.scrollIntoView({ block: 'center' });
+    targetRow.classList.remove('highlightRow');
+    targetRow.classList.add('highlightRow');
+    setTimeout(
+        () => targetRow.classList.remove('highlightRow'),
+        3e3
+    );
+}
+
 //#endregion
 
 //#region Dialogs
@@ -1154,16 +1192,7 @@ function dialog_Mat(code: string) {
         let a = createElement(outNode, 'a', 'Localizar en pensum', ['btn-secondary']);
         a.addEventListener('click', () => {
             dialog.hide();
-            let x = safeForHtmlId(codeData.codigo); // im lazy, this part was moved.
-            let targetCell = document.getElementById(`a_${x}`);
-            let targetRow = document.getElementById(`r_${x}`);
-            targetCell.scrollIntoView({ block: 'center' });
-            targetRow.classList.remove('highlightRow');
-            targetRow.classList.add('highlightRow');
-            setTimeout(
-                () => targetRow.classList.remove('highlightRow'),
-                3e3
-            );
+            locateMatOnPensumTable(codeData.codigo);
         });
     }
 
@@ -1247,22 +1276,15 @@ function dialog_ImportExport() {
         createSecondaryButton(
             `Descargar .xlsx (Excel)`,
             downloadCurrentPensumAsExcel
-        )
+        ),
     );
     node.appendChild(
         createSecondaryButton(
-            `[Para pruebas] Descargar .json`,
-            () => downloadPensumJson(currentPensumData),
-            ['note']
+            `Descargar .csv (Solo materias)`,
+            downloadCuatsAsCSV
         )
     );
-    node.appendChild(
-        createSecondaryButton(
-            `[Para pruebas] Cargar desde .json`,
-            loadPensumFromJson,
-            ['note']
-        )
-    );
+    
 
     node.appendChild(document.createElement('br'));
     node.appendChild(dialog.createCloseButton());
@@ -1630,6 +1652,180 @@ function dialog_OrgChart(selected = null) {
     };
     dialog['control'] = control;
 
+    return dialog;
+}
+
+
+
+function dialog_CambiarInfoCarrera() {
+    let dialog = new DialogBox();
+    let node = dialog.contentNode;
+
+    // Title
+    createElement(node, 'h3', 'Informacion de la carrera ' + currentPensumData.carrera);
+
+    const formDiv = createElement(node, 'div', null, ['col2', 'form'])
+    const inputs = {
+        carrera: createInput(formDiv, 'Carrera: ', currentPensumData.carrera),
+        codigo: createInput(formDiv, 'Codigo: ', currentPensumData.codigo),
+        vigencia: createInput(formDiv, 'Vigencia: ', currentPensumData.vigencia),
+    }
+
+    createBr(node);
+    createElement(node, 'p', 'Separar con linea nueva para agregar nuevo requisito.', ['note']);
+    createElement(node, 'p', 'Separar con punto para hacer sub-lista.', ['note']);
+
+    const textNode: HTMLTextAreaElement = createElement(node, 'textarea');
+    textNode.cols = 64;
+    textNode.rows = 16;
+    textNode.value = currentPensumData.infoCarrera.join('\n');
+
+    node.appendChild(
+        createSecondaryButton(
+            `Validar cambios ✔`,
+            () => {
+                debug_do();
+                Object.entries(inputs).map(([key, htmlInputElement]) => {
+                    currentPensumData[key] = htmlInputElement.value;
+                } )
+
+                currentPensumData.infoCarrera = textNode.value.trim().split('\n');
+                loadPensum(currentPensumData);
+                dialog.hide();
+            }
+        )
+    );
+    node.appendChild(dialog.createCloseButton());
+
+    return dialog;
+}
+
+
+function dialog_AddOrEditMat(currentMatInput?: i_mat_raw) {
+    let dialog = new DialogBox();
+    let node = dialog.contentNode;
+
+    let currentMat: i_mat_raw = currentMatInput || {
+        cuatrimestre: 1,
+        codigo: '',
+        asignatura: '',
+        creditos: 1,
+        prereq: [],
+        prereqExtra: [],
+    }
+
+    const formDiv = createElement(node, 'div', null, ['col2', 'form'])
+    const inputs = {
+        cuatrimestre: createInput(formDiv, 'Cuatrimestre: ', currentMat.cuatrimestre.toString(), 'Cuatrimestre numero X.'),
+        codigo: createInput(formDiv, 'Codigo: ', currentMat.codigo, 'XXX000'),
+        asignatura: createInput(formDiv, 'Asignatura: ', currentMat.asignatura, 'Nombre de la asignatura'),
+        creditos: createInput(formDiv, 'Creditos: ', currentMat.creditos.toString(), 'Numero de creditos'),
+    }
+
+
+    createBr(node);
+    createElement(node, 'p', 'Colocar cada prerequisito en una linea nueva.', ['note']);
+    
+    createBr(node);
+    createElement(node, 'label', 'Prerequisitos: ');
+    createElement(node, 'span', 'Codigos de materias que son prerequisitos', ['note']);
+    createBr(node);
+    const textNodePreReq: HTMLTextAreaElement = createElement(node, 'textarea');
+    textNodePreReq.cols = 64;
+    textNodePreReq.rows = 8;
+    textNodePreReq.value = currentMat.prereq.join('\n');
+    
+    createBr(node);
+    createElement(node, 'label', 'Prerequisitos extra: ');
+    createElement(node, 'span', 'Textual, por ejemplo "Requiere 70% de creditos".', ['note']);
+    createBr(node);
+    const textNodePreReqExtra: HTMLTextAreaElement = createElement(node, 'textarea');
+    textNodePreReqExtra.cols = 64;
+    textNodePreReqExtra.rows = 8;
+    textNodePreReqExtra.value = currentMat.prereqExtra.join('\n');
+
+    node.appendChild(
+        createSecondaryButton(
+            `Aceptar ✔`,
+            () => {
+                debug_do();
+                const newMat: i_mat_raw = {
+                    asignatura: inputs.asignatura.value.trim(),
+                    codigo: inputs.codigo.value.trim(),
+                    creditos: Number(inputs.creditos.value),
+                    cuatrimestre: Number(inputs.cuatrimestre.value),
+                    prereq: textNodePreReq.value.trim().split('\n'),
+                    prereqExtra: textNodePreReqExtra.value.trim().split('\n'),
+                };
+
+                if (newMat.prereq[0] === '')
+                    newMat.prereq = [];
+                if (newMat.prereqExtra[0] === '')
+                    newMat.prereqExtra = [];
+
+                if (currentMatInput) {
+                    // Edit current mat
+                    Object.assign(currentMatInput, newMat);
+                } else {
+                    // Insert a new mat
+                    const cuatIdx = newMat.cuatrimestre - 1;
+
+                    let cuats = currentPensumData.cuats
+    
+                    if (!cuats[cuatIdx])
+                        cuats[cuatIdx] = [newMat];
+                    else
+                        cuats[cuatIdx].push(newMat);
+
+                    // Fix empty cuats
+                    cuats = Array.from(cuats, cuat => cuat || []);
+                    currentPensumData.cuats = cuats;
+                }
+
+                loadPensum(currentPensumData);
+                locateMatOnPensumTable(newMat.codigo);
+                dialog.hide();
+            }
+        )
+    );
+
+    node.appendChild(dialog.createCloseButton());
+    return dialog;
+}
+
+
+function dialog_DebugDownload() {
+    let dialog = new DialogBox();
+    let node = dialog.contentNode;
+
+    let btns = [
+        // JSON
+        createElement(null, 'h2', 'JSON (completo)'),
+        createSecondaryButton(
+            `⬇ Descargar .json`,
+            () => downloadPensumJson(currentPensumData)
+        ),
+        createSecondaryButton(
+            `⬆ Cargar .json`,
+            loadPensumFromJson
+        ),
+
+        // Descargar/cargar materias
+        createElement(null, 'h2', 'CSV (Solo materias)'),
+        createSecondaryButton('⬇ Descargar .csv', () => {
+            alert('No abrir directamente con excel!'
+                + '\nExcel tiene un bug en el cual el CSV no abre en UTF-8. Se debe ir a Data -> Get and transform data -> From text/CSV.'
+            );
+            downloadCuatsAsCSV();
+        }),
+        createSecondaryButton('⬆ Cargar .csv', () => {
+            loadCuatsFromCSV();
+        }),
+    ];
+
+    node.append(...btns);
+
+    node.appendChild(dialog.createCloseButton());
     return dialog;
 }
 //#endregion
@@ -2305,6 +2501,18 @@ function createBr(parentNode = null) {
     return x;
 }
 
+function createInput(node, labelText, value = '', placeholder = '') {
+    const label: HTMLLabelElement = createElement(node, 'label', '<span>' + labelText + '</span>');
+    const input : HTMLInputElement = createElement(label, 'input');
+    input.type = 'text';
+    input.value = value;
+    input.style.minWidth = '16em';
+    input.placeholder = placeholder;
+    
+    label.style.display = 'contents';
+    return input;
+}
+
 function createSecondaryButton(text, callback, classes = []) {
     let a = document.createElement('a');
     a.addEventListener('click', callback);
@@ -2523,6 +2731,7 @@ function convertPensumToSave(data: i_pensum) {
         cuat.map(mat => {
             let newMat = { ...mat } as any;
 
+            // Cuatrismestre not needed on the save, thus removed to make the save smaller.
             delete newMat.cuatrimestre;
 
             if (!newMat.prereq.length)
@@ -2699,6 +2908,7 @@ function uploadProgress() {
     });
 }
 
+
 function createAdvancedButtons() {
     const out = document.getElementById('advanced-wrapper');
     if (!out) return;
@@ -2723,10 +2933,203 @@ function createAdvancedButtons() {
 
     // Modo desarrollo de pensum
     let design_mode_btn = createSecondaryButton('Modo desarrollo de pensum [Toggle]', () => {
-        document.body.classList.toggle(DESING_MODE_CSS_CLASS);
+        document.body.classList.toggle(DESIGN_MODE_CSS_CLASS);
     });
     out.append(design_mode_btn);
+
+    // Opciones de modo desarrollo
+    let design_mode_div = createElement(out, 'div', '<h4>Modo desarrollo de pensum</h4>', 
+        [DESIGN_MODE_CSS_CLASS, 'card', 'inline-btn-wrapper']);
+    design_mode_div.style.position = 'fixed';
+    design_mode_div.style.top = '1rem';
+    design_mode_div.style.left = '1rem';
+    design_mode_div.style.width = '20em';
+    design_mode_div.style.background = 'var(--background1);';
+
+    let btns = [
+
+        // Importar/exportar desde archivo
+        createSecondaryButton('💿 Importar/Exportar desde archivo', () => {
+            dialog_DebugDownload().show();
+        }),
+
+        // Cambiar informacion carrera
+        createSecondaryButton('✏ Editar informacion de carrera', () => {
+            dialog_CambiarInfoCarrera().show();
+        }),
+
+        // Borrar todo
+        createSecondaryButton('❌ Borrar todas las materias', () => {
+            const deleteOK = confirm(
+                'Seguro que desea borrar todas las materias '
+                + `(${Object.keys(currentPensumMats).length})`
+                + `de ${currentPensumData.codigo}?)`
+            );
+
+            if (deleteOK) {
+                debug_do();
+                currentPensumData.cuats = [];
+                loadPensum(currentPensumData);
+            }
+        }),
+
+         // Agregar materia
+         createSecondaryButton('➕ Agregar materia', () => {
+            dialog_AddOrEditMat().show();
+        }),
+    ];
+    design_mode_div.append(...btns);
 }
+
+function parseCSV(str, separator = ',') {
+    // Src: https://stackoverflow.com/a/14991797
+    var arr = [];
+    var quote = false;  // 'true' means we're inside a quoted field
+
+    // Iterate over each character, keep track of current row and column (of the returned array)
+    for (var row = 0, col = 0, c = 0; c < str.length; c++) {
+        var cc = str[c], nc = str[c+1];        // Current character, next character
+        arr[row] = arr[row] || [];             // Create a new row if necessary
+        arr[row][col] = arr[row][col] || '';   // Create a new column (start with empty string) if necessary
+
+        // If the current character is a quotation mark, and we're inside a
+        // quoted field, and the next character is also a quotation mark,
+        // add a quotation mark to the current column and skip the next character
+        if (cc == '"' && quote && nc == '"') { arr[row][col] += cc; ++c; continue; }
+
+        // If it's just one quotation mark, begin/end quoted field
+        if (cc == '"') { quote = !quote; continue; }
+
+        // If it's a comma and we're not in a quoted field, move on to the next column
+        if (cc == separator && !quote) { ++col; continue; }
+
+        // If it's a newline (CRLF) and we're not in a quoted field, skip the next character
+        // and move on to the next row and move to column 0 of that new row
+        if (cc == '\r' && nc == '\n' && !quote) { ++row; col = 0; ++c; continue; }
+
+        // If it's a newline (LF or CR) and we're not in a quoted field,
+        // move on to the next row and move to column 0 of that new row
+        if (cc == '\n' && !quote) { ++row; col = 0; continue; }
+        if (cc == '\r' && !quote) { ++row; col = 0; continue; }
+
+        // Otherwise, append the current character to the current column
+        arr[row][col] += cc;
+    }
+    return arr as string[][];
+}
+
+function csv2cuats(csvText: string) {
+    // This thing could result in very bad stuff with the wrong input.
+
+    const matList = parseCSV(csvText)
+        .slice(1)   // First line is headers. Slice it away.
+        .map(line => {
+            const [cuat, code, asig, cr, prereq, prereqExtra] = line;
+            
+            const out: i_mat_raw = {
+                cuatrimestre: Number(cuat),
+                codigo: code.trim(),
+                asignatura: asig.trim(),
+                creditos: Number(cr),
+                prereq:      (prereq.trim() === '')      ? [] : prereq.trim().split(';').map(x => x.trim()),
+                prereqExtra: (prereqExtra.trim() === '') ? [] : prereqExtra.trim().split(';').map(x => x.trim()),
+            }
+            return out;
+        })
+
+    let cuats: i_mat_raw[][] = [];
+    for (const mat of matList) {
+        const idx = mat.cuatrimestre - 1;
+        if (!cuats[idx]) 
+            cuats[idx] = [];
+        cuats[idx].push(mat);
+    }
+
+    // Don't allow [empty] on cuats.;
+    cuats = Array.from(cuats, x => x || []);
+
+    return cuats;
+}
+
+function cuats2csv(cuats: i_mat_raw[][]) {
+    const mats = cuats.flat();
+    const header = [
+        'Cuatrimestre',
+        'Codigo',
+        'Asignatura', 
+        'Creditos', 
+        'Prerequisitos (separados por punto y coma \';\')', 
+        'Prerequisitos Extra (separados por punto y coma \';\')'
+    ];
+    const lines = mats.map(mat => {
+        const rows = [
+            mat.cuatrimestre,
+            mat.codigo,
+            mat.asignatura,
+            mat.creditos,
+            mat.prereq.join('; '),
+            mat.prereqExtra.join('; '),
+        ].map(x => {
+            x = x.toString();
+            if (x.match(',')) // Wrap in quotes if comma is inside.
+                return `"${x.replace(/"/g,'""')}"`; // Escape quote char (") 
+            else 
+                return x;
+        });
+        return rows;
+    })
+
+    return [header, ...lines]
+        .map(x => x.join(','))  // Join each line parts
+        .join('\n');            // Join all lines into a string.
+}
+
+function loadCuatsFromCSV() {
+    let input = document.createElement('input');
+    input.type = 'file';
+    input.accept = ".csv";
+    input.click();
+    input.addEventListener('change', () => {
+        let ext = input.files[0]['name']
+            .substring(input.files[0]['name'].lastIndexOf('.') + 1)
+            .toLowerCase();
+        if (input.files && input.files[0] && ext == 'csv') {
+            let reader = new FileReader();
+            reader.onload = async (e) => {
+                try {
+                    let txt = e.target.result as string;
+                    let cuats = csv2cuats(txt);
+                    debug_do();
+                    currentPensumData.cuats = cuats;
+                    loadPensum(currentPensumData);
+                    alert(`Se han cargado ${Object.keys(currentPensumMats).length} materias.`);
+                    return;
+                    
+                } catch (e) {
+                    let t = 'No se pudo cargar el archivo!'
+                    alert(t + '\n' + e.toString())
+                    console.warn(t);
+                    console.warn(e);
+                }
+            };
+            reader.readAsText(input.files[0]);
+        } else {
+            console.info('mats.csv file could not be uploaded.');
+        }
+    });
+}
+
+function downloadCuatsAsCSV() {
+    let csvString = cuats2csv(currentPensumData.cuats);
+    let date = getDateIdentifier();
+    let name = `cuatrismetres_${currentPensumData.codigo}_${date}`;
+    
+    var blob = new Blob([csvString], {
+        type: 'data:text/csv;charset=utf-8',
+    });
+    FileSaver.saveAs(blob, name + '.csv');
+}
+
 
 
 function RESET_PROGRESS() {
