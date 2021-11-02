@@ -1,0 +1,8 @@
+TODO: Update script that:
+ - takes each input inside carrera
+ - updates to a new format with: 
+ - shorter paths
+ - src tags (with type="pdf, online, scan, fetch (only for fetch())" and url/fetch date)
+ - universidad tags (unapec, unphu, intec)
+ - coreqs
+

@@ -1,0 +1,500 @@
+{
+    "carrera": "LICENCIATURA EN ADMINISTRACION TURISTICA Y HOTELERA",
+    "codigo": "ATH11",
+    "vigencia": "01/01/2021",
+    "infoCarrera": [
+        "TOTAL GENERAL DE CRÉDITOS: 210",
+        "TÍTULO: LICENCIATURA EN ADMINISTRACION TURISTICA Y HOTELERA",
+        "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar: Un Deporte. Actitud Profesional: 60 horas. Cursar dos Pasantias: PAS300 y PAS400. 4 niveles de un tercer idioma: francés, alemán, italiano u otro que demande el sector turístico hotelero."
+    ],
+    "src": {
+        "type": "online",
+        "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/ATH11"
+    },
+    "version": 3,
+    "cuats": [
+        [
+            {
+                "codigo": "SOC030",
+                "asignatura": "ORIENTACION UNIVERSITARIA",
+                "creditos": 2
+            },
+            {
+                "codigo": "SOC011",
+                "asignatura": "HISTORIA SOCIAL DOMINICANA",
+                "creditos": 3
+            },
+            {
+                "codigo": "SOC043",
+                "asignatura": "GESTION AMBIENTAL",
+                "creditos": 2
+            },
+            {
+                "codigo": "MAT010",
+                "asignatura": "MATEMATICA BASICA UNIVERSITARIA",
+                "creditos": 3
+            },
+            {
+                "codigo": "ESP101",
+                "asignatura": "ANALISIS DE TEXTOS DISCURSIVOS",
+                "creditos": 3
+            },
+            {
+                "codigo": "TUR101",
+                "asignatura": "TEORIA TURISTICA",
+                "creditos": 3
+            },
+            {
+                "codigo": "ENG000",
+                "asignatura": "FUNDAMENTOS DE INGLES (I Y II)",
+                "creditos": 5
+            }
+        ],
+        [
+            {
+                "codigo": "ADM103",
+                "asignatura": "FUNDAMENTOS DE ADMINISTRACION",
+                "creditos": 3
+            },
+            {
+                "codigo": "ART011",
+                "asignatura": "PATRIMONIO CULTURAL DOMINICANO",
+                "creditos": 4,
+                "prereq": "TUR101"
+            },
+            {
+                "codigo": "ESP106",
+                "asignatura": "REDACCION DE TEXTOS DISCURSIVOS I",
+                "creditos": 3,
+                "prereq": "ESP101"
+            },
+            {
+                "codigo": "INF005",
+                "asignatura": "INFORMATICA APLICADA A LOS NEGOCIOS",
+                "creditos": 5
+            },
+            {
+                "codigo": "MAT121",
+                "asignatura": "ALGEBRA UNIVERSITARIA",
+                "creditos": 4,
+                "prereq": "MAT010"
+            },
+            {
+                "codigo": "SOC013",
+                "asignatura": "FILOSOFIA",
+                "creditos": 2
+            },
+            {
+                "codigo": "ENG003",
+                "asignatura": "INGLES III",
+                "creditos": 3,
+                "prereq": "ENG000"
+            }
+        ],
+        [
+            {
+                "codigo": "SOC101",
+                "asignatura": "INTRODUCCION A LA PSICOLOGIA",
+                "creditos": 3
+            },
+            {
+                "codigo": "CON091",
+                "asignatura": "CONTABILIDAD I",
+                "creditos": 5,
+                "prereq": [
+                    "INF005",
+                    "MAT010"
+                ]
+            },
+            {
+                "codigo": "ESP107",
+                "asignatura": "REDACCION DE TEXTOS DISCURSIVOS II",
+                "creditos": 3,
+                "prereq": "ESP106"
+            },
+            {
+                "codigo": "SOC200",
+                "asignatura": "INTRODUCCION A LA SOCIOLOGIA",
+                "creditos": 3
+            },
+            {
+                "codigo": "ECO101",
+                "asignatura": "ECONOMIA I",
+                "creditos": 3
+            },
+            {
+                "codigo": "TUR110",
+                "asignatura": "GEOGRAFIA TURISTICA DE R.D.",
+                "creditos": 3,
+                "prereq": "ART011"
+            },
+            {
+                "codigo": "ENG004",
+                "asignatura": "INGLES IV",
+                "creditos": 3,
+                "prereq": "ENG003"
+            }
+        ],
+        [
+            {
+                "codigo": "CON096",
+                "asignatura": "CONTABILIDAD TURISTICA Y HOTELERA",
+                "creditos": 4,
+                "prereq": "CON091"
+            },
+            {
+                "codigo": "MAT241",
+                "asignatura": "MATEMATICA FINANCIERA I",
+                "creditos": 4,
+                "prereq": "MAT121"
+            },
+            {
+                "codigo": "SOC031",
+                "asignatura": "ETICA PROFESIONAL",
+                "creditos": 3
+            },
+            {
+                "codigo": "SOC253",
+                "asignatura": "METODOLOGIA Y TECNICAS DE INVESTIGACION",
+                "creditos": 4
+            },
+            {
+                "codigo": "TUR341",
+                "asignatura": "DESTINOS TURISTICOS MUNDIALES",
+                "creditos": 2,
+                "prereq": "TUR110"
+            },
+            {
+                "codigo": "TUR342",
+                "asignatura": "TURISMO DE NATURALEZA Y SOSTENIBILIDAD",
+                "creditos": 2,
+                "prereq": [
+                    "SOC043",
+                    "TUR110"
+                ]
+            },
+            {
+                "codigo": "ENG005",
+                "asignatura": "INGLES V",
+                "creditos": 3,
+                "prereq": "ENG004"
+            }
+        ],
+        [
+            {
+                "codigo": "CON208",
+                "asignatura": "CONTABILIDAD DE COSTOS TURISTICOS Y HOTELEROS",
+                "creditos": 4,
+                "prereq": "CON096"
+            },
+            {
+                "codigo": "FIN101",
+                "asignatura": "FINANZAS I",
+                "creditos": 3,
+                "prereq": [
+                    "CON091",
+                    "MAT241"
+                ]
+            },
+            {
+                "codigo": "MER101",
+                "asignatura": "MERCADOTECNIA I",
+                "creditos": 3
+            },
+            {
+                "codigo": "MAT250",
+                "asignatura": "ESTADISTICA I",
+                "creditos": 4,
+                "prereq": "MAT121"
+            },
+            {
+                "codigo": "TUR225",
+                "asignatura": "GESTION DE AGENCIAS DE VIAJES",
+                "creditos": 3,
+                "prereq": "TUR341"
+            },
+            {
+                "codigo": "TUR353",
+                "asignatura": "ALOJAMIENTO Y HOSPITALIDAD TURISTICA",
+                "creditos": 3,
+                "prereq": "TUR342"
+            },
+            {
+                "codigo": "ENG006",
+                "asignatura": "INGLES VI",
+                "creditos": 3,
+                "prereq": "ENG005"
+            }
+        ],
+        [
+            {
+                "codigo": "ADM121",
+                "asignatura": "ADMINISTRACION HOTELERA",
+                "creditos": 4,
+                "prereq": [
+                    "CON208",
+                    "TUR353"
+                ]
+            },
+            {
+                "codigo": "ADM130",
+                "asignatura": "PRESUPUESTO EMPRESARIAL",
+                "creditos": 3,
+                "prereq": "MAT250"
+            },
+            {
+                "codigo": "IDI080",
+                "asignatura": "INGLES PARA NEGOCIOS I",
+                "creditos": 3,
+                "prereq": "ENG006"
+            },
+            {
+                "codigo": "DER161",
+                "asignatura": "LEGISLACION TURISTICA Y AMBIENTAL",
+                "creditos": 3,
+                "prereq": "SOC031"
+            },
+            {
+                "codigo": "ADM535",
+                "asignatura": "ACTITUD EMPRENDEDORA",
+                "creditos": 3,
+                "prereq": "SOC101"
+            },
+            {
+                "codigo": "MER107",
+                "asignatura": "MERCADOTECNIA TURISTICA",
+                "creditos": 3,
+                "prereq": "MER101"
+            },
+            {
+                "codigo": "PAS300",
+                "asignatura": "PASANTIA I",
+                "creditos": 0,
+                "prereqExtra": "50% De los créditos aprobados"
+            }
+        ],
+        [
+            {
+                "codigo": "ADM540",
+                "asignatura": "LIDERAZGO Y HABILIDADES DIRECTIVAS",
+                "creditos": 3
+            },
+            {
+                "codigo": "IDI081",
+                "asignatura": "INGLES PARA NEGOCIOS II",
+                "creditos": 3,
+                "prereq": "IDI080"
+            },
+            {
+                "codigo": "MER432",
+                "asignatura": "COMPORTAMIENTO DEL CONSUMIDOR",
+                "creditos": 3,
+                "prereq": "SOC101"
+            },
+            {
+                "codigo": "TUR305",
+                "asignatura": "OPERACIONES HOTELERAS",
+                "creditos": 3,
+                "prereq": "ADM121"
+            },
+            {
+                "codigo": "TUR356",
+                "asignatura": "ALIMENTACION Y NUTRICION",
+                "creditos": 4
+            },
+            {
+                "codigo": "OPTH1",
+                "asignatura": "ELECTIVA I",
+                "creditos": 3,
+                "prereqExtra": "50% De los créditos aprobados"
+            }
+        ],
+        [
+            {
+                "codigo": "ADM104",
+                "asignatura": "COMPORTAMIENTO ORGANIZACIONAL",
+                "creditos": 3,
+                "prereq": "ADM540"
+            },
+            {
+                "codigo": "IDI082",
+                "asignatura": "INGLES PARA NEGOCIOS III",
+                "creditos": 3,
+                "prereq": "IDI081"
+            },
+            {
+                "codigo": "TUR312",
+                "asignatura": "AEROPUERTO Y TRANSPORTACION TURISTICA",
+                "creditos": 4,
+                "prereq": "MER107"
+            },
+            {
+                "codigo": "TUR300",
+                "asignatura": "GESTION DE TURISMO DE NEGOCIOS (TURISMO MICE)",
+                "creditos": 3,
+                "prereq": "TUR356"
+            },
+            {
+                "codigo": "TUR357",
+                "asignatura": "ARTES CULINARIAS I",
+                "creditos": 4,
+                "prereq": [
+                    "PAS300",
+                    "TUR356"
+                ]
+            },
+            {
+                "codigo": "TUR301",
+                "asignatura": "GESTION DE INGRESOS (REVENUE MANAGEMENT)",
+                "creditos": 3,
+                "prereq": [
+                    "PAS300",
+                    "TUR305"
+                ]
+            },
+            {
+                "codigo": "OPTH2",
+                "asignatura": "ELECTIVA II",
+                "creditos": 3
+            },
+            {
+                "codigo": "ADM151",
+                "asignatura": "SEMINARIO PROYECTO DE NEGOCIOS",
+                "creditos": 2,
+                "prereqExtra": "50% De los créditos aprobados"
+            }
+        ],
+        [
+            {
+                "codigo": "TUR263",
+                "asignatura": "PLANIFICACION DEL DESARROLLO TURISTICO SOSTENIBLE",
+                "creditos": 3,
+                "prereq": "TUR312"
+            },
+            {
+                "codigo": "TUR355",
+                "asignatura": "GESTION Y CONTROL CALIDAD TURISTICA Y HOTELERA",
+                "creditos": 3,
+                "prereq": [
+                    "MAT250",
+                    "TUR356"
+                ]
+            },
+            {
+                "codigo": "IDI083",
+                "asignatura": "INGLES PARA NEGOCIOS IV",
+                "creditos": 3,
+                "prereq": "IDI082"
+            },
+            {
+                "codigo": "TUR358",
+                "asignatura": "ARTES CULINARIAS II",
+                "creditos": 3,
+                "prereq": "TUR357"
+            },
+            {
+                "codigo": "TUR269",
+                "asignatura": "RELACIONES PUBLICAS APLICADAS AL TURISMO",
+                "creditos": 3,
+                "prereq": "TUR301"
+            },
+            {
+                "codigo": "MER436",
+                "asignatura": "E-BUSINESS",
+                "creditos": 2,
+                "prereq": [
+                    "MER432",
+                    "TUR301"
+                ]
+            },
+            {
+                "codigo": "OPTH3",
+                "asignatura": "ELECTIVA III",
+                "creditos": 3
+            }
+        ],
+        [
+            {
+                "codigo": "SOC281",
+                "asignatura": "SEMINARIO DE GRADO",
+                "creditos": 3,
+                "prereq": "SOC253",
+                "prereqExtra": "80% De los créditos aprobados"
+            },
+            {
+                "codigo": "IDI084",
+                "asignatura": "INGLES PARA NEGOCIOS V",
+                "creditos": 3,
+                "prereq": "IDI083"
+            },
+            {
+                "codigo": "MER440",
+                "asignatura": "MERCADOTECNIA RELACIONAL-SOCIAL",
+                "creditos": 3,
+                "prereq": "MER436",
+                "prereqExtra": "80% De los créditos aprobados"
+            },
+            {
+                "codigo": "TUR265",
+                "asignatura": "GESTION DE RESTAURANTES",
+                "creditos": 2,
+                "prereq": "TUR358"
+            },
+            {
+                "codigo": "TUR264",
+                "asignatura": "GESTION Y CONTROL DE BARES",
+                "creditos": 3,
+                "prereq": "TUR357"
+            }
+        ],
+        [
+            {
+                "codigo": "IDI085",
+                "asignatura": "INGLES PARA NEGOCIOS VI",
+                "creditos": 3,
+                "prereq": "IDI084"
+            },
+            {
+                "codigo": "TUR276",
+                "asignatura": "GESTION DE DESTINOS TURISTICOS (MANAGEMENT OF TOURIST DESTINATIONS)",
+                "creditos": 3,
+                "prereq": [
+                    "IDI084",
+                    "TUR263"
+                ]
+            },
+            {
+                "codigo": "TUR271",
+                "asignatura": "TECNICAS AVANZADAS PREPARACION ALIMENTOS",
+                "creditos": 2,
+                "prereq": "TUR358"
+            },
+            {
+                "codigo": "TUR290",
+                "asignatura": "TECNICAS DE VENTA DE SERVICIOS TURISTICOS Y HOTELEROS",
+                "creditos": 3,
+                "prereq": "TUR301"
+            },
+            {
+                "codigo": "PAS400",
+                "asignatura": "PASANTIA II",
+                "creditos": 0,
+                "prereq": "PAS300"
+            }
+        ],
+        [
+            {
+                "codigo": "TFG100",
+                "asignatura": "TRABAJO FINAL DE GRADO",
+                "creditos": 6,
+                "prereq": "SOC281",
+                "prereqExtra": "92% De los créditos aprobados"
+            },
+            {
+                "codigo": "OPTDEP",
+                "asignatura": "OPTATIVA DEPORTE",
+                "creditos": 0
+            }
+        ]
+    ]
+}

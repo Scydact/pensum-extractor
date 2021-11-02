@@ -1,0 +1,161 @@
+{
+    "university": "UNAPEC",
+    "api": "https://servicios.unapec.edu.do/pensum/Main/Detalles/",
+    "careers": [
+        {
+            "code": "INE7",
+            "name": "INGENIERIA ELECTRICA",
+            "school": "Escuela de Ingenierías"
+        },
+        {
+            "code": "IEL7",
+            "name": "INGENIERIA ELECTRONICA",
+            "school": "Escuela de Ingenierías"
+        },
+        {
+            "code": "ISC10",
+            "name": "INGENIERIA DE SISTEMAS DE COMPUTACION",
+            "school": "Escuela de Ingenierías"
+        },
+        {
+            "code": "ISO10",
+            "name": "INGENIERIA DE SOFTWARE",
+            "school": "Escuela de Ingenierías"
+        },
+        {
+            "code": "IND7",
+            "name": "INGENIERIA INDUSTRIAL",
+            "school": "Escuela de Ingenierías"
+        },
+        {
+            "code": "ADM10",
+            "name": "[Antiguo] LICENCIATURA EN ADMINISTRACION DE EMPRESAS",
+            "school": "Escuela de Administración"
+        },
+        {
+            "code": "ADM11",
+            "name": "LICENCIATURA EN ADMINISTRACION DE EMPRESAS",
+            "school": "Escuela de Administración"
+        },
+        {
+            "code": "ATH11",
+            "name": "LICENCIATURA EN ADMINISTRACION TURISTICA Y HOTELERA",
+            "school": "Decanato de Turismo"
+        },
+        {
+            "code": "ATH7-MARK",
+            "name": "[Antiguo] LICENCIATURA EN ADMINISTRACION TURISTICA Y HOTELERA MENCION MARKETING Y GESTION TURISTICO",
+            "school": "Decanato de Turismo"
+        },
+        {
+            "code": "ATH7-SERVBANQ",
+            "name": "[Antiguo] LICENCIATURA EN ADMINISTRACION TURISTICA Y HOTELERA MENCION GESTION DE SERVICIOS Y BANQUETES",
+            "school": "Decanato de Turismo"
+        },
+        {
+            "code": "CDG10",
+            "name": "[Antiguo] LICENCIATURA EN COMUNICACION DIGITAL",
+            "school": "Decanato de Artes y Comunicación"
+        },
+        {
+            "code": "CDG11",
+            "name": "LICENCIATURA EN COMUNICACION DIGITAL",
+            "school": "Decanato de Artes y Comunicación"
+        },
+        {
+            "code": "CON10",
+            "name": "[Antiguo] LICENCIATURA EN CONTABILIDAD",
+            "school": "Escuela de Contabilidad y Finanzas"
+        },
+        {
+            "code": "CON11",
+            "name": "LICENCIATURA EN CONTABILIDAD",
+            "school": "Escuela de Contabilidad y Finanzas"
+        },
+        {
+            "code": "DER7",
+            "name": "LICENCIATURA EN DERECHO",
+            "school": "Decanato de Derecho"
+        },
+        {
+            "code": "DIN10",
+            "name": "[Antiguo] LICENCIATURA EN DISEÑO DE INTERIORES",
+            "school": "Decanato de Artes y Comunicación"
+        },
+        {
+            "code": "DIN11",
+            "name": "LICENCIATURA EN DISEÑO DE INTERIORES",
+            "school": "Decanato de Artes y Comunicación"
+        },
+        {
+            "code": "DIG10",
+            "name": "[Antiguo] LICENCIATURA EN DISEÑO GRAFICO",
+            "school": "Decanato de Artes y Comunicación"
+        },
+        {
+            "code": "DIG11",
+            "name": "LICENCIATURA EN DISEÑO GRAFICO",
+            "school": "Decanato de Artes y Comunicación"
+        },
+        {
+            "code": "FIN11",
+            "name": "LICENCIATURA EN FINANZAS",
+            "school": "Escuela de Contabilidad y Finanzas"
+        },
+        {
+            "code": "MER10",
+            "name": "[Antiguo] LICENCIATURA EN MERCADOTECNIA",
+            "school": "Escuela de Mercadeo y Negocios Internacionales"
+        },
+        {
+            "code": "MER11",
+            "name": "LICENCIATURA EN MERCADOTECNIA",
+            "school": "Escuela de Mercadeo y Negocios Internacionales"
+        },
+        {
+            "code": "NIN7",
+            "name": "[Antiguo] LICENCIATURA EN NEGOCIOS INTERNACIONALES",
+            "school": "Escuela de Mercadeo y Negocios Internacionales"
+        },
+        {
+            "code": "NIN11",
+            "name": "LICENCIATURA EN NEGOCIOS INTERNACIONALES",
+            "school": "Escuela de Mercadeo y Negocios Internacionales"
+        },
+        {
+            "code": "PUB10",
+            "name": "[Antiguo] LICENCIATURA EN PUBLICIDAD",
+            "school": "Decanato de Artes y Comunicación"
+        },
+        {
+            "code": "PUB11",
+            "name": "LICENCIATURA EN PUBLICIDAD",
+            "school": "Decanato de Artes y Comunicación"
+        },
+        {
+            "code": "CIN11",
+            "name": "LICENCIATURA EN CINEMATOGRAFÍA",
+            "school": "Decanato de Artes y Comunicación"
+        },
+        {
+            "code": "LES11",
+            "name": "LICENCIATURA EN LENGUA ESPAÑOLA Y LITERATURA ORIENTADA A LA EDUCACION SECUNDARIA",
+            "school": "Decanato de Estudios Generales"
+        },
+        {
+            "code": "LIE11",
+            "name": "LICENCIATURA EN INGLES ORIENTADA A LA ENSEÑANZA",
+            "school": "Escuela de Idiomas"
+        },
+        {
+            "code": "LMS11",
+            "name": "LICENCIATURA EN MATEMATICA ORIENTADA A LA EDUCACION SECUNDARIA",
+            "school": "Decanato de Estudios Generales"
+        },
+        {
+            "code": "TAF11",
+            "name": "TECNICO ANALISTA FINANCIERO",
+            "school": "Escuela de Contabilidad y Finanzas"
+        }
+    ]
+}
