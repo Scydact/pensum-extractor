@@ -1,21 +1,24 @@
-import { fetchCarreras } from "@functions/metadata-fetch";
+import { fetchCarreras, fetchUniversities } from "@functions/metadata-fetch";
 import { fetchPensumFromCode } from "@functions/pensum-fetch";
-import { FormEventHandler, useEffect, useMemo, useState } from "react";
-import PensumLoaderForm from "./PensumLoaderForm";
-import UniversitySelect from "./UniversitySelect";
+import {  initialUniversityData, universityDataReducer } from "@reducers/university-data";
+import { FormEventHandler, useEffect, useMemo, useReducer, useState } from "react";
+import PensumSelector from "../PensumSelector";
+
 
 type Props = {
-  universityList: DataJson.University[],
 }
-
 type SelectType = { label: string, value: string } | null
 
-function PensumExtractor({universityList = []}: Props) {
-  const [university, setUniversity] = useState('');
+function PensumExtractor({}: Props) {
+
+  const [uniList, uniListDispatch] = useReducer(
+    universityDataReducer,
+    initialUniversityData,
+  );
+
   const [currentPensumCode, setCurrentPensumCode] = useState(null as SelectType);
 
-  const [currentPensum, setCurrentPensum] = useState(null as (DataJson.Pensum | null))
-
+  const [currentPensum, setCurrentPensum] = useState(null as (Pensum.Pensum | null))
 
   const handlePensumChange = (newPensum: SelectType) => {
     (async function() {
@@ -27,8 +30,8 @@ function PensumExtractor({universityList = []}: Props) {
         return;
       }
 
-      const data = await fetchPensumFromCode(university, newPensum.value);
-      setCurrentPensum(data);
+      const data = await fetchPensumFromCode(uniList.selected?.code, newPensum.value);
+      setCurrentPensum(data as any); // TODO: Convert SavePensum to an actual pensum.
     })()
   }
 
@@ -37,15 +40,14 @@ function PensumExtractor({universityList = []}: Props) {
       PENSUMS UNAPEC
     </header>
     
-    <PensumLoaderForm 
+    <PensumSelector 
       initialPensum={currentPensumCode}
       setPensum={handlePensumChange}
-      universityList={universityList}
-      university={university}
-      setUniversity={setUniversity}/>
+      universityData={uniList}
+      universityDispatcher={uniListDispatch}/>
 
 
-    <p>{JSON.stringify(currentPensum)}</p>
+    <div style={{textAlign: "left", whiteSpace: "pre"}}>{JSON.stringify(currentPensum, null, 4).split('\n').map(x => (<p>{x}</p>))}</div>
   </>)
 } 
 

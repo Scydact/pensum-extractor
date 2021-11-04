@@ -1,3 +1,4 @@
+import { validatePensum } from "./pensum-converter";
 
 export const LOCAL_STORAGE_PREFIX = 'pensumextractor';
 export const LOCAL_SERVER_PREFIX = './pensum';
@@ -10,8 +11,10 @@ export const LOCAL_SERVER_PREFIX = './pensum';
  *  2. local data (`pensum/university/CODE.json`)
  *  3. from url
  */
-export async function fetchPensumFromCode(university: string, code: string) {
-    let pensum: DataJson.Pensum | null;
+export async function fetchPensumFromCode(university?: string, code?: string) {
+    if (!university || !code) return null;
+
+    let pensum: Pensum.Save.Pensum | null;
 
     pensum = await fetchPensumFromCode_localStorage(university, code);
     if (pensum) return pensum;
@@ -35,22 +38,24 @@ export async function fetchPensumFromCode_localStorage(university: string, code:
 
     // Parse fetched data
     // TODO: CHECK IF DATA IS VALID
-    const pensum = JSON.parse(pensumData) as DataJson.Pensum;
-    return pensum;
+    const pensum = JSON.parse(pensumData) as Pensum.Save.Pensum;
+    return validatePensum(pensum, university);
 }
 
 /** Tries to fetch the pensum from `./pensum/$UNIVERSIDAD.` */
 export async function fetchPensumFromCode_localData(university: string, code: string) {
     const path = [LOCAL_SERVER_PREFIX, university, code].join('/') + '.json';
     const response = await fetch(path);
-    const pensumData: DataJson.Pensum = await response.json();
+    const pensumData: Pensum.Save.Pensum = await response.json();
 
     if (!pensumData) return null; // Could not fetch
-
-    console.log(pensumData);
 
     // TODO: CHECK IF DATA IS VALID
     // Parse fetched data
     const pensum = pensumData;
-    return pensum;
+    return validatePensum(pensum, university);
+}
+
+export async function savePensumToLocalStorage(pensum: Pensum.Pensum) {
+    
 }

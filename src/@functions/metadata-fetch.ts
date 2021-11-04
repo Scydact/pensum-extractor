@@ -5,7 +5,7 @@ const CAREERS_FILE = 'index.json';
 /** Fetches universities.json */
 export async function fetchUniversities() {
   const response = await fetch(UNIVERSITIES_PATH);
-  const unisObj: DataJson.Universities = await response.json();
+  const unisObj: PensumJson.Universities = await response.json();
 
   if (typeof unisObj !== 'object') {
     throw TypeError('Invalid universities.json format.');
@@ -20,16 +20,16 @@ export async function fetchUniversities() {
 }
 
 /** Fetches ./pensum/$UNIVERSITY/index.json */
-export async function fetchCarreras(universityCode: string) {
+export async function fetchCarreras(universityCode?: string) {
   if (!universityCode) return {
       university: '',
       api: null,
       careers: []
-  } as DataJson.PensumIndex;
+  } as PensumJson.PensumIndex;
 
   const path = BASE_PATH + '/' + universityCode.toLowerCase() + '/' + CAREERS_FILE
   const response = await fetch(path);
-  const carrerasObj: DataJson.PensumIndex = await response.json();
+  const carrerasObj: PensumJson.PensumIndex = await response.json();
 
   if (typeof carrerasObj !== 'object') {
     throw TypeError('Invalid careers.json format.');

@@ -3,35 +3,14 @@ import './App.css';
 import PensumExtractor from '@components/PensumExtractor';
 import { fetchUniversities } from '@functions/metadata-fetch';
 
+
+
+
 function App() {
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null as any);
-  const [universities, setUniversities] = useState([] as DataJson.University[]);
-  
-  // Constructor?
-  useEffect(() => {
-    fetchUniversities()
-      .then(unis => {
-        setUniversities(unis.universities);
-      })
-      .catch(e => {
-        setError(e)
-      })
-      .finally(() => setLoading(false))
-  },[])
-
-
   return (
     <div className="App">
       
-      {
-        (loading) ?
-          "Loading..." :
-          <PensumExtractor
-            universityList={universities}/>
-      }
-
-      {(error) ? <p>{String(error)}</p> : null}
+      <PensumExtractor/>
       
 
 
