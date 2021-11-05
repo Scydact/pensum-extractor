@@ -1,5 +1,5 @@
-import { fetchPensumFromCode } from "@functions/pensum-fetch";
-import {  initialUniversityData, universityDataReducer } from "@reducers/university-data";
+import { fetchPensumFromCode } from "functions/pensum-fetch";
+import {  initialUniversityData, universityDataReducer } from "reducers/university-data";
 import { useReducer, useState } from "react";
 import PensumSelector from "../PensumSelector";
 
