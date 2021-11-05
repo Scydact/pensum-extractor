@@ -26,7 +26,7 @@ export function loadPensumFromSave(save: Pensum.Save.Pensum): Pensum.Pensum {
   
   const MatConverter = (old: Pensum.Save.Mat): Pensum.Mat => {
     const mat: Pensum.Mat = {
-      ... old,
+      ...old,
       prereq: (old.prereq) ? old.prereq : [],
       coreq: (old.coreq) ? old.coreq : [],
     };

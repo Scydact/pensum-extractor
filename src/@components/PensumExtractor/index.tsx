@@ -1,15 +1,13 @@
-import { fetchCarreras, fetchUniversities } from "@functions/metadata-fetch";
 import { fetchPensumFromCode } from "@functions/pensum-fetch";
 import {  initialUniversityData, universityDataReducer } from "@reducers/university-data";
-import { FormEventHandler, useEffect, useMemo, useReducer, useState } from "react";
+import { useReducer, useState } from "react";
 import PensumSelector from "../PensumSelector";
 
 
-type Props = {
-}
+type Props = any;
 type SelectType = { label: string, value: string } | null
 
-function PensumExtractor({}: Props) {
+function PensumExtractor(props: Props) {
 
   const [uniList, uniListDispatch] = useReducer(
     universityDataReducer,

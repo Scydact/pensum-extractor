@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import 'bootstrap-dark-5/dist/css/bootstrap-blackbox.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';

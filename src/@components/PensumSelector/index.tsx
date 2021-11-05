@@ -1,8 +1,9 @@
 import { fetchCarreras, fetchUniversities } from "@functions/metadata-fetch";
-import { UniversityData, universityDataReducer } from "@reducers/university-data";
-import React, { FormEventHandler, useEffect, useMemo, useState } from "react";
+import { UniversityData } from "@reducers/university-data";
+import React, { useEffect, useMemo, useState } from "react";
+import { Form } from "react-bootstrap";
 
-import Select, { ActionMeta, SingleValue } from "react-select";
+import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 
 type SelectProps = { label: string, value: string } | null;
@@ -24,7 +25,7 @@ function PensumSelector({
   universityDispatcher,
   setPensum, initialPensum }: Props) {
 
-  const {universities, selected: selectedUni, careers, loading, error} = universityData;
+  const {universities, selected: selectedUni, loading, error} = universityData;
 
   const [pensumList, setPensumList] = useState(undefined as PensumJson.PensumIndex | undefined);
   const [pensumOnInput, setPensumOnInput] = useState(initialPensum);
@@ -41,7 +42,7 @@ function PensumSelector({
       .finally(() => {
         universityDispatcher({ type: 'set/loading', payload: false })
       })
-  }, [])
+  }, [universityDispatcher])
 
 
   // Initial pensum override
@@ -59,8 +60,8 @@ function PensumSelector({
   // Update the university list
   useEffect(() => {
     universityDispatcher({type: "set/selected", payload: universities[0] || null})
-    if (setPensum) setPensum(null);
-  }, [universityData.universities]);
+    if (setPensum) setPensum(null); // TODO: Change to a reducer... 
+  }, [universities, universityDispatcher]);
 
   const handleUniversityChange = (newValue: SelectProps) => {
     if (!newValue) {
@@ -80,7 +81,7 @@ function PensumSelector({
   // Carrera select options
   const pensumSelectOptions = useMemo(() =>
     (!pensumList) ? [] : pensumList.careers.map(x => ({ value: x.code, label: `[${x.code}] ${x.name}` })),
-    [pensumList?.university]);
+    [pensumList]);
 
   // Fetch new carreras if university changes
   useEffect(() => {
@@ -104,7 +105,7 @@ function PensumSelector({
       .finally(() => {
         universityDispatcher({ type: "set/loading", payload: false })
       })
-  }, [selectedUni]);
+  }, [selectedUni, universityDispatcher]);
 
   const handlePensumChange = (newValue: SelectProps) => {
     setPensumOnInput(newValue);
@@ -140,7 +141,7 @@ function PensumSelector({
         loadingMessage={() => <span>Cargando carreras...</span>}
         onChange={handlePensumChange} />
 
-      <input 
+      <Form.Control 
         type="submit"
         value="Cargar"
         disabled={!pensumOnInput} />
