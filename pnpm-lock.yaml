@@ -13,7 +13,7 @@ specifiers:
   bootstrap-dark-5: ^1.1.3
   node-sass: ^6.0.1
   react: ^17.0.2
-  react-bootstrap: ^2.0.1
+  react-bootstrap: ^2.0.2
   react-dom: ^17.0.2
   react-scripts: 4.0.3
   react-select: ^5.2.0
@@ -33,7 +33,7 @@ dependencies:
   bootstrap-dark-5: 1.1.3
   node-sass: 6.0.1
   react: 17.0.2
-  react-bootstrap: 2.0.1_react-dom@17.0.2+react@17.0.2
+  react-bootstrap: 2.0.2_react-dom@17.0.2+react@17.0.2
   react-dom: 17.0.2_react@17.0.2
   react-scripts: 4.0.3_0c12717b834cb31fa61443a384d09b61
   react-select: 5.2.0_14fc3c4d570feae7d722fbbd1b906730
@@ -10041,8 +10041,8 @@ packages:
       whatwg-fetch: 3.6.2
     dev: false
 
-  /react-bootstrap/2.0.1_react-dom@17.0.2+react@17.0.2:
-    resolution: {integrity: sha512-vx4fi3mHWWIzaAOJEzFfmTn/GHtirpASRk0C1PDBW5OZAt/VxLgUt+bvrSSh83eRmInq3wy8mERJMwuyI61KPA==}
+  /react-bootstrap/2.0.2_react-dom@17.0.2+react@17.0.2:
+    resolution: {integrity: sha512-QuMqJ+WJmd6dUyOys6OF3nr6T/FjUVAoEMbSjsFrwVufJtvMox0SU1Dvz/cDID+Dl6Rz2RLcJzyqkdl+DEK2Gg==}
     peerDependencies:
       react: '>=16.14.0'
       react-dom: '>=16.14.0'

@@ -1,10 +1,11 @@
 import { fetchCarreras, fetchUniversities } from "functions/metadata-fetch";
 import { UniversityData } from "reducers/university-data";
 import React, { useEffect, useMemo, useState } from "react";
-import { Form } from "react-bootstrap";
-
+import Form from "react-bootstrap/Form";
+import Button from "react-bootstrap/Button";
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
+import selectTheme, { optionStyle } from "lib/DarkMode/select-theme";
 
 type SelectProps = { label: string, value: string } | null;
 // type SelectProps = React.ComponentProps<typeof Select>['onChange'];
@@ -122,7 +123,7 @@ function PensumSelector({
 
 
   return (
-    <form onSubmit={handleSubmit}>
+    <Form onSubmit={handleSubmit}>
 
       <Select
         // defaultValue={universitySelectOptions[0]}
@@ -130,8 +131,11 @@ function PensumSelector({
         options={universitySelectOptions}
         isSearchable={true}
         isLoading={loading}
-        onChange={handleUniversityChange}
-        name="university" />
+        onChange={handleUniversityChange as any} // as any to be able to use selectStyles without TS panicking.
+        name="university" 
+        className="mb-2"
+        theme={selectTheme}
+        styles={optionStyle}/>
 
       <CreatableSelect
         isClearable
@@ -139,15 +143,20 @@ function PensumSelector({
         options={pensumSelectOptions}
         isLoading={loading}
         loadingMessage={() => <span>Cargando carreras...</span>}
-        onChange={handlePensumChange} />
+        onChange={handlePensumChange as any} // as any to be able to use selectStyles
+        className="mb-2"
+        theme={selectTheme}
+        styles={optionStyle}/>
 
-      <Form.Control 
+      <Button
         type="submit"
-        value="Cargar"
-        disabled={!pensumOnInput} />
+        disabled={!pensumOnInput}
+        className="w-100">
+      Cargar
+      </Button>
 
       {(error) ? <p>{String(error)}</p> : null}
-    </form>)
+    </Form>)
 }
 
 export default PensumSelector;

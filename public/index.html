@@ -38,6 +38,20 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+
+    <!-- Dark mode CSS -->
+    
+    <!-- Inform modern browsers that this page supports both dark and light color schemes,
+    and the page author prefers light. -->
+    <meta name="color-scheme" content="light dark">
+    <!-- Load the alternate CSS first ... -->
+    <link id="css-dark" rel="stylesheet" href="%PUBLIC_URL%/css/bootstrap-night.css" media="(prefers-color-scheme: dark)">
+    <!-- ... and then the primary CSS last for a fallback on very old browsers that don't support media filtering -->
+    <link id="css-light" rel="stylesheet" href="%PUBLIC_URL%/css/bootstrap.css" media="(prefers-color-scheme: light)">
+
+
+
+
     <title>Pensums Dominicanos</title>
   </head>
   <body>

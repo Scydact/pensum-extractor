@@ -1,8 +1,7 @@
 import './App.css';
 import PensumExtractor from 'components/PensumExtractor';
 import { Container, Row } from 'react-bootstrap';
-import DarkModeSwitch from 'lib/DarkMode';
-
+import DarkModeSwitch from 'lib/DarkMode/DarkModeSwitch';
 
 
 function App() {

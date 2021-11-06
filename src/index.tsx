@@ -1,9 +1,12 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import 'bootstrap-dark-5/dist/css/bootstrap-blackbox.css';
+// import 'bootstrap-dark-5/dist/css/bootstrap-blackbox.css';
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import { setThemePreferenceOnLoad } from 'lib/DarkMode';
+
+setThemePreferenceOnLoad(); // Load dark mode preference
 
 ReactDOM.render(
   <React.StrictMode>
