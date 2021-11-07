@@ -1,11 +1,16 @@
 import { fetchCarreras, fetchUniversities } from "functions/metadata-fetch";
 import { UniversityData } from "reducers/university-data";
 import React, { useEffect, useMemo, useState } from "react";
+
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
+import Card from "react-bootstrap/Card";
+import Container from "react-bootstrap/Container";
+
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import selectTheme, { optionStyle } from "lib/DarkMode/select-theme";
+import { sortByProp } from "lib/sort-utils";
 
 type SelectProps = { label: string, value: string } | null;
 // type SelectProps = React.ComponentProps<typeof Select>['onChange'];
@@ -35,7 +40,8 @@ function PensumSelector({
   useEffect(() => {
     fetchUniversities()
       .then(unis => {
-        universityDispatcher({ type: 'set/universities', payload: unis.universities })
+        const u = unis.universities.sort(sortByProp('longName'));
+        universityDispatcher({ type: 'set/universities', payload: u })
       })
       .catch(e => {
         universityDispatcher({ type: 'set/error', payload: e })
@@ -80,9 +86,16 @@ function PensumSelector({
 
 
   // Carrera select options
-  const pensumSelectOptions = useMemo(() =>
-    (!pensumList) ? [] : pensumList.careers.map(x => ({ value: x.code, label: `[${x.code}] ${x.name}` })),
-    [pensumList]);
+  const pensumSelectOptions = useMemo(() => {
+    if (!pensumList) return [];
+
+    const o =  pensumList.careers
+    .sort(sortByProp("code"))
+    
+
+    console.log(o);
+    return o.map(x => ({ value: x.code, label: `[${x.code}] ${x.name}` }));
+  }, [pensumList]);
 
   // Fetch new carreras if university changes
   useEffect(() => {
@@ -122,7 +135,7 @@ function PensumSelector({
   }
 
 
-  return (
+  const outForm = (
     <Form onSubmit={handleSubmit}>
 
       <Select
@@ -157,6 +170,15 @@ function PensumSelector({
 
       {(error) ? <p>{String(error)}</p> : null}
     </Form>)
+
+
+  return (
+    <Card>
+      <Card.Body>
+        {outForm}
+      </Card.Body>
+    </Card>
+  )
 }
 
 export default PensumSelector;

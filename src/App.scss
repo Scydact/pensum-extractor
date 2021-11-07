@@ -1,0 +1,48 @@
+
+body.color-scheme-light {
+  background: #e4e4e4;
+}
+
+body.color-scheme-dark {
+  background: #070707;
+}
+
+.App {
+  width: calc(min(100%, 1000px));
+  transition: padding 100ms ease;
+  
+  padding-top: 4.25rem;
+}
+
+@media screen and (max-width: 750px) {
+  .App {
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.card {
+  border-radius: 1rem;
+  margin-bottom: .75rem;
+}
+
+footer {
+  display: flex;
+  flex-direction: column;
+}
+
+/** Navbar scroll */
+.App-header {
+  transition: top 200ms ease;
+  &.hidden {
+    top: -3.5rem;
+  }
+
+  color: white;
+
+  // Fix not being colored on darkmode.
+  background-color: rgba(var(--bs-primary-rgb), 1) !important;
+  .darkmode-switch input {
+    box-shadow: 0 0 0 2px rgba(255,255,255,0.5);
+  }
+}

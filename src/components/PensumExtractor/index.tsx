@@ -1,11 +1,28 @@
 import { fetchPensumFromCode } from "functions/pensum-fetch";
 import {  initialUniversityData, universityDataReducer } from "reducers/university-data";
 import { useReducer, useState } from "react";
+import Card from "react-bootstrap/Card";
+import Navbar from "react-bootstrap/Navbar";
 import PensumSelector from "../PensumSelector";
+import PensumDisplay from "components/PensumDisplay";
 
 
 type Props = any;
 type SelectType = { label: string, value: string } | null
+
+function PensumReducer(
+  state: any,
+  action: { type: string, payload?: any }): any {
+
+    switch (action.type) {
+
+
+      default:
+        console.warn('Unknown action "' + action.type + '".')
+        return state;
+    }
+}
+
 
 function PensumExtractor(props: Props) {
 
@@ -15,7 +32,6 @@ function PensumExtractor(props: Props) {
   );
 
   const [currentPensumCode, setCurrentPensumCode] = useState(null as SelectType);
-
   const [currentPensum, setCurrentPensum] = useState(null as (Pensum.Pensum | null))
 
   const handlePensumChange = (newPensum: SelectType) => {
@@ -29,23 +45,24 @@ function PensumExtractor(props: Props) {
       }
 
       const data = await fetchPensumFromCode(uniList.selected?.code, newPensum.value);
-      setCurrentPensum(data as any); // TODO: Convert SavePensum to an actual pensum.
+      setCurrentPensum(data); // TODO: Convert SavePensum to an actual pensum.
     })()
   }
 
-  return (<>
-    <header className="App-header">
-      PENSUMS UNAPEC
-    </header>
-    
-    <PensumSelector 
+  
+
+
+
+  return (<>  
+    <PensumSelector
       initialPensum={currentPensumCode}
       setPensum={handlePensumChange}
       universityData={uniList}
-      universityDispatcher={uniListDispatch}/>
+      universityDispatcher={uniListDispatch} />
 
-
-    <div style={{textAlign: "left", whiteSpace: "pre"}}>{JSON.stringify(currentPensum, null, 4).split('\n').map(x => (<p>{x}</p>))}</div>
+    {currentPensum && <PensumDisplay pensum={currentPensum} />}
+    
+    {/* <div style={{textAlign: "left", whiteSpace: "pre"}}>{JSON.stringify(currentPensum, null, 4).split('\n').map(x => (<p>{x}</p>))}</div> */}
   </>)
 } 
 

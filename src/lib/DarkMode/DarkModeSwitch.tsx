@@ -29,7 +29,7 @@ function DarkModeSwitch() {
     type="switch"
     checked={value}
     onChange={handleChange}
-    className="position-fixed top-0 end-0" />
+    className="darkmode-switch"/>
 }
 
 export default DarkModeSwitch;

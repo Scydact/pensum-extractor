@@ -1,0 +1,73 @@
+.period.row {
+  border-top: 1.5px solid rgba(var(--bs-body-color-rgb),0.5);
+}
+
+.period-num {
+  width: 2rem;
+  flex: 0 0 auto;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  &:hover {
+    background: var(--bs-primary);
+    color: white;
+    cursor: pointer;
+  }
+}
+
+.period-head {
+  background: rgba(var(--bs-body-bg-rgb),1);
+  border-bottom: 2px solid rgba(var(--bs-body-color-rgb),1);
+  border-top: none;
+  
+  position: sticky;
+  top: 0;
+}
+
+.mat-code {
+  flex: 0 0 auto;
+  width: 100px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.even {
+  background: rgba(var(--bs-body-color-rgb),0.1);
+}
+
+
+/** Override for 
+@media (min-width: 576px)
+.container-sm, .container {
+    max-width: 540px;
+}
+*/
+.pensum-table {
+  max-width: inherit;
+}
+
+
+@media screen and (max-width: 750px) {
+
+  .pensum-table-container {
+    padding-left : 0;
+    padding-right: 0;
+  }
+
+  .pensum-table-container .card-title {
+    padding: .75rem;
+  }
+}
+
+
+.pensum-header {
+  .col, .row {
+    align-items: end;
+  }
+}

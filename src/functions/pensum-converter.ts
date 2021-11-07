@@ -17,7 +17,7 @@ export function validatePensum(pensum: Pensum.Save.Legacy.Pensum2 | Pensum.Save.
     return p;
   }
 
-  console.log('Pensum did not load correctly!', pensum);
+  console.warn('Pensum did not load correctly!', pensum);
   return null;
 }
 

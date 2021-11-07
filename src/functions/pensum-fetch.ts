@@ -14,7 +14,7 @@ export const LOCAL_SERVER_PREFIX = './pensum';
 export async function fetchPensumFromCode(university?: string, code?: string) {
     if (!university || !code) return null;
 
-    let pensum: Pensum.Save.Pensum | null;
+    let pensum: Pensum.Pensum | null;
 
     pensum = await fetchPensumFromCode_localStorage(university, code);
     if (pensum) return pensum;
