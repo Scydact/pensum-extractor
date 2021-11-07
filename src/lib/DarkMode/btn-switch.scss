@@ -1,0 +1,29 @@
+.darkmode-switch {
+  display              : grid;
+  grid-template-rows   : 1fr;
+  grid-template-columns: 1fr;
+
+  transform: rotate(0deg) scale(1.5);
+
+  >* {
+    grid-row   : 1 / 2;
+    grid-column: 1 / 2;
+  }
+
+  color: #ffaa00;
+
+  transition: transform 700ms ease;
+  &.dark {
+    transform: rotate(-360deg) scale(1.5);
+  }
+
+  input {
+    display: absolute;
+    top    : 0;
+    opacity: 0;
+  }
+}
+
+.darkmode-switch input {
+  background-color: rgb(32, 56, 100);
+}

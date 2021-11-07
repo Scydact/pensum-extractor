@@ -2,34 +2,44 @@
 // TODO: Set the switcher to use bootstrap classes...
 
 import { useEffect, useReducer, useRef, useState } from "react";
-import Form from "react-bootstrap/Form";
-import { getDarkmode, setDarkmode } from ".";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
+import Tooltip from 'react-bootstrap/Tooltip';
 
+import { BsFillMoonStarsFill } from 'react-icons/bs';
+import { FaSun } from 'react-icons/fa';
+import { getDarkmode, setDarkmode } from ".";
+import './btn-switch.scss';
 
 
 function DarkModeSwitch() {
-  const [value, setValue] = useState(false);
+  const [dark, setDark] = useState(false);
   
   // onMount
   useEffect(() => {
-    setValue(getDarkmode());
+    setDark(getDarkmode());
   }, [])
 
   // onChange
   useEffect(() => {
-    setDarkmode(value);
-  }, [value])
+    setDarkmode(dark);
+  }, [dark])
   
 
   const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    setValue(e.target.checked);
+    setDark(e.target.checked);
   }
 
-  return <Form.Check
-    type="switch"
-    checked={value}
-    onChange={handleChange}
-    className="darkmode-switch"/>
+  return <OverlayTrigger
+    placement="left"
+    overlay={<Tooltip>{(dark ? 'Desactivar' : 'Activar') + ' modo oscuro'}</Tooltip>}>
+    <label className={"darkmode-switch" + (dark ? ' dark' : '')}>
+      {(dark) ? <BsFillMoonStarsFill/> : <FaSun />}
+      <input
+        type="checkbox"
+        checked={dark}
+        onChange={handleChange} />
+    </label>
+  </OverlayTrigger>
 }
 
 export default DarkModeSwitch;
