@@ -1,4 +1,5 @@
 import './App.scss';
+import './global-vars.scss';
 import PensumExtractor from 'components/PensumExtractor';
 import Container from 'react-bootstrap/Container';
 import Navbar from 'react-bootstrap/Navbar';
