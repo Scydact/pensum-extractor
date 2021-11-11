@@ -1,6 +1,6 @@
 import { fetchCarreras, fetchUniversities } from "functions/metadata-fetch";
-import { UniversityData } from "reducers/university-data";
-import React, { useEffect, useMemo, useState } from "react";
+import UniversityContext, { UniversityData } from "contexts/university-data";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -26,30 +26,14 @@ type Props = {
 
 
 /** Simple form that manages ONLY University and Career selection (Populates the university/career list from the server.). */
-function PensumSelector({
-  universityData,
-  universityDispatcher,
-  setPensum, initialPensum }: Props) {
+function PensumSelector({ setPensum, initialPensum }: Props) {
 
+  
+  const { state: universityData, dispatch: universityDispatcher } = useContext(UniversityContext);
   const {universities, selected: selectedUni, loading, error} = universityData;
 
   const [pensumList, setPensumList] = useState(undefined as PensumJson.PensumIndex | undefined);
   const [pensumOnInput, setPensumOnInput] = useState(initialPensum);
-
-  // Load university list
-  useEffect(() => {
-    fetchUniversities()
-      .then(unis => {
-        const u = unis.universities.sort(sortByProp('longName'));
-        universityDispatcher({ type: 'set/universities', payload: u })
-      })
-      .catch(e => {
-        universityDispatcher({ type: 'set/error', payload: e })
-      })
-      .finally(() => {
-        universityDispatcher({ type: 'set/loading', payload: false })
-      })
-  }, [universityDispatcher])
 
 
   // Initial pensum override
@@ -64,12 +48,15 @@ function PensumSelector({
       x => ({ value: x.code, label: `[${x.shortName}] ${x.longName}` })),
     [universityData.universities]);
 
-  // Update the university list
+
+  // Update the university list if university changes
   useEffect(() => {
     universityDispatcher({type: "set/selected", payload: universities[0] || null})
     if (setPensum) setPensum(null); // TODO: Change to a reducer... 
-  }, [universities, universityDispatcher]);
+  }, [universities]);
 
+
+  // On user change university selection
   const handleUniversityChange = (newValue: SelectProps) => {
     if (!newValue) {
       universityDispatcher({type: "set/selected", payload: null})
@@ -96,6 +83,7 @@ function PensumSelector({
     console.log(o);
     return o.map(x => ({ value: x.code, label: `[${x.code}] ${x.name}` }));
   }, [pensumList]);
+
 
   // Fetch new carreras if university changes
   useEffect(() => {
@@ -168,7 +156,7 @@ function PensumSelector({
       Cargar
       </Button>
 
-      {(error) ? <p>{String(error)}</p> : null}
+      {(error) ? <p style={{ color: 'red' }}>{String(error)}</p> : null}
     </Form>)
 
 

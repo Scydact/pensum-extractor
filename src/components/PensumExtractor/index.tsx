@@ -1,10 +1,10 @@
 import { fetchPensumFromCode } from "functions/pensum-fetch";
-import {  initialUniversityData, universityDataReducer } from "reducers/university-data";
-import { useReducer, useState } from "react";
+import { useContext, useReducer, useState } from "react";
 import Card from "react-bootstrap/Card";
 import Navbar from "react-bootstrap/Navbar";
 import PensumSelector from "../PensumSelector";
 import PensumDisplay from "components/PensumDisplay";
+import UniversityContext from "contexts/university-data";
 
 
 type Props = any;
@@ -25,12 +25,7 @@ function PensumReducer(
 
 
 function PensumExtractor(props: Props) {
-
-  const [uniList, uniListDispatch] = useReducer(
-    universityDataReducer,
-    initialUniversityData,
-  );
-
+  const { state: uniList, dispatch: uniListDispatch } = useContext(UniversityContext);
   const [currentPensumCode, setCurrentPensumCode] = useState(null as SelectType);
   const [currentPensum, setCurrentPensum] = useState(null as (Pensum.Pensum | null))
 
