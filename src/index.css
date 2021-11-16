@@ -15,7 +15,3 @@ code,
   font-family: "Roboto Mono", source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
 }
-
-* {
-  transition: background-color 200ms ease;
-}

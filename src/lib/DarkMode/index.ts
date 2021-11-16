@@ -5,13 +5,21 @@
 var isCssInit = false;
 var darkmode = false;
 
-function setColorPreference(color_p: string, persist = false) {
+function setColorPreference(color_p: string, persist = false, initial = false) {
   const new_s = color_p;
   const old_s = color_p === 'light' ? 'dark' : 'light'
 
   const el = document.body;  // gets root <html> tag
   el.classList.add('color-scheme-' + new_s);
   el.classList.remove('color-scheme-' + old_s);
+
+  // Background transitions ONLY on switching theme
+  if (!initial) {
+    el.classList.add('color-scheme-transition');
+    setTimeout(() => {
+      el.classList.remove('color-scheme-transition');
+    }, 500);
+  }
 
   if (persist) {
     localStorage.setItem('preferred-color-scheme', color_p);
@@ -82,6 +90,6 @@ export function setThemePreferenceOnLoad() {
   } else {
     preferredColorScheme = osColorPreference;
   }
-  setColorPreference(preferredColorScheme, false);
+  setColorPreference(preferredColorScheme, false, true);
   updateUI(preferredColorScheme);
 }

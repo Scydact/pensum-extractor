@@ -5,7 +5,7 @@
 
   transform: rotate(0deg) scale(1.5);
 
-  >* {
+  > * {
     grid-row   : 1 / 2;
     grid-column: 1 / 2;
   }
@@ -26,4 +26,9 @@
 
 .darkmode-switch input {
   background-color: rgb(32, 56, 100);
+}
+
+.color-scheme-transition, 
+.color-scheme-transition * {
+  transition: background-color 200ms ease;
 }
