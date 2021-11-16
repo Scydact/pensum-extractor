@@ -1,7 +1,4 @@
-// TODO: Use the class in dark mode to actually use this thing.
-// TODO: Set the switcher to use bootstrap classes...
-
-import { useEffect, useReducer, useRef, useState } from "react";
+import { useEffect, useState } from "react";
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 import Tooltip from 'react-bootstrap/Tooltip';
 

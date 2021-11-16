@@ -1,4 +1,4 @@
-import { fetchCarreras, fetchUniversities } from "functions/metadata-fetch"
+import { fetchUniversities } from "functions/metadata-fetch"
 import { sortByProp } from "lib/sort-utils"
 import React, { createContext, memo, useEffect, useReducer } from "react"
 
@@ -8,7 +8,6 @@ export declare namespace UniversityData {
   type Payload = {
     universities: PensumJson.University[],
     selected: PensumJson.University | null,
-    careers: [],
     loading: boolean,
     error: string | null,
   }
@@ -25,10 +24,6 @@ export declare namespace UniversityData {
     | {
       type: 'set/loading'
       payload: Payload['loading']
-    }
-    | {
-      type: 'set/careers'
-      payload: Payload['careers']
     }
     | {
       type: 'set/error'
@@ -58,12 +53,6 @@ function universityDataReducer(
         loading: action.payload
       }
 
-    case 'set/careers':
-      return {
-        ...state,
-        careers: action.payload
-      }
-
     case 'set/error':
       return {
         ...state,
@@ -80,7 +69,6 @@ function universityDataReducer(
 const initialUniversityData: UniversityData.Payload = {
   universities: [],
   selected: null,
-  careers: [],
   loading: true,
   error: null,
 }

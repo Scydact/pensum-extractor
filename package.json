@@ -27,6 +27,7 @@
   "scripts": {
     "start": "set PUBLIC_URL= &&react-scripts start",
     "build": "react-scripts build",
+    "build:local": "set PUBLIC_URL= &&react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "predeploy": "npm run build",
@@ -36,7 +37,10 @@
     "extends": [
       "react-app",
       "react-app/jest"
-    ]
+    ],
+    "rules": {
+      "react-hooks/exhaustive-deps": "off"
+    }
   },
   "browserslist": {
     "production": [

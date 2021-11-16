@@ -1,7 +1,5 @@
 import { validatePensum } from "functions/pensum-converter";
-import { fetchPensumFromCode } from "functions/pensum-fetch";
 import pensumToSavePensum from "functions/pensum-save";
-import { useReducer } from "react";
 
 export declare namespace ActivePensum {
 
@@ -38,7 +36,6 @@ export function savePensumToLocalStorage(pensum: Pensum.Pensum | null) {
 }
 
 export function loadPensumFromLocalStorage(): Pensum.Pensum | null {
-  console.trace();
   const pensumData = localStorage.getItem(PENSUM_STORAGE_KEY);
 
   if (!pensumData) return null; // Could not fetch
@@ -56,14 +53,10 @@ export function activePensumReducer(
   action: ActivePensum.Action): ActivePensum.Payload {
   switch (action.type) {
     case 'clear':
-      console.log('Clearing from');
-      console.trace();
       // savePensumToLocalStorage(null); // Dont clear save!
       return null;
 
     case 'set':
-      console.log('Setting to', action.payload);
-      console.trace();
       savePensumToLocalStorage(action.payload);
       return action.payload;
 
@@ -77,10 +70,3 @@ export function activePensumReducer(
       return state;
   }
 }
-
-function useActivePensumManager() {
-  const [loadedPensum, loadedPensumDispatch] = useReducer(activePensumReducer, null);
-  
-}
-
-export default useActivePensumManager;

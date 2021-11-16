@@ -12,18 +12,10 @@ import selectTheme, { optionStyle } from "lib/DarkMode/select-theme";
 import { sortByProp } from "lib/sort-utils";
 import ActivePensumContext from "contexts/active-pensum";
 
-type SelectProps = { label: string, value: string } | null;
 // type SelectProps = React.ComponentProps<typeof Select>['onChange'];
+type SelectProps = { label: string, value: string } | null;
 
-type Props = {
-  // universityData: UniversityData.Payload,
-  // universityDispatcher: React.Dispatch<UniversityData.Action>
-  /** Click handler for the LOAD button. */
-  // setPensum: (newPensum: SelectProps) => void,
-  /** Initial Pensum */
-  // initialPensum?: SelectProps,
-}
-
+/** Creates a formatted label, for use with this component's <Select> labels. */
 function createLabelString(code: string, name: string) {
   return `[${code}] ${name}`;
 }
@@ -70,7 +62,7 @@ function PensumSelector() {
   const universitySelectOptions = useMemo(() =>
     universityData.universities.map(
       x => ({ value: x.code, label: createLabelString(x.shortName, x.longName) })),
-    [universityData.universities]);
+    [universityData, universityData.universities]);
 
 
   // Update the university list if university changes
