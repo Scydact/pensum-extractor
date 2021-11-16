@@ -88,7 +88,6 @@ export const UniversityProvider = memo(function UniversityProvider({ children }:
   const [state, dispatch] = useReducer(universityDataReducer, initialUniversityData);
 
   // onMount: load universities
-  // TODO: Save/load to local storage :), maybe from a loadedpensum!
   useEffect(() => {
     fetchUniversities()
       .then(unis => {

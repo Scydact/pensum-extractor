@@ -1,8 +1,30 @@
+TODO: Make the app work again
+- Mat post-req and processing
+  - Use map to associate post-reqs?
+- Display loose mats somewhere.
+- Allow tracking
+  - Use a .clickable class to toggle :hover background.
+  - With .clickable done, clean table headers from not():hover
+  - Save/load to local storage
+  - Save/load to backup
+- Mat modal dialog
+- Enable PWA support
+- Extra features
+  - Save to CSV/EXCEL/JSON
+  - Treeview thing
+    - Dark mode friendly (connection lines are currently black)
+
+
+TODO: Extra new features
+  - Extra colors
+  - Save to cloud service
+
+
 TODO: Update script that:
- - takes each input inside carrera
- - updates to a new format with: 
- - shorter paths
- - src tags (with type="pdf, online, scan, fetch (only for fetch())" and url/fetch date)
- - universidad tags (unapec, unphu, intec)
- - coreqs
+- takes each input inside carrera
+- updates to a new format with: 
+- shorter paths
+- src tags (with type="pdf, online, scan, fetch (only for fetch())" and url/fetch date)
+- universidad tags (unapec, unphu, intec)
+- coreqs
 

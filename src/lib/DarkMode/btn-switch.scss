@@ -12,7 +12,7 @@
 
   color: #ffaa00;
 
-  transition: transform 700ms ease;
+  transition: transform 700ms ease !important;
   &.dark {
     transform: rotate(-360deg) scale(1.5);
   }
