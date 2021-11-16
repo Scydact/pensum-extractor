@@ -11,9 +11,19 @@ declare namespace PensumJson {
 
   /** Single university, inside Universities object. */
   type University = {
+    /** Code string of the university. Usually the short name in lowercase.
+     * @example unapec
+     */
     code: string,
+    /** Short name of the university. Usually its acronym. 
+     * @example UNAPEC 
+     */
     shortName: string,
+    /** Long name of the university.
+     * @example Universidad APEC
+     */
     longName: string,
+    /** URL of the university's logo/banner, if available. */
     imgUrl: string | null,
   }
 

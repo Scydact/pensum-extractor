@@ -34,7 +34,7 @@ function Mat({ mat, idx }: { mat: Pensum.Mat, idx: number }) {
   const reqs = [] as JSX.Element[];
   // reqs.push(...mat.prereq.map((x, i) => <span key={i}>{(typeof x === 'string') ? x : x.text} </span>));
   // reqs.push(...mat.coreq.map((x, i) => <span key={i+1000}>{(typeof x === 'string') ? x : x.text} </span>));
-  reqs.push(...mat.prereq.map((x, i) => <MatCode data={x} type='prereq'/>));
+  reqs.push(...mat.prereq.map((x, i) => <MatCode key={i} data={x} type='prereq'/>));
 
   return <Row className={cl} data-mat={mat.code}>
     <Col className="row-code code">{mat.code}</Col>

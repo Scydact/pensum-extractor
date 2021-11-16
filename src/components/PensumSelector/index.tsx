@@ -1,58 +1,81 @@
-import { fetchCarreras, fetchUniversities } from "functions/metadata-fetch";
-import UniversityContext, { UniversityData } from "contexts/university-data";
-import React, { useContext, useEffect, useMemo, useState } from "react";
+import { fetchCarreras } from "functions/metadata-fetch";
+import UniversityContext from "contexts/university-data";
+import { useContext, useEffect, useMemo, useState } from "react";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
 
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import selectTheme, { optionStyle } from "lib/DarkMode/select-theme";
 import { sortByProp } from "lib/sort-utils";
+import ActivePensumContext from "contexts/active-pensum";
 
 type SelectProps = { label: string, value: string } | null;
 // type SelectProps = React.ComponentProps<typeof Select>['onChange'];
 
 type Props = {
-  universityData: UniversityData.Payload,
-  universityDispatcher: React.Dispatch<UniversityData.Action>
+  // universityData: UniversityData.Payload,
+  // universityDispatcher: React.Dispatch<UniversityData.Action>
   /** Click handler for the LOAD button. */
-  setPensum: (newPensum: SelectProps) => void,
+  // setPensum: (newPensum: SelectProps) => void,
   /** Initial Pensum */
-  initialPensum?: SelectProps,
+  // initialPensum?: SelectProps,
 }
 
+function createLabelString(code: string, name: string) {
+  return `[${code}] ${name}`;
+}
 
-/** Simple form that manages ONLY University and Career selection (Populates the university/career list from the server.). */
-function PensumSelector({ setPensum, initialPensum }: Props) {
-
-  
+/** Simple form that manages University and Career selection 
+ * (Populates the university/career list from the server.). 
+ * Also loads the required pensum. */
+function PensumSelector() {
+  const { state: activePensum, dispatch: activePensumDispatcher } = useContext(ActivePensumContext);
   const { state: universityData, dispatch: universityDispatcher } = useContext(UniversityContext);
   const {universities, selected: selectedUni, loading, error} = universityData;
 
   const [pensumList, setPensumList] = useState(undefined as PensumJson.PensumIndex | undefined);
-  const [pensumOnInput, setPensumOnInput] = useState(initialPensum);
+  const [pensumOnInput, setPensumOnInput] = useState(null as SelectProps);
 
 
-  // Initial pensum override
+  // On active pensum change (may be triggered by this same element, or not?)
   useEffect(() => {
-    setPensumOnInput(initialPensum);
-  }, [initialPensum])
+    if (activePensum) {
+      // Set selected university
+      const uni = universities.find(x => x.code === activePensum.institution);
+      if (uni) universityDispatcher({ type: 'set/selected', payload: uni });
+
+      // Set career
+      const careerOption = careerSelectOptions.find(x => x.value === activePensum.code)
+        || {
+        value: activePensum.code,
+        label: createLabelString(activePensum.code, activePensum.career),
+      };
+      setPensumOnInput(careerOption);
+
+    } else {
+      setPensumOnInput(null);
+    }
+  }, [
+    activePensum,
+    activePensum?.code,
+    activePensum?.career,
+    activePensum?.institution
+  ]);
 
 
   // University select options
   const universitySelectOptions = useMemo(() =>
     universityData.universities.map(
-      x => ({ value: x.code, label: `[${x.shortName}] ${x.longName}` })),
+      x => ({ value: x.code, label: createLabelString(x.shortName, x.longName) })),
     [universityData.universities]);
 
 
   // Update the university list if university changes
   useEffect(() => {
-    universityDispatcher({type: "set/selected", payload: universities[0] || null})
-    if (setPensum) setPensum(null); // TODO: Change to a reducer... 
+    universityDispatcher({type: "set/selected", payload: universities[0] || null});
   }, [universities]);
 
 
@@ -73,15 +96,12 @@ function PensumSelector({ setPensum, initialPensum }: Props) {
 
 
   // Carrera select options
-  const pensumSelectOptions = useMemo(() => {
+  const careerSelectOptions = useMemo(() => {
     if (!pensumList) return [];
 
-    const o =  pensumList.careers
-    .sort(sortByProp("code"))
-    
+    const o = pensumList.careers.sort(sortByProp("code"));
 
-    console.log(o);
-    return o.map(x => ({ value: x.code, label: `[${x.code}] ${x.name}` }));
+    return o.map(x => ({ value: x.code, label: createLabelString(x.code, x.name) }));
   }, [pensumList]);
 
 
@@ -118,8 +138,10 @@ function PensumSelector({ setPensum, initialPensum }: Props) {
   // On submit
   const handleSubmit = (evt: any) => {
     evt.preventDefault();
-    if (setPensum) 
-      setPensum(pensumOnInput as any);
+    activePensumDispatcher({type: 'load', payload: {
+      university: selectedUni?.code || '',
+      code: pensumOnInput?.value || '',
+    }});
   }
 
 
@@ -141,7 +163,7 @@ function PensumSelector({ setPensum, initialPensum }: Props) {
       <CreatableSelect
         isClearable
         value={pensumOnInput}
-        options={pensumSelectOptions}
+        options={careerSelectOptions}
         isLoading={loading}
         loadingMessage={() => <span>Cargando carreras...</span>}
         onChange={handlePensumChange as any} // as any to be able to use selectStyles

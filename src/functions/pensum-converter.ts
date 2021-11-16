@@ -5,15 +5,15 @@ export function validatePensum(pensum: Pensum.Save.Legacy.Pensum2 | Pensum.Save.
   if (!pensum) return null;
 
   // Legacy version
-  if (pensum.version >= 2) {
+  if (pensum.version <= 3) {
     const p = loadPensum2(pensum as Pensum.Save.Legacy.Pensum2, university);
     console.warn('Loaded pensum from old version!');
     return p;
   }
 
   // Current version
-  if (pensum.version === 3) {
-    const p = loadPensumFromSave(pensum);
+  if (pensum.version === 5) {
+    const p = loadPensumFromSavePensum(pensum);
     return p;
   }
 
@@ -22,8 +22,7 @@ export function validatePensum(pensum: Pensum.Save.Legacy.Pensum2 | Pensum.Save.
 }
 
 /** Fixes the save form of a pensum, making sure that all its properties are set (eg. empty prereqs). */
-export function loadPensumFromSave(save: Pensum.Save.Pensum): Pensum.Pensum {
-  
+export function loadPensumFromSavePensum(save: Pensum.Save.Pensum): Pensum.Pensum {
   const MatConverter = (old: Pensum.Save.Mat): Pensum.Mat => {
     const mat: Pensum.Mat = {
       ...old,
@@ -49,7 +48,7 @@ export function loadPensumFromSave(save: Pensum.Save.Pensum): Pensum.Pensum {
 /** Loads a legacy pensum, mapping the old properties to the new ones. */
 export function loadPensum2(old: Pensum.Save.Legacy.Pensum2, university: string): Pensum.Pensum {
   const pensum: Pensum.Pensum = {
-    version: 3,
+    version: Number(process.env.REACT_APP_SAVE_VERSION),
     institution: university,
     code: old.codigo,
     publishDate: old.vigencia,

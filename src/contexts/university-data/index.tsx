@@ -13,7 +13,27 @@ export declare namespace UniversityData {
     error: string | null,
   }
 
-  type Action = { type: string, payload?: any }
+  type Action = 
+    | {
+      type: 'set/universities'
+      payload: Payload['universities']
+    }
+    | {
+      type: 'set/selected'
+      payload: Payload['selected']
+    }
+    | {
+      type: 'set/loading'
+      payload: Payload['loading']
+    }
+    | {
+      type: 'set/careers'
+      payload: Payload['careers']
+    }
+    | {
+      type: 'set/error'
+      payload: Payload['error']
+    }
 }
 
 function universityDataReducer(
@@ -51,7 +71,7 @@ function universityDataReducer(
       }
 
     default:
-      console.error('Unknown action "' + action.type + '".');
+      console.error('Unknown action: ', action);
       return state;
   }
 }
@@ -76,7 +96,7 @@ export const UniversityContext = createContext({
 type UniCtxProps = { children: any};
 
 /** Handles automatic load of university list. */
-export const UniversityProvider = memo(({ children }: UniCtxProps) => {
+export const UniversityProvider = memo(function UniversityProvider({ children }: UniCtxProps) {
   const [state, dispatch] = useReducer(universityDataReducer, initialUniversityData);
 
   // onMount: load universities
