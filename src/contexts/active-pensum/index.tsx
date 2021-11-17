@@ -1,6 +1,5 @@
 import { fetchPensumFromCode, PensumFetchError } from "functions/pensum-fetch";
-import processPensumMats from "functions/pensum-get-extras";
-import { createContext, memo, useCallback, useEffect, useReducer } from "react";
+import React, { createContext, memo, useCallback, useEffect, useReducer } from "react";
 import { ActivePensum, activePensumReducer, createPayload } from "./active-pensum-reducer";
 
 
@@ -18,28 +17,18 @@ const defaultContext: ActivePensumContextProps = {
 /** Context for the current loaded pensum. */
 const ActivePensumContext = createContext(defaultContext);
 
-type Props = { children: any};
-
-// this double naming thing is so the React chrome extension gets the name correctly.
-export const ActivePensumProvider = memo(function ActivePensumProvider({ children }: Props) { 
-  const [state, dispatch] = useReducer(activePensumReducer, defaultContext.state);
-
-  // onMount: load saved pensum
-  useEffect(() => {
-    dispatch({type: 'load/fromSave'});
-  }, []);
-
-  // Custom dispatch with async, non-pure code (fetchPensum).
-  const customDispatch = useCallback(async (action) => {
+/** Custom dispatch that handles async stuff. */
+function customDispatchFactory(dispatch: React.Dispatch<ActivePensum.Action>) {
+  return async (action: ActivePensum.Action) => {
     switch (action.type) {
       case 'load':
         dispatch({ type: 'loading', payload: true });
-        const {university, code} = action.payload;
+        const { university, code } = action.payload;
         try {
           const pensum = await fetchPensumFromCode(university, code);
           dispatch({ type: 'set', payload: pensum });
         }
-        catch(error) {
+        catch (error) {
           const err = { type: 'error' as 'error', payload: undefined as any };
           if (error instanceof SyntaxError)
             err.payload = `JSON could not be parsed for ${university}/${code}.`;
@@ -57,7 +46,22 @@ export const ActivePensumProvider = memo(function ActivePensumProvider({ childre
       default:
         dispatch(action);
     }
+  }
+}
+
+type Props = { children: any};
+
+// this double naming thing is so the React chrome extension gets the name correctly.
+export const ActivePensumProvider = memo(function ActivePensumProvider({ children }: Props) { 
+  const [state, dispatch] = useReducer(activePensumReducer, defaultContext.state);
+
+  // onMount: load saved pensum
+  useEffect(() => {
+    dispatch({type: 'load/fromSave'});
   }, []);
+
+  // Custom dispatch with async, non-pure code (fetchPensum).
+  const customDispatch = useCallback(customDispatchFactory(dispatch), []);
   
   return <ActivePensumContext.Provider value={{ state, dispatch: customDispatch }}>
     {children}

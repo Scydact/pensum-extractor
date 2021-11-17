@@ -25,7 +25,6 @@ export async function fetchPensumFromCode(university?: string, code?: string) {
   // Don't return null!
   // Instead throw error, so this gets catched.
   throw new PensumFetchError(`Unable to fetch pensum with identifier ${university}/${code}`);
-  return null;
 }
 
 /** 
@@ -62,9 +61,4 @@ export async function fetchPensumFromCode_localData(university: string, code: st
 }
 
 
-export class PensumFetchError extends Error {
-  constructor(message?: string) {
-    // Pass remaining arguments (including vendor specific ones) to parent constructor
-    super(message);
-  }
-}
+export class PensumFetchError extends Error {}
