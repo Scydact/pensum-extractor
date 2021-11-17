@@ -1,10 +1,11 @@
 import { fetchCarreras } from "functions/metadata-fetch";
 import UniversityContext from "contexts/university-data";
-import { useContext, useEffect, useMemo, useState } from "react";
+import { useCallback, useContext, useEffect, useMemo, useState } from "react";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
+import Spinner from "react-bootstrap/Spinner";
 
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
@@ -24,9 +25,27 @@ function createLabelString(code: string, name: string) {
  * (Populates the university/career list from the server.). 
  * Also loads the required pensum. */
 function PensumSelector() {
-  const { state: { pensum: activePensum, error: error_pensum }, dispatch: activePensumDispatcher } = useContext(ActivePensumContext);
-  const { state: universityData, dispatch: universityDispatcher } = useContext(UniversityContext);
-  const {universities, selected: selectedUni, loading, error: error_uni} = universityData;
+  // Quite awful, just read this context from right to left.
+  const {
+    state: {
+      pensum: activePensum,
+      error: error_pensum,
+      loading: loading_pensum,
+    },
+    dispatch: activePensumDispatcher,
+  } = useContext(ActivePensumContext);
+
+  const {
+    state: universityData,
+    dispatch: universityDispatcher,
+  } = useContext(UniversityContext);
+
+  const {
+    universities,
+    selected: selectedUni,
+    loading: loading_uni,
+    error: error_uni,
+  } = universityData;
 
   const [pensumList, setPensumList] = useState(undefined as PensumJson.PensumIndex | undefined);
   const [pensumOnInput, setPensumOnInput] = useState(null as SelectProps);
@@ -121,23 +140,23 @@ function PensumSelector() {
       })
   }, [selectedUni, universityDispatcher]);
 
-  const handlePensumChange = (newValue: SelectProps) => {
+  const handlePensumChange = useCallback((newValue: SelectProps) => {
     setPensumOnInput(newValue);
-  }
+  }, [setPensumOnInput]);
 
 
 
   // On submit
-  const handleSubmit = (evt: any) => {
+  const handleSubmit = useCallback((evt: any) => {
     evt.preventDefault();
     activePensumDispatcher({type: 'load', payload: {
       university: selectedUni?.code || '',
       code: pensumOnInput?.value || '',
     }});
-  }
+  }, [activePensumDispatcher]);
 
 
-  const outForm = (
+  const OutForm = useCallback(() => (
     <Form onSubmit={handleSubmit}>
 
       <Select
@@ -145,40 +164,52 @@ function PensumSelector() {
         value={universitySelectOptions.find(x => x.value === selectedUni?.code)}
         options={universitySelectOptions}
         isSearchable={true}
-        isLoading={loading}
+        isLoading={loading_uni}
         onChange={handleUniversityChange as any} // as any to be able to use selectStyles without TS panicking.
-        name="university" 
+        name="university"
         className="mb-2"
         theme={selectTheme}
-        styles={optionStyle}/>
+        styles={optionStyle} />
 
       <CreatableSelect
         isClearable
         value={pensumOnInput}
         options={careerSelectOptions}
-        isLoading={loading}
+        isLoading={loading_uni}
         loadingMessage={() => <span>Cargando carreras...</span>}
         onChange={handlePensumChange as any} // as any to be able to use selectStyles
         className="mb-2"
         theme={selectTheme}
-        styles={optionStyle}/>
+        styles={optionStyle} />
 
       <Button
         type="submit"
         disabled={!pensumOnInput}
         className="w-100">
-      Cargar
+        {(!loading_pensum) ?
+          'Cargar' :
+          <Spinner animation="border" size="sm"><span className="visually-hidden">Cargando...</span></Spinner>}
       </Button>
 
       {error_uni && <p style={{ color: 'red' }}>{'Error @ uni: ' + String(error_uni)}</p>}
       {error_pensum && <p style={{ color: 'red' }}>{'Error @ pensum: ' + String(error_pensum)}</p>}
-    </Form>)
+    </Form>
+  ), [
+    universitySelectOptions,
+    careerSelectOptions,
+    pensumOnInput,
+    handlePensumChange,
+    loading_uni,
+    loading_pensum,
+    error_uni,
+    error_pensum,
+  ]);
 
 
   return (
     <Card>
       <Card.Body>
-        {outForm}
+        <OutForm />
       </Card.Body>
     </Card>
   )

@@ -9,6 +9,7 @@ export declare namespace ActivePensum {
     pensum: Pensum.Pensum | null,
     matData: ReturnType<typeof processPensumMats>,
     error: any | null,
+    loading: boolean
   };
 
   type Action =
@@ -29,6 +30,10 @@ export declare namespace ActivePensum {
     | {
       type: 'error',
       payload: Payload['error']
+    }
+    | {
+      type: 'loading'
+      payload: Payload['loading']
     }
 }
 
@@ -57,13 +62,13 @@ export function loadPensumFromLocalStorage(): Pensum.Pensum | null {
 }
 
 
-function createPayload(pensum: ActivePensum.Payload['pensum']): ActivePensum.Payload {
+export function createPayload(pensum: ActivePensum.Payload['pensum']): ActivePensum.Payload {
   return {
     pensum, 
     matData: processPensumMats(pensum),
     error: null,
+    loading: false,
   }
-
 }
 
 export function activePensumReducer(
@@ -89,7 +94,14 @@ export function activePensumReducer(
       return {
         ...state,
         error: action.payload,
+        loading: false,
       };
+
+    case 'loading':
+      return {
+        ...state,
+        loading: true,
+      }
 
     default:
       console.error('Unknown action "' + action.type + '".');

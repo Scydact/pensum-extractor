@@ -3,13 +3,14 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import MatCode from './MatCode';
+import React from 'react';
 
 type Props = {
   pensum: Pensum.Pensum
 }
 
 /** Headers for the pensum table. */
-function TableHead() {
+const TableHead = React.memo(() => {  // Memo makes this thing pure, and never update >:D (if props don't change).
   return <Row className="pensum-header row-period">
     <Col className="row-period-num">Qt.</Col>
     <Col className="row-mat-group">
@@ -25,7 +26,7 @@ function TableHead() {
       </Row>
     </Col>
   </Row>
-}
+})
 
 /** Displays a single Mat as from the pensum a table row. */
 function MatRow({ mat, idx }: { mat: Pensum.Mat, idx: number }) {
@@ -50,7 +51,7 @@ function MatRow({ mat, idx }: { mat: Pensum.Mat, idx: number }) {
 }
 
 /** Displays a single period from the pensum as table rows. */
-export function Period({ period, cuat, cumlen = 0 }: { period: Pensum.Mat[], cuat: number, cumlen: number}) {
+export const Period = React.memo(({ period, cuat, cumlen = 0 }: { period: Pensum.Mat[], cuat: number, cumlen: number}) => {
 
   return <Row className="row-period">
     <Col className="row-period-num" data-value={cuat + 1}>{cuat + 1}</Col> {/** TODO: Poner en variable global si se maneja por "cuatrimestre/trimestre/semestre", y reflejar aqui. */}
@@ -62,7 +63,7 @@ export function Period({ period, cuat, cumlen = 0 }: { period: Pensum.Mat[], cua
     )}
     </Col>
   </Row>
-}
+});
 
 /** Displays a pensum. */
 function PensumTable({ pensum }: Props) {

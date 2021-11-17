@@ -15,7 +15,13 @@ This React page is using [Beautiful React Hooks](https://antonioru.github.io/bea
 
 
 ## TO DO
+TODO: Service worker (online first, cache 2nd!!)
+[1](https://nmaokaforr.medium.com/step-by-step-to-building-a-pwa-with-react-using-workbox-2db6b9fb6056)
+[2](https://developers.google.com/web/tools/workbox/guides/configure-workbox)
+
 TODO: Make the app work again
+- [ ] Add src tag to pensum type (check TODO at the end of the page).
+- [ ] Add period-type to university.json (If its a semester/cuarter/trimester...), with full name and short name (Sm. Tr. ).
 - [ ] Get dark mode from user preference (using @media stuff thingy, check the original DarkMode class)
 - [ ] Display loose mats somewhere
 - [ ] Add labels to the Uni/Career React-Select selectors.
@@ -57,6 +63,8 @@ TODO: Update script that:
 - [ ] updates to a new format with: 
 - [ ] shorter paths
 - [ ] src tags (with type="pdf, online, scan, fetch (only for fetch())" and url/fetch date)
+  - Make it a schema.
+  - Add it to the in-page editor.
 - [ ] universidad tags (unapec, unphu, intec)
 - [ ] coreqs
 
