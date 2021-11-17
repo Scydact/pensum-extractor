@@ -17,5 +17,3 @@ export function sortByProp<T, K extends keyof T>(...propList: K[]) {
     return -1;
   }
 }
-
-(window as any)['sortByProp'] = sortByProp;

@@ -24,9 +24,9 @@ function createLabelString(code: string, name: string) {
  * (Populates the university/career list from the server.). 
  * Also loads the required pensum. */
 function PensumSelector() {
-  const { state: activePensum, dispatch: activePensumDispatcher } = useContext(ActivePensumContext);
+  const { state: { pensum: activePensum, error: error_pensum }, dispatch: activePensumDispatcher } = useContext(ActivePensumContext);
   const { state: universityData, dispatch: universityDispatcher } = useContext(UniversityContext);
-  const {universities, selected: selectedUni, loading, error} = universityData;
+  const {universities, selected: selectedUni, loading, error: error_uni} = universityData;
 
   const [pensumList, setPensumList] = useState(undefined as PensumJson.PensumIndex | undefined);
   const [pensumOnInput, setPensumOnInput] = useState(null as SelectProps);
@@ -170,7 +170,8 @@ function PensumSelector() {
       Cargar
       </Button>
 
-      {(error) ? <p style={{ color: 'red' }}>{String(error)}</p> : null}
+      {error_uni && <p style={{ color: 'red' }}>{'Error @ uni: ' + String(error_uni)}</p>}
+      {error_pensum && <p style={{ color: 'red' }}>{'Error @ pensum: ' + String(error_pensum)}</p>}
     </Form>)
 
 

@@ -12,17 +12,20 @@ export const LOCAL_SERVER_PREFIX = './pensum';
  *  3. from url
  */
 export async function fetchPensumFromCode(university?: string, code?: string) {
-    if (!university || !code) return null;
+  if (!university || !code) throw new PensumFetchError('No university or code provided!');//return null;
 
-    let pensum: Pensum.Pensum | null;
+  let pensum: Pensum.Pensum | null;
 
-    pensum = await fetchPensumFromCode_localStorage(university, code);
-    if (pensum) return pensum;
+  pensum = await fetchPensumFromCode_localStorage(university, code);
+  if (pensum) return pensum;
 
-    pensum = await fetchPensumFromCode_localData(university, code);
-    if (pensum) return pensum;
+  pensum = await fetchPensumFromCode_localData(university, code);
+  if (pensum) return pensum;
 
-    return null;
+  // Don't return null!
+  // Instead throw error, so this gets catched.
+  throw new PensumFetchError(`Unable to fetch pensum with identifier ${university}/${code}`);
+  return null;
 }
 
 /** 
@@ -31,31 +34,37 @@ export async function fetchPensumFromCode(university?: string, code?: string) {
  * **Important note!** This only does fetch. The saving to `localStorage` will be done at window.unload.
  */
 export async function fetchPensumFromCode_localStorage(university: string, code: string) {
-    const key = [LOCAL_STORAGE_PREFIX, university, code].join('_');
-    const pensumData = localStorage.getItem(key);
+  const key = [LOCAL_STORAGE_PREFIX, university, code].join('_');
+  const pensumData = localStorage.getItem(key);
 
-    if (!pensumData) return null; // Could not fetch
+  if (!pensumData) return null; // Could not fetch
 
-    // Parse fetched data
-    // TODO: CHECK IF DATA IS VALID
-    const pensum = JSON.parse(pensumData) as Pensum.Save.Pensum;
-    return validatePensum(pensum, university);
+  // Parse fetched data
+  // TODO: CHECK IF DATA IS VALID
+  const pensum = JSON.parse(pensumData) as Pensum.Save.Pensum;
+  return validatePensum(pensum, university);
 }
+
 
 /** Tries to fetch the pensum from `./pensum/$UNIVERSIDAD.` */
 export async function fetchPensumFromCode_localData(university: string, code: string) {
-    const path = [LOCAL_SERVER_PREFIX, university, code].join('/') + '.json';
+  const path = [LOCAL_SERVER_PREFIX, university, code].join('/') + '.json';
+
+  let pensumData: Pensum.Save.Pensum;
+  try {
     const response = await fetch(path);
-    const pensumData: Pensum.Save.Pensum = await response.json();
+    pensumData = await response.json();
+  } catch {
+    return null;
+  }
 
-    if (!pensumData) return null; // Could not fetch
-
-    // TODO: CHECK IF DATA IS VALID
-    // Parse fetched data
-    const pensum = pensumData;
-    return validatePensum(pensum, university);
+  return validatePensum(pensumData, university);
 }
 
-export async function savePensumToLocalStorage(pensum: Pensum.Pensum) {
-    
+
+export class PensumFetchError extends Error {
+  constructor(message?: string) {
+    // Pass remaining arguments (including vendor specific ones) to parent constructor
+    super(message);
+  }
 }

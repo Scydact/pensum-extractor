@@ -1,15 +1,20 @@
 import { validatePensum } from "functions/pensum-converter";
 import pensumToSavePensum from "functions/pensum-save";
+import processPensumMats from "functions/pensum-get-extras";
 
 export declare namespace ActivePensum {
 
   /** List of universities/careers. */
-  type Payload = Pensum.Pensum | null;
+  type Payload = {
+    pensum: Pensum.Pensum | null,
+    matData: ReturnType<typeof processPensumMats>,
+    error: any | null,
+  };
 
   type Action =
     | {
       type: 'set'
-      payload: Payload
+      payload: Payload['pensum']
     }
     | {
       type: 'clear' | 'load/fromSave'
@@ -20,6 +25,10 @@ export declare namespace ActivePensum {
         university: string,
         code: string,
       }
+    }
+    | {
+      type: 'error',
+      payload: Payload['error']
     }
 }
 
@@ -48,22 +57,39 @@ export function loadPensumFromLocalStorage(): Pensum.Pensum | null {
 }
 
 
+function createPayload(pensum: ActivePensum.Payload['pensum']): ActivePensum.Payload {
+  return {
+    pensum, 
+    matData: processPensumMats(pensum),
+    error: null,
+  }
+
+}
+
 export function activePensumReducer(
   state: ActivePensum.Payload,
   action: ActivePensum.Action): ActivePensum.Payload {
   switch (action.type) {
     case 'clear':
       // savePensumToLocalStorage(null); // Dont clear save!
-      return null;
+      return createPayload(null);
 
     case 'set':
       savePensumToLocalStorage(action.payload);
-      return action.payload;
+      return createPayload(action.payload);
 
     case 'load/fromSave':
-      return loadPensumFromLocalStorage();
+      var pensum = loadPensumFromLocalStorage();
+      return createPayload(pensum);
 
     // Case for 'load' is handled on the Provider, since its async!
+
+    case 'error':
+      console.error(action.payload);
+      return {
+        ...state,
+        error: action.payload,
+      };
 
     default:
       console.error('Unknown action "' + action.type + '".');
