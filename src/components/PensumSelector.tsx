@@ -96,7 +96,8 @@ function PensumSelector() {
     selectUniversity(newValue?.value || null);
   }, [selectUniversity]);
 
-  const SelectUni = useCallback(() => (
+  const SelectUni = useCallback(() => (<>
+    <label className="form-label mb-0 small">Universidad</label>
     <Select
       // defaultValue={universitySelectOptions[0]}
       value={universitySelectOptions.find(x => x.value === selected_uni?.code)}
@@ -107,29 +108,32 @@ function PensumSelector() {
       name="university"
       className="mb-2"
       theme={selectTheme}
+
+      placeholder="Seleccione una universidad..."
       styles={optionStyle} />
+  </>
   ), [universitySelectOptions, loading_uni, handleUniversityChange, selected_uni?.code]);
 
     
   // ***************************************************************************
   // Career select
   // ***************************************************************************
-  const SelectCareer = useCallback(() => {
-    return (
+  const SelectCareer = useCallback(() => (<>
+    <label className="form-label mb-0 small">Carrera</label>
+    <CreatableSelect
+      isClearable
+      value={pensumOnInput}
+      options={careerSelectOptions}
+      isLoading={loading_uni}
+      loadingMessage={() => <span>Cargando carreras...</span>}
+      onChange={setPensumOnInput as any} // as any to be able to use selectStyles
+      className="mb-2"
+      theme={selectTheme}
 
-
-      <CreatableSelect
-        isClearable
-        value={pensumOnInput}
-        options={careerSelectOptions}
-        isLoading={loading_uni}
-        loadingMessage={() => <span>Cargando carreras...</span>}
-        onChange={setPensumOnInput as any} // as any to be able to use selectStyles
-        className="mb-2"
-        theme={selectTheme}
-        styles={optionStyle} />
-    )
-  }, [pensumOnInput, careerSelectOptions, loading_uni, setPensumOnInput])
+      placeholder="Seleccione o escriba una carrera o su codigo..."
+      styles={optionStyle} />
+  </>
+  ), [pensumOnInput, careerSelectOptions, loading_uni, setPensumOnInput])
   
 
 

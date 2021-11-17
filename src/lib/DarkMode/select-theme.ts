@@ -32,10 +32,16 @@ const selectTheme: ThemeConfig = (theme) => ({
 
 /** Style override to make selected value visible on dark mode. */
 export const optionStyle: StylesConfig = {
-  option: (styles, { data, isDisabled, isFocused, isSelected }) => ({
-    ...styles, 
-    color: (isSelected) ? 'white' : undefined,
+  option: (provided, state) => ({
+    ...provided, 
+    color: (state.isSelected) ? 'white' : undefined,
+  }),
+
+  placeholder: (provided, state) => ({
+    ...provided,
+    opacity: 0.6,
   })
+  
 }
 
 export default selectTheme;
