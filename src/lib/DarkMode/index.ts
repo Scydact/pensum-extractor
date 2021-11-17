@@ -3,7 +3,6 @@
 // parts from: https://radek.io/posts/secret-darkmode-toggle/
 
 var isCssInit = false;
-var darkmode = false;
 
 function setColorPreference(color_p: string, persist = false, initial = false) {
   const new_s = color_p;
@@ -12,6 +11,7 @@ function setColorPreference(color_p: string, persist = false, initial = false) {
   const el = document.body;  // gets root <html> tag
   el.classList.add('color-scheme-' + new_s);
   el.classList.remove('color-scheme-' + old_s);
+  el.dataset.colorScheme = new_s;
 
   // Background transitions ONLY on switching theme
   if (!initial) {
@@ -34,10 +34,8 @@ function updateUI(color_p: string, id = 'css') {
     const data = el.dataset;
     if (color_p === 'dark') {
       el.setAttribute('href', data.hrefDark || '');
-      darkmode = true;
     } else {
       el.setAttribute('href', data.hrefLight || '');
-      darkmode = false;
     }
     data.colorScheme = color_p;
   }
@@ -77,7 +75,7 @@ export function setDarkmode(dark: boolean) {
 }
 
 export function getDarkmode() {
-  return darkmode;
+  return document.body.dataset.colorScheme === 'dark';
 }
 
 export function setThemePreferenceOnLoad() {
