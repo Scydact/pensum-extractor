@@ -1,8 +1,6 @@
-import { usePreviousValue } from "beautiful-react-hooks"
 import { fetchCarreras, fetchUniversities } from "functions/metadata-fetch"
 import { sortByProp } from "lib/sort-utils"
 import React, { createContext, memo, useCallback, useEffect, useReducer } from "react"
-import { ActionMeta } from "react-select"
 
 export declare namespace UniversityData {
   
@@ -140,7 +138,7 @@ export const UniversityProvider = memo(function UniversityProvider({ children }:
 
     // Don't do anything if university code didn't change...
     code = code?.toLowerCase();
-    if (code == state.selected?.code) {
+    if (code === state.selected?.code) {
       return;
     }
 

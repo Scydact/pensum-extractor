@@ -32,6 +32,7 @@ function PensumSelector() {
       loading: loading_pensum,
     },
     dispatch: activePensumDispatcher,
+    load: loadPensum,
   } = useContext(ActivePensumContext);
 
   const {
@@ -59,7 +60,7 @@ function PensumSelector() {
     const o = pensumList.sort(sortByProp("code"));
 
     return o.map(x => ({ value: x.code, label: createLabelString(x.code, x.name) }));
-  }, [selected_uni, selected_uni?.careers]);
+  }, [selected_uni]);
 
 
   // On pensum change, set values
@@ -107,7 +108,7 @@ function PensumSelector() {
       className="mb-2"
       theme={selectTheme}
       styles={optionStyle} />
-  ), [universitySelectOptions, loading_uni, handleUniversityChange]);
+  ), [universitySelectOptions, loading_uni, handleUniversityChange, selected_uni?.code]);
 
     
   // ***************************************************************************
@@ -135,13 +136,10 @@ function PensumSelector() {
   // On submit
   const handleSubmit = useCallback((evt: any) => {
     evt.preventDefault();
-    activePensumDispatcher({
-      type: 'load', payload: {
-        university: selected_uni?.code || '',
-        code: pensumOnInput?.value || '',
-      }
-    });
-  }, [activePensumDispatcher, selected_uni, pensumOnInput]);
+    const uni = selected_uni?.code || '';
+    const code = pensumOnInput?.value || '';
+    loadPensum(uni, code);
+  }, [loadPensum, selected_uni, pensumOnInput]);
 
   return (
     <Card>

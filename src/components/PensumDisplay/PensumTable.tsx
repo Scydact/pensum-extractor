@@ -4,15 +4,18 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import MatCode from './MatCode';
 import React from 'react';
+import { toTitleCase } from 'lib/format-utils';
 
 type Props = {
   pensum: Pensum.Pensum
 }
 
 /** Headers for the pensum table. */
-const TableHead = React.memo(() => {  // Memo makes this thing pure, and never update >:D (if props don't change).
+const TableHead = React.memo((props: {periodNumStr: string}) => {  // Memo makes this thing pure, and never update >:D (if props don't change).
+
+  const processedPeriod = `${toTitleCase(props.periodNumStr)}.`;
   return <Row className="pensum-header row-period">
-    <Col className="row-period-num">Qt.</Col>
+    <Col className="row-period-num">{processedPeriod}</Col>
     <Col className="row-mat-group">
       <Row className="row-mat">
         <Col className="row-code">Código</Col>
@@ -51,10 +54,10 @@ function MatRow({ mat, idx }: { mat: Pensum.Mat, idx: number }) {
 }
 
 /** Displays a single period from the pensum as table rows. */
-export const Period = React.memo(({ period, cuat, cumlen = 0 }: { period: Pensum.Mat[], cuat: number, cumlen: number}) => {
+export const Period = React.memo(({ period, periodNum, cumlen = 0 }: { period: Pensum.Mat[], periodNum: number, cumlen: number}) => {
 
   return <Row className="row-period">
-    <Col className="row-period-num" data-value={cuat + 1}>{cuat + 1}</Col> {/** TODO: Poner en variable global si se maneja por "cuatrimestre/trimestre/semestre", y reflejar aqui. */}
+    <Col className="row-period-num" data-value={periodNum + 1}>{periodNum + 1}</Col> {/** TODO: Poner en variable global si se maneja por "cuatrimestre/trimestre/semestre", y reflejar aqui. */}
     <Col className="row-mat-group">{period.map((mat, i) =>
       <MatRow
         key={mat.code}
@@ -67,7 +70,11 @@ export const Period = React.memo(({ period, cuat, cumlen = 0 }: { period: Pensum
 
 /** Displays a pensum. */
 function PensumTable({ pensum }: Props) {
-  const { periods } = pensum;
+  const { periods, periodType = {
+    name: 'periodo',
+    acronym: 'per',
+    two: 'pr'
+  } } = pensum;
 
   // https://stackoverflow.com/a/55261098
   // CumLen is passed down to calculate if a row is even or odd.
@@ -75,12 +82,12 @@ function PensumTable({ pensum }: Props) {
   const cumlen = periods.map(x => x.length).map(cumulativeSum(0))
 
   return <Container className="pensum-table">
-    <TableHead />
+    <TableHead periodNumStr={periodType.two} />
     {periods.map((period, key) =>
       <Period
         key={key}
         period={period}
-        cuat={key}
+        periodNum={key}
         cumlen={cumlen[key - 1]} />
     )}
   </Container>

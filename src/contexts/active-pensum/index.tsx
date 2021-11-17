@@ -6,48 +6,18 @@ import { ActivePensum, activePensumReducer, createPayload } from "./active-pensu
 type ActivePensumContextProps = {
   state: ActivePensum.Payload,
   dispatch: (action: ActivePensum.Action) => any,
+  load: (university: string, code: string) => any,
 }
 
 const defaultContext: ActivePensumContextProps = {
   state: createPayload(null),
   dispatch: () => {},
+  load: () => {},
 }
 
 
 /** Context for the current loaded pensum. */
 const ActivePensumContext = createContext(defaultContext);
-
-/** Custom dispatch that handles async stuff. */
-function customDispatchFactory(dispatch: React.Dispatch<ActivePensum.Action>) {
-  return async (action: ActivePensum.Action) => {
-    switch (action.type) {
-      case 'load':
-        dispatch({ type: 'loading', payload: true });
-        const { university, code } = action.payload;
-        try {
-          const pensum = await fetchPensumFromCode(university, code);
-          dispatch({ type: 'set', payload: pensum });
-        }
-        catch (error) {
-          const err = { type: 'error' as 'error', payload: undefined as any };
-          if (error instanceof SyntaxError)
-            err.payload = `JSON could not be parsed for ${university}/${code}.`;
-          else if (error instanceof PensumFetchError)
-            err.payload = error.message;
-          else
-            err.payload = error;
-
-          dispatch(err);
-        }
-        finally {
-          break;
-        }
-
-      default:
-        dispatch(action);
-    }
-  }
-}
 
 type Props = { children: any};
 
@@ -60,10 +30,29 @@ export const ActivePensumProvider = memo(function ActivePensumProvider({ childre
     dispatch({type: 'load/fromSave'});
   }, []);
 
-  // Custom dispatch with async, non-pure code (fetchPensum).
-  const customDispatch = useCallback(customDispatchFactory(dispatch), []);
+  // Custom fn to load a pensum
+  const load = useCallback(async (university: string, code: string) => {
+    dispatch({ type: 'loading', payload: true });
+
+    try {
+      const pensum = await fetchPensumFromCode(university, code);
+      dispatch({ type: 'set', payload: pensum });
+    }
+    catch (error) {
+      let m: any;
+
+      if (error instanceof SyntaxError)
+        m = `JSON could not be parsed for ${university}/${code}.`;
+      else if (error instanceof PensumFetchError)
+        m = error.message;
+      else
+        m = error;
+
+      dispatch({ type: 'error' as 'error', payload: m });
+    }
+  }, []);
   
-  return <ActivePensumContext.Provider value={{ state, dispatch: customDispatch }}>
+  return <ActivePensumContext.Provider value={{ state, dispatch, load }}>
     {children}
   </ActivePensumContext.Provider>
 })

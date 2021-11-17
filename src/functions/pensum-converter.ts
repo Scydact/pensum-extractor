@@ -1,3 +1,4 @@
+import { japaneseDateFormat } from "lib/format-utils";
 
 /** Converts a pensum from an old format to a new format. */
 export function validatePensum(pensum: Pensum.Save.Legacy.Pensum2 | Pensum.Save.Pensum | null, university: string) {
@@ -55,6 +56,16 @@ export function loadPensum2(old: Pensum.Save.Legacy.Pensum2, university: string)
     fetchDate: '2021-04-24',
     career: old.carrera,
     info: old.infoCarrera,
+    src: {
+      type: 'convert',
+      date: japaneseDateFormat(new Date()),
+      url: `./pensum/${university}/${old.codigo.toLowerCase()}.json`,
+    },
+    periodType: {
+      name: 'cuatrimestre',
+      acronym: 'cuat',
+      two: 'ct',
+    },
     loose: [],
     periods: [],
   };

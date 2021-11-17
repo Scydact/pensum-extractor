@@ -20,8 +20,6 @@ TODO: Service worker (online first, cache 2nd!!)
 [2](https://developers.google.com/web/tools/workbox/guides/configure-workbox)
 
 TODO: Make the app work again
-- [ ] Add src tag to pensum type (check TODO at the end of the page).
-- [ ] Add period-type to university.json (If its a semester/cuarter/trimester...), with full name and short name (Sm. Tr. ).
 - [ ] Get dark mode from user preference (using @media stuff thingy, check the original DarkMode class)
 - [ ] Display loose mats somewhere
 - [ ] Add labels to the Uni/Career React-Select selectors.
@@ -44,6 +42,8 @@ TODO: Make the app work again
     - [ ] Dark mode friendly (connection lines are currently black)
 - [x] Mat post-req and processing
   - [x] Use map to associate post-reqs?
+- [x] Add src tag to pensum type (check TODO at the end of the page).
+- [x] Add period-type to university.json (If its a semester/cuarter/trimester...), with full name and short name (Sm. Tr. ).
 
 
 TODO: Extra new features

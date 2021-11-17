@@ -84,6 +84,46 @@ namespace Pensum {
     fetchDate: string,
     /** Lineas de detalle extra en el pensum. */
     info: string[],
+    //- [ ] src tags (with type="pdf, online, scan, fetch (only for fetch())" and url/fetch date)
+    /** Fuente de origen de este pensum. */
+    src: {
+      /** 
+       * Tipo de origen:
+       *  - pdf:    documento pdf virtual;
+       *  - online: link desde la misma universidad.
+       *  - scan:   documento pdf de un pensum real escaneado.
+       *  - fetch:  autogenerado por este programa.
+       */
+      type: string,
+      /** 
+       * URL de su respectiva fuente:
+       *  - Archivo en linea, para pdf y scan
+       *  - Link de pagina, para online y fetch
+       */
+      url: string | null,
+      /** 
+       * Fecha de creacion/obtencion de la fuente. 
+       * Preferible formato YYYY-MM-DD. */
+      date: string,
+    },
+    /** Periodo a utilizar (semestre, cuatrimestre, trimestre) */
+    periodType: {
+      /** 
+       * Nombre largo del periodo.
+       * @example semestre, cuatrimestre, trimestre...
+       */
+      name: string,
+      /**
+       * Nombre corto del periodo.
+       * @example sem., cuat., tri...
+       */
+      acronym: string,
+      /**
+       * Nombre super corto del periodo.
+       * @example sm, ct, tr...
+       */
+       two: string,
+    }
     /** Materias que no estan explicitamente en el pensum, pero que aun asi son requisitos. (ej. ENG100) */
     loose: Mat[]
     /** Cuatrimestres, cada uno con sus respectivas materias. */

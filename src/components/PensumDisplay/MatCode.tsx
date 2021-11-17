@@ -1,5 +1,5 @@
 import ActivePensumContext from 'contexts/active-pensum';
-import { classnames } from 'lib/react-utils';
+import { classnames } from 'lib/format-utils';
 import { useContext } from 'react';
 import './mat-code.scss';
 
