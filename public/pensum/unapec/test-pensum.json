@@ -1,0 +1,40 @@
+{
+    "carrera": "LICENCIATURA EN DEMOSTRADOR",
+    "codigo": "DEMO11",
+    "vigencia": "01/01/2016",
+    "infoCarrera": [
+        "TOTAL GENERAL DE CRÉDITOS: 1337",
+        "TÍTULO: LICENCIATURA EN DEMOSTRADOR",
+        "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. Probar 20 productos en lanzamiento."
+    ],
+    "cuats": [
+        [
+            {
+                "codigo": "DER016",
+                "asignatura": "DERECHO LABORAL",
+                "creditos": 3
+            },
+            {
+                "codigo": "OPTF2D",
+                "asignatura": "ELECTIVA ESPECIALIZADA FINANZAS IV",
+                "creditos": 1337,
+                "prereqExtra": "60% De los créditos aprobados"
+            }
+        ],
+        [
+            {
+                "codigo": "TES-MON",
+                "asignatura": "TRABAJO DE GRADO O CURSO MONOGRAFICO",
+                "creditos": 6,
+                "prereqExtra": "92% De los créditos aprobados"
+            },
+            {
+                "codigo": "OPTDEP",
+                "asignatura": "OPTATIVA DEPORTE",
+                "creditos": 0
+            }
+        ]
+    ],
+    "error": null,
+    "version": 2
+}
