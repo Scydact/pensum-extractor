@@ -26,10 +26,10 @@ export function sortByProp<T, K extends keyof T>(...propList: K[]) {
  * // returns {x: '1', y: '2', z: '3'}
  */
 export function objectMap
-  <K extends keyof O, T extends ValueOf<O>, O extends Record<K, T>, N>
-  (obj: O, fn: (val: T, key: keyof O, index: number) => N) {
+  <T, F extends (val: T[keyof T], key: keyof T, index: number) => any>
+  (obj: T, fn: F) {
   return Object.fromEntries(
-    (Object.entries(obj) as [keyof O, T][]).map(
-      ([k, v], i) => [k, fn(v, k, i)] as [keyof O, N])
-  ) as { [P in keyof O]: N }
+    (Object.entries(obj) as [keyof T, T[keyof T]][]).map(
+      ([k, v], i) => [k, fn(v, k, i)] as [keyof T, ReturnType<F>])
+  ) as { [P in keyof T]: ReturnType<F> }
 }
