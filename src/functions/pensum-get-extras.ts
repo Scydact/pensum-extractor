@@ -1,3 +1,4 @@
+import { difference } from "lib/set-utils";
 
 type MatExtraData = {
   /** List of all mats */
@@ -65,11 +66,10 @@ export function processPensumMats(pensum: Pensum.Pensum | null): MatExtraData {
 
   // Get unhandled loose mats
   const matSet = new Set(matMap.keys());
-  const hasPostSet = new Set(matPostreq.keys());
+  const hasPostreqSet = new Set(matPostreq.keys());
   
   // Codes that are prereqs to something but do not exist on mats.
-  const looseUnhandled = new Set(
-    Array.from(hasPostSet).filter(x => !matSet.has(x)));
+  const looseUnhandled = difference(hasPostreqSet, matSet);
 
 
   // Play all the warnings
