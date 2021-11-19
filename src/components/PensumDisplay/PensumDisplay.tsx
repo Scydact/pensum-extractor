@@ -1,4 +1,5 @@
 import Card from 'react-bootstrap/Card';
+import PensumLoose from './PensumLoose';
 import PensumTable from "./PensumTable";
 
 type Props = {
@@ -7,7 +8,6 @@ type Props = {
 
 function PensumDisplay({ pensum }: Props) {
 
-
   return <>
     <Card>
       <Card.Body className="pensum-table-container">
@@ -15,6 +15,8 @@ function PensumDisplay({ pensum }: Props) {
         <PensumTable pensum={pensum} />
       </Card.Body>
     </Card>
+    
+    <PensumLoose pensum={pensum} />
   </>
 }
 

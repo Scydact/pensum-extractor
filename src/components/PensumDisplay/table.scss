@@ -1,8 +1,8 @@
 .pensum-table-container .card-title{
   margin: 1rem 0;
+  font-size: Clamp(1.25rem, 5vmin, 2.5rem);
+  text-transform: capitalize;
 }
-
-
 
 .row-period {
   --bg-even: rgba(var(--bs-body-color-rgb), 0.1);
@@ -22,12 +22,14 @@
   flex: 0 0 auto;
   display: flex;
 
-  background: linear-gradient(90deg, transparent 0%, var(--bg-even) 100%);
-
   align-items: center;
   justify-content: center;
 
-  &:hover {
+  &.click-target {
+    background: linear-gradient(90deg, transparent 0%, var(--bg-even) 100%);
+  }
+
+  &.click-target:hover {
     background: var(--bs-primary);
     color: white;
     cursor: pointer;
@@ -43,13 +45,6 @@
   top: -2px;
 
   font-weight: bold;
-
-  .row-period-num {
-    background: inherit;
-    &:hover {
-      background: inherit;
-    }
-  }
 }
 
 
@@ -133,4 +128,12 @@
 // Don't break the CR header on small displays
 .row-cr {
   white-space: nowrap;
+}
+
+.course {
+  background-color: gold;
+}
+
+.passed {
+  background-color: green;
 }

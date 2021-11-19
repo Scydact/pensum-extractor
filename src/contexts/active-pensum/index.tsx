@@ -1,6 +1,6 @@
 import { fetchPensumFromCode, PensumFetchError } from "functions/pensum-fetch";
 import React, { createContext, memo, useCallback, useEffect, useReducer } from "react";
-import { ActivePensum, activePensumReducer, createPayload } from "./active-pensum-reducer";
+import { activePensumReducer, createPayload } from "./reducer";
 
 
 type ActivePensumContextProps = {

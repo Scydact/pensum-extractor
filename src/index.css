@@ -1,6 +1,10 @@
 @import url("https://fonts.googleapis.com/css?family=Open+Sans&display=swap");
 @import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
 
+* {
+  box-sizing: border-box;
+}
+
 body {
   margin: 0;
   font-family: "Open Sans", -apple-system, BlinkMacSystemFont, 'Roboto', 'Segoe UI', 'Oxygen',
@@ -14,4 +18,17 @@ code,
 .code {
   font-family: "Roboto Mono", source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+}
+
+
+/* Sticky footer :D */
+html, body, #root {
+  /* Minimun height! */
+  height: 100%;
+}
+
+#root > footer {
+  /* Forces the footer to 'recoil back' to the bottom of the window. */
+  position: sticky;
+  top: 100vh;
 }

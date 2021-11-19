@@ -7,6 +7,7 @@ import AppFooter from 'components/AppFooter';
 import { UniversityProvider } from 'contexts/university-data';
 import { ActivePensumProvider } from 'contexts/active-pensum';
 import { useCallback } from 'react';
+import { MatSelectionProvider } from 'contexts/mat-selection';
 
 
 function App() {
@@ -16,13 +17,15 @@ function App() {
     return (
       <UniversityProvider>
         <ActivePensumProvider>
-          {props.children}
+          <MatSelectionProvider>
+            {props.children}
+          </MatSelectionProvider>
         </ActivePensumProvider>
       </UniversityProvider>
     )
   }, []);
 
-  return (  
+  return (
     <Providers>
       <AppNavbar />
 

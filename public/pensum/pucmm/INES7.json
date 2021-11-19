@@ -1,0 +1,438 @@
+{
+  "version": 5,
+  "institution": "pucmm",
+  "code": "INES7",
+  "publishDate": "01/05/2004",
+  "fetchDate": "2021-04-24",
+  "career": "INGENIERIA ELECTRICAZA",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 280",
+    "TÍTULO: INGENIERIA ELECTRICAZA",
+    "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. Cursar dos asignaturas en inglés. Realizar seis (6) visitas programadas a industrias."
+  ],
+  "src": {
+    "type": "convert",
+    "date": "17-11-2021",
+    "url": "./pensum/pucmm/ines7.json"
+  },
+  "periodType": {
+    "name": "cuatrimestre",
+    "acronym": "cuat",
+    "two": "ct"
+  },
+  "loose": [
+    {
+      "code": "TEC113",
+      "name": "FISICA ELECTRICA",
+      "cd": 4,
+      "prereq": [
+        "TEC112"
+      ]
+    }
+  ],
+  "periods": [
+    [
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3
+      },
+      {
+        "code": "IDI033",
+        "name": "INGLES PARA INGENIERIA I",
+        "cr": 3
+      },
+      {
+        "code": "MAT126",
+        "name": "MATEMATICA BASICA PARA INGENIERIA",
+        "cr": 4
+      },
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2
+      },
+      {
+        "code": "SOC041",
+        "name": "ECOLOGIA",
+        "cr": 2
+      },
+      {
+        "code": "TEC098",
+        "name": "INTRODUCCION A LA INGENIERIA",
+        "cr": 2
+      },
+      {
+        "code": "TEC105",
+        "name": "QUIMICA GENERAL I",
+        "cr": 3
+      },
+      {
+        "code": "TEC107",
+        "name": "LABORATORIO QUIMICA GENERAL I",
+        "cr": 1
+      }
+    ],
+    [
+      {
+        "code": "ESP102",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS I",
+        "cr": 4,
+        "prereq": [
+          "ESP101"
+        ]
+      },
+      {
+        "code": "IDI034",
+        "name": "INGLES PARA INGENIERIA II",
+        "cr": 3,
+        "prereq": [
+          "IDI033"
+        ]
+      },
+      {
+        "code": "MAT127",
+        "name": "MATEMATICA SUPERIOR PARA INGENIERIA",
+        "cr": 5,
+        "prereq": [
+          "MAT126"
+        ]
+      },
+      {
+        "code": "TEC106",
+        "name": "QUIMICA GENERAL II",
+        "cr": 3,
+        "prereq": [
+          "TEC105"
+        ]
+      },
+      {
+        "code": "TEC108",
+        "name": "LABORATORIO QUIMICA GENERAL II",
+        "cr": 1,
+        "prereq": [
+          "TEC105",
+          "TEC107"
+        ]
+      },
+      {
+        "code": "TEC111",
+        "name": "FISICA GENERAL",
+        "cr": 4,
+        "prereq": [
+          "MAT126"
+        ]
+      },
+      {
+        "code": "TEC132",
+        "name": "LABORATORIO FISICA GENERAL",
+        "cr": 1,
+        "prereq": [
+          "MAT126"
+        ]
+      }
+    ],
+    [
+      {
+        "code": "IDI037",
+        "name": "INGLES P/INGENIERIA V",
+        "cr": 3,
+        "prereq": [
+          "IDI036"
+        ]
+      },
+      {
+        "code": "MAT270",
+        "name": "ECUACIONES DIFERENCIALES",
+        "cr": 5,
+        "prereq": [
+          "MAT132"
+        ]
+      },
+      {
+        "code": "TEC123",
+        "name": "LABOR.CIRCUITOS ELECTRICOS I",
+        "cr": 1,
+        "prereq": [
+          "TEC113",
+          "TEC120"
+        ]
+      },
+      {
+        "code": "TEC128",
+        "name": "FISICA CUANTICA",
+        "cr": 3,
+        "prereq": [
+          "TEC113"
+        ]
+      },
+      {
+        "code": "TEC129",
+        "name": "DIBUJO TECNICO ASISTIDO POR COMPUTADORAS",
+        "cr": 3,
+        "prereq": [
+          "MAT127"
+        ]
+      },
+      {
+        "code": "TEC146",
+        "name": "CIRCUITOS ELECTRICOS I",
+        "cr": 3,
+        "prereq": [
+          "MAT132",
+          "TEC113"
+        ]
+      },
+      {
+        "code": "TEC190",
+        "name": "LOGICA DIGITAL I",
+        "cr": 3,
+        "prereq": [
+          "TEC113"
+        ]
+      },
+      {
+        "code": "TEC200",
+        "name": "LAB. LOGICA DIGITAL I",
+        "cr": 1,
+        "prereq": [
+          "TEC113",
+          "TEC120"
+        ]
+      }
+    ],
+    [
+      {
+        "code": "IDI038",
+        "name": "INGLES P/INGENIERIA VI",
+        "cr": 3,
+        "prereq": [
+          "IDI037"
+        ]
+      },
+      {
+        "code": "MAT271",
+        "name": "METODO MATEMATICO",
+        "cr": 5,
+        "prereq": [
+          "MAT270"
+        ]
+      },
+      {
+        "code": "TEC124",
+        "name": "LABOR.CIRCUITOS ELECTRICOS II",
+        "cr": 1,
+        "prereq": [
+          "TEC123",
+          "TEC146"
+        ]
+      },
+      {
+        "code": "TEC147",
+        "name": "CIRCUITOS ELECTRICOS II",
+        "cr": 3,
+        "prereq": [
+          "MAT270",
+          "TEC146"
+        ]
+      },
+      {
+        "code": "TEC148",
+        "name": "ELECTRONICA I",
+        "cr": 3,
+        "prereq": [
+          "TEC146"
+        ]
+      },
+      {
+        "code": "TEC155",
+        "name": "LAB.DE ELECTRONICA I",
+        "cr": 1,
+        "prereq": [
+          "TEC123",
+          "TEC146"
+        ]
+      },
+      {
+        "code": "TEC269",
+        "name": "ELECTRODINAMICA",
+        "cr": 3,
+        "prereq": [
+          "MAT270"
+        ]
+      },
+      {
+        "code": "TEC650",
+        "name": "DISEÑO DE INGENIERIA ASISTIDO POR COMPUTADORA",
+        "cr": 3,
+        "prereq": [
+          "TEC129"
+        ]
+      }
+    ],
+    [
+      {
+        "code": "CON127",
+        "name": "CONTABILIDAD DE COSTOS PARA INGENIEROS",
+        "cr": 3,
+        "prereq": [
+          "MAT127"
+        ]
+      },
+      {
+        "code": "IDI040",
+        "name": "INGLES P/INGENIERIA VIII",
+        "cr": 3,
+        "prereq": [
+          "IDI039"
+        ]
+      },
+      {
+        "code": "TEC118",
+        "name": "MAQUINAS ELECTRICAS I",
+        "cr": 3,
+        "prereq": [
+          "TEC124",
+          "TEC147"
+        ]
+      },
+      {
+        "code": "TEC154",
+        "name": "ELECTRONICA DE POTENCIA",
+        "cr": 3,
+        "prereq": [
+          "TEC149"
+        ]
+      },
+      {
+        "code": "TEC157",
+        "name": "LAB.DE ELECTRONICA DE POTENCIA",
+        "cr": 1,
+        "prereq": [
+          "TEC149",
+          "TEC156"
+        ]
+      },
+      {
+        "code": "TEC162",
+        "name": "LABOR.MAQUINAS ELECTRICAS I",
+        "cr": 1,
+        "prereq": [
+          "TEC124",
+          "TEC147"
+        ]
+      },
+      {
+        "code": "TEC176",
+        "name": "MICROPROCESADORES I",
+        "cr": 3,
+        "prereq": [
+          "TEC191",
+          "TEC201"
+        ]
+      },
+      {
+        "code": "TEC205",
+        "name": "LABOR. MICROPROCESADORES I",
+        "cr": 1,
+        "prereq": [
+          "TEC191",
+          "TEC201"
+        ]
+      },
+      {
+        "code": "TEC213",
+        "name": "SISTEMA DE CONTROL I",
+        "cr": 3,
+        "prereq": [
+          "MAT222",
+          "TEC164"
+        ]
+      }
+    ],
+    [
+      {
+        "code": "IDI042",
+        "name": "INGLES P/INGENIERIA X",
+        "cr": 3,
+        "prereq": [
+          "IDI041"
+        ]
+      },
+      {
+        "code": "TEC167",
+        "name": "DISEÑO INSTALACIONES ELECTRICAS I",
+        "cr": 3,
+        "prereq": [
+          "TEC118",
+          "TEC650"
+        ]
+      },
+      {
+        "code": "TEC216",
+        "name": "CONTROL DE MOTORES ELECTRICOS II",
+        "cr": 3,
+        "prereq": [
+          "TEC193"
+        ]
+      },
+      {
+        "code": "TEC217",
+        "name": "LAB. CONTROL MOTORES ELECTRICOS II",
+        "cr": 1,
+        "prereq": [
+          "TEC193",
+          "TEC194"
+        ]
+      },
+      {
+        "code": "TEC225",
+        "name": "PLANTAS ELECTRICAS Y SUBSTACIONES II",
+        "cr": 4,
+        "prereq": [
+          "TEC184"
+        ]
+      },
+      {
+        "code": "TEC556",
+        "name": "CONTROLES LOGICOS PROGRAMABLES I",
+        "cr": 3,
+        "prereq": [
+          "TEC193",
+          "TEC194"
+        ]
+      },
+      {
+        "code": "TEC636",
+        "name": "LAB. CONTROLES LOGICOS PROGRAMABLES I",
+        "cr": 1,
+        "prereq": [
+          "TEC193",
+          "TEC194"
+        ]
+      }
+    ],
+    [
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0
+      },
+      {
+        "code": "TES-MON",
+        "name": "TRABAJO DE GRADO O CURSO MONOGRAFICO",
+        "cr": 6,
+        "prereq": [
+          {
+            "text": "97% De los créditos aprobados"
+          }
+        ]
+      }
+    ]
+  ]
+}

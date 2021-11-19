@@ -1,5 +1,5 @@
 import UniversityContext from "contexts/university-data";
-import { useCallback, useContext, useEffect, useMemo, useState } from "react";
+import React, { memo, useCallback, useContext, useEffect, useMemo, useState } from "react";
 
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
@@ -21,38 +21,39 @@ function createLabelString(code: string, name: string) {
   return `[${code}] ${name}`;
 }
 
+
 /** Simple form that manages University and Career selection 
- * (Populates the university/career list from the server.). 
- * Also loads the required pensum. */
+ * (Populates the university/career list from the server.). */
 function PensumSelector() {
   // Quite awful, just read this context from right to left.
   const { state: {
-      pensum: activePensum,
-      error: error_pensum,
-      loading: loading_pensum,
+      pensum:   activePensum,
+      error:    error_pensum,
+      loading:  loading_pensum,
     },
-    dispatch: activePensumDispatcher,
     load: loadPensum,
   } = useContext(ActivePensumContext);
 
   const {
-    state: universityData,
+    state:  universityData,
     select: selectUniversity,
   } = useContext(UniversityContext);
 
   const {
     universities,
     selected: selected_uni,
-    loading: loading_uni,
-    error: error_uni,
+    loading:  loading_uni,
+    error:    error_uni,
   } = universityData;
 
   const [pensumOnInput, setPensumOnInput] = useState(null as SelectProps);
   const previousPensum = usePreviousValue(activePensum);
 
 
-  // FORM OPTIONS
+  // ***************************************************************************
   // Carrera select form <options>
+  // Maps careers from {code, name} to {value, label}
+  // ***************************************************************************
   const careerSelectOptions = useMemo(() => {
     const pensumList = selected_uni?.careers;
     if (!pensumList) return [];
@@ -62,8 +63,13 @@ function PensumSelector() {
     return o.map(x => ({ value: x.code, label: createLabelString(x.code, x.name) }));
   }, [selected_uni]);
 
-
-  // On pensum change, set values
+  
+  // ***************************************************************************
+  // On pensum change
+  //  If the pensum changed, do:
+  //  1. Auto select university from the active pensum.
+  //  2. Update the selected career <select> value.
+  // ***************************************************************************
   useEffect(() => {
     // If pensums are the same, nothing to change!
     if (activePensum === previousPensum) return;
@@ -91,55 +97,21 @@ function PensumSelector() {
     x => ({ value: x.code, label: createLabelString(x.shortName, x.longName) })),
     [universities]);
 
+  const selectedUniversity = useMemo(() => (universitySelectOptions.find(
+    x => x.value === selected_uni?.code) || null),
+    [universitySelectOptions, selected_uni]);
+
   // On user change university selection
-  const handleUniversityChange = useMemo(() => (newValue: SelectProps) => {
+  const handleUniversityChange = useCallback((newValue: SelectProps) => {
     selectUniversity(newValue?.value || null);
   }, [selectUniversity]);
 
-  const SelectUni = useCallback(() => (<>
-    <label className="form-label mb-0 small">Universidad</label>
-    <Select
-      // defaultValue={universitySelectOptions[0]}
-      value={universitySelectOptions.find(x => x.value === selected_uni?.code)}
-      options={universitySelectOptions}
-      isSearchable={true}
-      isLoading={loading_uni}
-      onChange={handleUniversityChange as any} // as any to be able to use selectStyles without TS panicking.
-      name="university"
-      className="mb-2"
-      theme={selectTheme}
 
-      placeholder="Seleccione una universidad..."
-      styles={optionStyle} />
-  </>
-  ), [universitySelectOptions, loading_uni, handleUniversityChange, selected_uni?.code]);
-
-    
   // ***************************************************************************
-  // Career select
-  // ***************************************************************************
-  const SelectCareer = useCallback(() => (<>
-    <label className="form-label mb-0 small">Carrera</label>
-    <CreatableSelect
-      isClearable
-      value={pensumOnInput}
-      options={careerSelectOptions}
-      isLoading={loading_uni}
-      loadingMessage={() => <span>Cargando carreras...</span>}
-      onChange={setPensumOnInput as any} // as any to be able to use selectStyles
-      className="mb-2"
-      theme={selectTheme}
-
-      placeholder="Seleccione o escriba una carrera o su codigo..."
-      styles={optionStyle} />
-  </>
-  ), [pensumOnInput, careerSelectOptions, loading_uni, setPensumOnInput])
-  
-
-
   // On submit
-  const handleSubmit = useCallback((evt: any) => {
-    evt.preventDefault();
+  // ***************************************************************************
+  const handleSubmit = useCallback((evt?: any) => {
+    if (evt) evt.preventDefault();
     const uni = selected_uni?.code || '';
     const code = pensumOnInput?.value || '';
     loadPensum(uni, code);
@@ -149,9 +121,17 @@ function PensumSelector() {
     <Card>
       <Card.Body>
         <Form onSubmit={handleSubmit}>
-          <SelectUni />
+          <SelectUni
+            value={selectedUniversity}
+            options={universitySelectOptions}
+            isLoading={loading_uni}
+            onChange={handleUniversityChange} />
 
-          <SelectCareer />
+          <SelectCareer
+            value={pensumOnInput}
+            options={careerSelectOptions}
+            isLoading={loading_uni}
+            onChange={setPensumOnInput}/>
 
           <Button
             type="submit"
@@ -169,5 +149,65 @@ function PensumSelector() {
     </Card>
   )
 }
+
+
+// ***************************************************************************
+// University select
+// ***************************************************************************
+type CustomSelectProps = {
+  value: SelectProps,
+  options: SelectProps[],
+  isLoading: boolean,
+  onChange: Function,
+}
+
+const SelectUni = memo(
+  function SelectUni({ value, options, isLoading, onChange }: CustomSelectProps) {
+    return (<>
+      <label className="form-label mb-0 small">Universidad</label>
+      <Select
+        // defaultValue={universitySelectOptions[0]}
+        value={value}
+        options={options}
+        isSearchable={true}
+        isLoading={isLoading}
+        onChange={onChange as any} // as any to be able to use selectStyles without TS panicking.
+        name="university"
+        className="mb-2"
+        theme={selectTheme}
+
+        placeholder="Seleccione una universidad..."
+        styles={optionStyle} />
+    </>
+    )
+  }
+);
+
+
+// ***************************************************************************
+// Career select
+// ***************************************************************************
+const SelectCareer = memo(
+  function SelectCareer({ value, options, isLoading, onChange }: CustomSelectProps) {
+    return (<>
+      <label className="form-label mb-0 small">Carrera</label>
+      <CreatableSelect
+        isClearable
+        value={value}
+        options={options}
+        isLoading={isLoading}
+        loadingMessage={() => <span>Cargando carreras...</span>}
+        onChange={onChange as any} // as any to be able to use selectStyles
+        className="mb-2"
+        theme={selectTheme}
+
+        placeholder="Seleccione o escriba una carrera o su codigo..."
+        styles={optionStyle} />
+    </>
+    )
+  }
+);
+
+
 
 export default PensumSelector;

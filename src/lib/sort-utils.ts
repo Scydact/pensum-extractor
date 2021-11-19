@@ -17,3 +17,19 @@ export function sortByProp<T, K extends keyof T>(...propList: K[]) {
     return -1;
   }
 }
+
+/** 
+ * Similar to Array.map(), but for objects. 
+ * @example
+ * const foo = {x: 1, y: 2, z: 3};
+ * objectMap(foo, v => v.toString());
+ * // returns {x: '1', y: '2', z: '3'}
+ */
+export function objectMap
+  <K extends keyof O, T extends ValueOf<O>, O extends Record<K, T>, N>
+  (obj: O, fn: (val: T, key: keyof O, index: number) => N) {
+  return Object.fromEntries(
+    (Object.entries(obj) as [keyof O, T][]).map(
+      ([k, v], i) => [k, fn(v, k, i)] as [keyof O, N])
+  ) as { [P in keyof O]: N }
+}

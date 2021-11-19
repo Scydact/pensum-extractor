@@ -2,41 +2,6 @@ import { validatePensum } from "functions/pensum-converter";
 import pensumToSavePensum from "functions/pensum-save";
 import processPensumMats from "functions/pensum-get-extras";
 
-export declare namespace ActivePensum {
-
-  /** List of universities/careers. */
-  type Payload = {
-    pensum: Pensum.Pensum | null,
-    matData: ReturnType<typeof processPensumMats>,
-    error: any | null,
-    loading: boolean
-  };
-
-  type Action =
-    | {
-      type: 'set'
-      payload: Payload['pensum']
-    }
-    | {
-      type: 'clear' | 'load/fromSave'
-    }
-    | {
-      type: 'load'
-      payload: {
-        university: string,
-        code: string,
-      }
-    }
-    | {
-      type: 'error',
-      payload: Payload['error']
-    }
-    | {
-      type: 'loading'
-      payload: Payload['loading']
-    }
-}
-
 const PENSUM_STORAGE_KEY = 'pensumData';
 
 export function savePensumToLocalStorage(pensum: Pensum.Pensum | null) {
