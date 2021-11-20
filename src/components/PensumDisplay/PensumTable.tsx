@@ -7,14 +7,11 @@ import React, { useCallback, useContext } from 'react';
 import { classnames, toTitleCase } from 'lib/format-utils';
 import { helpers, MatSelectionDispatchContext, MatSelectionTrackerContext } from 'contexts/mat-selection';
 
-type Props = {
-  pensum: Pensum.Pensum
-}
-
 /** Headers for the pensum table. */
-export const TableHead = React.memo((props: {periodNumStr: string}) => {  // Memo makes this thing pure, and never update >:D (if props don't change).
+export const TableHead = React.memo((props: { periodNumStr: string | null }) => {
+  // Memo makes this thing pure, and never update >:D (if props don't change).
   
-  const processedPeriod = `${toTitleCase(props.periodNumStr)}.`;
+  const processedPeriod = (props.periodNumStr) ? `${toTitleCase(props.periodNumStr)}.` : '';
   
   return <Row className="pensum-header row-period">
     <Col className="row-period-num">{processedPeriod}</Col>
@@ -82,12 +79,14 @@ type PeriodProps = {
 };
 
 /** Displays a single period from the pensum as table rows. */
-export const Period = React.memo(({ period, periodNum, cumlen = 0 }: PeriodProps) => {
+export const Period = ({ period, periodNum, cumlen = 0 }: PeriodProps) => {
   const dispatch = useContext(MatSelectionDispatchContext);
 
   const onClick = useCallback((evt: any) => {
     dispatch({ type: 'selectPeriod', payload: period.map(x => x.code) });
-  }, [period, dispatch])
+  }, [period, dispatch]);
+
+  if (period.length === 0) return null;
 
   return <Row className="row-period">
     <Col
@@ -105,17 +104,22 @@ export const Period = React.memo(({ period, periodNum, cumlen = 0 }: PeriodProps
       )}
     </Col>
   </Row>
-});
+}
 
 
+type PensumTableProps = {
+  periods: Pensum.Pensum['periods']
+  periodType?: Pensum.Pensum['periodType']
+}
+
+const defaultPeriodType = {
+  name: 'periodo',
+  acronym: 'per',
+  two: 'pr'
+};
 
 /** Displays a pensum. */
-function PensumTable({ pensum }: Props) {
-  const { periods, periodType = {
-    name: 'periodo',
-    acronym: 'per',
-    two: 'pr'
-  } } = pensum;
+function PensumTable({ periods, periodType = defaultPeriodType }: PensumTableProps) {
 
   // https://stackoverflow.com/a/55261098
   // CumLen is passed down to calculate if a row is even or odd.

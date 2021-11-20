@@ -7,16 +7,25 @@ type Props = {
 }
 
 function PensumDisplay({ pensum }: Props) {
+  const { career, periods, loose, periodType } = pensum;
 
   return <>
     <Card>
       <Card.Body className="pensum-table-container">
-        <Card.Title>{pensum.career}</Card.Title>
-        <PensumTable pensum={pensum} />
+        <Card.Title>{career}</Card.Title>
+        <PensumTable periods={periods} periodType={periodType} />
       </Card.Body>
     </Card>
-    
-    <PensumLoose pensum={pensum} />
+
+    {loose &&
+      <Card>
+        <Card.Body className="pensum-table-container">
+          <Card.Title>Demás materias</Card.Title>
+          <PensumLoose loose={loose} />
+        </Card.Body>
+      </Card>
+    }
+
   </>
 }
 
