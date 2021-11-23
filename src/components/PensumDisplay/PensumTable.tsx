@@ -5,7 +5,7 @@ import Col from 'react-bootstrap/Col';
 import MatCode from './MatCode';
 import React, { useCallback, useContext } from 'react';
 import { classnames, toTitleCase } from 'lib/format-utils';
-import { helpers, MatSelectionDispatchContext, MatSelectionTrackerContext } from 'contexts/mat-selection';
+import { matSelectHelpers, MatSelectionDispatchContext, MatSelectionTrackerContext } from 'contexts/mat-selection';
 
 /** Headers for the pensum table. */
 export const TableHead = React.memo((props: { periodNumStr: string | null }) => {
@@ -46,7 +46,7 @@ function MatRow({ mat, idx }: MatRowProps) {
   const cl = [
     "row-mat",
     (idx & 1) && 'even', // technically should be odd, but i don't care enough.
-    helpers.getTracker(tracker, mat.code),
+    matSelectHelpers.getTracker(tracker, mat.code),
   ];
 
   const reqs = [

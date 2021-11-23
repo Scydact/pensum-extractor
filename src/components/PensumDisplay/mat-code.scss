@@ -2,15 +2,14 @@
   display: inline-block;
 
   background: rgb(42, 66, 172);
-  border-radius: 5px;
+  background: var(--mat-bg);
+  color: var(--mat-fg);
   
+  border-radius: 5px;
   padding: 0 .5rem;
   margin: .1rem;
 
   &.req-text {
     background-color: rgb(70, 133, 252);
-  }
-  &.missing {
-    background-color: red;
   }
 }

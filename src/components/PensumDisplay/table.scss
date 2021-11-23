@@ -17,6 +17,10 @@
   border-top: 1.5px solid var(--border-color);
 }
 
+.pensum-header + .row-period.row {
+  border-top: none;
+}
+
 .row-period-num {
   width: 2rem;
   flex: 0 0 auto;
@@ -130,10 +134,13 @@
   white-space: nowrap;
 }
 
-.course {
-  background-color: gold;
-}
+// .course {
+//   background-color: gold;
+// }
 
-.passed {
-  background-color: green;
+// .passed {
+//   background-color: green;
+// }
+.row-mat {
+  background-color: var(--rowmat-bg);
 }

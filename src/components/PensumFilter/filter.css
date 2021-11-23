@@ -1,0 +1,10 @@
+.filter-selector .btn {
+  background-color: var(--mat-bg);
+  color: var(--mat-fg);
+  border: none;
+}
+.filter-selector .active,
+.filter-selector .active:focus {
+  box-shadow: inset 0 0 0 3px var(--mat-fg);
+  z-index: 0 !important; /* Without this, this btn would overlap the selector. */
+}

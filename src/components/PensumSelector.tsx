@@ -5,6 +5,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import Card from "react-bootstrap/Card";
 import Spinner from "react-bootstrap/Spinner";
+import Container from "react-bootstrap/Container";
 
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
@@ -120,6 +121,7 @@ function PensumSelector() {
   return (
     <Card>
       <Card.Body>
+        <Container>
         <Form onSubmit={handleSubmit}>
           <SelectUni
             value={selectedUniversity}
@@ -145,6 +147,7 @@ function PensumSelector() {
           {error_uni && <p style={{ color: 'red' }}>{'Error @ uni: ' + String(error_uni)}</p>}
           {error_pensum && <p style={{ color: 'red' }}>{'Error @ pensum: ' + String(error_pensum)}</p>}
         </Form>
+        </Container>
       </Card.Body>
     </Card>
   )

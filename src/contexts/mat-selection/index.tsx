@@ -20,7 +20,7 @@ const defaultContext: MatSelectionContextProps = ({
 });
 
 /** Collection of helper functions to use for mat selection. */
-export const helpers = {
+export const matSelectHelpers = {
   /** 
    * Get the current tracker of a mat.
    * @example

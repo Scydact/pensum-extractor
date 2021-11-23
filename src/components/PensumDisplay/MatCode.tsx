@@ -1,4 +1,5 @@
 import ActivePensumContext from 'contexts/active-pensum';
+import { matSelectHelpers, MatSelectionTrackerContext } from 'contexts/mat-selection';
 import { classnames } from 'lib/format-utils';
 import { useContext } from 'react';
 import './mat-code.scss';
@@ -12,7 +13,8 @@ type Props = {
 /** Single matcode. */
 function MatCode({ data, type }: Props) {
   const { state: { matData } } = useContext(ActivePensumContext);
-  let className = ['mat-code', type];
+  const tracker = useContext(MatSelectionTrackerContext);
+  let className: any[] = ['mat-code', type];
 
   let content;
   if (typeof data === 'string') {
@@ -22,7 +24,7 @@ function MatCode({ data, type }: Props) {
     if (matData.looseUnhandled.has(data)) 
       className.push('missing');
 
-    
+    className.push(matSelectHelpers.getTracker(tracker, data) || 'default');
 
   } else {
     content = data.text;
