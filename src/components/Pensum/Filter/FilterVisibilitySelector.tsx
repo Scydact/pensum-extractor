@@ -1,4 +1,4 @@
-import { MatSelectionDispatchContext, MatSelectionFilterContext, MatSelectionModeContext } from "contexts/mat-selection";
+import { MatSelectionDispatchContext, MatSelectionFilterContext } from "contexts/mat-selection";
 import { classnames } from "lib/format-utils";
 import { useCallback, useContext } from "react";
 import Button from "react-bootstrap/Button";
@@ -31,7 +31,7 @@ function FilterVisibilitySelector({ entries }: Props) {
     }
 
     return <>{elems}</>;
-  }, [filter, dispatch]);
+  }, [entries, filter, dispatch]);
 
   return <ButtonGroup className="filter-selector filter-filter">
     <Btns />

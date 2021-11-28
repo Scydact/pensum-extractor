@@ -2,8 +2,6 @@ import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
 import { MatSelectionDispatchContext, MatSelectionModeContext } from "contexts/mat-selection";
 import { useCallback, useContext } from "react";
-import InputGroup from "react-bootstrap/InputGroup";
-import Card from "react-bootstrap/Card";
 import { classnames } from "lib/format-utils";
 import "./filter.scss";
 

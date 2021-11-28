@@ -2,6 +2,7 @@ import ActivePensumContext from 'contexts/active-pensum';
 import { matSelectHelpers, MatSelectionTrackerContext } from 'contexts/mat-selection';
 import { classnames } from 'lib/format-utils';
 import { useContext } from 'react';
+import './mat-code-colors.scss';
 import './mat-code.scss';
 
 

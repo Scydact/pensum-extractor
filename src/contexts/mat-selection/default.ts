@@ -4,7 +4,7 @@ export const matSelectionModeTypes: MatSelection.TrackerModeTypes = [
 ];
 
 /** Creates a default MatSelection object, with all predefined values. */
-export default (): MatSelection.Payload => ({
+const createDefaultSelection = (): MatSelection.Payload => ({
   mode: 'passed',
   tracker: {
     course: new Set(),
@@ -14,3 +14,5 @@ export default (): MatSelection.Payload => ({
   storage: {},
   filter: new Set(),
 });
+
+export default createDefaultSelection;

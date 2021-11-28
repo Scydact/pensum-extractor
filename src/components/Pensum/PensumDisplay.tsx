@@ -1,5 +1,5 @@
 import Card from 'react-bootstrap/Card';
-import PensumTable from "./PensumTable";
+import PensumTable from "./Table";
 
 type Props = {
   pensum: Pensum.Pensum
