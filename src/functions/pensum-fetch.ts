@@ -22,6 +22,9 @@ export async function fetchPensumFromCode(university?: string, code?: string) {
   pensum = await fetchPensumFromCode_localData(university, code);
   if (pensum) return pensum;
 
+  pensum = await fetchPensumFromSource(university, code);
+  if (pensum) return pensum;
+
   // Don't return null!
   // Instead throw error, so this gets catched.
   throw new PensumFetchError(`Unable to fetch pensum with identifier ${university}/${code}`);
@@ -32,7 +35,7 @@ export async function fetchPensumFromCode(university?: string, code?: string) {
  * 
  * **Important note!** This only does fetch. The saving to `localStorage` will be done at window.unload.
  */
-export async function fetchPensumFromCode_localStorage(university: string, code: string) {
+async function fetchPensumFromCode_localStorage(university: string, code: string) {
   const key = [LOCAL_STORAGE_PREFIX, university, code].join('_');
   const pensumData = localStorage.getItem(key);
 
@@ -46,7 +49,7 @@ export async function fetchPensumFromCode_localStorage(university: string, code:
 
 
 /** Tries to fetch the pensum from `./pensum/$UNIVERSIDAD.` */
-export async function fetchPensumFromCode_localData(university: string, code: string) {
+async function fetchPensumFromCode_localData(university: string, code: string) {
   const path = [LOCAL_SERVER_PREFIX, university, code].join('/') + '.json';
 
   let pensumData: Pensum.Save.Pensum;
@@ -60,5 +63,17 @@ export async function fetchPensumFromCode_localData(university: string, code: st
   return validatePensum(pensumData, university);
 }
 
+async function fetchPensumFromSource(university: string, code: string) {
+  switch (university) {
+    case 'unapec': {
+      const extractor = await import('extractor/unapec');
+      return await extractor.default(code, 
+        (state, url, id) => console.log(`${state} ${university}/${code}, using proxy #${id}: ${url}`))
+    }
+
+    default:
+      return null;
+  }
+}
 
 export class PensumFetchError extends Error {}

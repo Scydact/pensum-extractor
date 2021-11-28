@@ -89,12 +89,13 @@ namespace Pensum {
     src: {
       /** 
        * Tipo de origen:
-       *  - pdf:    documento pdf virtual;
-       *  - online: link desde la misma universidad.
-       *  - scan:   documento pdf de un pensum real escaneado.
-       *  - fetch:  autogenerado por este programa.
+       *  - pdf     : documento pdf virtual.
+       *  - online  : link desde la misma universidad.
+       *  - scan    : documento pdf de un pensum real escaneado.
+       *  - fetch   : autogenerado por este programa.
+       *  - convert : convertido de una version anterior de un .json.
        */
-      type: string,
+      type: 'pdf' | 'online' | 'scan' | 'fetch' | 'convert',
       /** 
        * URL de su respectiva fuente:
        *  - Archivo en linea, para pdf y scan
@@ -136,6 +137,7 @@ namespace Pensum {
     /** Materia en formato de guardado. Sin postrequisitos, y con prerequisitos/corequisitos opcionales. */
     type Mat = PartialBy<Pensum.Mat, 'prereq'|'coreq'>
 
+    /** Pensum en formato guardado. `loose` y `periods` tienen sus materias con prereq y coreq opcionales. */
     type Pensum = Omit<Pensum.Pensum, 'loose' | 'periods'> & {
       /** Materias que no estan explicitamente en el pensum, pero que aun asi son requisitos. (ej. ENG100) */
       loose: Mat[],
