@@ -8,6 +8,17 @@ import FilterVisibilitySelector from "./FilterVisibilitySelector";
 
 
 function PensumFilter() {
+  const modeEntries: React.ComponentProps<typeof FilterModeSelector>['entries'] = [
+    ['passed', 'Aprobar'],
+    ['course', 'Cursar'],
+  ];
+
+  const visibleEntries: React.ComponentProps<typeof FilterVisibilitySelector>['entries'] = [
+    [null, 'Pendientes'],
+    ['course', 'Cursando'],
+    ['passed', 'Aprobadas'],
+  ];
+
   return <Card >
     <Card.Body>
     <Container>
@@ -15,11 +26,11 @@ function PensumFilter() {
       <Row>
         <Col>
           <Row><span className="text-center">Modo de selección:</span></Row>
-          <Row><FilterModeSelector /></Row>
+          <Row><FilterModeSelector entries={modeEntries}/></Row>
         </Col>
         <Col>
           <Row><span className="text-center">Mostrar solo:</span></Row>
-          <Row><FilterVisibilitySelector /></Row>
+          <Row><FilterVisibilitySelector entries={visibleEntries}/></Row>
         </Col>
       </Row>
       

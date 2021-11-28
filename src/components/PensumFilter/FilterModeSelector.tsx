@@ -5,18 +5,17 @@ import { useCallback, useContext } from "react";
 import InputGroup from "react-bootstrap/InputGroup";
 import Card from "react-bootstrap/Card";
 import { classnames } from "lib/format-utils";
-import "./filter.css";
+import "./filter.scss";
 
-function FilterModeSelector() {
+type Props = {
+  entries: [MatSelection.TrackerMode, string][]
+}
+
+function FilterModeSelector({ entries }: Props) {
   const mode = useContext(MatSelectionModeContext);
   const dispatch = useContext(MatSelectionDispatchContext);
 
   const Btns = useCallback(() => {
-    const entries:  [MatSelection.TrackerMode, string][] = [
-      ['passed', 'Aprobar'],
-      ['course', 'Cursar'],
-    ];
-
     const elems = [];
 
     for (const [key, val] of entries) {
@@ -32,7 +31,7 @@ function FilterModeSelector() {
     }
 
     return <>{elems}</>;
-  }, [mode, dispatch]);
+  }, [entries, mode, dispatch]);
 
   return <ButtonGroup className="filter-selector filter-mode">
     <Btns />

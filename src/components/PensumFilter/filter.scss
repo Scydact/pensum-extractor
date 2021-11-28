@@ -1,0 +1,64 @@
+
+//https://stackoverflow.com/a/11486224/13255686
+@mixin overlay() {
+  content  : '';
+  top      : 0;
+  right    : 0;
+  bottom   : 0;
+  left     : 0;
+  position : absolute;
+}
+
+.filter-selector {
+
+  .active,
+  .active:focus {
+    /* box-shadow: inset 0 0 0 3px var(--mat-fg); */
+    z-index : 0 !important;
+    /* Without this, this btn would overlap the selector. */
+  }
+
+  .btn {
+    background-color : var(--mat-bg);
+    color            : var(--mat-fg);
+    border-color     : var(--mat-border-color);
+
+    font-weight : 500;
+    font-size   : 0.9em;
+    &.not-active {
+      color      : rgba(var(--mat-fg-rgb), 0.65);
+      
+
+      --spread    : +10px;
+      --neg-spread: -10px;
+
+      &:hover {
+        --spread    : +3px;
+        --neg-spread: -3px;
+      }
+
+      // Tiny shadow if not active
+      $ps : var(--spread);
+      $ns : var(--neg-spread);
+      $c      : rgba(0, 0, 0, 0.3);
+
+      $top    : 0 $ps $ps $ns $c;
+      $bottom : 0 $ns $ps $ns $c;
+      $left   : $ps 0 $ps $ns $c;
+      $right  : $ns 0 $ps $ns $c;
+      box-shadow : inset $top, inset $bottom;
+      
+      &:first-child::before {
+        @include overlay();
+        border-radius: inherit;
+        box-shadow : inset $left;
+      }
+      &:last-child::before {
+        @include overlay();
+        border-radius: inherit;
+        box-shadow : inset $right;
+      }
+
+    }
+  }
+}

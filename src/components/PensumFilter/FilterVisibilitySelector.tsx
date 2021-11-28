@@ -3,17 +3,18 @@ import { classnames } from "lib/format-utils";
 import { useCallback, useContext } from "react";
 import Button from "react-bootstrap/Button";
 import ButtonGroup from "react-bootstrap/ButtonGroup";
+import "./filter.scss";
 
-function FilterVisibilitySelector() {
+
+type Props = {
+  entries: [MatSelection.TrackerMode | null, string][]
+}
+
+function FilterVisibilitySelector({ entries }: Props) {
   const filter = useContext(MatSelectionFilterContext);
   const dispatch = useContext(MatSelectionDispatchContext);
 
   const Btns = useCallback(() => {
-    const entries:  [MatSelection.TrackerMode | null, string][] = [
-      [null, 'Pendientes'],
-      ['course', 'Cursando'],
-      ['passed', 'Aprobadas'],
-    ];
 
     const elems = [];
 
