@@ -26,7 +26,7 @@ TODO: Make the app work again
   - [X] With .clickable done, clean table headers from not():hover
   - [ ] Selection, on a different tracker
     - [ ] To use with tools/selectors (select all post-reqs, prereqs, etc...)
-  - [ ] Save/load to local storage
+  - [X] Save/load to local storage
     - Save as an object {current: {}, currentName: string | null, others: {}},
       where current is the current thing. 
     - That allows multiple saving/loading profiles!
@@ -39,6 +39,7 @@ TODO: Make the app work again
   - [ ] Save to CSV/EXCEL/JSON
   - [ ] Treeview thing
     - [ ] Dark mode friendly (connection lines are currently black)
+    - [ ] Consider migration to [mermaid-js](https://mermaid-js.github.io/mermaid/#/)
 - [X] Mat post-req and processing
   - [X] Use map to associate post-reqs?
 - [X] Add src tag to pensum type (check TODO at the end of the page).

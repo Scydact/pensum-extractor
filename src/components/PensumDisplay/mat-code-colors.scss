@@ -15,16 +15,14 @@ $colors: (
   $l: lightness($base);
   $a: opacity($base);
 
-  // TODO: Make this work :V
-  // On dark: super saturated, except for gray
-  // On bright: 
   $color: (
-    "normal":     hsla($h, $s * (0.5 + 1.3*$ld), $l + 0.7*$ld, $a),
+    "normal":     hsla($h, $s * (0.5 + 1.3*$ld), $l + 0.95*$ld, $a),
     "hover":      hsla($h, $s * (0.4 + 0.2*$ld), 0.80*$l  + $ld, $a),
     "active":     hsla($h, $s * (1.0 + 0.0*$ld), 0.85*$l + 0.5*$ld, $a),
     "disabled":   hsla($h, $s * (0.2 + 0.5*$ld), $l + $ld, $a),
-    "table-odd":  hsla($h, $s, $l, $a * 0.30),
-    "table-even": hsla($h, $s, $l, $a * 0.20)
+    "table-odd":  hsla($h, $s, $l, $a * 0.20),
+    "table-even": hsla($h, $s, $l, $a * 0.30),
+    "table-hover":hsla($h, $s, $l, $a * 0.5),
   );
 
   @return $color;
@@ -33,51 +31,72 @@ $colors: (
 @mixin create-css-vars($name, $color, $mat-fg, $light-delta) {
   $parsed: create-color($color, $light-delta);
 
-  #{$name} {
+  .#{$name} {
     --mat-bg: #{map-get($parsed, "normal")};
     --mat-fg: #{$mat-fg};
 
-    &:hover, &.hover {
-      --mat-bg: #{map-get($parsed, "hover")};
-    }
+    --mat-bg-hover: #{map-get($parsed, "hover")};
+    --mat-bg-active: #{map-get($parsed, "active")};
+    --mat-bg-disabled: #{map-get($parsed, "disabled")};
+    --rowmat-bg-odd: #{map-get($parsed, "table-odd")};
+    --rowmat-bg-even: #{map-get($parsed, "table-even")};
+    
+
+    // Recommended to set this manually
+    // &:hover, &.hover {
+    //   --mat-bg: var(--mat-bg-hover);
+    // }
 
     &:active, &.active {
-      --mat-bg: #{map-get($parsed, "active")};
+      --mat-bg: var(--mat-bg-active);
     }
 
     &:disabled, &.disabled, &.not-active {
-      --mat-bg: #{map-get($parsed, "disabled")};
+      --mat-bg: var(--mat-bg-active);
     }
     
     &.row-mat {
-      --rowmat-bg: #{map-get($parsed, "table-odd")};
+      --rowmat-bg: var(--rowmat-bg-odd);
       &.even {
-        --rowmat-bg: #{map-get($parsed, "table-even")};
+        --rowmat-bg: var(--rowmat-bg-even);
       }
     }
 
+  }
+
+  // Manual override classes
+  .table-hover-#{$name}:hover {
+    --rowmat-hover-bg: #{map-get($parsed, "table-hover")};
+  }
+  .mat-hover-#{$name}:hover {
+    --mat-hover-bg: #{map-get($parsed, "hover")};
   }
 }
 
 
 // Default cases
+:root {
+  --rowmat-bg-odd: hsla(0,0%,50%,0);
+  --rowmat-bg-even: hsla(0,0%,50%,0.12);
+}
+
 .row-mat {
-  --rowmat-bg: hsla(0,0%,50%,0);
+  --rowmat-bg: var(--rowmat-bg-odd);
   &.even {
-    --rowmat-bg: hsla(0,0%,50%,0.12);
+    --rowmat-bg: var(--rowmat-bg-even);
   }
 }
 
 
 // Light mode
 @each $key, $color in $colors {
-  @include create-css-vars(".#{$key}", $color, black, 32%);
+  @include create-css-vars(#{$key}, $color, black, 32%);
 }
 
 
 // Dark mode
 .color-scheme-dark {
   @each $key, $color in $colors {
-    @include create-css-vars(".#{$key}", $color, white, 0%);
+    @include create-css-vars(#{$key}, $color, white, 0%);
   }
 }

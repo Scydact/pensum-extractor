@@ -19,7 +19,7 @@ function MatCode({ data, type }: Props) {
   let content;
   if (typeof data === 'string') {
     content = data;
-    className.push('code');
+    className.push('code', 'click-target');
 
     if (matData.looseUnhandled.has(data)) 
       className.push('missing');

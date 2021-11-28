@@ -2,7 +2,7 @@ import { validatePensum } from "functions/pensum-converter";
 import pensumToSavePensum from "functions/pensum-save";
 import processPensumMats from "functions/pensum-get-extras";
 
-const PENSUM_STORAGE_KEY = 'pensumData';
+const PENSUM_STORAGE_KEY = process.env.REACT_APP_PENSUM_STORAGE_PENSUM_KEY || 'pensumData';
 
 export function savePensumToLocalStorage(pensum: Pensum.Pensum | null) {
   if (!pensum) {

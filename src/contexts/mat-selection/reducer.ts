@@ -1,13 +1,18 @@
 import { objectMap } from "lib/sort-utils";
 
+const TRACKER_STORAGE_KEY = process.env.REACT_APP_PENSUM_STORAGE_TRACKER_KEY || 'pensumTracker';
+
 // TODO: IMPLEMENT TRACKER INTO THE PENSUM TABLE >:V
+// IMPORTANT: Friendly remined that any method that modifies the state must call saveToStorage.
 export function matSelectionReducer(
   state: MatSelection.Payload,
   action: MatSelection.Action): MatSelection.Payload {
 
-  const cloneTracker = (): MatSelection.Payload['tracker'] => {
+  const cloneTracker = (tracker?: MatSelection.Tracker): MatSelection.Tracker => {
+    if (!tracker) tracker = state.tracker;
+
     const o: any = {};
-    for (const [key, set] of Object.entries(state.tracker)) {
+    for (const [key, set] of Object.entries(tracker)) {
       o[key] = new Set(set);
     }
     return o;
@@ -20,10 +25,10 @@ export function matSelectionReducer(
     case 'selectMode': {
       const newMode = action.payload || 'passed';
 
-      return {
+      return matSelectionReducer({
         ...state,
         mode: newMode,
-      }
+      }, { type: 'saveToStorage' });
     }
 
 
@@ -40,10 +45,10 @@ export function matSelectionReducer(
         }
       }
 
-      return {
+      return matSelectionReducer({
         ...state,
         tracker
-      };
+      }, { type: 'saveToStorage' });
     }
 
 
@@ -106,15 +111,159 @@ export function matSelectionReducer(
         }
       }
 
-
-      return {
+      return matSelectionReducer({
         ...state,
         tracker
-      };
+      }, { type: 'saveToStorage' });
+    }
+
+    
+
+
+    // TRACKER ID STUFF
+    /** Sets/renames the name of the current trackers. */
+    case 'setTrackerID': {
+      let newName: string | null;
+
+      // Simple check if string is valid.
+      // If not valid (or empty), just set to null.
+      // This is so the user can remove the tracker by just clearing an input form.
+      if (typeof action.payload !== 'string') newName = null;      
+      else {
+        const t = action.payload.trim();
+        newName = (t === '') ? null : t;
+      }
+
+      // Check if the newName is a prototype property
+      // This is to avoid setting the tracker to something like 'toString'.
+      if (typeof newName === 'string'
+        && state.storage[newName] // Check if this value exists
+        && !state.storage.hasOwnProperty(newName) // Check if this value is from the prototype
+      ) {
+        throw RangeError(`Given name ${newName} is a prototype property!`);
+      }
+
+      // If there was a previous name, remove it so this action is equivalent to "renaming".
+      const storage = { ...state.storage };
+      if (state.currentName)
+        delete storage[state.currentName];
+
+      // saveToStorage will automatically copy the current tracker to the new tracker name.
+      return matSelectionReducer({
+        ...state,
+        currentName: newName,
+        storage,
+      }, { type: 'saveToStorage' });
+    }
+
+    case 'copyTrackerID': {
+      const {'old': oldName, 'new': newName} = action.payload;
+
+      if (oldName === newName) return state;
+      
+      const storage = { ...state.storage };
+      const oldTracker = storage[oldName];
+
+      // Nothing to copy!
+      if (!oldTracker) return state;
+      storage[newName] = cloneTracker(oldTracker);
+
+      // Replace currentName if needed
+      // IMPORTANT: Remove this thing if you don't want auto-switching to the new tracker on copy.
+      let currentName = state.currentName; 
+      if (currentName === oldName)
+        currentName = newName;
+
+      return matSelectionReducer({
+        ...state,
+        storage,
+        currentName,
+      }, { type: 'saveToStorage' });
+    }
+
+
+    case 'deleteTrackerID': {
+      const name = action.payload;
+
+      if (!name || !state.storage[name]) return state;
+
+      // Do the deletion
+      const storage = { ...state.storage };
+      delete storage[name];
+      
+      // Replace currentName if needed
+      let currentName = state.currentName;
+      if (currentName === name)
+        currentName = null;
+
+      return matSelectionReducer({
+        ...state,
+        storage,
+        currentName,
+      }, { type: 'saveToStorage' });
+    }
+
+    // TRACKER SAVE ACTIONS
+    case 'saveToStorage': {
+      if (state.currentName) {
+        state.storage[state.currentName] = state.tracker;
+      }
+      saveTrackerToLocalStorage(state);
+      return state;
+    }
+
+    case 'loadFromStorage': {
+      const data = loadTrackerFromLocalStorage();
+      if (data) return data;
+      return state;
     }
 
     default:
       console.error('Unknown action "' + (action as any)?.type + '".');
       return state;
   }
+}
+
+
+/** Set of utils to convert the tracker's sets into arrays. 
+ * Used to save the sets to the localStorage. */
+const JSONSetUtils = {
+  replacer: function Set_toJSON(key: string, value: any) {
+    if (typeof value === 'object' && value instanceof Set) {
+      return [...value];
+    }
+    return value;
+  },
+
+  reviver: function Set_fromJSON(key: string, value: any) {
+    if (typeof value === 'object' && Array.isArray(value)) {
+      return new Set(value);
+    }
+    return value
+  }
+}
+
+function saveTrackerToLocalStorage(trackerState: MatSelection.Payload) {
+  const json = JSON.stringify(trackerState, JSONSetUtils.replacer);
+  localStorage.setItem(TRACKER_STORAGE_KEY, json);
+}
+
+function loadTrackerFromLocalStorage() {
+  const str = localStorage.getItem(TRACKER_STORAGE_KEY);
+  if (!str) return null;
+
+  const data = JSON.parse(str, JSONSetUtils.reviver);
+
+  // Simple check for correct structure
+  if (!( // Negate to make it a type guard
+    data 
+    && data.tracker 
+    && typeof data.tracker.passed  === 'object' 
+    && data.tracker.passed instanceof Set
+    && data.storage
+    )) {
+    return null;
+  }
+
+  return data;
 }

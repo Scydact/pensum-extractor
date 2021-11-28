@@ -50,4 +50,8 @@ footer {
 /* More standard stuff. */
 .click-target {
   cursor: pointer;
+  
+  // Disable selection
+  // The user may inadvertently select while clicking to track the entire period.
+  user-select: none;
 }

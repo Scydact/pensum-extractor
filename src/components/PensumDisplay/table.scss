@@ -30,12 +30,13 @@
   justify-content: center;
 
   &.click-target {
-    background: linear-gradient(90deg, transparent 0%, var(--bg-even) 100%);
+    background: linear-gradient(90deg, var(--rowmat-bg-odd, transparent) 0%, var(--rowmat-bg-even, transparent) 100%);
   }
 
   &.click-target:hover {
-    background: var(--bs-primary);
-    color: white;
+    // background: var(--bs-primary);
+    background: var(--rowmat-hover-bg);
+    // color: white;
     cursor: pointer;
   }
 }
@@ -52,7 +53,7 @@
 }
 
 
-
+.row-check,
 .row-code,
 .row-name,
 .row-cr {
@@ -69,6 +70,11 @@
   justify-content: center; // Center horizontally
   width: 100px;
   padding: .1rem 0; // IMPORTANT: PADDING FOR THE ENTIRE ROW DEPENDS ON THIS!
+}
+
+.row-check {
+  justify-content: center;
+  width: 1.5em;
 }
 
 .row-cr {
@@ -143,4 +149,9 @@
 // }
 .row-mat {
   background-color: var(--rowmat-bg);
+}
+
+// On mouse enter the row-name, color the entire row!
+.row-mat.track-hover {
+  background-color: var(--mat-hover-bg);
 }

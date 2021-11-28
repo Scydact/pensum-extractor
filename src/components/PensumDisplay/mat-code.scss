@@ -12,4 +12,8 @@
   &.req-text {
     background-color: rgb(70, 133, 252);
   }
+
+  &.click-target:hover {
+    --mat-bg: var(--mat-bg-hover);
+  }
 }
