@@ -1,4 +1,5 @@
 import { objectMap } from "lib/sort-utils";
+import createDefaultState, { matSelectionModeTypes } from "./default";
 
 const TRACKER_STORAGE_KEY = process.env.REACT_APP_PENSUM_STORAGE_TRACKER_KEY || 'pensumTracker';
 
@@ -203,6 +204,22 @@ export function matSelectionReducer(
       }, { type: 'saveToStorage' });
     }
 
+    // Filter options
+    case 'toggleFilter': {
+      const filter = new Set(state.filter);
+      const x = action.payload;
+      
+      if (filter.has(x)) filter.delete(x);
+      else (filter.add(x));
+
+      return matSelectionReducer({
+        ...state,
+        filter,
+      }, { type: 'saveToStorage' });
+    }
+
+
+
     // TRACKER SAVE ACTIONS
     case 'saveToStorage': {
       if (state.currentName) {
@@ -214,8 +231,8 @@ export function matSelectionReducer(
 
     case 'loadFromStorage': {
       const data = loadTrackerFromLocalStorage();
-      if (data) return data;
-      return state;
+      if (!data) return state;
+      return data;
     }
 
     default:
@@ -223,6 +240,9 @@ export function matSelectionReducer(
       return state;
   }
 }
+
+/** Default tracker */
+
 
 
 /** Set of utils to convert the tracker's sets into arrays. 
@@ -248,13 +268,13 @@ function saveTrackerToLocalStorage(trackerState: MatSelection.Payload) {
   localStorage.setItem(TRACKER_STORAGE_KEY, json);
 }
 
-function loadTrackerFromLocalStorage() {
+function loadTrackerFromLocalStorage(): MatSelection.Payload | null {
   const str = localStorage.getItem(TRACKER_STORAGE_KEY);
   if (!str) return null;
 
-  const data = JSON.parse(str, JSONSetUtils.reviver);
+  const data: MatSelection.Payload = JSON.parse(str, JSONSetUtils.reviver);
 
-  // Simple check for correct structure
+  // Simple check for minimun structure
   if (!( // Negate to make it a type guard
     data 
     && data.tracker 
@@ -265,5 +285,57 @@ function loadTrackerFromLocalStorage() {
     return null;
   }
 
-  return data;
+  // Return verified result
+  return createPayloadWithDefaults(data);
+}
+
+/** Validates the payload from the given, All props are verifier to be valid. */
+function createPayloadWithDefaults(data: any): MatSelection.Payload {
+  // Correct minimal structure
+  /* 1. tracker */
+  /* 2. mode. */
+  /* 3. tracker name on storage. */
+  /* 4. storage for all the saved trackers. */
+  /* 5. filter. */
+
+  const base = createDefaultState();
+
+  const tracker = {
+    ...base.tracker,
+    ...data.tracker,
+  };
+
+  const mode = 
+    (data.mode in matSelectionModeTypes) ? data.mode : base.mode;
+
+  const currentName =
+    (typeof data.currentName === 'string') ? data.currentName : null;
+
+  let storage: MatSelection.Payload['storage'] = base.storage;
+  if (typeof data.storage === 'object') {
+    storage = Object.fromEntries(Object.entries(data.storage)
+      .filter(([key, val]) =>
+        typeof key === 'string' // Key is a string
+
+        // If the key is from the prototype (eg. 'toString', don't include it.)
+        && storage[key]
+        && !storage.hasOwnProperty(key)
+
+        // Verify value is a Set of strings
+        && val instanceof Set
+        && [...val].every(code => typeof code === 'string')
+      ) as Array<[string, MatSelection.Tracker]>
+    )
+  }
+
+  const filter: MatSelection.Payload['filter'] = 
+    (data.filter instanceof Set) ? data.filter : base.filter;
+
+  return {
+    tracker,
+    mode,
+    currentName,
+    storage,
+    filter,
+  };
 }

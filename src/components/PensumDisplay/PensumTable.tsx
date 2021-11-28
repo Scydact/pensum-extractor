@@ -5,10 +5,10 @@ import Col from 'react-bootstrap/Col';
 import MatCode from './MatCode';
 import React, { useCallback, useContext, useEffect, useRef } from 'react';
 import { classnames, toTitleCase } from 'lib/format-utils';
-import { matSelectHelpers, MatSelectionDispatchContext, MatSelectionModeContext, MatSelectionTrackerContext } from 'contexts/mat-selection';
+import { matSelectHelpers, MatSelectionDispatchContext, MatSelectionFilterContext, MatSelectionModeContext, MatSelectionTrackerContext } from 'contexts/mat-selection';
 
 /** Headers for the pensum table. */
-export const TableHead = React.memo((props: { periodNumStr: string | null }) => {
+export const TableHead = React.memo((props: { periodNumStr?: string | null }) => {
   // Memo makes this thing pure, and never update >:D (if props don't change).
   
   const processedPeriod = (props.periodNumStr) ? `${toTitleCase(props.periodNumStr)}.` : '';
@@ -62,7 +62,7 @@ function MatRow({ mat, idx }: MatRowProps) {
     currentTracker,       // Color according to the tracker.
 
     // On hover, will clicking this set the tracker or not?
-    'mat-hover-' + (currentTracker == trackerMode ? 'default' : trackerMode),
+    'mat-hover-' + (currentTracker === trackerMode ? 'default' : trackerMode),
   ];
 
   const reqs = [
@@ -70,7 +70,7 @@ function MatRow({ mat, idx }: MatRowProps) {
     ...mat.coreq.map( (x, i) => <MatCode key={i + 1000} data={x} type='coreq' />),
   ] as JSX.Element[];
 
-  // On hover INSIDE THE MAT NAME, change the background of the ENTIRE ROW.
+  // On hover INSIDE THE MAT CHECKBOX, change the background of the ENTIRE ROW.
   useEffect(() => {
     const cbMouseEnter = () => {
       rowRef.current?.classList.add('track-hover');
@@ -79,11 +79,15 @@ function MatRow({ mat, idx }: MatRowProps) {
       rowRef.current?.classList.remove('track-hover');
     }
 
-    clickableRef.current?.addEventListener('mouseenter', cbMouseEnter);
-    clickableRef.current?.addEventListener('mouseleave', cbMouseLeave);
+    const clickable = clickableRef.current;
+
+    if (!clickable) return;
+
+    clickable.addEventListener('mouseenter', cbMouseEnter);
+    clickable.addEventListener('mouseleave', cbMouseLeave);
     return () => {
-      rowRef.current?.removeEventListener('mouseenter', cbMouseEnter);
-      rowRef.current?.removeEventListener('mouseleave', cbMouseLeave);
+      clickable.removeEventListener('mouseenter', cbMouseEnter);
+      clickable.removeEventListener('mouseleave', cbMouseLeave);
     }
   }, [rowRef, clickableRef]);
 
@@ -122,6 +126,7 @@ export const Period = ({ period, periodNum, cumlen = 0 }: PeriodProps) => {
   const dispatch = useContext(MatSelectionDispatchContext);
   const trackerMode = useContext(MatSelectionModeContext);
   const tracker = useContext(MatSelectionTrackerContext);
+  const filter = useContext(MatSelectionFilterContext);
 
   const isAllMatsOnSameTracker = period.every(mat => tracker[trackerMode]?.has(mat.code));
   const commonTracker = matSelectHelpers.getCommonTracker(tracker, period.map(mat => mat.code));
@@ -139,35 +144,43 @@ export const Period = ({ period, periodNum, cumlen = 0 }: PeriodProps) => {
   ];
 
 
+  const filteredPeriod = period.filter(mat => {
+    const tr = matSelectHelpers.getTracker(tracker, mat.code);
+    return !filter.has(tr);
+  });
+
 
   const onClick = useCallback((evt: any) => {
-    dispatch({ type: 'selectPeriod', payload: period.map(x => x.code) });
-  }, [period, dispatch]);
+    dispatch({ type: 'selectPeriod', payload: filteredPeriod.map(x => x.code) });
+  }, [filteredPeriod, dispatch]);
 
-  if (period.length === 0) return null;
+  if (filteredPeriod.length === 0) return null;
+
+  const matrows = filteredPeriod.map((mat, i) =>
+    <MatRow
+      key={mat.code}
+      mat={mat}
+      idx={i + cumlen} />
+  )
 
   return <Row className="row-period">
     <Col
       className={classnames(cl)}
       onClick={onClick}
-      data-value={periodNum + 1}>
-      {periodNum + 1}
+      data-value={periodNum}>
+      {periodNum}
     </Col>
     <Col className="row-mat-group">
-      {period.map((mat, i) =>
-        <MatRow
-          key={mat.code}
-          mat={mat}
-          idx={i + cumlen} />
-      )}
+      {matrows}
     </Col>
   </Row>
 }
 
 
 type PensumTableProps = {
-  periods: Pensum.Pensum['periods']
-  periodType?: Pensum.Pensum['periodType']
+  periods: Pensum.Pensum['periods'],
+  periodIndexStart?: number,
+  periodType?: Pensum.Pensum['periodType'] | null
 }
 
 const defaultPeriodType = {
@@ -177,22 +190,28 @@ const defaultPeriodType = {
 };
 
 /** Displays a pensum. */
-function PensumTable({ periods, periodType = defaultPeriodType }: PensumTableProps) {
+function PensumTable({ periods, periodIndexStart = 1, periodType = defaultPeriodType }: PensumTableProps) {
   
   // https://stackoverflow.com/a/55261098
   // CumLen is passed down to calculate if a row is even or odd.
   const cumulativeSum = (sum: number) => (value: number) => sum += value;
   const cumlen = periods.map(x => x.length).map(cumulativeSum(0))
 
+  const periodElems = periods.map((period, key) =>
+    <Period
+      key={key}
+      period={period}
+      periodNum={key + periodIndexStart}
+      cumlen={cumlen[key - 1]} />
+  );
+  
   return <Container className="pensum-table">
-    <TableHead periodNumStr={periodType.two} />
-    {periods.map((period, key) =>
-      <Period
-        key={key}
-        period={period}
-        periodNum={key}
-        cumlen={cumlen[key - 1]} />
-    )}
+    <TableHead periodNumStr={periodType?.two} />
+    <div 
+    className="pensum-table-body"
+    data-empty-text="No hay materias que cumplan con el filtro actual.">
+      {periodElems}
+    </div>
   </Container>
 }
 

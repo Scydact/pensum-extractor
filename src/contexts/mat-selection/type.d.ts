@@ -1,8 +1,16 @@
 declare namespace MatSelection {
-  type TrackerMode = 'course' | 'passed'
+  /** Array of all the possible tracker types. 
+   * Used in ./default to compare if filter is valid. */
+  type TrackerModeTypes = readonly ['passed', 'course']
 
+  /** Idendifier of the current tracking mode.
+   * (When user clicks a mat, will be added to the given tracker.) */
+  type TrackerMode = TrackerModeTypes[number]
+
+  /** Record of all trackers. */
   type Tracker = Record<TrackerMode, Set<string>>
 
+  /** The actual state to save to the reducer. */
   type Payload = {
     /** Current tracker. */
     tracker: Tracker
@@ -12,6 +20,8 @@ declare namespace MatSelection {
     currentName: string | null,
     /** Current storage for all the saved trackers. */
     storage: Record<string, Tracker>
+    /** Current hidden mat trackers, for use in mat filtering. */
+    filter: Set<(TrackerMode | null)>;
   }
 
   type Action =
@@ -31,6 +41,11 @@ declare namespace MatSelection {
     | {
       type: 'selectPeriod',
       payload: string[]
+    }
+
+    | {
+      type: 'toggleFilter',
+      payload: TrackerMode | null,
     }
     
     // TRACKER SAVE STUFF

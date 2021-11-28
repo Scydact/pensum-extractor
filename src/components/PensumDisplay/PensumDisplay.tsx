@@ -1,5 +1,4 @@
 import Card from 'react-bootstrap/Card';
-import PensumLoose from './PensumLoose';
 import PensumTable from "./PensumTable";
 
 type Props = {
@@ -17,11 +16,11 @@ function PensumDisplay({ pensum }: Props) {
       </Card.Body>
     </Card>
 
-    {loose &&
+    {loose && (loose.length > 0) &&
       <Card>
         <Card.Body className="pensum-table-container">
           <Card.Title>Demás materias</Card.Title>
-          <PensumLoose loose={loose} />
+          <PensumTable periods={[loose]} periodType={null} periodIndexStart={0} />
         </Card.Body>
       </Card>
     }

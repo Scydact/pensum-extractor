@@ -1,20 +1,11 @@
 import { createContext, memo, useReducer, useEffect } from "react";
 import { matSelectionReducer } from "./reducer";
+import createDefaultState from "./default";
 
 type MatSelectionContextProps = {
   state: MatSelection.Payload,
   dispatch: (action: MatSelection.Action) => any,
 }
-
-const createDefaultState = (): MatSelection.Payload => ({
-  mode: 'passed',
-  tracker: {
-    course: new Set(),
-    passed: new Set(),
-  },
-  currentName: null,
-  storage: {},
-});
 
 const defaultContext: MatSelectionContextProps = ({
   state: createDefaultState(),
@@ -54,6 +45,7 @@ export const MatSelectionModeContext = createContext(defaultContext.state.mode);
 export const MatSelectionTrackerContext = createContext(defaultContext.state.tracker);
 export const MatSelectionTrackerNameContext = createContext(defaultContext.state.currentName);
 export const MatSelectionTrackerStorageContext = createContext(defaultContext.state.storage);
+export const MatSelectionFilterContext = createContext(defaultContext.state.filter);
 
 type Props = { children: any };
 
@@ -72,7 +64,9 @@ export const MatSelectionProvider = memo(function MatSelectionProvider({ childre
       <MatSelectionTrackerContext.Provider value={state.tracker}>
         <MatSelectionTrackerNameContext.Provider value={state.currentName}>
           <MatSelectionTrackerStorageContext.Provider value={state.storage}>
-            {children}
+            <MatSelectionFilterContext.Provider value={state.filter}>
+              {children}
+            </MatSelectionFilterContext.Provider>
           </MatSelectionTrackerStorageContext.Provider>
         </MatSelectionTrackerNameContext.Provider>
       </MatSelectionTrackerContext.Provider>

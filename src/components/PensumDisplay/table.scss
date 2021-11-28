@@ -4,6 +4,13 @@
   text-transform: capitalize;
 }
 
+.pensum-table-body:empty::before {
+  display: grid;
+  place-items: center;
+  content: attr(data-empty-text);
+  font-style: italic;
+}
+
 .row-period {
   --bg-even: rgba(var(--bs-body-color-rgb), 0.1);
 }
@@ -17,7 +24,7 @@
   border-top: 1.5px solid var(--border-color);
 }
 
-.pensum-header + .row-period.row {
+.row-period.row:first-child {
   border-top: none;
 }
 

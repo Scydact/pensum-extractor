@@ -12,14 +12,14 @@ function FilterModeSelector() {
   const dispatch = useContext(MatSelectionDispatchContext);
 
   const Btns = useCallback(() => {
-    const obj = {
-      'passed': 'Aprobar',
-      'course': 'Cursar',
-    };
+    const entries:  [MatSelection.TrackerMode, string][] = [
+      ['passed', 'Aprobar'],
+      ['course', 'Cursar'],
+    ];
 
     const elems = [];
 
-    for (const [key, val] of Object.entries(obj)) {
+    for (const [key, val] of entries) {
       elems.push(<Button
         key={key}
         className={classnames([

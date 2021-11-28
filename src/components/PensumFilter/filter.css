@@ -1,10 +1,17 @@
 .filter-selector .btn {
   background-color: var(--mat-bg);
   color: var(--mat-fg);
-  border: none;
+  border-color: var(--mat-border-color);
+  font-weight: 500;
+  font-size: 0.9em;
 }
+
+.filter-selector .btn.not-active {
+  color: rgba(var(--mat-fg-rgb),0.65);
+}
+
 .filter-selector .active,
 .filter-selector .active:focus {
-  box-shadow: inset 0 0 0 3px var(--mat-fg);
+  /* box-shadow: inset 0 0 0 3px var(--mat-fg); */
   z-index: 0 !important; /* Without this, this btn would overlap the selector. */
 }
