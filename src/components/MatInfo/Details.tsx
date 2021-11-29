@@ -10,14 +10,14 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import { matSelectHelpers, MatSelectionFilterContext, MatSelectionTrackerContext } from "contexts/mat-selection";
 import MatCode, { LongMatCode } from "components/Pensum/Mat/MatCode";
+import PensumRowNodesContext from "contexts/pensum-row-nodes";
 
 
 export default function Details() {
   const { state: { matData, pensum } } = useContext(ActivePensumContext);
-  const filter = useContext(MatSelectionFilterContext);
-  const tracker = useContext(MatSelectionTrackerContext);
-  const navigate = useNavigate();
+  const { map: rowNodeMap, scrollToRow } = useContext(PensumRowNodesContext);
 
+  const navigate = useNavigate();
   const params = useParams();
   const code = params.code;
 
@@ -26,7 +26,7 @@ export default function Details() {
   const mat = matData.codeMap.get(code);
   if (!mat) return <Invalid code={code} />;
 
-  const title = `[${mat.code}] ${mat.name}`;
+  const title = <><MatCode data={mat.code} /> <span>{mat.name}</span></>;
 
   const periodName = (pensum?.periodType.name || 'Periodo') + ':';
   const generalInfo = <Container>
@@ -44,16 +44,14 @@ export default function Details() {
     </Row>
   </Container>;
 
-  const isMatHiddenOnPensum = filter.has(matSelectHelpers.getTracker(tracker, mat.code));
+  const isMatHiddenOnPensum = !rowNodeMap.current.get(mat.code)?.current;
   const locateBtn = <Container>
     <Row>
       <Button 
       disabled={isMatHiddenOnPensum}
       onClick={() => {
         navigate('/');
-        let node = document.querySelector(`[data-mat="${mat.code}"]`);
-        if (node) node.scrollIntoView();
-        // TODO: Make funky animation to find the node
+        scrollToRow(mat.code);
       }}>
         Localizar en pensum
       </Button>

@@ -168,3 +168,21 @@
 .row-mat.track-hover {
   background-color: var(--mat-hover-bg);
 }
+
+// Funky animation when looking for this thing
+@keyframes highlight {
+  0% {
+      background: #f825ff;
+  }
+  50% {
+      background: #2534ff;
+  }
+  100% {
+      background: #f825ff;
+  }
+}
+
+.highlight-row {
+  color: white;
+  animation: highlight 700ms ease infinite;
+}

@@ -6,6 +6,7 @@ import MatCode from '../Mat/MatCode';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from "react-router-dom";
+import PensumRowNodesContext from "contexts/pensum-row-nodes";
 
 type MatRowProps = {
   mat: Pensum.Mat,
@@ -22,6 +23,8 @@ const trackerCheckmarks = new Map([
 function MatRow({ mat, idx }: MatRowProps) {
   const rowRef = useRef<HTMLDivElement>(null);
   const clickableRef = useRef<HTMLDivElement>(null);
+
+  const { updateNode } = useContext(PensumRowNodesContext);
 
   const dispatch = useContext(MatSelectionDispatchContext);
   const tracker = useContext(MatSelectionTrackerContext);
@@ -64,6 +67,11 @@ function MatRow({ mat, idx }: MatRowProps) {
       clickable.removeEventListener('mouseleave', cbMouseLeave);
     }
   }, [rowRef, clickableRef]);
+
+  useEffect(() => {
+    updateNode(mat.code, rowRef);
+    return () => updateNode(mat.code, rowRef);
+  }, [mat.code, updateNode, rowRef]);
 
   const onClick = useCallback((evt: any) => {
     dispatch({ type: 'select', payload: mat.code });

@@ -6,7 +6,7 @@
 // 2. Variations are made for normal, hover, active, disabled, table-odd, table-even, table-hover
 // 3. Each is placed into a var for its corresponding class, as mat-bg and mat-fg variables.
 $colors: (
-  "default": hsl(240, 50%, 50%),
+  "default": hsl(240, 100%, 50%),
   "passed": hsl(120, 100%, 50%),
   "course": hsl(40, 100%, 50%),
   "missing": hsl(0, 100%, 50%),
@@ -103,7 +103,7 @@ $colors: (
   $parsed: create-color($color, 32%);
   @include inner-vars($parsed, black);
 
-  $co: color.change(map-get($parsed, "table-even"), $alpha: 0.1);
+  $co: color.change(map-get($parsed, "table-even"), $alpha: 0.08);
 
   --rowmat-bg-odd: transparent;
   --rowmat-bg-even: #{$co};
@@ -120,6 +120,7 @@ $colors: (
   $parsed: create-color($color, 0%);
   @include inner-vars($parsed, white);
 
+  // TODO: Adjust default color so it looks nices... probably just make rowmat lighter on dark mode.
   $co: color.change(map-get($parsed, "table-even"), $alpha: 0.1);
 
   --rowmat-bg-odd: transparent;

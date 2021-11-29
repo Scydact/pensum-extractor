@@ -17,6 +17,7 @@ import { MatSelectionProvider } from 'contexts/mat-selection';
 import MatInfo from 'components/MatInfo';
 import MatInfoDetails from 'components/MatInfo/Details';
 import MatInfoIndex from 'components/MatInfo/MatIndex';
+import { PensumRowNodesProvider } from 'contexts/pensum-row-nodes';
 
 
 function App() {
@@ -27,7 +28,9 @@ function App() {
       <UniversityProvider>
         <ActivePensumProvider>
           <MatSelectionProvider>
-            {props.children}
+            <PensumRowNodesProvider> 
+              {props.children}
+            </PensumRowNodesProvider>
           </MatSelectionProvider>
         </ActivePensumProvider>
       </UniversityProvider>
