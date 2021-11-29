@@ -76,7 +76,13 @@
 .row-code {
   justify-content: center; // Center horizontally
   width: 100px;
-  padding: .1rem 0; // IMPORTANT: PADDING FOR THE ENTIRE ROW DEPENDS ON THIS!
+  padding: .2rem 0; // IMPORTANT: PADDING FOR THE ENTIRE ROW DEPENDS ON THIS!
+  a {
+    color: inherit;
+  }
+}
+.pensum-header .row-code {
+  padding: 0;
 }
 
 .row-check {

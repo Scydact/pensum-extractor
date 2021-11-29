@@ -1,20 +1,7 @@
 import { difference } from "lib/set-utils";
 
-type MatExtraData = {
-  /** List of all mats */
-  list: Pensum.Mat[],
-  /** Map: code<string> -> period<number> */
-  periodMap: Map<string, number>,
-  /** Map : code<string> -> mat<Mat> */
-  codeMap: Map<string, Pensum.Mat>, 
-  /** Map: code<string> -> postreqs<string> */
-  postreqMap: Map<string, string[]>,
-  /** List of mats that are prereqs but are not registered. */
-  looseUnhandled: Set<string>,
-}
-
 /** Gets all the extra data of a pensum's mats. */
-export function processPensumMats(pensum: Pensum.Pensum | null): MatExtraData {
+export function processPensumMats(pensum: Pensum.Pensum | null): ActivePensum.MatExtraData {
   if (!pensum) return {
     list: [],
     periodMap: new Map(),

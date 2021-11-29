@@ -107,11 +107,15 @@ namespace Pensum {
        * Preferible formato YYYY-MM-DD. */
       date: string,
     },
-    /** Periodo a utilizar (semestre, cuatrimestre, trimestre) */
+    /** 
+     * Periodo a utilizar (Semestre, Cuatrimestre, Trimestre) 
+     * 
+     * IMPORTANTE!: Poner en TitleCase.
+     */
     periodType: {
       /** 
        * Nombre largo del periodo.
-       * @example semestre, cuatrimestre, trimestre...
+       * @example Demestre, Duatrimestre, Trimestre...
        */
       name: string,
       /**

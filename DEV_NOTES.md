@@ -20,7 +20,6 @@ TODO: Service worker (online first, cache 2nd!!)
 [2](https://developers.google.com/web/tools/workbox/guides/configure-workbox)
 
 TODO: Make the app work again
-- [ ] Do .course and .passed coloring using css variables with hsv().
 - [P] Allow tracking
   - [X] Use a .clickable class to toggle :hover background.
   - [X] With .clickable done, clean table headers from not():hover
@@ -47,6 +46,7 @@ TODO: Make the app work again
 - [X] Get dark mode from user preference (using @media stuff thingy, check the original DarkMode class)
 - [X] Add labels to the Uni/Career React-Select selectors.
 - [X] Display loose mats somewhere
+- [X] Do .course and .passed coloring using css variables with hsv().
 
 
 TODO: Extra new features

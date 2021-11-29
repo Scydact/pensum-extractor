@@ -10,7 +10,7 @@ import Period from './Period';
 export const TableHead = memo((props: { periodNumStr?: string | null }) => {
   // Memo makes this thing pure, and never update >:D (if props don't change).
   
-  const processedPeriod = (props.periodNumStr) ? `${toTitleCase(props.periodNumStr)}.` : '';
+  const processedPeriod = props.periodNumStr || '';
   
   return <Row className="pensum-header row-period">
     <Col className="row-period-num">{processedPeriod}</Col>
@@ -38,9 +38,9 @@ type PensumTableProps = {
 }
 
 const defaultPeriodType = {
-  name: 'periodo',
-  acronym: 'per',
-  two: 'pr'
+  name: 'Periodo',
+  acronym: 'Per',
+  two: 'Pr'
 };
 
 /** Displays a pensum. */

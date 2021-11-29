@@ -62,9 +62,9 @@ export function convertPensum2(old: Pensum.Save.Legacy.Pensum2, university: stri
       url: `./pensum/${university}/${old.codigo.toLowerCase()}.json`,
     },
     periodType: {
-      name: 'cuatrimestre',
-      acronym: 'cuat',
-      two: 'ct',
+      name: 'Cuatrimestre',
+      acronym: 'Cuat',
+      two: 'Ct',
     },
     loose: [],
     periods: [],

@@ -5,6 +5,7 @@ import { classnames } from 'lib/format-utils';
 import MatCode from '../Mat/MatCode';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
+import { Link } from "react-router-dom";
 
 type MatRowProps = {
   mat: Pensum.Mat,
@@ -75,9 +76,9 @@ function MatRow({ mat, idx }: MatRowProps) {
     <Col ref={clickableRef} onClick={onClick} className="row-check click-target">
       {trackerCheckmarks.get(currentTracker) || '⬜x'}
     </Col>
-    <Col className="row-code code">{mat.code}</Col>
+    <Col className="row-code code"><Link to={`/mat/${mat.code}`}>{mat.code}</Link></Col>
     <Col>
-      <Row>
+      <Row className="h-100 align-items-center">
         <Col className="row-name">{mat.name}</Col>
         <Col className="row-cr">{mat.cr}</Col>
         <Col className="row-req">{reqs}</Col>

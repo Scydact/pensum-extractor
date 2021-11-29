@@ -16,9 +16,9 @@
     "url": "./pensum/pucmm/ines7.json"
   },
   "periodType": {
-    "name": "cuatrimestre",
-    "acronym": "cuat",
-    "two": "ct"
+    "name": "Cuatrimestre",
+    "acronym": "Cuat",
+    "two": "Ct"
   },
   "loose": [
     {

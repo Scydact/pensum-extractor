@@ -1,10 +1,21 @@
-
 declare namespace ActivePensum {
+  type MatExtraData = {
+    /** List of all mats */
+    list: Pensum.Mat[],
+    /** Map: code<string> -> period<number> */
+    periodMap: Map<string, number>,
+    /** Map : code<string> -> mat<Mat> */
+    codeMap: Map<string, Pensum.Mat>, 
+    /** Map: code<string> -> postreqs<string> */
+    postreqMap: Map<string, string[]>,
+    /** List of mats that are prereqs but are not registered. */
+    looseUnhandled: Set<string>,
+  }
 
   /** List of universities/careers. */
   type Payload = {
     pensum: Pensum.Pensum | null,
-    matData: ReturnType<typeof processPensumMats>,
+    matData: MatExtraData,
     error: any | null,
     loading: boolean
   };
