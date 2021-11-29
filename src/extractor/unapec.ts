@@ -31,7 +31,7 @@ export function extractPensum(node: Document, url: string) {
     const old = legactExtractPensum(node);
     const pensum = convertPensum2(old, 'unapec');
 
-    pensum.fetchDate = japaneseDateFormat(new Date);
+    pensum.fetchDate = japaneseDateFormat(new Date());
     pensum.src = {
       type: 'online',
       date: pensum.fetchDate,
@@ -58,15 +58,15 @@ export function legactExtractPensum(node: Document): Pensum.Save.Legacy.Pensum2 
 
   // Verify if pensum is actually valid data
   if (
-    node.getElementsByClassName('contPensum').length == 0 ||
+    node.getElementsByClassName('contPensum').length === 0 ||
     node.getElementsByClassName('contPensum')[0].children.length < 2
   ) {
-    throw 'Document has no pensum inside!'
+    throw new Error('Document has no pensum inside!');
   }
 
   // Extract basic data
   var cabPensum = node.getElementsByClassName('cabPensum')[0];
-  if (!cabPensum) throw 'Unable to get table element.';
+  if (!cabPensum) throw new Error('Unable to get table element.');
 
   out.carrera = cabPensum?.firstElementChild?.textContent?.trim() || '';
 
@@ -74,8 +74,8 @@ export function legactExtractPensum(node: Document): Pensum.Save.Legacy.Pensum2 
   out.codigo = pMeta[0]?.textContent?.trim() || '';
   out.vigencia = pMeta[1]?.textContent?.trim() || '';
 
-  if (out.carrera === '') throw 'Unable to get pensum name';
-  if (out.codigo === '') throw 'Unable to get pensum code';
+  if (out.carrera === '') throw new Error('Unable to get pensum name');
+  if (out.codigo === '') throw new Error('Unable to get pensum code');
 
   // Extract infoCarrera
   var infoCarrera = node.getElementsByClassName('infoCarrera')[0].children;
@@ -116,9 +116,9 @@ export function legactExtractPensum(node: Document): Pensum.Save.Legacy.Pensum2 
       outMat.asignatura = currentRows[1]?.textContent?.trim() || '';
       outMat.creditos = parseFloat(currentRows[2]?.textContent || '-Infinity');
 
-      if (outMat.codigo === '') throw `Unable to get code for mat ${outMat.asignatura} @ cuat ${i + 1}`
-      if (outMat.asignatura === '') throw `Unable to get name for mat ${outMat.codigo} @ cuat ${i + 1}`
-      if (outMat.creditos === -Infinity) throw `Unable to get creds for mat ${outMat.codigo}:${outMat.asignatura} @ cuat ${i + 1}`
+      if (outMat.codigo === '') throw new Error(`Unable to get code for mat ${outMat.asignatura} @ cuat ${i + 1}`);
+      if (outMat.asignatura === '') throw new Error(`Unable to get name for mat ${outMat.codigo} @ cuat ${i + 1}`);
+      if (outMat.creditos === -Infinity) throw new Error(`Unable to get creds for mat ${outMat.codigo}:${outMat.asignatura} @ cuat ${i + 1}`);
 
       // Prerequisitos
       var splitPrereq = (currentRows[3]?.textContent || '')

@@ -49,17 +49,17 @@ export default async function fetchCORS(
   while (currentProxyIdx < proxies.length) {
 
     // Get current proxy
-    var proxy = proxies[currentProxyIdx];
+    const proxy = proxies[currentProxyIdx];
     
-    var startTime = new Date().getTime();
-    var currUrl = proxy + url;
+    const startTime = new Date().getTime();
+    const currUrl = proxy + url;
 
     /* Controller to cancel the fetch after a timeout. */
-    var controller = new AbortController();
-    var signal = controller.signal;
+    const controller = new AbortController();
+    const signal = controller.signal;
     opts.signal = signal;
     
-    var timeoutId = setTimeout(() => {
+    const timeoutId = setTimeout(() => {
       controller.abort();
       console.warn('Timed out!');
     }, 4e3);
@@ -76,7 +76,7 @@ export default async function fetchCORS(
 
       clearTimeout(timeoutId);
       if (response.ok) {
-        var stopTime = new Date().getTime();
+        const stopTime = new Date().getTime();
         console.info(`CORS proxy '${currUrl}' succeeded in ${stopTime - startTime} ms.'`);
 
         if (currentProxyCallback)
@@ -84,13 +84,13 @@ export default async function fetchCORS(
 
         return await response.text();
       } else {
-        throw 'Response was not OK!';
+        throw new Error('Response was not OK!');
       }
     } 
     
     catch (err) {
       clearTimeout(timeoutId);
-      var stopTime = new Date().getTime();
+      const stopTime = new Date().getTime();
       console.warn(`CORS proxy '${proxy}' failed in ${stopTime - startTime}ms.'`);
       console.warn(err);
 
