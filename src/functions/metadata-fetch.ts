@@ -1,4 +1,4 @@
-const BASE_PATH = '/pensum';
+const BASE_PATH = process.env.PUBLIC_URL + '/pensum';
 const UNIVERSITIES_PATH = BASE_PATH + '/universities.json';
 const CAREERS_FILE = 'index.json';
 

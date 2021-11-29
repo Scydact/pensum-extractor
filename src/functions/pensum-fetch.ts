@@ -1,7 +1,7 @@
 import { validatePensum } from "./pensum-converter";
 
 export const LOCAL_STORAGE_PREFIX = 'pensumextractor';
-export const LOCAL_SERVER_PREFIX = '/pensum';
+export const LOCAL_SERVER_PREFIX = process.env.PUBLIC_URL + '/pensum';
 
 /**
  * Tries to load from the given pensum code from a university.

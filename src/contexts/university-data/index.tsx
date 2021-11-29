@@ -141,6 +141,12 @@ export const UniversityProvider = memo(function UniversityProvider({ children }:
       })
       
   }, []);
+
+  useEffect(() => {
+    if (state.selected === null) {
+      select('unapec');
+    }
+  }, [select, state.selected]);
   
   return <UniversityContext.Provider value={{ state, dispatch, select }}>
     {children}
