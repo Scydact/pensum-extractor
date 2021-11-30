@@ -39,7 +39,7 @@ function MatRow({ mat, idx }: MatRowProps) {
     currentTracker,       // Color according to the tracker.
 
     // On hover, will clicking this set the tracker or not?
-    'mat-hover-' + (currentTracker === trackerMode ? 'default' : trackerMode),
+    'table-hover-' + (currentTracker === trackerMode ? 'default' : trackerMode),
   ];
 
   const reqs = [

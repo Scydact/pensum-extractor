@@ -122,7 +122,8 @@ function PensumSelector() {
     <Card>
       <Card.Body>
         <Container>
-        <Form onSubmit={handleSubmit}>
+          {/* zIndex so that <Select> options are not covered by <MatFilter>. */}
+        <Form onSubmit={handleSubmit} style={{ zIndex: 2, position: 'relative' }}>
           <SelectUni
             value={selectedUniversity}
             options={universitySelectOptions}

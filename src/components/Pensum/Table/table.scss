@@ -48,6 +48,10 @@
   }
 }
 
+.row-mat.track-hover {
+  background: var(--rowmat-hover-bg);
+}
+
 .pensum-header {
   background: rgba(var(--bs-body-bg-rgb),1);
   border-bottom: 2px solid rgba(var(--bs-body-color-rgb),1);
@@ -162,11 +166,6 @@
 // }
 .row-mat {
   background-color: var(--rowmat-bg);
-}
-
-// On mouse enter the row-name, color the entire row!
-.row-mat.track-hover {
-  background-color: var(--mat-hover-bg);
 }
 
 // Funky animation when looking for this thing
