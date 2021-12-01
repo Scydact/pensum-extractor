@@ -3,6 +3,7 @@ import PensumSelector from "./PensumSelector";
 import PensumDisplay from "components/Pensum/PensumDisplay";
 import ActivePensumContext from "contexts/active-pensum";
 import PensumFilter from "./Filter";
+import PensumInfo from "./PensumInfo";
 
 
 type Props = any;
@@ -15,6 +16,7 @@ function PensumExtractor(props: Props) {
     <PensumSelector />
 
     {pensum && <>
+      <PensumInfo info={pensum.info} />
       <PensumFilter/>
       <PensumDisplay pensum={pensum} />
     </>
