@@ -3,7 +3,6 @@ import Container from 'react-bootstrap/Container';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { memo } from 'react';
-import { toTitleCase } from 'lib/format-utils';
 import Period from './Period';
 
 /** Headers for the pensum table. */

@@ -1,7 +1,4 @@
 import Card from "react-bootstrap/Card";
-import Container from "react-bootstrap/Container";
-import Row from "react-bootstrap/Row";
-import Col from "react-bootstrap/Col";
 
 type Props = {
   info: Pensum.Pensum['info']
@@ -77,13 +74,13 @@ function parseInfoLine(str: string) {
   ];
 
   // No colon == just plain text. (x)
-  if (splitOnFirstColon[0] == '') 
+  if (splitOnFirstColon[0] === '') 
     return { type: 'simple', data: str } as { type: 'simple', data: string };
 
   let splitOnDots = splitOnFirstColon[1].split('. ');
 
   // Colon + Single period == Equivalence (x: y)
-  if (splitOnDots.length == 1)
+  if (splitOnDots.length === 1)
     return { type: 'double', data: splitOnFirstColon } as { type: 'double', data: [string, string] };
 
   // Multiple list: (x: y. z. w. a.)
