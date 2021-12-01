@@ -4,6 +4,7 @@ import PensumDisplay from "components/Pensum/PensumDisplay";
 import ActivePensumContext from "contexts/active-pensum";
 import PensumFilter from "./Filter";
 import PensumInfo from "./PensumInfo";
+import PensumProgress from "./PensumProgress";
 
 
 type Props = any;
@@ -17,7 +18,8 @@ function PensumExtractor(props: Props) {
 
     {pensum && <>
       <PensumInfo info={pensum.info} />
-      <PensumFilter/>
+      <PensumProgress />
+      <PensumFilter />
       <PensumDisplay pensum={pensum} />
     </>
     }

@@ -7,9 +7,7 @@ type Props = {
 export default function PensumInfo({ info }: Props) {
   return <Card>
     <Card.Header className="text-center pt-3">
-      <h5>
-        Detalles de la carrera:
-      </h5>
+      <h5>Detalles de la carrera</h5>
     </Card.Header>
     <Card.Body className="m-auto">
       <ul>
