@@ -1,10 +1,12 @@
 import DarkModeSwitch from "lib/DarkMode/DarkModeSwitch";
 import { useEffect, useRef } from "react";
 import { Container, Navbar } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 
 
 function AppNavbar() {
   const navbarRef = useRef(null as HTMLElement | null);
+  const navigate = useNavigate();
 
   // Navbar hide on scroll
   useEffect(() => {
@@ -30,7 +32,8 @@ function AppNavbar() {
     className="App-header mb-3"
     fixed="top" >
     <Container>
-      <Navbar.Brand>PENSUMS UNAPEC</Navbar.Brand>
+      <Navbar.Brand
+       onClick={() => navigate("/")}>PENSUMS UNAPEC</Navbar.Brand>
 
       <DarkModeSwitch />
     </Container>

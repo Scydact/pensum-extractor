@@ -18,6 +18,7 @@ import MatInfo from 'components/MatInfo';
 import MatInfoDetails from 'components/MatInfo/Details';
 import MatInfoIndex from 'components/MatInfo/MatIndex';
 import { PensumRowNodesProvider } from 'contexts/pensum-row-nodes';
+import DebugPage from 'components/Debug';
 
 
 function App() {
@@ -28,7 +29,7 @@ function App() {
       <UniversityProvider>
         <ActivePensumProvider>
           <MatSelectionProvider>
-            <PensumRowNodesProvider> 
+            <PensumRowNodesProvider>
               {props.children}
             </PensumRowNodesProvider>
           </MatSelectionProvider>
@@ -40,34 +41,39 @@ function App() {
   return (
     <Providers>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <Routes>
-          <Route path="/" element={<Layout />}>
-            
-            <Route path="mat" element={<MatInfo />}> 
-              <Route index element={<MatInfoIndex />} />
-              <Route path=":code" element={<MatInfoDetails />} />
+        <AppNavbar />
+        <Container fluid className="App">
+
+          <Routes>
+
+            <Route path="/" element={<LayoutWithPensum />}>
+
+              <Route path="mat" element={<MatInfo />}>
+                <Route index element={<MatInfoIndex />} />
+                <Route path=":code" element={<MatInfoDetails />} />
+              </Route>
+
             </Route>
 
-            <Route path="*" element={<Navigate to="/"/>} />
+            <Route path="debug" element={<DebugPage />} />
+            <Route path="*" element={<Navigate to="/" />} />
 
-          </Route>
-        </Routes>
+          </Routes>
+
+        </Container>
+        <AppFooter />
       </BrowserRouter>
     </Providers>
   );
 }
 
-function Layout() {
+/** Layout with the outlet as a modal. */
+function LayoutWithPensum() {
   return (<>
-    <AppNavbar />
-
-    <Container fluid className="App">
-      <PensumExtractor />
-    </Container>
-
+    <PensumExtractor />
     <Outlet />
-    <AppFooter />
   </>)
 }
+
 
 export default App;

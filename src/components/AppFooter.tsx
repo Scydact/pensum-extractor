@@ -1,6 +1,9 @@
+import { useNavigate } from "react-router-dom";
 
 function AppFooter() {
-  return <footer className="mt-3 navbar navbar-expand navbar-light static-bottom">
+  const navigate = useNavigate();
+
+  return <footer className="my-3 navbar navbar-expand navbar-light static-bottom text-center">
     <span>Pensum Extractor DO</span>
     <span>Fernando Rivas, 2021</span>
     <span>
@@ -15,7 +18,7 @@ function AppFooter() {
           href="https://github.com/Scydact/pensum-extractor-react"
           target="_blank"
           rel="noreferrer">
-          Ver en GitHub.
+          Ver en GitHub
         </a>)
       </span>
     </span>
@@ -24,7 +27,13 @@ function AppFooter() {
       En caso de problemas o sugerencias,
       favor escribir a <a
         href="mailto:scydact@gmail.com?subject=[Pensum Extractor]">
-        scydact@gmail.com</a>.
+        scydact@gmail.com</a>
+      <span
+       className="muted" 
+       onClick={() => navigate("debug")}
+       title="Debug">
+        .
+      </span>
     </span>
   </footer>
 }
