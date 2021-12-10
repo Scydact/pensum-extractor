@@ -14,7 +14,8 @@ body.color-scheme-dark {
 }
 
 @media screen and (max-width: 750px) {
-  .App {
+  .App,
+  .pensum-table-container .card-body {
     padding-left: 0;
     padding-right: 0;
   }
@@ -41,17 +42,10 @@ footer {
 /** Navbar scroll */
 .App-header {
   transition: top 200ms ease;
-  &.hidden {
-    top: -3.5rem;
-  }
-
   color: white;
 
   // Fix not being colored on darkmode.
   background-color: rgba(var(--bs-primary-rgb), 1) !important;
-  .darkmode-switch input {
-    box-shadow: 0 0 0 2px rgba(255,255,255,0.5);
-  }
 }
 
 /* More standard stuff. */

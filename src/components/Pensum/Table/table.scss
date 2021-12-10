@@ -109,7 +109,7 @@
 .row-name {
   width: 65%; // Manually fine-tuned to be perfect <3
 }
-@media screen and (max-width: 475px) {
+@media screen and (max-width: 530px) {
   .row-req {
     flex: 0 0 auto; // Block shrink. It will automatically go to the bottom.
   }

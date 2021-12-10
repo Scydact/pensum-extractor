@@ -14,10 +14,12 @@ function AppNavbar() {
     const onScrollFn = () => {
       if (!navbarRef.current) return;
       var currentScrollPos = window.scrollY;
+      var { height } = navbarRef.current.getBoundingClientRect();
+
       if (prevScrollPos > currentScrollPos) {
-        navbarRef.current.classList.remove('hidden');
+        navbarRef.current.style.top = '0';
       } else {
-        navbarRef.current.classList.add('hidden');
+        navbarRef.current.style.top = (height < currentScrollPos ? -height : -currentScrollPos) + 'px';
       }
       prevScrollPos = currentScrollPos;
     }
