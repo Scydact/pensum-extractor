@@ -1,6 +1,6 @@
 import { validatePensum } from "./pensum-converter";
 
-export const LOCAL_STORAGE_PREFIX = 'pensumextractor';
+export const LOCAL_STORAGE_PREFIX = process.env.REACT_APP_PENSUM_STORAGE_PENSUM_LOCALSAVE_KEY;
 export const LOCAL_SERVER_PREFIX = process.env.PUBLIC_URL + '/pensum';
 
 /**
@@ -26,7 +26,7 @@ export async function fetchPensumFromCode(university?: string, code?: string) {
   if (pensum) return pensum;
 
   // Don't return null!
-  // Instead throw error, so this gets catched.
+  // Instead throw error, so this gets cached.
   throw new PensumFetchError(`Unable to fetch pensum with identifier ${university}/${code}`);
 }
 

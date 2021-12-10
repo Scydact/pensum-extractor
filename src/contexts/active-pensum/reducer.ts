@@ -2,7 +2,8 @@ import { validatePensum } from "functions/pensum-converter";
 import pensumToSavePensum from "functions/pensum-save";
 import processPensumMats from "functions/pensum-get-extras";
 
-const PENSUM_STORAGE_KEY = process.env.REACT_APP_PENSUM_STORAGE_PENSUM_KEY || 'pensumData';
+const PENSUM_STORAGE_KEY = process.env.REACT_APP_PENSUM_STORAGE_PENSUM_KEY || 'PENSUM_DATA';
+const LEGACY_PENSUM_STORAGE_KEY = 'pensumData';
 
 export function savePensumToLocalStorage(pensum: Pensum.Pensum | null) {
   if (!pensum) {
@@ -15,14 +16,26 @@ export function savePensumToLocalStorage(pensum: Pensum.Pensum | null) {
 }
 
 export function loadPensumFromLocalStorage(): Pensum.Pensum | null {
-  const pensumData = localStorage.getItem(PENSUM_STORAGE_KEY);
-
+  let pensumData = localStorage.getItem(PENSUM_STORAGE_KEY);
   if (!pensumData) return null; // Could not fetch
 
   // Parse fetched data
   // TODO: CHECK IF DATA IS VALID
-  const pensum = JSON.parse(pensumData) as Pensum.Save.Pensum;
-  const loadedPensum = validatePensum(pensum, pensum.institution);
+  let pensum = JSON.parse(pensumData) as Pensum.Save.Pensum;
+  let loadedPensum = validatePensum(pensum, pensum.institution);
+
+  return loadedPensum;
+}
+
+export function loadLegacyPensumFromLocalStorage(): Pensum.Pensum | null {
+  let pensumData = localStorage.getItem(LEGACY_PENSUM_STORAGE_KEY);
+  if (!pensumData) return null; // Could not fetch
+
+  // Parse fetched data
+  // TODO: CHECK IF DATA IS VALID
+  let pensum = JSON.parse(pensumData) as Pensum.Save.Legacy.Pensum2;
+  let loadedPensum = validatePensum(pensum, 'unapec');
+
   return loadedPensum;
 }
 
@@ -48,9 +61,17 @@ export function activePensumReducer(
       savePensumToLocalStorage(action.payload);
       return createPayload(action.payload);
 
-    case 'load/fromSave':
+    case 'load/fromSave': {
       var pensum = loadPensumFromLocalStorage();
+
+      // new pensum not found. Attempt to load legacy pensum.
+      if (!pensum) {
+        pensum = loadLegacyPensumFromLocalStorage();
+        savePensumToLocalStorage(pensum);
+      }
+
       return createPayload(pensum);
+    }
 
     // Case for 'load' is handled on the Provider, since its async!
 

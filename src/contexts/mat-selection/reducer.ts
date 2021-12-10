@@ -1,7 +1,8 @@
 import { objectMap } from "lib/sort-utils";
 import createDefaultState, { matSelectionModeTypes } from "./default";
 
-const TRACKER_STORAGE_KEY = process.env.REACT_APP_PENSUM_STORAGE_TRACKER_KEY || 'pensumTracker';
+const TRACKER_STORAGE_KEY = process.env.REACT_APP_PENSUM_STORAGE_TRACKER_KEY || 'PENSUM_TRACKER';
+const LEGACY_TRACKER_STORAGE_KEY = 'saveData';
 
 // TODO: IMPLEMENT TRACKER INTO THE PENSUM TABLE >:V
 // IMPORTANT: Friendly remined that any method that modifies the state must call saveToStorage.
@@ -230,7 +231,14 @@ export function matSelectionReducer(
     }
 
     case 'loadFromStorage': {
-      const data = loadTrackerFromLocalStorage();
+      let data = loadTrackerFromLocalStorage();
+      
+      // Load legacy data if no previous data was found.
+      if (!data) {
+        data = loadLegacyTrackerFromLocalStorage();
+        if (data) saveTrackerToLocalStorage(data);
+      }
+
       if (!data) return state;
       return data;
     }
@@ -289,6 +297,77 @@ function loadTrackerFromLocalStorage(): MatSelection.Payload | null {
   return createPayloadWithDefaults(data);
 }
 
+/** Tries to load from the old saves from the original pensumExtractor. */
+function loadLegacyTrackerFromLocalStorage(): MatSelection.Payload | null {
+  type OldPayload = {
+    currentCodeAtInputForm: string,
+    filterMode: {
+      pending: boolean,
+      onCourse: boolean,
+      passed: boolean,
+    },
+    saveVer: number,
+    selectMode: number,
+    userData: {
+      onCourse: string[],
+      passed: string[],
+    },
+  }
+
+  const str = localStorage.getItem(LEGACY_TRACKER_STORAGE_KEY);
+  if (!str) return null;
+
+  const olddata: OldPayload = JSON.parse(str);
+
+  // Simple check for minimun structure
+  if (!(
+    typeof olddata === 'object'
+    && olddata.saveVer === 6
+  ))
+    return null;
+
+  // Generate new object, copying old info
+  const data: Partial<MatSelection.Payload> = {};
+
+  // Filter
+  if (olddata.filterMode) {
+    const filter = new Set<any>();
+    const pushIfFalse = (x: any, val: any) => {
+      if (x === false)
+        filter.add(val);
+    }
+    data.filter = filter;
+    
+    pushIfFalse(olddata.filterMode.pending, null);
+    pushIfFalse(olddata.filterMode.onCourse, 'course');
+    pushIfFalse(olddata.filterMode.passed, 'passed');
+  }
+
+  // Select mode (cursor interaction mode)
+  if (olddata.selectMode === 0) data.mode = 'passed';
+  else if (olddata.selectMode === 1) data.mode = 'course';
+
+  // Saved trackers
+  if (olddata.userData) {
+    data.tracker = {
+      course: new Set(),
+      passed: new Set(),
+    };
+
+    const addIfTracker = (arr: any, targetSet: Set<string>) => {
+      if (Array.isArray(arr) && arr.every(x => typeof x === 'string')) {
+        arr.forEach(x => targetSet.add(x))
+      }
+    } 
+
+    addIfTracker(olddata.userData.passed, data.tracker.passed);
+    addIfTracker(olddata.userData.onCourse, data.tracker.course);
+  }
+ 
+  // Return verified result
+  return createPayloadWithDefaults(data);
+}
+
 /** Validates the payload from the given, All props are verifier to be valid. */
 function createPayloadWithDefaults(data: any): MatSelection.Payload {
   // Correct minimal structure
@@ -305,8 +384,7 @@ function createPayloadWithDefaults(data: any): MatSelection.Payload {
     ...data.tracker,
   };
 
-  const mode = 
-    (data.mode in matSelectionModeTypes) ? data.mode : base.mode;
+  const mode = (matSelectionModeTypes.includes(data.mode)) ? data.mode : base.mode;
 
   const currentName =
     (typeof data.currentName === 'string') ? data.currentName : null;
