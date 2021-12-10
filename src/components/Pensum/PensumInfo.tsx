@@ -11,7 +11,7 @@ export default function PensumInfo({ info }: Props) {
     </Card.Header>
     <Card.Body className="m-auto">
       <ul>
-        {info.map((line, idx) => <li><InfoLine key={idx} info={line} /></li>)}
+        {info.map((line, idx) => <li key={idx}><InfoLine info={line} /></li>)}
       </ul>
     </Card.Body>
   </Card>;

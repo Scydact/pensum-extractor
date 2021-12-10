@@ -34,7 +34,6 @@ export const PensumRowNodesProvider = memo(function PensumRowNodesProvider({chil
 
   const updateNode: PensumRowNodesContextProps['updateNode'] = useCallback((code, node) => {
     map.current.set(code, node);
-    console.log(`Updated ${code}:`, !!node?.current)
   }, []);
 
   const scrollToRow: PensumRowNodesContextProps['scrollToRow'] = useCallback((code) => {
