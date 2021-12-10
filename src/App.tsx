@@ -19,6 +19,7 @@ import MatInfoDetails from 'components/MatInfo/Details';
 import MatInfoIndex from 'components/MatInfo/MatIndex';
 import { PensumRowNodesProvider } from 'contexts/pensum-row-nodes';
 import DebugPage from 'components/Debug';
+import CalcIndice from 'components/Pensum/Actions/CalcIndice';
 
 
 function App() {
@@ -53,6 +54,8 @@ function App() {
                 <Route path=":code" element={<MatInfoDetails />} />
               </Route>
 
+              <Route path="calcular-indice" element={<CalcIndice />} />
+            
             </Route>
 
             <Route path="debug" element={<DebugPage />} />

@@ -42,6 +42,11 @@ declare namespace MatSelection {
       type: 'selectPeriod',
       payload: string[]
     }
+    
+    /** Pass all mats on course. */
+    | {
+      type: 'passOnCourse',
+    }
 
     | {
       type: 'toggleFilter',

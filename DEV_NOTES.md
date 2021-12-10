@@ -15,12 +15,13 @@ This React page is using [Beautiful React Hooks](https://antonioru.github.io/bea
 
 
 ## TO DO
-TODO: Service worker (online first, cache 2nd!!)
+### TODO: Service worker (online first, cache 2nd!!)
 [1](https://nmaokaforr.medium.com/step-by-step-to-building-a-pwa-with-react-using-workbox-2db6b9fb6056)
 [2](https://developers.google.com/web/tools/workbox/guides/configure-workbox)
 
-TODO: Make the app work again
-- [P] Allow tracking
+### TODO: Make the app work again
+- [ ] [dx-react-grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/getting-started/) for the pensum-editor, since it allows easy data binding.
+- [X] Allow tracking
   - [X] Use a .clickable class to toggle :hover background.
   - [X] With .clickable done, clean table headers from not():hover
   - [ ] Selection, on a different tracker
@@ -29,16 +30,19 @@ TODO: Make the app work again
     - Save as an object {current: {}, currentName: string | null, others: {}},
       where current is the current thing. 
     - That allows multiple saving/loading profiles!
-    [ ] Custom dialog to select current save
+    - [ ] Custom dialog to select current save
   - [ ] Save/load to backup
     - On same dialog, save either a single profile or all profiles.
-- [ ] Mat modal dialog
+- [X] Mat modal dialog
+	- [X] Single mat
+	- [X] Unknown mat
+	- [ ] Mat index (no mat selected)
 - [ ] Enable PWA support
-- [ ] Extra features
-  - [ ] Save to CSV/EXCEL/JSON
-  - [ ] Treeview thing
-    - [ ] Dark mode friendly (connection lines are currently black)
-    - [ ] Consider migration to [mermaid-js](https://mermaid-js.github.io/mermaid/#/)
+- [X] Calcular indice
+- [ ] Save to CSV/EXCEL/JSON
+- [ ] Treeview thing
+	- [ ] Dark mode friendly (connection lines are currently black)
+	- [ ] Consider migration to [mermaid-js](https://mermaid-js.github.io/mermaid/#/)
 - [X] Mat post-req and processing
   - [X] Use map to associate post-reqs?
 - [X] Add src tag to pensum type (check TODO at the end of the page).
@@ -49,26 +53,13 @@ TODO: Make the app work again
 - [X] Do .course and .passed coloring using css variables with hsv().
 
 
-TODO: Extra new features
+### TODO: Extra new features
   - [ ] Extra colors (custom highlights)
   - [ ] Save tracking to cloud service
   - [ ] Compare pensums :D
     - [ ] Route ./compare
     - [ ] Uses `<PensumSelect>` and a custom version of `<pensumTable`>?
-      - [ ] Allow <PensumSelect> to upload a custom pensum.json. Maybe aside the "Cargar" button. [    Cargar    | Subir ]
-    - [ ] Shows different mats.
-    - [ ] Overview: Cr, mats/period
-    - Etc!
-  
-
-
-TODO: Update script that:
-- [ ] takes each input inside carrera
-- [ ] updates to a new format with: 
-- [ ] shorter paths
-- [ ] src tags (with type="pdf, online, scan, fetch (only for fetch())" and url/fetch date)
-  - Make it a schema.
-  - Add it to the in-page editor.
-- [ ] universidad tags (unapec, unphu, intec)
-- [ ] coreqs
+    - [ ] Allow <PensumSelect> to upload a custom pensum.json. Maybe aside the "Cargar" button.  (Cargar / Subir).
+- [ ] Overview: Cr, mats/period
+- [ ] Etc!
 

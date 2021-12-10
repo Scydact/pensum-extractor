@@ -10,18 +10,25 @@ type Props = React.ComponentPropsWithRef<'span'> & {
   data: Pensum.Requirement,
   type?: 'prereq' | 'coreq',
   children?: React.ReactNode,
+  className?: string,
+  onClick?: React.MouseEventHandler<HTMLSpanElement>
 };
 
 /** Single matcode. */
-function MatCode({ data, type = "prereq", children, ...rest }: Props) {
+function MatCode({ data, type = "prereq", children, onClick, className: ogClass, ...rest }: Props) {
   const { state: { matData } } = useContext(ActivePensumContext);
   const tracker = useContext(MatSelectionTrackerContext);
   let className: any[] = ['mat-code', type];
 
+  if (ogClass) className.push(...ogClass.split(' '));
+
   let content;
   if (typeof data === 'string') {
     content = children || data;
-    className.push('code', 'click-target');
+    className.push('code');
+
+    if (onClick)
+      className.push('click-target');
 
     if (matData.looseUnhandled.has(data)) 
       className.push('missing');
@@ -33,27 +40,27 @@ function MatCode({ data, type = "prereq", children, ...rest }: Props) {
     className.push('req-text');
   }
 
-  return (<span className={classnames(className)} {...rest}>{content}</span>)
+  return (<span className={classnames(className)} onClick={onClick} {...rest}>{content}</span>)
 }
 
 /** Same as mat code, but formatted as `[CODE] Name` */
-export function LongMatCode({ data, type = "prereq", children, ...rest }: Props) {
+export function LongMatCode({children, ...rest}: Props) {
   const { state: { matData } } = useContext(ActivePensumContext);
 
   // Override
-  if (children) return <MatCode data={data} type={type} {...rest}>{children}</MatCode>
+  if (children) return <MatCode {...rest}>{children}</MatCode>
 
   let name;
-  if (typeof data === 'string') {
-    name = matData.codeMap.get(data)?.name;
+  if (typeof rest.data === 'string') {
+    name = matData.codeMap.get(rest.data)?.name;
   }
 
   if (name) {
-    return <MatCode data={data} type={type} {...rest}>
-      {`[${data}] ${name}`}
+    return <MatCode {...rest}>
+      {`[${rest.data}] ${name}`}
     </MatCode>
   } else {
-    return <MatCode data={data} type={type} {...rest}/>
+    return <MatCode {...rest}/>
   }
 }
 

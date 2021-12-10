@@ -2,7 +2,7 @@ import { useContext } from "react";
 import PensumSelector from "./PensumSelector";
 import PensumDisplay from "components/Pensum/PensumDisplay";
 import ActivePensumContext from "contexts/active-pensum";
-import PensumFilter from "./Filter";
+import PensumActions from "./Actions";
 import PensumInfo from "./PensumInfo";
 import PensumProgress from "./PensumProgress";
 
@@ -19,7 +19,7 @@ function PensumExtractor(props: Props) {
     {pensum && <>
       <PensumInfo info={pensum.info} />
       <PensumProgress />
-      <PensumFilter />
+      <PensumActions />
       <PensumDisplay pensum={pensum} />
     </>
     }

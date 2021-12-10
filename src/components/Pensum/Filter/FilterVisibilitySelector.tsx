@@ -10,7 +10,7 @@ type Props = {
   entries: [MatSelection.TrackerMode | null, string][]
 }
 
-function FilterVisibilitySelector({ entries }: Props) {
+export function FilterVisibilitySelector({ entries }: Props) {
   const filter = useContext(MatSelectionFilterContext);
   const dispatch = useContext(MatSelectionDispatchContext);
 

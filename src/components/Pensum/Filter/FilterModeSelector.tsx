@@ -9,7 +9,7 @@ type Props = {
   entries: [MatSelection.TrackerMode, string][]
 }
 
-function FilterModeSelector({ entries }: Props) {
+export function FilterModeSelector({ entries }: Props) {
   const mode = useContext(MatSelectionModeContext);
   const dispatch = useContext(MatSelectionDispatchContext);
 

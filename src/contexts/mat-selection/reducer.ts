@@ -1,4 +1,5 @@
 import { objectMap } from "lib/sort-utils";
+import { union } from "lib/set-utils";
 import createDefaultState, { matSelectionModeTypes } from "./default";
 
 const TRACKER_STORAGE_KEY = process.env.REACT_APP_PENSUM_STORAGE_TRACKER_KEY || 'PENSUM_TRACKER';
@@ -119,6 +120,19 @@ export function matSelectionReducer(
       }, { type: 'saveToStorage' });
     }
 
+    case 'passOnCourse': {
+      if (state.tracker.course.size === 0) return state;
+      const tracker = cloneTracker();
+
+      tracker.passed = union(tracker.passed, tracker.course);
+      tracker.course.clear();
+
+      return matSelectionReducer({
+        ...state,
+        tracker
+      }, { type: 'saveToStorage' });
+      
+    }
     
 
 
