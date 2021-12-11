@@ -13,11 +13,10 @@ PS: The `npm run start` script may not work on mac/linux, since I modified it to
 ## Beautiful hooks
 This React page is using [Beautiful React Hooks](https://antonioru.github.io/beautiful-react-hooks/).
 
+## Service worker config
+Used the standard workbox from [Google's guide](https://developers.google.com/web/tools/workbox/guides/get-started).
 
-## TO DO
-### TODO: Service worker (online first, cache 2nd!!)
-[1](https://nmaokaforr.medium.com/step-by-step-to-building-a-pwa-with-react-using-workbox-2db6b9fb6056)
-[2](https://developers.google.com/web/tools/workbox/guides/configure-workbox)
+Configured for PWA with react using [Medium's guide](https://imranhsayed.medium.com/setup-pwa-workbox-webpack-plugin-for-react-application-workbox-window-precaching-caching-at-40f9289650e5).
 
 ### TODO: Make the app work again
 - [ ] [dx-react-grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/getting-started/) for the pensum-editor, since it allows easy data binding.
@@ -37,7 +36,7 @@ This React page is using [Beautiful React Hooks](https://antonioru.github.io/bea
 	- [X] Single mat
 	- [X] Unknown mat
 	- [ ] Mat index (no mat selected)
-- [ ] Enable PWA support
+- [X] Enable PWA support
 - [X] Calcular indice
 - [ ] Save to CSV/EXCEL/JSON
 - [ ] Treeview thing

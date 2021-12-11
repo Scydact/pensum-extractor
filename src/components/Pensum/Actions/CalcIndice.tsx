@@ -1,7 +1,7 @@
 import ActivePensumContext from "contexts/active-pensum";
 import { MatSelectionTrackerContext } from "contexts/mat-selection";
 import React, { useContext, useEffect, useState, useCallback, memo } from "react";
-import { Button, Col, Container, Form, Modal, Table, Row, InputGroup, FormControl } from "react-bootstrap";
+import { Button, Container, Form, Modal, Table, InputGroup, FormControl } from "react-bootstrap";
 import { Outlet, useNavigate } from "react-router-dom";
 import MatCode from "components/Pensum/Mat/MatCode";
 import { useLocalStorage } from "beautiful-react-hooks";
