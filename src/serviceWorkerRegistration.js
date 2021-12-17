@@ -1,7 +1,9 @@
 import { Workbox } from 'workbox-window';
 
 export default function registerServiceWorker() {
-  if (process.env.NODE_ENV === 'production' && 'serviceWorker' in navigator) {
+  const isProduction = process.env.NODE_ENV === 'production';
+  const canServiceWorker = 'serviceWorker' in navigator
+  if (isProduction && canServiceWorker ) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
