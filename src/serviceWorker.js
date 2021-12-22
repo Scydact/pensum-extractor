@@ -1,3 +1,4 @@
+/* eslint no-restricted-globals: 0 */
 import { registerRoute } from 'workbox-routing';
 import {
   NetworkFirst,

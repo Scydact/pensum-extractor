@@ -1,10 +1,10 @@
 import './App.scss';
 import './global-vars.scss';
 
-import { useCallback } from 'react';
+import { useCallback, memo } from 'react';
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom';
 
-import Container from 'react-bootstrap/Container';
+import { Container } from 'react-bootstrap';
 
 import AppNavbar from 'components/AppNavbar';
 import AppFooter from 'components/AppFooter';
@@ -42,41 +42,36 @@ function App() {
   return (
     <Providers>
       <BrowserRouter basename={process.env.PUBLIC_URL}>
-        <AppNavbar />
-        <Container fluid className="App">
+        <Routes>
+          <Route element={<Layout />}>
 
-          <Routes>
-
-            <Route path="/" element={<LayoutWithPensum />}>
-
+            <Route path="/" element={<><PensumExtractor /><Outlet /></>}>
+              
               <Route path="mat" element={<MatInfo />}>
                 <Route index element={<MatInfoIndex />} />
                 <Route path=":code" element={<MatInfoDetails />} />
               </Route>
 
               <Route path="calcular-indice" element={<CalcIndice />} />
-            
+
             </Route>
 
             <Route path="debug" element={<DebugPage />} />
             <Route path="*" element={<Navigate to="/" />} />
 
-          </Routes>
-
-        </Container>
-        <AppFooter />
+          </Route>
+        </Routes>
       </BrowserRouter>
     </Providers>
   );
 }
 
-/** Layout with the outlet as a modal. */
-function LayoutWithPensum() {
-  return (<>
-    <PensumExtractor />
+const Layout = memo(() => <>
+  <AppNavbar />
+  <Container fluid className="App">
     <Outlet />
-  </>)
-}
-
+  </Container>
+  <AppFooter />
+</>)
 
 export default App;

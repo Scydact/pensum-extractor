@@ -1,10 +1,11 @@
 import ActivePensumContext from "contexts/active-pensum";
 import { MatSelectionTrackerContext } from "contexts/mat-selection";
 import React, { useContext, useEffect, useState, useCallback, memo } from "react";
-import { Button, Container, Form, Modal, Table, InputGroup, FormControl } from "react-bootstrap";
-import { Outlet, useNavigate } from "react-router-dom";
+import { Container, Form, Table, InputGroup, FormControl } from "react-bootstrap";
+import { useNavigate } from "react-router-dom";
 import MatCode from "components/Pensum/Mat/MatCode";
 import { useLocalStorage } from "beautiful-react-hooks";
+import { GenericModalNavBack } from "components/GenericModal";
 
 type FormValue = {
   code: string,
@@ -14,24 +15,8 @@ type FormValue = {
 }
 
 export default function CalcIndice() {
-  const {
-    formValues,
-    setFormValues,
-
-    periodGPA,
-
-    cumHours,
-    setCumHours,
-
-    cumGPA,
-    setCumGPA,
-
-    newCumGPA, } = useGPA()
+  const g = useGPA()
   const navigate = useNavigate();
-  
-  const handleHide = () => {
-    navigate(-1)
-  }
 
   const formHeaders = (
   <tr>
@@ -42,7 +27,7 @@ export default function CalcIndice() {
 
   const centerY = "align-middle"
 
-  const formRows = formValues.map(f => (
+  const formRows = g.formValues.map(f => (
     <tr key={f.code}>
       <td className={centerY}>
         <MatCode
@@ -59,7 +44,7 @@ export default function CalcIndice() {
           value={f.value}
           onChange={(evt) => {
             const val = evt.target.value;
-            setFormValues(prev => prev.map(x => {
+            g.setFormValues(prev => prev.map(x => {
               if (x !== f) return x;
               return {
                 ...x,
@@ -80,7 +65,7 @@ export default function CalcIndice() {
 
   const numFormCl = "code text-end"
 
-  const validOut = (formValues.length === 0) ?
+  const validOut = (g.formValues.length === 0) ?
     (<span>
       Para usar esta calculadora, primero debe seleccionar alguna materia
       como <span className='course' style={{ color: 'var(--mat-fg-color, inherit)' }}>Cursando</span>.
@@ -103,7 +88,7 @@ export default function CalcIndice() {
             type="number"
             disabled
             className={numFormCl}
-            value={periodGPA.toPrecision(5)} />
+            value={g.periodGPA.toPrecision(5)} />
         </InputGroup>
       </Container>
 
@@ -121,11 +106,11 @@ export default function CalcIndice() {
             className={numFormCl}
             onChange={(evt) => {
               const val = +evt.target.value
-              setCumHours(~~Math.abs(val)) // rounded positive val
+              g.setCumHours(~~Math.abs(val)) // rounded positive val
             }}
             min={0}
             step={1}
-            value={cumHours} />
+            value={g.cumHours} />
         </InputGroup>
 
         <InputGroup>
@@ -135,12 +120,12 @@ export default function CalcIndice() {
             className={numFormCl}
             onChange={(evt) => {
               const val = +evt.target.value
-              setCumGPA(Math.max(0, Math.min(4, val)))
+              g.setCumGPA(Math.max(0, Math.min(4, val)))
             }}
             min={0}
             max={4}
             step={0.01}
-            value={cumGPA} />
+            value={g.cumGPA} />
         </InputGroup>
       </Container>
 
@@ -151,30 +136,15 @@ export default function CalcIndice() {
             type="number"
             disabled
             className={numFormCl + " fw-bold"}
-            value={newCumGPA.toPrecision(5)} />
+            value={g.newCumGPA.toPrecision(5)} />
         </InputGroup>
       </Container>
     </>)
 
   return (
-    <Modal show={true} onHide={handleHide}>
-      <Modal.Header closeButton>
-        <Modal.Title>Calculadora de índice</Modal.Title>
-      </Modal.Header>
-
-      <Container className="d-flex flex-column gap-3 my-3">
-
-        {validOut}
-        
-        <Outlet />
-      </Container>
-
-      <Modal.Footer>
-        <Button variant="primary" onClick={handleHide}>
-          Cerrar
-        </Button>
-      </Modal.Footer>
-    </Modal>)
+    <GenericModalNavBack title="Calculadora de indice">
+      {validOut}
+    </GenericModalNavBack>)
 }
 
 

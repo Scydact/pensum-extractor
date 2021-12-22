@@ -1,10 +1,12 @@
 lockfileVersion: 5.3
 
 specifiers:
+  '@types/file-saver': ^2.0.4
   '@types/node': ^17.0.0
   '@types/react': ^17.0.37
   '@types/react-dom': ^17.0.11
   beautiful-react-hooks: ^1.0.2
+  file-saver: ^2.0.5
   gh-pages: ^3.2.3
   history: ^5.1.0
   react: ^17.0.2
@@ -32,6 +34,7 @@ dependencies:
   '@types/react': 17.0.37
   '@types/react-dom': 17.0.11
   beautiful-react-hooks: 1.0.2_react-dom@17.0.2+react@17.0.2
+  file-saver: 2.0.5
   history: 5.1.0
   react: 17.0.2
   react-bootstrap: 2.0.3_react-dom@17.0.2+react@17.0.2
@@ -50,6 +53,7 @@ dependencies:
   workbox-window: 6.4.2
 
 devDependencies:
+  '@types/file-saver': 2.0.4
   gh-pages: 3.2.3
   react-app-rewired: 2.1.8_react-scripts@5.0.0
   sass: 1.45.0
@@ -2109,6 +2113,10 @@ packages:
   /@types/estree/0.0.50:
     resolution: {integrity: sha512-C6N5s2ZFtuZRj54k2/zyRhNDjJwwcViAM3Nbm8zjBpbqAdZ00mr0CFxvSKeO8Y/e03WVFLpQMdHYVfUd6SB+Hw==}
     dev: false
+
+  /@types/file-saver/2.0.4:
+    resolution: {integrity: sha512-sPZYQEIF/SOnLAvaz9lTuydniP+afBMtElRTdYkeV1QtEgvtJ7qolCPjly6O32QI8CbEmP5O/fztMXEDWfEcrg==}
+    dev: true
 
   /@types/graceful-fs/4.1.5:
     resolution: {integrity: sha512-anKkLmZZ+xm4p8JWBf4hElkM4XR+EZeA2M9BAkkTldmcyDY4mbdIJnRghDJH3Ov5ooY7/UAoENtmdMSkaAd7Cw==}
@@ -4509,6 +4517,10 @@ packages:
       loader-utils: 2.0.2
       schema-utils: 3.1.1
       webpack: 5.65.0
+    dev: false
+
+  /file-saver/2.0.5:
+    resolution: {integrity: sha512-P9bmyZ3h/PRG+Nzga+rbdI4OEpNDzAVyy74uVO9ATgzLK6VtAsYybF/+TOCvrc0MO793d6+42lLyZTw7/ArVzA==}
     dev: false
 
   /filelist/1.0.2:

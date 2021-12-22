@@ -80,4 +80,10 @@ declare namespace MatSelection {
     | {
       type: 'loadFromStorage',
     }
+
+    /** Sets the entire current tracker */
+    | {
+      type: 'setTracker',
+      payload: Tracker,
+    }
 }

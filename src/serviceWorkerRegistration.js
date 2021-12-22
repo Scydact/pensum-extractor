@@ -1,5 +1,6 @@
 import { Workbox } from 'workbox-window';
 
+// TODO: If update available, prompt user to refresh.
 export default function registerServiceWorker() {
   const isProduction = process.env.NODE_ENV === 'production';
   const canServiceWorker = 'serviceWorker' in navigator

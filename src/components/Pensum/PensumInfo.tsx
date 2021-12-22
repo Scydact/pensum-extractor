@@ -1,11 +1,11 @@
-import Card from "react-bootstrap/Card";
+import { Card, CardProps } from "react-bootstrap";
 
-type Props = {
-  info: Pensum.Pensum['info']
+type Props = CardProps & {
+  info: Pensum.Pensum['info'],
 };
 
-export default function PensumInfo({ info }: Props) {
-  return <Card>
+export default function PensumInfo({ info, ...rest }: Props) {
+  return <Card {...rest}>
     <Card.Header className="text-center pt-3">
       <h5>Detalles de la carrera</h5>
     </Card.Header>

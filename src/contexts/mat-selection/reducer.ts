@@ -5,6 +5,10 @@ import createDefaultState, { matSelectionModeTypes } from "./default";
 const TRACKER_STORAGE_KEY = process.env.REACT_APP_PENSUM_STORAGE_TRACKER_KEY || 'PENSUM_TRACKER';
 const LEGACY_TRACKER_STORAGE_KEY = 'saveData';
 
+/** Alias for save to storage */
+function STS(state: MatSelection.Payload) {
+  return matSelectionReducer(state, { type: 'saveToStorage' })
+}
 // TODO: IMPLEMENT TRACKER INTO THE PENSUM TABLE >:V
 // IMPORTANT: Friendly remined that any method that modifies the state must call saveToStorage.
 export function matSelectionReducer(
@@ -28,10 +32,10 @@ export function matSelectionReducer(
     case 'selectMode': {
       const newMode = action.payload || 'passed';
 
-      return matSelectionReducer({
+      return STS({
         ...state,
         mode: newMode,
-      }, { type: 'saveToStorage' });
+      });
     }
 
 
@@ -48,10 +52,10 @@ export function matSelectionReducer(
         }
       }
 
-      return matSelectionReducer({
+      return STS({
         ...state,
         tracker
-      }, { type: 'saveToStorage' });
+      });
     }
 
 
@@ -114,10 +118,10 @@ export function matSelectionReducer(
         }
       }
 
-      return matSelectionReducer({
+      return STS({
         ...state,
         tracker
-      }, { type: 'saveToStorage' });
+      });
     }
 
     case 'passOnCourse': {
@@ -127,10 +131,10 @@ export function matSelectionReducer(
       tracker.passed = union(tracker.passed, tracker.course);
       tracker.course.clear();
 
-      return matSelectionReducer({
+      return STS({
         ...state,
         tracker
-      }, { type: 'saveToStorage' });
+      });
       
     }
     
@@ -165,11 +169,11 @@ export function matSelectionReducer(
         delete storage[state.currentName];
 
       // saveToStorage will automatically copy the current tracker to the new tracker name.
-      return matSelectionReducer({
+      return STS({
         ...state,
         currentName: newName,
         storage,
-      }, { type: 'saveToStorage' });
+      });
     }
 
     case 'copyTrackerID': {
@@ -190,11 +194,11 @@ export function matSelectionReducer(
       if (currentName === oldName)
         currentName = newName;
 
-      return matSelectionReducer({
+      return STS({
         ...state,
         storage,
         currentName,
-      }, { type: 'saveToStorage' });
+      });
     }
 
 
@@ -212,11 +216,11 @@ export function matSelectionReducer(
       if (currentName === name)
         currentName = null;
 
-      return matSelectionReducer({
+      return STS({
         ...state,
         storage,
         currentName,
-      }, { type: 'saveToStorage' });
+      });
     }
 
     // Filter options
@@ -227,12 +231,18 @@ export function matSelectionReducer(
       if (filter.has(x)) filter.delete(x);
       else (filter.add(x));
 
-      return matSelectionReducer({
+      return STS({
         ...state,
         filter,
-      }, { type: 'saveToStorage' });
+      });
     }
 
+    case 'setTracker': {
+      return STS({
+        ...state,
+        tracker: action.payload,
+      })
+    }
 
 
     // TRACKER SAVE ACTIONS
