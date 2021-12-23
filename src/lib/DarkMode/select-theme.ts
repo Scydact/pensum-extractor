@@ -40,6 +40,12 @@ export const optionStyle: StylesConfig = {
   placeholder: (provided, state) => ({
     ...provided,
     opacity: 0.6,
+  }),
+
+  // ZIndex so the menu items are above "Cargar" btn on PensumSelector.
+  menu: (provided, state) => ({
+    ...provided,
+    zIndex: 3,
   })
   
 }
