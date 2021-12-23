@@ -5,7 +5,7 @@ import { Button } from "react-bootstrap";
 import { GoCloudUpload } from "react-icons/go";
 import { BiReset, BiSave } from "react-icons/bi";
 import actions from "contexts/mat-selection/actions";
-import { download } from "lib/file-utils";
+import { download, upload } from "lib/file-utils";
 import ActivePensumContext from "contexts/active-pensum";
 import { idDateFormat, toPascalCase } from "lib/format-utils";
 import "./style.css";
@@ -84,14 +84,20 @@ const Btns = {
   TrackerImport: () => {
     const dispatch = useContext(MatSelectionDispatchContext)
     const onClick = () => {
-      const txt = prompt('Insert tracker json');
       try {
-        const obj = JSON.parse(txt || '');
-        const tracker = actions.import.selection(obj);
-        dispatch({ type: 'setTracker', payload: tracker })
-        alert('Cargadas:\n'
-          + `  - ${tracker.passed.size} materias pasadas.\n`
-          + `  - ${tracker.course.size} materias en curso.\n`)
+        upload('.json').then(txt => {
+          if (typeof txt !== 'string') 
+            throw new Error('Error al leer archivo!');
+
+          const obj = JSON.parse(txt || '');
+
+          const tracker = actions.import.selection(obj);
+
+          dispatch({ type: 'setTracker', payload: tracker })
+          alert('Cargadas:\n'
+            + `  - ${tracker.passed.size} materias pasadas.\n`
+            + `  - ${tracker.course.size} materias en curso.\n`)
+        })
       }
       catch (e) {
         alert(`Error al cargar: \n ${e}`);
