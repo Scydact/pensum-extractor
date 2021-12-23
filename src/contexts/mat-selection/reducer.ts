@@ -9,7 +9,7 @@ const LEGACY_TRACKER_STORAGE_KEY = 'saveData';
 function STS(state: MatSelection.Payload) {
   return matSelectionReducer(state, { type: 'saveToStorage' })
 }
-// TODO: IMPLEMENT TRACKER INTO THE PENSUM TABLE >:V
+
 // IMPORTANT: Friendly remined that any method that modifies the state must call saveToStorage.
 export function matSelectionReducer(
   state: MatSelection.Payload,

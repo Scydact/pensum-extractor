@@ -3,7 +3,7 @@ import { MatSelectionTrackerContext } from "contexts/mat-selection";
 import React, { useContext, useEffect, useState, useCallback, memo } from "react";
 import { Container, Form, Table, InputGroup, FormControl } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
-import MatCode from "components/Pensum/Mat/MatCode";
+import MatCode from "components/MatCode";
 import { useLocalStorage } from "beautiful-react-hooks";
 import { GenericModalNavBack } from "components/GenericModal";
 
@@ -69,7 +69,7 @@ export default function CalcIndice() {
     (<span>
       Para usar esta calculadora, primero debe seleccionar alguna materia
       como <span className='course' style={{ color: 'var(--mat-fg-color, inherit)' }}>Cursando</span>.
-    </span>) : (<>
+    </span>) : (<div className="d-flex flex-column gap-3">
       <Container>
         <Table size="sm">
           <thead>
@@ -139,7 +139,7 @@ export default function CalcIndice() {
             value={g.newCumGPA.toPrecision(5)} />
         </InputGroup>
       </Container>
-    </>)
+    </div>)
 
   return (
     <GenericModalNavBack title="Calculadora de indice">

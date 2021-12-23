@@ -1,0 +1,9 @@
+.port-select-btn-container {
+  display: flex;
+  gap: .5rem;
+  flex-wrap: wrap;
+}
+
+.port-select-btn-container > * {
+  flex: 1 0 140px;
+}

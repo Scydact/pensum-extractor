@@ -1,32 +1,50 @@
 import { GenericModal} from "components/GenericModal";
-import { MatSelectionTrackerContext, MatSelectionTrackerNameContext, MatSelectionTrackerStorageContext, MatSelectionDispatchContext } from "contexts/mat-selection";
+import { MatSelectionTrackerContext, MatSelectionDispatchContext } from "contexts/mat-selection";
 import { useContext, useState } from "react";
 import { Button } from "react-bootstrap";
-import { GoCloudDownload, GoCloudUpload } from "react-icons/go";
-import { BiReset } from "react-icons/bi";
+import { GoCloudUpload } from "react-icons/go";
+import { BiReset, BiSave } from "react-icons/bi";
 import actions from "contexts/mat-selection/actions";
+import { download } from "lib/file-utils";
+import ActivePensumContext from "contexts/active-pensum";
+import { idDateFormat, toPascalCase } from "lib/format-utils";
+import "./style.css";
+
+const MatColor = ({ children, style, ...rest }: any) =>
+  <span
+    style={{ ...style, color: 'var(--mat-fg-color, inherit)' }}
+    {...rest}>
+    {children}
+  </span >
 
 export function PortPensumSelectModal(props: any) {
 
   return (
     <GenericModal {...props} title="Portar progreso">
       <p>
-        Las materias aprobadas seleccionadas se guardan localmente en la cache
-        del navegador. Al estar guardados en la cache, estos datos podrian
+        Las materias <MatColor className="passed">aprobadas</MatColor> y <MatColor className="course">en curso </MatColor> 
+        seleccionadas se guardan localmente en la cache del navegador. 
+        Al estar guardados en la cache, estos datos podrian
         borrarse con una actualización.
       </p>
       <p>
         Para evitar la perdida de estos datos, se recomienda exportar la 
         seleccion como un archivo (progreso.json).
       </p>
-
-      <Btns.TrackerImport />
-      <Btns.TrackerExport />
-      <Btns.TrackerReset />
+      <div className="port-select-btn-container">
+        <Btns.TrackerExport />
+        <Btns.TrackerImport />
+        <Btns.TrackerReset />
+      </div>
     </GenericModal>
   )
 }
 
+const s = {
+  display: 'grid',
+  gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
+  gap: '.5em',
+}
 
 
 export function PortPensumSelectModalBtn(props: any) {
@@ -44,14 +62,20 @@ export function PortPensumSelectModalBtn(props: any) {
 const Btns = {
   TrackerExport: () => {
     const tracker = useContext(MatSelectionTrackerContext)
+    const { state: { pensum } } = useContext(ActivePensumContext)
+
+    const pensumName = toPascalCase((pensum?.career || 'NA').toLowerCase())
+    const date = idDateFormat(new Date())
+
+    const filename = `seleccion_${pensumName}_${date}.json`
+
     const onClick = () => {
-      const txt = actions.export.selection(tracker);
-      console.log(txt);
+      const txt = actions.export.selection(tracker)
+      download(txt, filename)
     }
 
-    // TODO: ACTUALLY PROmPT DOWNLOAD. Use file-utils.download
     return <Button onClick={onClick}>
-      <GoCloudDownload /> Exportar selección
+      <BiSave /> Exportar selección
     </Button>
   },
 
@@ -85,11 +109,11 @@ const Btns = {
     const onClick = () => {
       try {
         const tracker = actions.import.selection({});
-        dispatch({ type: 'setTracker', payload: tracker })
-        alert('No tiene materias en seguimiento');
+        if (window.confirm('Seguro que quiere reiniciar su progreso?'))
+          dispatch({ type: 'setTracker', payload: tracker })
       }
       catch (e) {
-        alert(`Error al cargar: \n ${e}`)
+        alert(`Error al reiniciar (esto no deberia pasar): \n ${e}`)
       }
     }
 

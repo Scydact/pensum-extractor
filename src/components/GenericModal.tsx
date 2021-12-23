@@ -12,6 +12,12 @@ type GModalProps = {
   onHide?: () => any,
 } & ModalProps;
 
+/** 
+ * Simple modal with boilerplate Header, Title, Footer (with close button).
+ * You must provide onHide to avoid buggyness.
+ * 
+ * If using react-router, you could use GenericModalNavBack instead.
+ */
 export function GenericModal({
   children,
   title,
@@ -28,7 +34,7 @@ export function GenericModal({
         <Modal.Title>{title}</Modal.Title>
       </Modal.Header>
 
-      <Container className="d-flex flex-column gap-3 my-3">
+      <Container className="my-3">
 
         {children}
 
@@ -44,7 +50,13 @@ export function GenericModal({
     </Modal>)
 }
 
-/** Modal that navigates back on hide.  */
+/**
+ * Modal template that navigates back on hide. (react-router useNavigate()).
+ * 
+ * It's just a GenericModal with onHide set to `navigate(-1)`. 
+ * 
+ * See GenericModal for more details.
+ */
 export function GenericModalNavBack({ children, ...rest }: GModalProps) {
   const navigate = useNavigate();
   const handleHide = () => {

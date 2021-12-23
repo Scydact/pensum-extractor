@@ -1,11 +1,11 @@
 import Card from 'react-bootstrap/Card';
-import PensumTable from "./Table";
+import PensumTable from "components/Pensum/Table";
 
 type Props = {
   pensum: Pensum.Pensum
 }
 
-function PensumDisplay({ pensum }: Props) {
+function PensumDisplayCards({ pensum }: Props) {
   const { career, periods, loose, periodType } = pensum;
 
   return <>
@@ -32,4 +32,4 @@ function PensumDisplay({ pensum }: Props) {
   </>
 }
 
-export default PensumDisplay;
+export default PensumDisplayCards;

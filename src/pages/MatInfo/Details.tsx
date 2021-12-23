@@ -8,7 +8,7 @@ import Container from "react-bootstrap/Container";
 import Row from "react-bootstrap/Row";
 import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
-import MatCode, { LongMatCode } from "components/Pensum/Mat/MatCode";
+import MatCode, { LongMatCode } from "components/MatCode";
 import PensumRowNodesContext from "contexts/pensum-row-nodes";
 
 

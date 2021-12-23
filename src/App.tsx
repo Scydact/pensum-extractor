@@ -1,7 +1,7 @@
 import './App.scss';
 import './global-vars.scss';
 
-import { useCallback, memo } from 'react';
+import { memo } from 'react';
 import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom';
 
 import { Container } from 'react-bootstrap';
@@ -9,35 +9,17 @@ import { Container } from 'react-bootstrap';
 import AppNavbar from 'components/AppNavbar';
 import AppFooter from 'components/AppFooter';
 
-import PensumExtractor from 'components/Pensum/PensumExtractor';
-import { UniversityProvider } from 'contexts/university-data';
-import { ActivePensumProvider } from 'contexts/active-pensum';
-import { MatSelectionProvider } from 'contexts/mat-selection';
+import Providers from 'pages/Providers';
+import PensumExtractor from 'pages/PensumExtractor/PensumExtractor';
 
-import MatInfo from 'components/MatInfo';
-import MatInfoDetails from 'components/MatInfo/Details';
-import MatInfoIndex from 'components/MatInfo/MatIndex';
-import { PensumRowNodesProvider } from 'contexts/pensum-row-nodes';
-import DebugPage from 'components/Debug';
-import CalcIndice from 'components/Pensum/Actions/CalcIndice';
+import MatInfo from 'pages/MatInfo';
+import MatInfoDetails from 'pages/MatInfo/Details';
+import MatInfoIndex from 'pages/MatInfo/MatIndex';
+import DebugPage from 'pages/Debug';
+import CalcIndice from 'pages/CalcIndice';
 
 
 function App() {
-
-  // Nested ContextProviders
-  const Providers = useCallback(function Providers(props: any) {
-    return (
-      <UniversityProvider>
-        <ActivePensumProvider>
-          <MatSelectionProvider>
-            <PensumRowNodesProvider>
-              {props.children}
-            </PensumRowNodesProvider>
-          </MatSelectionProvider>
-        </ActivePensumProvider>
-      </UniversityProvider>
-    )
-  }, []);
 
   return (
     <Providers>

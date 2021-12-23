@@ -201,7 +201,6 @@ $color in $colors {
   $parsed : create-color($color, 0);
   @include inner-vars($parsed, 0);
 
-  // TODO: Adjust default color so it looks nices... probably just make rowmat lighter on dark mode.
   $co : color.change(map.get($parsed, "table-even"), $alpha: 0.1);
 
   --rowmat-bg-odd  : transparent;

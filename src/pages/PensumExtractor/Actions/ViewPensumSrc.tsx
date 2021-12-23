@@ -1,21 +1,6 @@
-import { useContext } from "react";
-
-import { Button, Card, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { BiSave } from "react-icons/bi";
-
-import { PortPensumSelectModalBtn } from "./Actions/PortSelection";
 import ActivePensumContext from "contexts/active-pensum";
-
-// Todo: Move this to Pensum/Actions, and move the btns to this separate pane.
-export default function PensumSaveActions() {
-
-  return <Card className="pensum-save-container">
-    <Card.Body className="d-flex flex-column gap-1">
-      <ViewPensumSourceBtn />
-      <PortPensumSelectModalBtn><BiSave /> Guardar/Cargar Selección</PortPensumSelectModalBtn>
-    </Card.Body>
-  </Card>
-}
+import { useContext } from "react";
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
 
 
@@ -35,7 +20,7 @@ const src_logos: Record<Pensum.Pensum['src']['type'], React.ReactNode> = {
   'scan': '📷',
 }
 
-function ViewPensumSourceBtn() {
+export default function ViewPensumSourceBtn() {
   const { state: { pensum } } = useContext(ActivePensumContext);
   if (!pensum) return null;
   const logo = src_logos[pensum.src.type] || `[${pensum.src.type}]`
@@ -49,7 +34,7 @@ function ViewPensumSourceBtn() {
 
   return <OverlayTrigger
     overlay={<Tooltip>{tooltip}</Tooltip>}>
-    
+
     <Button onClick={onClick} disabled={disabled}>
       {logo} Ver pensum original
     </Button>

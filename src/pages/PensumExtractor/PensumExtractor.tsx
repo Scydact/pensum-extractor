@@ -1,12 +1,11 @@
 import { useContext } from "react";
 import PensumSelector from "./PensumSelector";
-import PensumDisplay from "components/Pensum/PensumDisplay";
+import PensumDisplay from "./PensumDisplayCards";
 import ActivePensumContext from "contexts/active-pensum";
-import PensumActions from "./Actions";
+import PensumFilter from "./Filter/FilterCard";
 import PensumInfo from "./PensumInfo";
 import PensumProgress from "./PensumProgress";
-import PensumSaveActions from "./PensumSaveActions";
-import { Col, Row } from "react-bootstrap";
+import PensumActions from "./Actions/ActionsCard";
 
 
 type Props = any;
@@ -21,10 +20,10 @@ function PensumExtractor(props: Props) {
     {pensum && <>
       <div className="d-md-flex gap-3">
         <PensumInfo info={pensum.info} className="flex-fill" />
-        <PensumSaveActions />
+        <PensumActions />
       </div>
       <PensumProgress />
-      <PensumActions />
+      <PensumFilter />
       <PensumDisplay pensum={pensum} />
     </>
     }
