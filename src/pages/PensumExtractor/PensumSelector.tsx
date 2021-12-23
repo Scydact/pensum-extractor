@@ -1,18 +1,19 @@
 import UniversityContext from "contexts/university-data";
-import React, { memo, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { memo, useCallback, useContext, useEffect, useMemo, useState } from "react";
+import { usePreviousValue } from "beautiful-react-hooks";
 
-import Form from "react-bootstrap/Form";
-import Button from "react-bootstrap/Button";
-import Card from "react-bootstrap/Card";
-import Spinner from "react-bootstrap/Spinner";
-import Container from "react-bootstrap/Container";
+import { Button, Card, Container, Dropdown, DropdownButton, Form, InputGroup, Spinner } from "react-bootstrap";
+import { FiSettings, FiDelete } from "react-icons/fi";
+import { HiRefresh, HiUpload } from "react-icons/hi";
+import { BiEraser } from "react-icons/bi";
 
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
 import selectTheme, { optionStyle } from "lib/DarkMode/select-theme";
+
 import { sortByProp } from "lib/sort-utils";
 import ActivePensumContext from "contexts/active-pensum";
-import { usePreviousValue } from "beautiful-react-hooks";
+
 
 // type SelectProps = React.ComponentProps<typeof Select>['onChange'];
 type SelectProps = { label: string, value: string } | null;
@@ -28,11 +29,12 @@ function createLabelString(code: string, name: string) {
 function PensumSelector() {
   // Quite awful, just read this context from right to left.
   const { state: {
-      pensum:   activePensum,
-      error:    error_pensum,
-      loading:  loading_pensum,
-    },
-    load: loadPensum,
+    pensum:   activePensum,
+    error:    error_pensum,
+    loading:  loading_pensum,
+  },
+    load:     loadPensum,
+    dispatch: pensumDispatch,
   } = useContext(ActivePensumContext);
 
   const {
@@ -64,7 +66,7 @@ function PensumSelector() {
     return o.map(x => ({ value: x.code, label: createLabelString(x.code, x.name) }));
   }, [selected_uni]);
 
-  
+
   // ***************************************************************************
   // On pensum change
   //  If the pensum changed, do:
@@ -76,7 +78,7 @@ function PensumSelector() {
     if (activePensum === previousPensum) return;
     // If no pensum is selected, there's nothing to "select"!
     if (!activePensum) return;
-    
+
     // Select university
     selectUniversity(activePensum.institution);
 
@@ -118,36 +120,73 @@ function PensumSelector() {
     loadPensum(uni, code);
   }, [loadPensum, selected_uni, pensumOnInput]);
 
+  // ***************************************************************************
+  // Submit btn content & state.
+  // ***************************************************************************
+  const submitBtnOpt = {
+    disabled: false,
+    content: 'Cargar' as React.ReactNode,
+  }
+
+  if (!pensumOnInput) {
+    submitBtnOpt.disabled = true;
+  }
+
+  if (loading_pensum) {
+    submitBtnOpt.content =
+      <Spinner animation="border" size="sm">
+        <span className="visually-hidden">Cargando...</span>
+      </Spinner>
+  }
+
+
   return (
     <Card>
       <Card.Body>
         <Container>
           {/* zIndex so that <Select> options are not covered by <MatFilter>. */}
-        <Form onSubmit={handleSubmit} style={{ zIndex: 2, position: 'relative' }}>
-          <SelectUni
-            value={selectedUniversity}
-            options={universitySelectOptions}
-            isLoading={loading_uni}
-            onChange={handleUniversityChange} />
+          <Form onSubmit={handleSubmit} style={{ zIndex: 2, position: 'relative' }}>
+            <SelectUni
+              value={selectedUniversity}
+              options={universitySelectOptions}
+              isLoading={loading_uni}
+              onChange={handleUniversityChange} />
 
-          <SelectCareer
-            value={pensumOnInput}
-            options={careerSelectOptions}
-            isLoading={loading_uni}
-            onChange={setPensumOnInput}/>
+            <SelectCareer
+              value={pensumOnInput}
+              options={careerSelectOptions}
+              isLoading={loading_uni}
+              onChange={setPensumOnInput} />
 
-          <Button
-            type="submit"
-            disabled={!pensumOnInput}
-            className="w-100">
-            {(!loading_pensum) ?
-              'Cargar' :
-              <Spinner animation="border" size="sm"><span className="visually-hidden">Cargando...</span></Spinner>}
-          </Button>
+            <InputGroup className="w-100 d-flex">
+              <Button
+                type="submit"
+                disabled={submitBtnOpt.disabled}
+                className="flex-fill">
+                {submitBtnOpt.content}
+              </Button>
+              <DropdownButton title={<FiSettings />}>
+                <Dropdown.Item
+                  disabled={!activePensum || !activePensum.src.url}>
+                  <HiRefresh /> Forzar recarga
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <HiUpload /> Subir pensum.json
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <BiEraser /> Crear desde cero
+                </Dropdown.Item>
+                <Dropdown.Item
+                  disabled={!activePensum}
+                  onClick={() => pensumDispatch({ type: 'clear' })}>
+                  <FiDelete /> Remover pensum
+                </Dropdown.Item>
+              </DropdownButton>
+            </InputGroup>
 
-          {error_uni && <p style={{ color: 'red' }}>{'Error @ uni: ' + String(error_uni)}</p>}
-          {error_pensum && <p style={{ color: 'red' }}>{'Error @ pensum: ' + String(error_pensum)}</p>}
-        </Form>
+            {error_uni && <p style={{ color: 'red' }}>{'Error @ uni: ' + String(error_uni)}</p>}
+            {error_pensum && <p style={{ color: 'red' }}>{'Error @ pensum: ' + String(error_pensum)}</p>}
+          </Form>
         </Container>
       </Card.Body>
     </Card>
