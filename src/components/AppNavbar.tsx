@@ -5,21 +5,22 @@ import { useNavigate } from "react-router-dom";
 
 
 function AppNavbar() {
-  const navbarRef = useRef(null as HTMLElement | null);
+  const navbarRef = useRef(null as any as HTMLElement);
   const navigate = useNavigate();
 
   // Navbar hide on scroll
   useEffect(() => {
     var prevScrollPos = window.scrollY;
+    var { height } = navbarRef.current.getBoundingClientRect();
     const onScrollFn = () => {
       if (!navbarRef.current) return;
       var currentScrollPos = window.scrollY;
-      var { height } = navbarRef.current.getBoundingClientRect();
 
       if (prevScrollPos > currentScrollPos) {
-        navbarRef.current.style.top = '0';
+        navbarRef.current.style.transform = 'translate(0,0)';
       } else {
-        navbarRef.current.style.top = (height < currentScrollPos ? -height : -currentScrollPos) + 'px';
+        var h = (height < currentScrollPos ? height : currentScrollPos);
+        navbarRef.current.style.transform = `translate(0,-${h}px)`;
       }
       prevScrollPos = currentScrollPos;
     }

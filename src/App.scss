@@ -41,7 +41,7 @@ footer {
 
 /** Navbar scroll */
 .App-header {
-  transition: top 200ms ease;
+  transition: transform 200ms ease;
   color: white;
 
   // Fix not being colored on darkmode.
