@@ -1,18 +1,15 @@
-import { useContext } from "react";
-
-import { Button, Card, OverlayTrigger, Tooltip } from "react-bootstrap";
-import { BiSave, BiCalculator, BiCheckDouble } from "react-icons/bi";
+import { Button, Card } from "react-bootstrap";
+import { BiSave, BiCalculator } from "react-icons/bi";
 
 import { PortPensumSelectModalBtn } from "./ImportExportSelection";
 import { useNavigate } from "react-router-dom";
-import { MatSelectionDispatchContext } from "contexts/mat-selection";
 import ViewPensumSourceBtn from "./ViewPensumSrc";
 
 // Todo: Move this to Pensum/Actions, and move the btns to this separate pane.
 export default function PensumSaveActions() {
   const navigate = useNavigate()
 
-  return <Card>
+  return <Card className="flex-shrink-0">
     <Card.Body className="d-flex gap-1 flex-column">
 
       <ViewPensumSourceBtn />
