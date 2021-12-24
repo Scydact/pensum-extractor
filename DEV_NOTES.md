@@ -19,6 +19,7 @@ Used the standard workbox from [Google's guide](https://developers.google.com/we
 Configured for PWA with react using [Medium's guide](https://imranhsayed.medium.com/setup-pwa-workbox-webpack-plugin-for-react-application-workbox-window-precaching-caching-at-40f9289650e5).
 
 ### TODO: Make the app work again
+- [ ] TODO: IMPORTANT! Show dialog when service worker has update. Clear SW caches (at least main JS cache).
 - [ ] [dx-react-grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/getting-started/) for the pensum-editor, since it allows easy data binding.
 - [X] Allow tracking
   - [X] Use a .clickable class to toggle :hover background.

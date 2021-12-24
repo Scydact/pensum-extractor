@@ -27,7 +27,7 @@ import { precacheAndRoute } from 'workbox-precaching';
 registerRoute(
   // Check to see if the request is a navigation to a new page
   ({ request }) => 
-    request.mode === 'navigate',
+    request.mode === 'navigate' && request.url.startsWith('http'),
   // Use a Network First caching strategy
   new NetworkFirst({
     // Put all cached files in a cache named 'pages'
@@ -63,9 +63,9 @@ registerRoute(
 registerRoute(
   // Check to see if the request's destination is style for stylesheets, script for JavaScript, or worker for web worker
   ({ request }) =>
-    request.destination === 'style' ||
+    (request.destination === 'style' ||
     request.destination === 'script' ||
-    request.destination === 'worker',
+    request.destination === 'worker') && request.url.startsWith('http'),
   // Use a Stale While Revalidate caching strategy
   new StaleWhileRevalidate({
     // Put all cached files in a cache named 'assets'
@@ -82,7 +82,7 @@ registerRoute(
 // Cache images with a Cache First strategy
 registerRoute(
   // Check to see if the request's destination is style for an image
-  ({ request }) => request.destination === 'image',
+  ({ request }) => request.destination === 'image' && request.url.startsWith('http'),
   // Use a Cache First caching strategy
   new CacheFirst({
     // Put all cached files in a cache named 'images'
@@ -100,3 +100,10 @@ registerRoute(
     ],
   }),
 );
+
+// Taken from https://developers.google.com/web/tools/workbox/guides/advanced-recipes
+addEventListener('message', (event) => {
+  if (event.data && event.data.type === 'SKIP_WAITING') {
+    self.skipWaiting();
+  }
+});

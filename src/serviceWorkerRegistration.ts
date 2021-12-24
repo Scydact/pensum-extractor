@@ -1,10 +1,14 @@
 import { Workbox } from 'workbox-window';
 
+export const serviceWorkerRef = {
+  wb: null as Workbox | null,
+}
+
 // TODO: If update available, prompt user to refresh.
 export default function registerServiceWorker() {
   const isProduction = process.env.NODE_ENV === 'production';
   const canServiceWorker = 'serviceWorker' in navigator
-  if (isProduction && canServiceWorker ) {
+  if (isProduction && canServiceWorker) {
     // The URL constructor is available in all browsers that support SW.
     const publicUrl = new URL(process.env.PUBLIC_URL, window.location.href);
     if (publicUrl.origin !== window.location.origin) {
@@ -15,6 +19,7 @@ export default function registerServiceWorker() {
     }
 
     const wb = new Workbox('sw.js'); // this name was set on config-override.js
+    serviceWorkerRef.wb = wb;
 
     wb.addEventListener('installed', event => {
       /**
@@ -26,6 +31,7 @@ export default function registerServiceWorker() {
         console.log('New update available!');
       }
     });
+
     wb.register();
   }
 }

@@ -17,6 +17,7 @@ import MatInfoDetails from 'pages/MatInfo/Details';
 import MatInfoIndex from 'pages/MatInfo/MatIndex';
 import DebugPage from 'pages/Debug';
 import CalcIndice from 'pages/CalcIndice';
+import ServiceWorkerUpdateBanner from 'pages/ServiceWorkerUpdateBanner';
 
 
 function App() {
@@ -50,6 +51,7 @@ function App() {
 
 const Layout = memo(() => <>
   <AppNavbar />
+  <ServiceWorkerUpdateBanner />
   <Container fluid className="App">
     <Outlet />
   </Container>
