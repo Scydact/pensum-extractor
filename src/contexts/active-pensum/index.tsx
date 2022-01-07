@@ -37,10 +37,12 @@ export const ActivePensumProvider = memo(function ActivePensumProvider({ childre
     try {
       const pensum = await fetchPensumFromCode(university, code);
       dispatch({ type: 'set', payload: pensum });
+	  
+	  // TODO: add "payload.loadInfo" (similar to payload.error) to tell user 
+	  //       the process of fetching (fetching from proxy #1, proxy#2, etc...)
     }
     catch (error) {
       let m: any;
-
       if (error instanceof SyntaxError)
         m = `JSON could not be parsed for ${university}/${code}.`;
       else if (error instanceof PensumFetchError)

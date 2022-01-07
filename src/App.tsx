@@ -50,8 +50,9 @@ function App() {
 }
 
 const Layout = memo(() => <>
-  <AppNavbar />
-  <ServiceWorkerUpdateBanner />
+  <AppNavbar>
+    <ServiceWorkerUpdateBanner />
+  </AppNavbar>
   <Container fluid className="App">
     <Outlet />
   </Container>

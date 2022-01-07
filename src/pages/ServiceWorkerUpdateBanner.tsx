@@ -1,46 +1,43 @@
-import { memo, useEffect, useState } from "react"
+import { memo, useEffect, useRef, useState } from "react"
+import { Button, Container, Overlay, OverlayTrigger, Tooltip } from "react-bootstrap"
 import { serviceWorkerRef } from "serviceWorkerRegistration"
 
 const ServiceWorkerUpdateBanner = memo(() => {
-  const [updateAvailable, setUA] = useState(false)
+  const [doUpdate, setDoUpdate] = useState<Function | null>(null)
   
   useEffect(() => {
     setTimeout(() => {
-      console.log(serviceWorkerRef);
       if (serviceWorkerRef.wb) {
-        const { wb } = serviceWorkerRef
+        const wb = serviceWorkerRef.wb
 
         // Taken from https://developers.google.com/web/tools/workbox/guides/advanced-recipes
         // This simple refresh takes change of updating the cache of js files. :)
-        // TODO: Make this a proper modal/alert/popup.
         wb.addEventListener('waiting', event => {
-          setUA(true);
-          if (window.confirm('New update available!\n Do you want to update?')) {
+          setDoUpdate(() => () => {
             wb.addEventListener('controlling', event => {
               window.location.reload()
             })
 
             wb.messageSkipWaiting();
-          }
+          });
         })
       }
     }, 100)
   }, [])
 
-  return (updateAvailable) ? <div>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    <br/>
-    SERVICE WORKER UPDATE AVAILABLE!
-    <br/>
-    Press Ctrl + F5 to update NOW.
-  </div> : null
+  return (doUpdate) ? <OverlayTrigger
+    placement="auto"
+    overlay={
+      <Tooltip>
+        Actualización disponible! Click para refrescar la página
+      </Tooltip>
+    }>
+    <Button 
+      variant="outline-warning"
+      onClick={doUpdate as any}>
+      Actualizar
+    </Button>
+  </OverlayTrigger> : null
 })
 
 export default ServiceWorkerUpdateBanner;

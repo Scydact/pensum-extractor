@@ -3,8 +3,11 @@ import { useEffect, useRef } from "react";
 import { Container, Navbar } from "react-bootstrap";
 import { useNavigate } from "react-router-dom";
 
+type Props = {
+  children: React.ReactChild
+}
 
-function AppNavbar() {
+function AppNavbar({ children }: Props) {
   const navbarRef = useRef(null as any as HTMLElement);
   const navigate = useNavigate();
 
@@ -36,7 +39,13 @@ function AppNavbar() {
     fixed="top" >
     <Container>
       <Navbar.Brand
-       onClick={() => navigate("/")}>PENSUMS UNAPEC</Navbar.Brand>
+        onClick={() => navigate("/")}>
+        PENSUMS UNAPEC
+      </Navbar.Brand>
+
+      <div className="flex-grow-1">
+        {children}
+      </div>
 
       <DarkModeSwitch />
     </Container>
