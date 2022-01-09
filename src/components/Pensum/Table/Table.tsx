@@ -4,6 +4,7 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { memo } from 'react';
 import Period from './Period';
+import { defaultPeriodType } from 'functions/pensum-get-period-type';
 
 /** Headers for the pensum table. */
 export const TableHead = memo((props: { periodNumStr?: string | null }) => {
@@ -35,12 +36,6 @@ type PensumTableProps = {
   periodIndexStart?: number,
   periodType?: Pensum.Pensum['periodType'] | null
 }
-
-const defaultPeriodType = {
-  name: 'Periodo',
-  acronym: 'Per',
-  two: 'Pr'
-};
 
 /** Displays a pensum. */
 function PensumTable({ periods, periodIndexStart = 1, periodType = defaultPeriodType }: PensumTableProps) {

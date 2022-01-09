@@ -18,6 +18,7 @@ import MatInfoIndex from 'pages/MatInfo/MatIndex';
 import DebugPage from 'pages/Debug';
 import CalcIndice from 'pages/CalcIndice';
 import ServiceWorkerUpdateBanner from 'pages/ServiceWorkerUpdateBanner';
+import MatOrgChart from 'pages/MatOrgChart/MatOrgChart';
 
 
 function App() {
@@ -36,6 +37,8 @@ function App() {
               </Route>
 
               <Route path="calcular-indice" element={<CalcIndice />} />
+
+              <Route path="diagrama" element={<MatOrgChart />}/>
 
             </Route>
 

@@ -1,5 +1,6 @@
 import { Button, Card } from "react-bootstrap";
 import { BiSave, BiCalculator } from "react-icons/bi";
+import { ImTree } from "react-icons/im";
 
 import { PortPensumSelectModalBtn } from "./ImportExportSelection";
 import { useNavigate } from "react-router-dom";
@@ -19,6 +20,11 @@ export default function PensumSaveActions() {
       <Button
         onClick={() => navigate('calcular-indice')}>
         <BiCalculator /> Calcular indice
+      </Button>
+
+      <Button
+        onClick={() => navigate('diagrama')}>
+        <ImTree /> Organigrama
       </Button>
 
       {/* Not so common, tbh... */}

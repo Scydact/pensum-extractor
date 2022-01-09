@@ -115,7 +115,7 @@ namespace Pensum {
     periodType: {
       /** 
        * Nombre largo del periodo.
-       * @example Demestre, Duatrimestre, Trimestre...
+       * @example Semestre, Cuatrimestre, Trimestre...
        */
       name: string,
       /**
