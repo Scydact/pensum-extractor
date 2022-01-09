@@ -1,4 +1,4 @@
-import { useCallback, useContext, useEffect, useRef } from "react";
+import React, { forwardRef, useCallback, useContext, useEffect, useRef } from "react";
 import { matSelectHelpers, MatSelectionDispatchContext, MatSelectionModeContext, MatSelectionTrackerContext } from 'contexts/mat-selection';
 import { classnames } from 'lib/format-utils';
 
@@ -19,9 +19,34 @@ const trackerCheckmarks = new Map([
   [null, '⬜'],
 ]);
 
+/**
+ * 
+ * @param refs 
+ * @returns 
+ * @src https://itnext.io/reusing-the-ref-from-forwardref-with-react-hooks-4ce9df693dd
+ */
+function useCombinedRefs<T>(...refs: any[]) {
+  const targetRef = useRef<T>(null)
+
+  useEffect(() => {
+    refs.forEach(ref => {
+      if (!ref) return
+
+      if (typeof ref === 'function') {
+        ref(targetRef.current)
+      } else {
+        ref.current = targetRef.current
+      }
+    })
+  }, [refs])
+
+  return targetRef as React.RefObject<T>
+}
+
 /** Displays a single Mat as from the pensum a table row. */
-function MatRow({ mat, idx }: MatRowProps) {
-  const rowRef = useRef<HTMLDivElement>(null);
+const MatRow = forwardRef(({ mat, idx, ...rest }: MatRowProps, ref) => {
+  const innerRef = useRef<HTMLDivElement>(null);
+  const rowRef = useCombinedRefs<HTMLDivElement>(ref, innerRef)
   const clickableRef = useRef<HTMLDivElement>(null);
 
   const { updateNode } = useContext(PensumRowNodesContext);
@@ -80,7 +105,8 @@ function MatRow({ mat, idx }: MatRowProps) {
   return <Row
     ref={rowRef}
     className={classnames(cl)}
-    data-mat={mat.code}>
+    data-mat={mat.code}
+    {...rest}>
     <Col ref={clickableRef} onClick={onClick} className="row-check click-target">
       {trackerCheckmarks.get(currentTracker) || '⬜x'}
     </Col>
@@ -93,6 +119,6 @@ function MatRow({ mat, idx }: MatRowProps) {
       </Row>
     </Col>
   </Row>
-}
+})
 
 export default MatRow;

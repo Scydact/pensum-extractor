@@ -23,7 +23,8 @@ export default function MatOrgChart() {
   const options = createOrgChartOptions(null, ds)
 
   const { containerProps, zoom, setZoom, scaleZoom } = useZoomPanHandler()
-
+  // TODO: Handle user click:
+  //https://www.basicprimitives.com/reactusecases/selectingcursoritem
 
   return <GenericModalNavBack
     title="Organigrama de materias"

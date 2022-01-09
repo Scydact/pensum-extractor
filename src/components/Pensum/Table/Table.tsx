@@ -5,11 +5,12 @@ import Col from 'react-bootstrap/Col';
 import { memo } from 'react';
 import Period from './Period';
 import { defaultPeriodType } from 'functions/pensum-get-period-type';
-
+import { DragDropContext } from "react-beautiful-dnd";
+ 
 /** Headers for the pensum table. */
 export const TableHead = memo((props: { periodNumStr?: string | null }) => {
   // Memo makes this thing pure, and never update >:D (if props don't change).
-  
+
   const processedPeriod = props.periodNumStr || '';
   
   return <Row className="pensum-header row-period">
@@ -45,6 +46,22 @@ function PensumTable({ periods, periodIndexStart = 1, periodType = defaultPeriod
   const cumulativeSum = (sum: number) => (value: number) => sum += value;
   const cumlen = periods.map(x => x.length).map(cumulativeSum(0))
 
+  const onDragEnd = (result: any) => {
+      console.log(result)
+      // TODO: MAKE THIS THING ACTUALLY MOVE!!!
+      // url: https://codesandbox.io/s/-w5szl
+      /**Drag structure */
+      const structure = {
+        combine: null,
+        destination: {droppableId: '3', index: 17}, // can be null
+        mode: 'FLUID',
+        reason: 'DROP',
+        source: {droppableId: '5', index: 28}, // never null???
+        type: 'DEFAULT'
+      }
+  } 
+
+
   const periodElems = periods.map((period, key) =>
     <Period
       key={key}
@@ -53,7 +70,8 @@ function PensumTable({ periods, periodIndexStart = 1, periodType = defaultPeriod
       cumlen={cumlen[key - 1]} />
   );
   
-  return <Container className="pensum-table">
+  return <DragDropContext onDragEnd={onDragEnd}> 
+  <Container className="pensum-table">
     <TableHead periodNumStr={periodType?.two} />
     <div 
     className="pensum-table-body"
@@ -61,6 +79,7 @@ function PensumTable({ periods, periodIndexStart = 1, periodType = defaultPeriod
       {periodElems}
     </div>
   </Container>
+  </DragDropContext>
 }
 
 export default PensumTable;

@@ -19,8 +19,20 @@ Used the standard workbox from [Google's guide](https://developers.google.com/we
 Configured for PWA with react using [Medium's guide](https://imranhsayed.medium.com/setup-pwa-workbox-webpack-plugin-for-react-application-workbox-window-precaching-caching-at-40f9289650e5).
 
 ### TODO: Make the app work again
-- [ ] TODO: IMPORTANT! Show dialog when service worker has update. Clear SW caches (at least main JS cache).
-- [ ] [dx-react-grid](https://devexpress.github.io/devextreme-reactive/react/grid/docs/guides/getting-started/) for the pensum-editor, since it allows easy data binding.
+- [ ] Pensum editor (toggle)
+  - Drag & drop mats around cuats
+  - Undo/redo (Ctrl+Z)
+  - Create new mat (will place at last), automatically scroll to it.
+  - Use selection to delete?
+
+  - Mat window:
+    - View unhandled loose, and automatically add
+    - Empty cuats have a minimal height
+    - Bulk add from CSV (use export format, but append instead of replace)
+    - Single mat editor, with a select (multiple) for prereqs
+
+  - Pensum window, set pensum metadata (source, cuat type, university, logo, etc...)
+
 - [X] Allow tracking
   - [X] Use a .clickable class to toggle :hover background.
   - [X] With .clickable done, clean table headers from not():hover
@@ -37,12 +49,12 @@ Configured for PWA with react using [Medium's guide](https://imranhsayed.medium.
 	- [X] Single mat
 	- [X] Unknown mat
 	- [ ] Mat index (no mat selected)
-- [X] Enable PWA support
-- [X] Calcular indice
 - [ ] Save to CSV/EXCEL/JSON
-- [ ] Treeview thing
-	- [ ] Dark mode friendly (connection lines are currently black)
-	- [ ] Consider migration to [mermaid-js](https://mermaid-js.github.io/mermaid/#/)
+- [X] Treeview thing
+	- [X] Dark mode friendly (connection lines are currently black)
+  - [ ] Export to PDF & PNG
+  - [ ] On click open mat info
+  - [ ] Go to reference from matinfo (using url params)
 - [X] Mat post-req and processing
   - [X] Use map to associate post-reqs?
 - [X] Add src tag to pensum type (check TODO at the end of the page).
@@ -51,6 +63,9 @@ Configured for PWA with react using [Medium's guide](https://imranhsayed.medium.
 - [X] Add labels to the Uni/Career React-Select selectors.
 - [X] Display loose mats somewhere
 - [X] Do .course and .passed coloring using css variables with hsv().
+- [X] TODO: IMPORTANT! Show dialog when service worker has update. Clear SW caches (at least main JS cache).
+- [X] Calcular indice
+- [X] Enable PWA support
 
 
 ### TODO: Extra new features
