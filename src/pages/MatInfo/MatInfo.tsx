@@ -12,6 +12,7 @@ export default function MatInfo() {
     navigate("/");
   };
 
+  // Won't use GenericModal cuz title is set in the outlet...
   return <Modal show={true} onHide={handleHide}>
     <Outlet />
 

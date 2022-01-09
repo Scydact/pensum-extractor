@@ -10,6 +10,7 @@ import Col from "react-bootstrap/Col";
 import Button from "react-bootstrap/Button";
 import MatCode, { LongMatCode } from "components/MatCode";
 import PensumRowNodesContext from "contexts/pensum-row-nodes";
+import getPeriodType from "functions/pensum-get-period-type";
 
 
 export default function Details() {
@@ -27,7 +28,7 @@ export default function Details() {
 
   const title = <><MatCode data={mat.code} /> <span>{mat.name}</span></>;
 
-  const periodName = (pensum?.periodType.name || 'Periodo') + ':';
+  const periodName = (getPeriodType(pensum).name) + ':';
   const generalInfo = <Container>
     <Row>
       <Col className="text-end">Código:</Col>
