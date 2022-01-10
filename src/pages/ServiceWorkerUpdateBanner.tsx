@@ -1,5 +1,5 @@
-import { memo, useEffect, useRef, useState } from "react"
-import { Button, Container, Overlay, OverlayTrigger, Tooltip } from "react-bootstrap"
+import { memo, useEffect, useState } from "react"
+import { Button, OverlayTrigger, Tooltip } from "react-bootstrap"
 import { serviceWorkerRef } from "serviceWorkerRegistration"
 
 const ServiceWorkerUpdateBanner = memo(() => {

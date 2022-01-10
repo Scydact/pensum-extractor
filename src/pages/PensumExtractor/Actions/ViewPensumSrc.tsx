@@ -2,6 +2,11 @@ import ActivePensumContext from "contexts/active-pensum";
 import { useContext } from "react";
 import { Button, OverlayTrigger, Tooltip } from "react-bootstrap";
 
+import { BiFileFind } from "react-icons/bi";
+import { BsGlobe2 } from "react-icons/bs";
+import { FaRegFilePdf } from "react-icons/fa";
+import { MdHistory, MdOutlineScanner } from "react-icons/md";
+
 
 
 const src_tooltips: Record<Pensum.Pensum['src']['type'], React.ReactNode> = {
@@ -13,11 +18,11 @@ const src_tooltips: Record<Pensum.Pensum['src']['type'], React.ReactNode> = {
 }
 
 const src_logos: Record<Pensum.Pensum['src']['type'], React.ReactNode> = {
-  'convert': '⚠',
-  'fetch': '🕸',
-  'pdf': '📄',
-  'online': '🌐',
-  'scan': '📷',
+  'convert': <MdHistory />,
+  'fetch': <BiFileFind />,
+  'pdf': <FaRegFilePdf />,
+  'online': <BsGlobe2 />,
+  'scan': <MdOutlineScanner />,
 }
 
 export default function ViewPensumSourceBtn() {

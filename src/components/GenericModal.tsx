@@ -59,9 +59,12 @@ export function GenericModal({
  */
 export function GenericModalNavBack({ children, ...rest }: GModalProps) {
   const navigate = useNavigate();
+  const handleClose = () => {
+    navigate('/')
+  }
   const handleHide = () => {
     navigate(-1)
   }
 
-  return <GenericModal onHide={handleHide} {...rest}>{children}</GenericModal>
+  return <GenericModal onHide={handleHide} onClose={handleClose} {...rest}>{children}</GenericModal>
 }

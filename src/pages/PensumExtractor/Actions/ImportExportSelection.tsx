@@ -40,12 +40,6 @@ export function PortPensumSelectModal(props: any) {
   )
 }
 
-const s = {
-  display: 'grid',
-  gridTemplateColumns: 'repeat(auto-fill, minmax(150px, 1fr))',
-  gap: '.5em',
-}
-
 
 export function PortPensumSelectModalBtn(props: any) {
   const [portOpen, setPortOpen] = useState(false);
