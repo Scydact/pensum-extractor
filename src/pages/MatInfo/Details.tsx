@@ -11,6 +11,9 @@ import Button from "react-bootstrap/Button";
 import MatCode, { LongMatCode } from "components/MatCode";
 import PensumRowNodesContext from "contexts/pensum-row-nodes";
 import getPeriodType from "functions/pensum-get-period-type";
+import { OrgChartIcon } from "pages/MatOrgChart/MatOrgChart";
+import { ButtonGroup } from "react-bootstrap";
+import { FaRegListAlt } from "react-icons/fa";
 
 
 export default function Details() {
@@ -45,19 +48,24 @@ export default function Details() {
   </Container>;
 
   const isMatHiddenOnPensum = !rowNodeMap.current.get(mat.code)?.current;
-  const locateBtn = <Container>
-    <Row>
+  const locateBtn = <ButtonGroup vertical>
       <Button 
       disabled={isMatHiddenOnPensum}
       onClick={() => {
         navigate('/');
         scrollToRow(mat.code);
       }}>
-        Localizar en pensum
+        <FaRegListAlt /> Localizar en pensum
       </Button>
-    </Row>
-    {/* TODO: Add locate on tree btn? */}
-  </Container>
+
+      <Button 
+      disabled={isMatHiddenOnPensum}
+      onClick={() => {
+        navigate(`/diagrama?mat=${mat.code}`);
+      }}>
+        <OrgChartIcon /> Localizar en organigrama
+      </Button>
+  </ButtonGroup>
 
   /** Requirement callback factory.
    * Creates a onClick handler for the mat reqs.

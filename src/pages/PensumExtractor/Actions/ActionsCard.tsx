@@ -1,10 +1,10 @@
 import { Button, Card } from "react-bootstrap";
 import { BiSave, BiCalculator } from "react-icons/bi";
-import { ImTree } from "react-icons/im";
 
 import { PortPensumSelectModalBtn } from "./ImportExportSelection";
 import { useNavigate } from "react-router-dom";
 import ViewPensumSourceBtn from "./ViewPensumSrc";
+import { OrgChartIcon } from "pages/MatOrgChart/MatOrgChart";
 
 // Todo: Move this to Pensum/Actions, and move the btns to this separate pane.
 export default function PensumSaveActions() {
@@ -24,7 +24,7 @@ export default function PensumSaveActions() {
 
       <Button
         onClick={() => navigate('diagrama')}>
-        <ImTree /> Organigrama
+        <OrgChartIcon/> Organigrama
       </Button>
 
       {/* Not so common, tbh... */}

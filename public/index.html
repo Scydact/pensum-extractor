@@ -55,6 +55,14 @@
     <link id="css-light" rel="stylesheet" href="%PUBLIC_URL%/css/bootstrap.css" media="(prefers-color-scheme: light)">
 
 
+    <!-- PDFkit Lib for custom support -->
+    <!--  https://github.com/foliojs/pdfkit/releases -->
+    <script src="https://unpkg.com/pdfkit@0.13.0/js/pdfkit.standalone.js"></script>
+    <script src="https://unpkg.com/pdfjs-dist@2.12.313/build/pdf.min.js"></script>
+    <script>
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://unpkg.com/pdfjs-dist@2.12.313/build/pdf.worker.min.js'
+    </script>
+    
 
 
     <title>Pensums Dominicanos</title>

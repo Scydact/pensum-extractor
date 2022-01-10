@@ -45,16 +45,20 @@ Configured for PWA with react using [Medium's guide](https://imranhsayed.medium.
     - [ ] Custom dialog to select current save
   - [ ] Save/load to backup
     - On same dialog, save either a single profile or all profiles.
+
 - [X] Mat modal dialog
 	- [X] Single mat
 	- [X] Unknown mat
 	- [ ] Mat index (no mat selected)
+
 - [ ] Save to CSV/EXCEL/JSON
+
 - [X] Treeview thing
 	- [X] Dark mode friendly (connection lines are currently black)
   - [ ] Export to PDF & PNG
   - [ ] On click open mat info
   - [ ] Go to reference from matinfo (using url params)
+
 - [X] Mat post-req and processing
   - [X] Use map to associate post-reqs?
 - [X] Add src tag to pensum type (check TODO at the end of the page).
