@@ -20,6 +20,7 @@ import "./style.css";
 import "./mat-webtemplate.css";
 import { downloadPdf, downloadPng, getPensumFilename } from "./orgchart-export";
 import orgChartConfig from "./orgchart-config";
+import { FaRegFileImage, FaRegFilePdf } from "react-icons/fa";
 
 // Icon to be used to represent the org chart
 export { ImTree as OrgChartIcon } from "react-icons/im";
@@ -82,8 +83,8 @@ export default function MatOrgChart() {
     title="Organigrama de materias"
     footer={<>
       <ButtonGroup>
-        <Button onClick={() => downloadPng(getExportTitle(pensum), items, getPensumFilename(pensum))}>Descargar PNG</Button>
-        <Button onClick={() => downloadPdf(getExportTitle(pensum), items, getPensumFilename(pensum))}>Descargar PDF</Button>
+        <Button onClick={() => downloadPng(getExportTitle(pensum), items, getPensumFilename(pensum))}><FaRegFileImage /> Descargar PNG</Button>
+        <Button onClick={() => downloadPdf(getExportTitle(pensum), items, getPensumFilename(pensum))}><FaRegFilePdf /> Descargar PDF</Button>
       </ButtonGroup>
       <ButtonGroup>
         <TooltipButton tooltip="Zoom out" placement="top" variant="secondary" onClick={() => scaleZoom(0.8)}><BiZoomOut /></TooltipButton>

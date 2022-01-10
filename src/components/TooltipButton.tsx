@@ -2,7 +2,7 @@ import { Button, ButtonProps, OverlayTrigger, OverlayTriggerProps, Tooltip } fro
 
 type Props = ButtonProps & {
   tooltip: React.ReactNode,
-  placement: OverlayTriggerProps['placement'],
+  placement?: OverlayTriggerProps['placement'],
   overlayProps?: OverlayTriggerProps,
 }
 
@@ -10,7 +10,7 @@ type Props = ButtonProps & {
 export default function TooltipButton({
   children,
   tooltip,
-  placement = 'auto-start',
+  placement = 'auto',
   overlayProps,
   ...rest
 }: Props) {

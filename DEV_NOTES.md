@@ -20,16 +20,16 @@ Configured for PWA with react using [Medium's guide](https://imranhsayed.medium.
 
 ### TODO: Make the app work again
 - [ ] Pensum editor (toggle)
-  - Drag & drop mats around cuats
-  - Undo/redo (Ctrl+Z)
-  - Create new mat (will place at last), automatically scroll to it.
-  - Use selection to delete?
+  - [ ] Drag & drop mats around cuats
+  - [ ] Undo/redo (Ctrl+Z)
+  - [ ] Create new mat (will place at last), automatically scroll to it.
+  - [ ] Use selection to delete?
 
-  - Mat window:
-    - View unhandled loose, and automatically add
-    - Empty cuats have a minimal height
-    - Bulk add from CSV (use export format, but append instead of replace)
-    - Single mat editor, with a select (multiple) for prereqs
+  - [ ] Mat window:
+    - [ ] View unhandled loose, and automatically add
+    - [ ] Empty cuats have a minimal height
+    - [ ] Bulk add from CSV (use export format, but append instead of replace)
+    - [ ] Single mat editor, with a select (multiple) for prereqs
 
   - Pensum window, set pensum metadata (source, cuat type, university, logo, etc...)
 
@@ -55,9 +55,9 @@ Configured for PWA with react using [Medium's guide](https://imranhsayed.medium.
 
 - [X] Treeview thing
 	- [X] Dark mode friendly (connection lines are currently black)
-  - [ ] Export to PDF & PNG
-  - [ ] On click open mat info
-  - [ ] Go to reference from matinfo (using url params)
+  - [X] Export to PDF & PNG
+  - [X] On click open mat info
+  - [X] Go to reference from matinfo (using url params)
 
 - [X] Mat post-req and processing
   - [X] Use map to associate post-reqs?
