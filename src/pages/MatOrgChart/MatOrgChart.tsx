@@ -15,11 +15,11 @@ import { MatSelectionTrackerContext } from "contexts/mat-selection";
 import useZoomPanHandler from "./use-zoom-pan-handler";
 import matTemplate from "./mat-webtemplate";
 import { pensumdata2org } from "./pensum-to-orgdata";
-import createOrgChartOptions from "./orgchart-config";
 
 import "./style.css";
 import "./mat-webtemplate.css";
-import { downloadPdf, downloadPng } from "./orgchart-export";
+import { downloadPdf, downloadPng, getPensumFilename } from "./orgchart-export";
+import orgChartConfig from "./orgchart-config";
 
 // Icon to be used to represent the org chart
 export { ImTree as OrgChartIcon } from "react-icons/im";
@@ -68,7 +68,7 @@ function getExportTitle(pensum: Pensum.Pensum | null) {
 export default function MatOrgChart() {
   const { items, pensum } = usePensumData()
   const navigate = useNavigate()
-  const config = useMemo(() => createOrgChartOptions([matTemplate]), [])
+  const config = { ...orgChartConfig, templates: [matTemplate] }//useMemo(() => createOrgChartOptions([matTemplate]), [])
   
   const { cursorItem, onCursorChanged } = useCursorItem()
 
@@ -82,8 +82,8 @@ export default function MatOrgChart() {
     title="Organigrama de materias"
     footer={<>
       <ButtonGroup>
-        <Button onClick={() => downloadPng(getExportTitle(pensum), items, 'aaa')}>Descargar PNG</Button>
-        <Button onClick={() => downloadPdf(getExportTitle(pensum), items, 'aaa')}>Descargar PDF</Button>
+        <Button onClick={() => downloadPng(getExportTitle(pensum), items, getPensumFilename(pensum))}>Descargar PNG</Button>
+        <Button onClick={() => downloadPdf(getExportTitle(pensum), items, getPensumFilename(pensum))}>Descargar PDF</Button>
       </ButtonGroup>
       <ButtonGroup>
         <TooltipButton tooltip="Zoom out" placement="top" variant="secondary" onClick={() => scaleZoom(0.8)}><BiZoomOut /></TooltipButton>

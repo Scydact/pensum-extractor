@@ -1,22 +1,39 @@
 import { Enabled, GroupByType, PageFitMode } from "basicprimitives"
 
-export default function createOrgChartOptions(templates: any[] = [], onTemplateRender?: Function) {
-  return {
-    pageFitMode: PageFitMode.None,
-
-    // Rendering
-    arrowsDirection: GroupByType.Children,
-    linesWidth: 3,
+const renderingProps = {
+    // Line
+    bevelSize: 16,
+    linesWidth: 2,
     linesColor: 'var(--bs-body-color, black)',
-    normalLevelShift: 30,
-    lineLevelShift: 20,
-    dotLevelShift: 20,
-    alignBylevels: true,
+
+    // Arrow
+    arrowsDirection: GroupByType.Children,
+    showExtraArrows: false,
+    
+    // Bifurcation dot
+    elbowDotSize: 8,
+
+    // Layout
     hideGrandParentsConnectors: true,
 
-    // templates
-    templates,
-    onItemRender: onTemplateRender,
+    alignBylevels: false, // Less "tight" situations when false
+    enableMatrixLayout: true, // Groups!
+    maximumColumnsInMatrix: 16,
+    minimumMatrixSize: 4,
+
+    // Intervals
+    normalLevelShift: 20,
+    lineLevelShift: 30,
+
+    normalItemsInterval: 15,
+    lineItemsInterval: 100,
+}
+
+const orgChartConfig = {
+    pageFitMode: PageFitMode.None,
+
+    // Rendering - Arrows
+    ...renderingProps,
 
     // Buttons
     hasButtons: Enabled.True,
@@ -27,9 +44,9 @@ export default function createOrgChartOptions(templates: any[] = [], onTemplateR
     showCallout: false,
     highlightGravityRadius: 0,
 
-  }
 }
 
+export default orgChartConfig
 
 /** Used only for the PDF, since the web version uses React! */
 export function getMatTemplate() {

@@ -27,11 +27,12 @@ export function pensumdata2org(data: ActivePensum.MatExtraData, tracker: MatSele
   ))
 
   // Loose unhandled... (error codes?)
+  console.log(data.looseUnhandled)
   o.push(...[...data.looseUnhandled].map(
     str => mat2org(
       { code: str }, 
       -1,
-      matSelectHelpers.getTracker(tracker, str) || 'default', // I think this is always default?
+      matSelectHelpers.getTracker(tracker, str) || 'missing', // I think this is always default (error)
       )
   ))
 

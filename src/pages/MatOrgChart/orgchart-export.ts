@@ -2,6 +2,7 @@ import { createOrgChartPdf } from "./orgchart-to-pdf";
 import { MatOrgChartNode } from "./pensum-to-orgdata";
 import FileSaver from "file-saver";
 import type pdfjsLib from "pdfjs-dist";
+import { getDateIdentifier } from "lib/format-utils";
 
 function getPdfBlob(title: string, items: MatOrgChartNode[]) {
   return new Promise<Blob>((resolve, reject) => {
@@ -31,7 +32,6 @@ export function previewPdf(title: string, items: MatOrgChartNode[]) {
 export function downloadPdf(title: string, items: MatOrgChartNode[], filename: string) {
   getPdfBlob(title, items)
     .then(blob => {
-      //currentPensumData.codigo + '_' + getDateIdentifier()
       FileSaver.saveAs(blob, filename + '.pdf');
     })
     .catch(e => alert(e))
@@ -40,7 +40,6 @@ export function downloadPdf(title: string, items: MatOrgChartNode[], filename: s
 export function downloadPng(title: string, items: MatOrgChartNode[], filename: string, resize = 1.5) {
   getPngUrl(title, items)
     .then(url => {
-      //currentPensumData.codigo + '_' + getDateIdentifier()
       FileSaver.saveAs(url, filename + '.png');
     })
     // .catch(e => alert(e))
@@ -86,4 +85,8 @@ async function getPngUrl(title: string, items: MatOrgChartNode[], scale = 1.5) {
   document.body.removeChild(canvas)
 
   return png
+}
+
+export function getPensumFilename(pensum: Pensum.Pensum | null) {
+  return (pensum ? pensum.code + ' ' + pensum.career : 'EXPORT') + ' ' + getDateIdentifier()
 }

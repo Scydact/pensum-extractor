@@ -3,6 +3,7 @@ import createOrgChartOptions, { getMatTemplate } from "./orgchart-config";
 import PDFDocument from "pdfkit";
 import blobStream from "blob-stream";
 import { MatOrgChartNode } from "./pensum-to-orgdata";
+import orgChartConfig from "./orgchart-config";
 
 const template = getMatTemplate()
 
@@ -109,7 +110,8 @@ const render: RenderType = {
 
 
 export function createOrgChartPdf(title: string, items: MatOrgChartNode[]) {
-  const config = createOrgChartOptions([template], onPdfTemplateRender)
+  const config = { ...orgChartConfig, templates: [template], onItemRender: onPdfTemplateRender }
+  
   var chart = FamDiagramPdfkit({
     ...config,
     items,

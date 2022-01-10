@@ -84,3 +84,12 @@ export function toPascalCase(str: string) {
     return match.toUpperCase();
   });
 }
+
+/**
+ * Custom compact format to be used in filenames.
+ * @returns the date in format YYYY-MM-DD HHhMMmSSs
+ */
+export function getDateIdentifier(d?: Date) {
+  if (!d) d = new Date()
+  return `${d.getFullYear()}-${d.getMonth()+1}-${d.getDate()} ${d.getHours()}h${d.getMinutes()}m${d.getSeconds()}s`;
+}
