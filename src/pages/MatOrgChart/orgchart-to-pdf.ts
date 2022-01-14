@@ -1,6 +1,6 @@
 import { Enabled, FamDiagramPdfkit } from "basicprimitives";
 import createOrgChartOptions, { getMatTemplate } from "./orgchart-config";
-import PDFDocument from "pdfkit";
+import type PDFDocumentType from "pdfkit"; // Use as a type so it doesn't crash on load.
 import blobStream from "blob-stream";
 import { MatOrgChartNode } from "./pensum-to-orgdata";
 import orgChartConfig from "./orgchart-config";
@@ -11,7 +11,7 @@ type RenderType = Record<string, (
   contentSize: { width: number, height: number },
   item: MatOrgChartNode,
   pos: { x: number, y: number, width: number, height: number },
-  doc: typeof PDFDocument) => any> 
+  doc: typeof PDFDocumentType) => any> 
 
 const render: RenderType = {
 
@@ -109,7 +109,7 @@ const render: RenderType = {
 
 
 
-export function createOrgChartPdf(title: string, items: MatOrgChartNode[]) {
+export async function createOrgChartPdf(title: string, items: MatOrgChartNode[]) {
   const config = { ...orgChartConfig, templates: [template], onItemRender: onPdfTemplateRender }
   
   var chart = FamDiagramPdfkit({
@@ -120,6 +120,14 @@ export function createOrgChartPdf(title: string, items: MatOrgChartNode[]) {
   }, [template]);
 
   var chartSize = chart.getSize();
+
+  try {
+    var PDFDocument = (await import('pdfkit')).default
+  }
+  catch (e) {
+    alert('No se puede crear PDF!')
+    throw e
+  }
 
   var doc = new PDFDocument({
     size: [chartSize.width + 100, chartSize.height + 150]

@@ -6,17 +6,17 @@ import { getDateIdentifier } from "lib/format-utils";
 
 function getPdfBlob(title: string, items: MatOrgChartNode[]) {
   return new Promise<Blob>((resolve, reject) => {
-    const stream = createOrgChartPdf(title, items)
-
-    if (stream == null) {
-      reject('Error: Failed to create pdf stream!')
-      return
-    }
-
-    stream.on('finish', function () {
-      const blob = stream.toBlob('application/pdf');
-      resolve(blob)
-    });
+    createOrgChartPdf(title, items).then(stream => {
+      if (stream == null) {
+        reject('Error: Failed to create pdf stream!')
+        return
+      }
+  
+      stream.on('finish', function () {
+        const blob = stream.toBlob('application/pdf');
+        resolve(blob)
+      });
+    })
   })
 }
 
@@ -56,7 +56,7 @@ async function getPngUrl(title: string, items: MatOrgChartNode[], scale = 1.5) {
    * 3. Use this abomination
    */
   const pdfjs = (window as any)['pdfjsLib'] as typeof pdfjsLib
-
+  
   // Load pdf page
   var pdf = await pdfjs.getDocument(buffer as any).promise
   
