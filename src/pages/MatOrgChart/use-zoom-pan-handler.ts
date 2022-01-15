@@ -2,11 +2,11 @@ import { useCallback, useEffect, useRef, useState } from "react";
 
 const clamp = (n: number, min: number, max: number) => (max < n) ? max : (min > n) ? min : n
 
-export default function useZoomPanHandler(zoomMin = 0.01, zoomMax = Infinity) {
+export default function useZoomPanHandler(initial = 1.0, zoomMin = 0.01, zoomMax = Infinity) {
   // Zooming & panning stuff
   const panPos = useRef({ x: 0, y: 0, panning: false })
   // const [transform, setTransform] = useState("")
-  const [zoom, setZoom] = useState(1)
+  const [zoom, setZoom] = useState(initial)
   const [cursor, setCursor] = useState("default")
 
   const containerRef = useRef<HTMLDivElement>(null)

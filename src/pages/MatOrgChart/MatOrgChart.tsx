@@ -77,7 +77,7 @@ export default function MatOrgChart() {
     if (cursorItem) navigate(`/mat/${cursorItem}`)
   }, [cursorItem, navigate])
 
-  const { containerProps, zoom, setZoom, scaleZoom } = useZoomPanHandler(0.1, 5.0)
+  const { containerProps, zoom, setZoom, scaleZoom } = useZoomPanHandler(0.25, 0.1, 5.0)
 
   return <GenericModalNavBack
     title="Organigrama de materias"
