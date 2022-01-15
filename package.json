@@ -30,7 +30,8 @@
     "workbox-precaching": "^6.4.2",
     "workbox-routing": "^6.4.2",
     "workbox-strategies": "^6.4.2",
-    "workbox-window": "^6.4.2"
+    "workbox-window": "^6.4.2",
+    "xlsx": "^0.17.5"
   },
   "scripts": {
     "analyze": "source-map-explorer 'build/static/js/*.js'",

@@ -2,16 +2,18 @@ import { useContext, useState } from "react";
 import { Button, ButtonProps } from "react-bootstrap";
 import { GoCloudUpload } from "react-icons/go";
 import { BiReset, BiSave } from "react-icons/bi";
+import { RiFileExcel2Line } from "react-icons/ri";
 
 import { MatSelectionTrackerContext, MatSelectionDispatchContext } from "contexts/mat-selection";
 import actions from "contexts/mat-selection/actions";
 import ActivePensumContext from "contexts/active-pensum";
 
-import { GenericModal} from "components/GenericModal";
+import FileSaver from "file-saver";
 import { download, upload } from "lib/file-utils";
-import { idDateFormat, toPascalCase } from "lib/format-utils";
-import "./style.css";
 import TooltipButton from "components/TooltipButton";
+import { GenericModal} from "components/GenericModal";
+import { getExportFilename, getXlsxBlob, pensumToExcelWorbook } from "functions/pensum-export";
+import "./style.css";
 
 const MatColor = ({ children, style, ...rest }: any) =>
   <span
@@ -20,29 +22,7 @@ const MatColor = ({ children, style, ...rest }: any) =>
     {children}
   </span >
 
-export function PortPensumSelectModal(props: any) {
-
-  return (
-    <GenericModal {...props} title="Portar progreso">
-      <p>
-        Las materias <MatColor className="passed">aprobadas</MatColor> y <MatColor className="course">en curso </MatColor> 
-        seleccionadas se guardan localmente en la cache del navegador. 
-        Al estar guardados en la cache, estos datos podrian
-        borrarse espontaneamente.
-      </p>
-      <p>
-        Para evitar la perdida de estos datos, se recomienda exportar la 
-        seleccion como un archivo (progreso.json).
-      </p>
-      <div className="port-select-btn-container">
-        <Btns.TrackerExport />
-        <Btns.TrackerImport />
-        <Btns.TrackerReset />
-      </div>
-    </GenericModal>
-  )
-}
-
+  
 
 export function PortPensumSelectModalBtn({ children, tooltip, ...rest }: ButtonProps & { children: any, tooltip: any }) {
   const [portOpen, setPortOpen] = useState(false);
@@ -55,16 +35,42 @@ export function PortPensumSelectModalBtn({ children, tooltip, ...rest }: ButtonP
 }
 
 
+function PortPensumSelectModal(props: any) {
+  return (
+    <GenericModal {...props} title="Portar progreso">
+      <p>
+        Las materias <MatColor className="passed">aprobadas</MatColor> y <MatColor className="course">en curso </MatColor> 
+        seleccionadas se guardan localmente en la cache del navegador. 
+        Al estar guardados en la cache, estos datos podrian
+        borrarse espontaneamente.
+      </p>
+      <p>
+        Para evitar la perdida de estos datos, se recomienda exportar la 
+        seleccion como un archivo (progreso.json).
+      </p>
+      <div className="d-flex gap-2 flex-column">
+      <div className="port-select-btn-container">
+        <Btns.TrackerExport />
+        <Btns.TrackerImport />
+        <Btns.TrackerReset />
+      </div>
+      <div className="port-select-btn-container">
+        <Btns.Excel />
+      </div>
+      </div>
+    </GenericModal>
+  )
+}
+
+
+
 
 const Btns = {
   TrackerExport: () => {
     const tracker = useContext(MatSelectionTrackerContext)
     const { state: { pensum } } = useContext(ActivePensumContext)
 
-    const pensumName = toPascalCase((pensum?.career || 'NA').toLowerCase())
-    const date = idDateFormat(new Date())
-
-    const filename = `seleccion_${pensumName}_${date}.json`
+    const filename = 'seleccion_' + getExportFilename(pensum) + '.json'
 
     const onClick = () => {
       const txt = actions.export.selection(tracker)
@@ -124,4 +130,22 @@ const Btns = {
       <BiReset /> Reiniciar selección
     </Button>
   },
+
+  Excel: () => {
+    const tracker = useContext(MatSelectionTrackerContext)
+    const { state: { pensum } } = useContext(ActivePensumContext)
+
+    const onClick = () => {
+      if (!pensum) return
+
+      const filename = 'seleccion_' + getExportFilename(pensum) + '.xlsx'
+      const wb = pensumToExcelWorbook(pensum, tracker)
+      const blob = getXlsxBlob(wb)
+      FileSaver.saveAs(blob, filename)
+    }
+
+    return <Button onClick={onClick} disabled={!pensum}>
+      <RiFileExcel2Line /> Descargar Excel
+    </Button>
+  }
 }
