@@ -1,7 +1,7 @@
 import TooltipButton from "components/TooltipButton";
 import ActivePensumContext from "contexts/active-pensum";
 import { useContext } from "react";
-import { Button, ButtonProps, OverlayTrigger, Tooltip } from "react-bootstrap";
+import { type ButtonProps } from "react-bootstrap";
 
 import { BiFileFind } from "react-icons/bi";
 import { BsGlobe2 } from "react-icons/bs";

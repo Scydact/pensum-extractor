@@ -81,7 +81,7 @@ export default function useZoomPanHandler(zoomMin = 0.01, zoomMax = Infinity) {
 
   const setZoomClamped = useCallback((newScale: number) => {
     setZoom(p => clamp(p * newScale, zoomMin, zoomMax))
-  }, [setZoom])
+  }, [setZoom, zoomMin, zoomMax])
 
   const zoomHandler = useCallback((e: WheelEvent) => {
     e.preventDefault()

@@ -1,5 +1,5 @@
 import { Enabled, FamDiagramPdfkit } from "basicprimitives";
-import createOrgChartOptions, { getMatTemplate } from "./orgchart-config";
+import { getMatTemplate } from "./orgchart-config";
 import type PDFDocumentType from "pdfkit"; // Use as a type so it doesn't crash on load.
 import blobStream from "blob-stream";
 import { MatOrgChartNode } from "./pensum-to-orgdata";
