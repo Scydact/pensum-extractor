@@ -1,6 +1,7 @@
 import { validatePensum } from "functions/pensum-converter";
 import pensumToSavePensum from "functions/pensum-save";
 import processPensumMats from "functions/pensum-get-extras";
+import { japaneseDateFormat, westernDateFormat } from "lib/format-utils";
 
 const PENSUM_STORAGE_KEY = process.env.REACT_APP_PENSUM_STORAGE_PENSUM_KEY || 'PENSUM_DATA';
 const LEGACY_PENSUM_STORAGE_KEY = 'pensumData';
@@ -39,7 +40,7 @@ export function loadLegacyPensumFromLocalStorage(): Pensum.Pensum | null {
   return loadedPensum;
 }
 
-
+/** Applies the necesary preprocessing to the pensum and returns a payload object for the context. */
 export function createPayload(pensum: ActivePensum.Payload['pensum']): ActivePensum.Payload {
   return {
     pensum, 
@@ -48,6 +49,7 @@ export function createPayload(pensum: ActivePensum.Payload['pensum']): ActivePen
     loading: false,
   }
 }
+
 
 export function activePensumReducer(
   state: ActivePensum.Payload,
@@ -89,8 +91,24 @@ export function activePensumReducer(
         loading: true,
       }
 
+    case 'new': 
+      return createPayload({
+        career: '*Nombre de carrera*',
+        code: 'C0D1G0',
+        fetchDate: westernDateFormat(new Date()),
+        publishDate: westernDateFormat(new Date()),
+        info: ['Descripcion de la carrera', 'Creditos: 30', 'Requisitos: Aprobar deporte. Pasantia.'],
+        institution: 'unapec',
+        loose: [],
+        periodType: { acronym: 'cuat', name: 'cuatrimestre', two: 'ct' },
+        periods: [],
+        src: { type: "online", date: japaneseDateFormat(new Date()), url: null },
+        version: 2,
+      })
+
     default:
       console.error('Unknown action "' + action.type + '".');
       return state;
   }
 }
+

@@ -26,7 +26,7 @@ declare namespace ActivePensum {
       payload: Payload['pensum']
     }
     | {
-      type: 'clear' | 'load/fromSave'
+      type: 'clear' | 'load/fromSave' | 'new'
     }
     | {
       type: 'load'

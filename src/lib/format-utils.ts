@@ -24,7 +24,26 @@ export const japaneseDateFormat = (d: Date) => {
   let ye = new Intl.DateTimeFormat('en', { year:  'numeric' }).format(d);
   let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
   let da = new Intl.DateTimeFormat('en', { day:   '2-digit' }).format(d);
-  return `${da}-${mo}-${ye}`;
+  return `${ye}-${mo}-${da}`;
+}
+
+
+/**
+ * Formats a date as DD/MM/YYYY
+ * @param d Date to convert
+ * 
+ * @example
+ * let d = new Date(2010, 7, 5);
+ * westernDateFormat(d);
+ * // returns "05/07/2010";
+ * 
+ * @returns Date in format DD/MM/YYYY.
+ */
+export const westernDateFormat = (d: Date) => {
+  let ye = new Intl.DateTimeFormat('en', { year: 'numeric' }).format(d);
+  let mo = new Intl.DateTimeFormat('en', { month: '2-digit' }).format(d);
+  let da = new Intl.DateTimeFormat('en', { day: '2-digit' }).format(d);
+  return `${da}/${mo}/${ye}`;
 }
 
 /**

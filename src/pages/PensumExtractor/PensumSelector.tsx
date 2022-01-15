@@ -173,7 +173,8 @@ function PensumSelector() {
                 <Dropdown.Item>
                   <HiUpload /> Subir pensum.json
                 </Dropdown.Item>
-                <Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => pensumDispatch({ type: 'new' })}>
                   <BiEraser /> Crear desde cero
                 </Dropdown.Item>
                 <Dropdown.Item
