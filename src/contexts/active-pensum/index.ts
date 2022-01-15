@@ -1,5 +1,5 @@
 import { fetchPensumFromCode, PensumFetchError } from "functions/pensum-fetch";
-import React, { createContext, memo, useCallback, useEffect, useReducer } from "react";
+import { createContext, createElement, memo, useCallback, useEffect, useReducer } from "react";
 import { activePensumReducer, createPayload } from "./reducer";
 
 
@@ -53,10 +53,12 @@ export const ActivePensumProvider = memo(function ActivePensumProvider({ childre
       dispatch({ type: 'error' as 'error', payload: m });
     }
   }, []);
-  
-  return <ActivePensumContext.Provider value={{ state, dispatch, load }}>
-    {children}
-  </ActivePensumContext.Provider>
+
+  return createElement(
+    ActivePensumContext.Provider,
+    { value: { state, dispatch, load } },
+    children,
+  )
 })
 
 

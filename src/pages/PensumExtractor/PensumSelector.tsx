@@ -6,6 +6,7 @@ import { Button, Card, Container, Dropdown, DropdownButton, Form, InputGroup, Sp
 import { FiSettings, FiDelete } from "react-icons/fi";
 import { HiRefresh, HiUpload } from "react-icons/hi";
 import { BiEraser } from "react-icons/bi";
+import { MdOutlineCreate } from "react-icons/md";
 
 import Select from "react-select";
 import CreatableSelect from "react-select/creatable";
@@ -170,17 +171,21 @@ function PensumSelector() {
                   disabled={!activePensum || !activePensum.src.url}>
                   <HiRefresh /> Forzar recarga
                 </Dropdown.Item>
-                <Dropdown.Item>
-                  <HiUpload /> Subir pensum.json
-                </Dropdown.Item>
-                <Dropdown.Item
-                  onClick={() => pensumDispatch({ type: 'new' })}>
-                  <BiEraser /> Crear desde cero
-                </Dropdown.Item>
                 <Dropdown.Item
                   disabled={!activePensum}
                   onClick={() => pensumDispatch({ type: 'clear' })}>
                   <FiDelete /> Remover pensum
+                </Dropdown.Item>
+                <Dropdown.Divider />
+                <Dropdown.Item>
+                  <HiUpload /> Subir pensum.json
+                </Dropdown.Item>
+                <Dropdown.Item>
+                  <MdOutlineCreate /> Modo desarrollo
+                </Dropdown.Item>
+                <Dropdown.Item
+                  onClick={() => pensumDispatch({ type: 'new' })}>
+                  <BiEraser /> Crear desde cero
                 </Dropdown.Item>
               </DropdownButton>
             </InputGroup>

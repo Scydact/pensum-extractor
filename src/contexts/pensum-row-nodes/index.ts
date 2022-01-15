@@ -6,7 +6,7 @@
  * since new mats will be added while keeping the old mats empty refs.
  */
 
-import React, { createContext, memo, MutableRefObject, useCallback, useRef } from "react"
+import React, { createContext, createElement, memo, MutableRefObject, useCallback, useRef } from "react"
 
 type mapArg = React.RefObject<HTMLElement>;
 
@@ -49,9 +49,11 @@ export const PensumRowNodesProvider = memo(function PensumRowNodesProvider({chil
     }, 0);
   }, []);
 
-  return <PensumRowNodesContext.Provider value={{map, scrollToRow, updateNode}}>
-    {children}
-  </PensumRowNodesContext.Provider>
+  return createElement(
+    PensumRowNodesContext.Provider,
+    { value: { map, scrollToRow, updateNode } },
+    children,
+  )
 });
 
 export default PensumRowNodesContext;

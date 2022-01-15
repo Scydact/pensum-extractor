@@ -1,6 +1,7 @@
 import { createContext, memo, useReducer, useEffect } from "react";
 import { matSelectionReducer } from "./reducer";
 import createDefaultState from "./default";
+import { nestComponents } from "lib/react-utils";
 
 type MatSelectionContextProps = {
   state: MatSelection.Payload,
@@ -55,21 +56,14 @@ export const MatSelectionProvider = memo(function MatSelectionProvider({ childre
   useEffect(() => {
     // Load data from cookies
     dispatch({ type: 'loadFromStorage' });
-
-    (window as any)['x'] = dispatch;
   }, []);
 
-  return <MatSelectionDispatchContext.Provider value={dispatch}>
-    <MatSelectionModeContext.Provider value={state.mode}>
-      <MatSelectionTrackerContext.Provider value={state.tracker}>
-        <MatSelectionTrackerNameContext.Provider value={state.currentName}>
-          <MatSelectionTrackerStorageContext.Provider value={state.storage}>
-            <MatSelectionFilterContext.Provider value={state.filter}>
-              {children}
-            </MatSelectionFilterContext.Provider>
-          </MatSelectionTrackerStorageContext.Provider>
-        </MatSelectionTrackerNameContext.Provider>
-      </MatSelectionTrackerContext.Provider>
-    </MatSelectionModeContext.Provider>
-  </MatSelectionDispatchContext.Provider>
+  return nestComponents([
+    [MatSelectionDispatchContext.Provider, { value: dispatch }],
+    [MatSelectionModeContext.Provider, { value: state.mode }],
+    [MatSelectionTrackerContext.Provider, { value: state.tracker }],
+    [MatSelectionTrackerNameContext.Provider, { value: state.currentName }],
+    [MatSelectionTrackerStorageContext.Provider, { value: state.storage }],
+    [MatSelectionFilterContext.Provider, { value: state.filter }, children],
+  ])
 })

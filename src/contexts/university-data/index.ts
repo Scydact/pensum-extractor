@@ -1,6 +1,6 @@
 import { fetchCarreras, fetchUniversities } from "functions/metadata-fetch"
 import { sortByProp } from "lib/sort-utils"
-import React, { createContext, memo, useCallback, useEffect, useReducer } from "react"
+import React, { createContext, createElement, memo, useCallback, useEffect, useReducer } from "react"
 
 function universityDataReducer(
   state: UniversityData.Payload,
@@ -147,10 +147,12 @@ export const UniversityProvider = memo(function UniversityProvider({ children }:
       select('unapec');
     }
   }, [select, state.selected]);
-  
-  return <UniversityContext.Provider value={{ state, dispatch, select }}>
-    {children}
-  </UniversityContext.Provider>
+
+  return createElement(
+    UniversityContext.Provider,
+    { value: { state, dispatch, select } },
+    children,
+  )
 })
 
 export default UniversityContext;
