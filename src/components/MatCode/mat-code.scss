@@ -16,4 +16,17 @@
   &.click-target:hover {
     --mat-bg: var(--mat-bg-hover);
   }
+
+  &.coreq {
+    --stripe-opacity: 30%;
+    --stripe-width: 7px;
+    --stripe-brightness: 85%;
+    background-image:  repeating-linear-gradient(
+      45deg,
+      transparent,
+      transparent var(--stripe-width),
+      hsla(0, 0%, var(--stripe-brightness), var(--stripe-opacity)) var(--stripe-width),
+      hsla(0, 0%, var(--stripe-brightness), var(--stripe-opacity)) calc(var(--stripe-width) * 2)
+    ),;
+  }
 }

@@ -14,6 +14,7 @@ import getPeriodType from "functions/pensum-get-period-type";
 import { OrgChartIcon } from "pages/MatOrgChart/MatOrgChart";
 import { ButtonGroup } from "react-bootstrap";
 import { FaRegListAlt } from "react-icons/fa";
+import { difference } from "lodash";
 
 
 export default function Details() {
@@ -73,30 +74,34 @@ export default function Details() {
   const reqCbFactory = (mat: Pensum.Requirement) =>
     (typeof mat === 'string') ? () => navigate('/mat/' + mat) : undefined;
 
-  const prereqInfo = (mat.prereq.length > 0) && <Container>
+  const prereqs = difference(mat.req, matData.coreqMap.get(mat.code) ?? []);
+  const reqInfo = (prereqs.length > 0) && <Container>
     <Row>Pre-requisitos:</Row>
     <Row>
-      {mat.prereq.map((req, idx) =>
+      {prereqs.map((req, idx) =>
         <LongMatCode
           key={idx}
           data={req}
-          onClick={reqCbFactory(req)} />)}
+          onClick={reqCbFactory(req)}
+          fromMat={mat.code} />)}
     </Row>
   </Container>;
 
-  const coreqInfo = (mat.coreq.length > 0) && <Container>
+  // TODO: Split coreqs from reqs.
+  const coreqs = matData.coreqMap.get(mat.code) ?? [];
+  const coreqInfo = (coreqs.length > 0) && <Container>
     <Row>Co-requisitos:</Row>
     <Row>
-      {mat.coreq.map((req, idx) =>
+      {coreqs.map((req, idx) =>
         <LongMatCode
           key={idx}
           data={req}
-          type="coreq"
-          onClick={reqCbFactory(req)} />)}
+          onClick={reqCbFactory(req)}
+          fromMat={mat.code} />)}
     </Row>
   </Container>;
 
-  const postreqs = matData.postreqMap.get(mat.code) || [];
+  const postreqs = matData.postreqMap.get(mat.code) ?? [];
   const postreqInfo = (postreqs.length > 0) && <Container>
     <Row>Es requisito de:</Row>
     <Row>
@@ -118,7 +123,7 @@ export default function Details() {
       {generalInfo}
       {locateBtn}
 
-      {prereqInfo}
+      {reqInfo}
       {coreqInfo}
       {postreqInfo}
     </Modal.Body>

@@ -7,11 +7,50 @@ import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import { Link } from "react-router-dom";
 import PensumRowNodesContext from "contexts/pensum-row-nodes";
+import { useClassOnHover } from "hooks/use-hover-class";
+import { useCombinedRefs } from "hooks/use-combined-refs";
 
 type MatRowProps = {
   mat: Pensum.Mat,
   idx: number
-};
+}
+
+
+type MatRowTemplateProps = {
+  elems: {
+    checkmark: React.ReactNode,
+    code: React.ReactNode,
+    name: React.ReactNode,
+    cr: React.ReactNode,
+    reqs: React.ReactNode | React.ReactNode[],
+  },
+
+  checkmarkProps?: any,
+  rowProps?: any,
+}
+
+export function MatRowTemplate(props: MatRowTemplateProps) {
+  return <Row {...props.rowProps}>
+    <Col className="row-check click-target" {...props.checkmarkProps}>
+      {props.elems.checkmark}
+    </Col>
+
+    <Col className="row-code code">
+      {props.elems.code}
+    </Col>
+
+    <Col>
+      <Row className="h-100 align-items-center">
+        <Col className="row-name">{props.elems.name}</Col>
+        <Col className="row-cr">{props.elems.cr}</Col>
+        <Col className="row-req">{props.elems.reqs}</Col>
+      </Row>
+    </Col>
+  </Row>
+}
+
+
+
 
 const trackerCheckmarks = new Map([
   ['passed', '✅'],
@@ -19,44 +58,24 @@ const trackerCheckmarks = new Map([
   [null, '⬜'],
 ]);
 
-/**
- * 
- * @param refs 
- * @returns 
- * @src https://itnext.io/reusing-the-ref-from-forwardref-with-react-hooks-4ce9df693dd
- */
-function useCombinedRefs<T>(...refs: any[]) {
-  const targetRef = useRef<T>(null)
+const MatRow = forwardRef<unknown, MatRowProps>(function MR(props, ref) {
+  const { mat, idx, ...rest } = props;
 
-  useEffect(() => {
-    refs.forEach(ref => {
-      if (!ref) return
-
-      if (typeof ref === 'function') {
-        ref(targetRef.current)
-      } else {
-        ref.current = targetRef.current
-      }
-    })
-  }, [refs])
-
-  return targetRef as React.RefObject<T>
-}
-
-/** Displays a single Mat as from the pensum a table row. */
-const MatRow = forwardRef(({ mat, idx, ...rest }: MatRowProps, ref) => {
-  const innerRef = useRef<HTMLDivElement>(null);
-  const rowRef = useCombinedRefs<HTMLDivElement>(ref, innerRef)
+  const rowRef = useCombinedRefs<HTMLDivElement>(ref, useRef<HTMLDivElement>(null)); // innerRef in case no ref is given
   const clickableRef = useRef<HTMLDivElement>(null);
 
   const { updateNode } = useContext(PensumRowNodesContext);
 
-  const dispatch = useContext(MatSelectionDispatchContext);
   const tracker = useContext(MatSelectionTrackerContext);
   const trackerMode = useContext(MatSelectionModeContext);
+  const dispatch = useContext(MatSelectionDispatchContext);
 
   const currentTracker = matSelectHelpers.getTracker(tracker, mat.code);
-  
+
+  // On hover INSIDE THE MAT CHECKBOX, change the background of the ENTIRE ROW.
+  useClassOnHover('track-hover', rowRef, clickableRef)
+
+
   // Classes. Any falsy values will be discarded
   const cl = [
     "row-mat",
@@ -67,58 +86,37 @@ const MatRow = forwardRef(({ mat, idx, ...rest }: MatRowProps, ref) => {
     'table-hover-' + (currentTracker === trackerMode ? 'default' : trackerMode),
   ];
 
-  const reqs = [
-    ...mat.prereq.map((x, i) => <MatCode key={i       } data={x} type='prereq'/>),
-    ...mat.coreq.map( (x, i) => <MatCode key={i + 1000} data={x} type='coreq' />),
-  ] as JSX.Element[];
+  const onClick = useCallback((evt: any) => {
+    dispatch({ type: 'select', payload: mat.code });
+  }, [mat.code, dispatch])
 
-  // On hover INSIDE THE MAT CHECKBOX, change the background of the ENTIRE ROW.
-  useEffect(() => {
-    const cbMouseEnter = () => {
-      rowRef.current?.classList.add('track-hover');
-    }
-    const cbMouseLeave = () => {
-      rowRef.current?.classList.remove('track-hover');
-    }
-
-    const clickable = clickableRef.current;
-
-    if (!clickable) return;
-
-    clickable.addEventListener('mouseenter', cbMouseEnter);
-    clickable.addEventListener('mouseleave', cbMouseLeave);
-    return () => {
-      clickable.removeEventListener('mouseenter', cbMouseEnter);
-      clickable.removeEventListener('mouseleave', cbMouseLeave);
-    }
-  }, [rowRef, clickableRef]);
-
+  // 
   useEffect(() => {
     updateNode(mat.code, rowRef);
     return () => updateNode(mat.code, rowRef);
   }, [mat.code, updateNode, rowRef]);
 
-  const onClick = useCallback((evt: any) => {
-    dispatch({ type: 'select', payload: mat.code });
-  }, [mat.code, dispatch])
 
-  return <Row
-    ref={rowRef}
-    className={classnames(cl)}
-    data-mat={mat.code}
-    {...rest}>
-    <Col ref={clickableRef} onClick={onClick} className="row-check click-target">
-      {trackerCheckmarks.get(currentTracker) || '⬜x'}
-    </Col>
-    <Col className="row-code code"><Link to={`/mat/${mat.code}`}>{mat.code}</Link></Col>
-    <Col>
-      <Row className="h-100 align-items-center">
-        <Col className="row-name">{mat.name}</Col>
-        <Col className="row-cr">{mat.cr}</Col>
-        <Col className="row-req">{reqs}</Col>
-      </Row>
-    </Col>
-  </Row>
+  const elems: MatRowTemplateProps['elems'] = {
+    checkmark: trackerCheckmarks.get(currentTracker) || '⬜x',
+    code: <Link to={`/mat/${mat.code}`}>{mat.code}</Link>,
+    name: mat.name,
+    cr: mat.cr,
+    reqs: [
+      ...mat.req.map((code, i) => <MatCode key={i} data={code} fromMat={mat.code} />),
+    ],
+  }
+
+  return <MatRowTemplate
+    elems={elems}
+    checkmarkProps={{ ref: clickableRef, onClick, }}
+    rowProps={{
+      ref: rowRef,
+      className: classnames(cl),
+      'data-mat': mat.code,
+      ...rest,
+    }}
+  />
 })
 
 export default MatRow;

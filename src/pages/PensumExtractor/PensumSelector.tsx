@@ -14,6 +14,7 @@ import selectTheme, { optionStyle } from "lib/DarkMode/select-theme";
 
 import { sortByProp } from "lib/sort-utils";
 import ActivePensumContext from "contexts/active-pensum";
+import { useNavigate } from "react-router-dom";
 
 
 // type SelectProps = React.ComponentProps<typeof Select>['onChange'];
@@ -52,6 +53,8 @@ function PensumSelector() {
 
   const [pensumOnInput, setPensumOnInput] = useState(null as SelectProps);
   const previousPensum = usePreviousValue(activePensum);
+
+  const navigate = useNavigate();
 
 
   // ***************************************************************************
@@ -180,12 +183,10 @@ function PensumSelector() {
                 <Dropdown.Item>
                   <HiUpload /> Subir pensum.json
                 </Dropdown.Item>
-                <Dropdown.Item>
-                  <MdOutlineCreate /> Modo desarrollo
-                </Dropdown.Item>
                 <Dropdown.Item
-                  onClick={() => pensumDispatch({ type: 'new' })}>
-                  <BiEraser /> Crear desde cero
+                  onClick={() => navigate('dev')}
+                >
+                  <MdOutlineCreate /> Modo desarrollo
                 </Dropdown.Item>
               </DropdownButton>
             </InputGroup>

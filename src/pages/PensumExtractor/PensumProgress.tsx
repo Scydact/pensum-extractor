@@ -11,8 +11,8 @@ import Col from "react-bootstrap/Col";
 export default function PensumProgress() {
   const data = useGradeProgress();
   
-  const percentPassed = 100 * data.creds.passed / data.creds.total;
-  const percentCourse = 100 * data.creds.course / data.creds.total;
+  const percentPassed = (data.creds.total === 0) ? 0 : 100 * data.creds.passed / data.creds.total;
+  const percentCourse = (data.creds.total === 0) ? 0 : 100 * data.creds.course / data.creds.total;
 
   return <Card className="pensum-progress-container">
 

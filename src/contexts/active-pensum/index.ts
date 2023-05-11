@@ -30,6 +30,10 @@ export const ActivePensumProvider = memo(function ActivePensumProvider({ childre
     dispatch({type: 'load/fromSave'});
   }, []);
 
+  useEffect(() => {
+    (window as any)['data'] = state;
+  })
+
   // Custom fn to load a pensum
   const load = useCallback(async (university: string, code: string) => {
     dispatch({ type: 'loading', payload: true });

@@ -27,8 +27,7 @@ export function convertSavePensum(save: Pensum.Save.Pensum): Pensum.Pensum {
   const MatConverter = (old: Pensum.Save.Mat): Pensum.Mat => {
     const mat: Pensum.Mat = {
       ...old,
-      prereq: (old.prereq) ? old.prereq : [],
-      coreq: (old.coreq) ? old.coreq : [],
+      req: (old.req) ? old.req : [],
     };
     
     return mat;
@@ -50,16 +49,16 @@ export function convertSavePensum(save: Pensum.Save.Pensum): Pensum.Pensum {
 export function convertPensum2(old: Pensum.Save.Legacy.Pensum2, university: string): Pensum.Pensum {
   const pensum: Pensum.Pensum = {
     version: Number(process.env.REACT_APP_SAVE_VERSION),
-    institution: university,
-    code: old.codigo,
-    publishDate: old.vigencia,
+    institution: university ?? '',
+    code: old.codigo ?? '',
+    publishDate: old.vigencia ?? '0000-00-00',
     fetchDate: '2021-04-24',
-    career: old.carrera,
-    info: old.infoCarrera,
+    career: old.carrera ?? '',
+    info: old.infoCarrera ?? [],
     src: {
       type: 'convert',
       date: japaneseDateFormat(new Date()),
-      url: `./pensum/${university}/${old.codigo.toLowerCase()}.json`,
+      url: `./pensum/${university}/${old.codigo?.toLowerCase()}.json`,
     },
     periodType: {
       name: 'Cuatrimestre',
@@ -90,12 +89,11 @@ export function convertPensum2(old: Pensum.Save.Legacy.Pensum2, university: stri
       code: oldMat.codigo,
       name: oldMat.asignatura,
       cr: oldMat.creditos,
-      prereq: [],
-      coreq: [],
+      req: [],
     };
 
-    newMat.prereq.push(...oldReqConverter(oldMat.prereq));
-    newMat.prereq.push(...oldReqConverter(oldMat.prereqExtra).map(x => ({ text: x })));
+    newMat.req.push(...oldReqConverter(oldMat.prereq));
+    newMat.req.push(...oldReqConverter(oldMat.prereqExtra).map(x => ({ text: x })));
     return newMat;
   }
 
@@ -119,8 +117,7 @@ export function convertPensumToSave(pensum: Pensum.Pensum): Pensum.Save.Pensum {
   
   const mat2savemat = (mat: Pensum.Mat): Pensum.Save.Mat => {
     const out: any = {...mat};
-    if (out.prereq.length === 0) delete out.prereq;
-    if (out.coreq.length === 0) delete out.coreq;
+    if (out.req.length === 0) delete out.req;
     
     return out;
   }

@@ -50,7 +50,7 @@ type Mat2OrgLenient = Partial<Pensum.Mat> & {
 export function mat2org(obj: Mat2OrgLenient, period: number, selectionClass: string = 'default', periodStr = 'Per.'): MatOrgChartNode {
   return {
     id: obj.code,
-    parents: (obj.prereq && obj.prereq.filter(x => typeof x === 'string') as string[]) || [],
+    parents: (obj.req && obj.req.filter(x => typeof x === 'string') as string[]) || [],
     // primaryParent: obj.prereq || null,
     templateName: 'matTemplate',
 

@@ -56,7 +56,7 @@ const getMatMapFn = (
   ws[COL.prereq + rowIdx] = {
     t: 's',
     // map into safe CSV ('hello im john, "23" years old' -> "hello im john, ""23"" years old")
-    v: [...mat.prereq, ...mat.coreq,]
+    v: mat.req
       .map(prereq2str)
       .map(x => (x.match(/[,"]/) ? '"' + x.replace(/"/g, '""') + '"' : x))
       .join(', ')

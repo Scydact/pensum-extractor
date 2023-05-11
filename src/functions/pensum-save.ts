@@ -1,11 +1,9 @@
-/** Omits prereq | coreq if empty. */
+/** Omits req if empty. */
 function mat2savemat(mat: Pensum.Mat): Pensum.Save.Mat {
   const save: Pensum.Save.Mat = { ...mat };
 
-  if (save.prereq && save.prereq.length === 0)
-    delete save.prereq;
-  if (save.coreq && save.coreq.length === 0)
-    delete save.coreq;
+  if (save.req && save.req.length === 0)
+    delete save.req;
 
   return save;
 }

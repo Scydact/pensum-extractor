@@ -8,36 +8,43 @@ import './mat-code.scss';
 
 type Props = React.ComponentPropsWithRef<'span'> & {
   data: Pensum.Requirement,
-  type?: 'prereq' | 'coreq',
   children?: React.ReactNode,
+  fromMat?: string,
   className?: string,
   onClick?: React.MouseEventHandler<HTMLSpanElement>
 };
 
+function isCoReq(req: Pensum.Requirement, fromMat: string | undefined, map: Map<string, string[]>): boolean {
+  if (typeof req !== 'string' || !fromMat) return false;
+  const list = map.get(req);
+  if (!list) return false;
+  return list.includes(fromMat);
+}
+
 /** Single matcode. */
-function MatCode({ data, type = "prereq", children, onClick, className: ogClass, ...rest }: Props) {
+function MatCode({ data, fromMat, children, onClick, className: ogClass, ...rest }: Props) {
   const { state: { matData } } = useContext(ActivePensumContext);
   const tracker = useContext(MatSelectionTrackerContext);
-  let className: any[] = ['mat-code', type];
 
+  let className: any[] = ['mat-code', isCoReq(data, fromMat, matData.coreqMap) ? 'coreq' : 'prereq'];
   if (ogClass) className.push(...ogClass.split(' '));
 
   let content;
-  if (typeof data === 'string') {
-    content = children || data;
-    className.push('code');
-
-    if (onClick)
-      className.push('click-target');
-
-    if (matData.looseUnhandled.has(data)) 
-      className.push('missing');
-
-    className.push(matSelectHelpers.getTracker(tracker, data) || 'default');
-
-  } else {
+  if (typeof data !== 'string') {
+    // Prereq is type generic text ({ text: 'something' })
     content = children || data.text;
     className.push('req-text');
+  } else {
+    // Prereq is a code.
+    content = children || data;
+    className.push('code');
+    if (onClick) {
+      className.push('click-target');
+    }
+    if (matData.looseUnhandled.has(data)) {
+      className.push('missing');
+    }
+    className.push(matSelectHelpers.getTracker(tracker, data) || 'default');
   }
 
   return (<span className={classnames(className)} onClick={onClick} {...rest}>{content}</span>)

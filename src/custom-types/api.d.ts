@@ -62,10 +62,8 @@ namespace Pensum {
     name: string,
     /** Creditos de esta materia */
     cr: number,
-    /** Prerequisitos de esta materia (ej. MAT101) */
-    prereq: Requirement[],
-    /** Corequisitos de esta materia (ej. MAT102) */
-    coreq: Requirement[],
+    /** Prerequisitos y corequisitos de esta materia (ej. MAT101) */
+    req: Requirement[],
   }
 
   /** Pensum singular de una carrera. */
@@ -138,10 +136,10 @@ namespace Pensum {
   /** Data format that gets saved onto a file. */
   namespace Save {
 
-    /** Materia en formato de guardado. Sin postrequisitos, y con prerequisitos/corequisitos opcionales. */
-    type Mat = PartialBy<Pensum.Mat, 'prereq'|'coreq'>
+    /** Materia en formato de guardado. Sin postrequisitos, y con prerequisitos opcionales. */
+    type Mat = PartialBy<Pensum.Mat, 'req'>
 
-    /** Pensum en formato guardado. `loose` y `periods` tienen sus materias con prereq y coreq opcionales. */
+    /** Pensum en formato guardado. `loose` y `periods` tienen sus materias con prereq opcionales. */
     type Pensum = Omit<Pensum.Pensum, 'loose' | 'periods'> & {
       /** Materias que no estan explicitamente en el pensum, pero que aun asi son requisitos. (ej. ENG100) */
       loose: Mat[],

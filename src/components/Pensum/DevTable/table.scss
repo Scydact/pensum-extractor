@@ -1,0 +1,190 @@
+.pensum-table-container .card-title{
+  margin: 1rem 0;
+  font-size: Clamp(1.25rem, 5vmin, 2.5rem);
+  text-transform: capitalize;
+}
+
+.pensum-table-body:empty::before {
+  display: grid;
+  place-items: center;
+  content: attr(data-empty-text);
+  font-style: italic;
+}
+
+.row-period {
+  --bg-even: rgba(var(--bs-body-color-rgb), 0.1);
+}
+
+.even {
+  background: var(--bg-even);
+}
+
+.row-period.row {
+  --border-color: rgba(var(--bs-body-color-rgb), 0.5);
+  border-top: 1.5px solid var(--border-color);
+}
+
+.row-period.row:first-child {
+  border-top: none;
+}
+
+.row-period-num {
+  width: 2rem;
+  flex: 0 0 auto;
+  display: flex;
+
+  align-items: center;
+  justify-content: center;
+
+  &.click-target {
+    background: linear-gradient(90deg, var(--rowmat-bg-odd, transparent) 0%, var(--rowmat-bg-even, transparent) 100%);
+  }
+
+  &.click-target:hover {
+    // background: var(--bs-primary);
+    background: var(--rowmat-hover-bg);
+    // color: white;
+    cursor: pointer;
+  }
+}
+
+.row-mat.track-hover {
+  background: var(--rowmat-hover-bg);
+}
+
+.pensum-header {
+  background: rgba(var(--bs-body-bg-rgb),1);
+  border-bottom: 2px solid rgba(var(--bs-body-color-rgb),1);
+  border-top: none !important;
+  
+  position: sticky;
+  top: -2px;
+
+  font-weight: bold;
+}
+
+
+.row-check,
+.row-code,
+.row-name,
+.row-cr, 
+.row-req {
+  flex: 0 0 auto;       // No growth/shrink
+
+  display    : flex;
+  align-items: center;  // Center vertically
+
+  padding-left : 0;
+  padding-right: 0;
+  height: 100%;
+}
+
+.row-code {
+  justify-content: center; // Center horizontally
+  width: 100px;
+  a {
+    color: inherit;
+  }
+  padding: .2rem 0; // IMPORTANT: PADDING FOR THE ENTIRE ROW DEPENDS ON THIS!
+}
+.pensum-header .row-code {
+  padding: 0;
+}
+
+.row-check {
+  justify-content: center;
+  width: 1.5em;
+}
+
+.row-cr {
+  width: 25px;
+  height: 100%;
+}
+
+.row-req {
+  flex: 1 3;
+
+  display    : flex;
+  align-items: center;  // Center vertically
+  flex-wrap  : wrap;    // Wrap instead of going to next line
+}
+
+.row-name {
+  width: 65%; // Manually fine-tuned to be perfect <3
+}
+@media screen and (max-width: 530px) {
+  .row-req {
+    flex: 0 0 auto; // Block shrink. It will automatically go to the bottom.
+  }
+  .row-name {
+    flex: 1 0 auto; // Allow growth to the max!
+  }
+}
+
+
+
+
+/** Override for 
+@media (min-width: 576px)
+.container-sm, .container {
+    max-width: 540px;
+}
+*/
+.pensum-table {
+  max-width: inherit;
+}
+
+// Remove spacing on small devices
+@media screen and (max-width: 750px) {
+
+  .pensum-table-container {
+    padding-left : 0;
+    padding-right: 0;
+  }
+
+  .pensum-table-container .card-title {
+    padding: .75rem;
+  }
+}
+
+
+// Align headers to bottom
+.pensum-header {
+  .col, .row {
+    align-items: end;
+  }
+}
+
+// Don't break the CR header on small displays
+.row-cr {
+  white-space: nowrap;
+}
+
+// .course {
+//   background-color: gold;
+// }
+
+// .passed {
+//   background-color: green;
+// }
+.row-mat {
+  background-color: var(--rowmat-bg);
+}
+
+// Funky animation when looking for this thing
+@keyframes highlight {
+  0% {
+      background: #f825ff;
+  }
+  50% {
+      background: #2534ff;
+  }
+  100% {
+      background: #f825ff;
+  }
+}
+
+.highlight-row {
+  color: white;
+  animation: highlight 700ms ease infinite;
+}

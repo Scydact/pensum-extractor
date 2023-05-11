@@ -5,7 +5,6 @@ import { classnames } from 'lib/format-utils';
 import Row from 'react-bootstrap/Row';
 import Col from 'react-bootstrap/Col';
 import MatRow from "./MatRow";
-import { Droppable, Draggable } from "react-beautiful-dnd";
 
 
 type PeriodProps = {
@@ -50,19 +49,10 @@ export const Period = ({ period, periodNum, cumlen = 0 }: PeriodProps) => {
   if (filteredPeriod.length === 0) return null;
 
   const matrows = filteredPeriod.map((mat, i) =>
-    <Draggable
+    <MatRow
       key={mat.code}
-      draggableId={mat.code}
-      isDragDisabled={false} //TODO: Disable if editor is off!!!
-      index={i}>
-      {(provided, snapshot) => <MatRow
-        ref={provided.innerRef}
-        {...provided.draggableProps}
-        {...provided.dragHandleProps}
-        key={mat.code}
-        mat={mat}
-        idx={i + cumlen} />}
-    </Draggable>
+      mat={mat}
+      idx={i + cumlen} />
   )
 
   return <Row className="row-period">
@@ -73,19 +63,10 @@ export const Period = ({ period, periodNum, cumlen = 0 }: PeriodProps) => {
       {periodNum}
     </Col>
     
-    <Droppable key={periodNum} droppableId={`${periodNum}`}>
-      {(provided, snapshot) => (
-        <Col 
-          className="row-mat-group" 
-          ref={provided.innerRef} 
-          {...provided.droppableProps}>
-            {matrows}
-            {provided.placeholder}
-        </Col>
-      )}
-    </Droppable>
+    <Col className="row-mat-group">
+      {matrows}
+    </Col>
 
-    
   </Row>
 }
 

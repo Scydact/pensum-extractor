@@ -1,12 +1,14 @@
+import { memo, useContext } from 'react';
+import { Col, Row, Container } from 'react-bootstrap';
+import { DragDropContext, DropResult } from "react-beautiful-dnd";
+
 import './table.scss';
-import Container from 'react-bootstrap/Container';
-import Row from 'react-bootstrap/Row';
-import Col from 'react-bootstrap/Col';
-import { memo } from 'react';
 import Period from './Period';
 import { defaultPeriodType } from 'functions/pensum-get-period-type';
-import { MatRowTemplate } from './MatRow';
-
+import DeveloperModeContext from 'contexts/developer-mode';
+import moveMat from './mat-movement';
+import { MatRowTemplate } from '../Table/MatRow';
+ 
 
 /** Headers for the pensum table. */
 export const TableHead = memo((props: { periodNumStr?: string | null }) => {
@@ -32,6 +34,12 @@ export const TableHead = memo((props: { periodNumStr?: string | null }) => {
 })
 
 
+
+
+
+
+
+
 type PensumTableProps = {
   periods: Pensum.Pensum['periods'],
   periodIndexStart?: number,
@@ -39,11 +47,23 @@ type PensumTableProps = {
 }
 
 /** Displays a pensum. */
-function _PensumTable({ periods, periodIndexStart = 1, periodType = defaultPeriodType }: PensumTableProps) {
+function PensumTable({ periods, periodIndexStart = 1, periodType = defaultPeriodType }: PensumTableProps) {
+  const { commands, pensum } = useContext(DeveloperModeContext);
   // https://stackoverflow.com/a/55261098
   // CumLen is passed down to calculate if a row is even or odd.
   const cumulativeSum = (sum: number) => (value: number) => sum += value;
   const cumlen = periods.map(x => x.length).map(cumulativeSum(0))
+
+  const onDragEnd = (result: DropResult) => {
+    if (!result.destination) return;
+    const newPensum = moveMat({ ...pensum }, result.source, result.destination);
+    if (newPensum) {
+      commands.set(newPensum);
+    } else {
+      console.warn('Invalid movement!');
+    }
+  } 
+
 
   const periodElems = periods.map((period, key) =>
     <Period
@@ -53,15 +73,16 @@ function _PensumTable({ periods, periodIndexStart = 1, periodType = defaultPerio
       cumlen={cumlen[key - 1]} />
   );
   
-  return <Container className="pensum-table">
-    <TableHead periodNumStr={periodType?.two} />
-    <div
+  return <DragDropContext onDragEnd={onDragEnd} > 
+    <Container className="pensum-table">
+      <TableHead periodNumStr={periodType?.two} />
+      <div 
       className="pensum-table-body"
       data-empty-text="No hay materias que cumplan con el filtro actual.">
-      {periodElems}
-    </div>
-  </Container>
+        {periodElems}
+      </div>
+    </Container>
+  </DragDropContext>
 }
 
-const PensumTable = memo(_PensumTable);
 export default PensumTable;

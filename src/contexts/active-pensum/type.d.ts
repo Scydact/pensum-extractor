@@ -8,6 +8,8 @@ declare namespace ActivePensum {
     codeMap: Map<string, Pensum.Mat>, 
     /** Map: code<string> -> postreqs<string> */
     postreqMap: Map<string, string[]>,
+    /** Map: code<string> -> coreqs<string> */
+    coreqMap: Map<string, string[]>,
     /** List of mats that are prereqs but are not registered. */
     looseUnhandled: Set<string>,
   }

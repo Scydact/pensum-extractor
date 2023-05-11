@@ -10,7 +10,7 @@ import AppNavbar from 'components/AppNavbar';
 import AppFooter from 'components/AppFooter';
 
 import Providers from 'pages/Providers';
-import PensumExtractor from 'pages/PensumExtractor/PensumExtractor';
+import PensumExtractor from 'pages/PensumExtractor';
 
 import MatInfo from 'pages/MatInfo';
 import MatInfoDetails from 'pages/MatInfo/Details';
@@ -19,6 +19,7 @@ import DebugPage from 'pages/Debug';
 import CalcIndice from 'pages/CalcIndice';
 import ServiceWorkerUpdateBanner from 'pages/ServiceWorkerUpdateBanner';
 import MatOrgChart from 'pages/MatOrgChart/MatOrgChart';
+import PensumDevelop from 'pages/PensumDevelop';
 
 
 function App() {
@@ -42,6 +43,7 @@ function App() {
 
             </Route>
 
+            <Route path="dev" element={<PensumDevelop />} />
             <Route path="debug" element={<DebugPage />} />
             <Route path="*" element={<Navigate to="/" />} />
 
