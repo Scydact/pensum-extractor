@@ -67,7 +67,8 @@
 .row-check,
 .row-code,
 .row-name,
-.row-cr {
+.row-cr, 
+.row-req {
   flex: 0 0 auto;       // No growth/shrink
 
   display    : flex;

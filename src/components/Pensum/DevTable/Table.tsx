@@ -74,7 +74,7 @@ function PensumTable({ periods, periodIndexStart = 1, periodType = defaultPeriod
   );
   
   return <DragDropContext onDragEnd={onDragEnd} > 
-    <Container className="pensum-table">
+    <Container className="pensum-table pensum-table-dev">
       <TableHead periodNumStr={periodType?.two} />
       <div 
       className="pensum-table-body"

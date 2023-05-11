@@ -28,13 +28,15 @@ export const Period = ({ period, periodNum, cumlen = 0 }: PeriodProps) => {
       key={mat.code}
       draggableId={mat.code}
       index={i}>
-      {(provided, snapshot) => <MatRow
-        ref={provided.innerRef}
-        {...provided.draggableProps}
-        dragHandleProps={provided.dragHandleProps}
-        key={mat.code}
-        mat={mat}
-        idx={i + cumlen} />}
+      {(provided, snapshot) => (
+        <MatRow
+          ref={provided.innerRef}
+          {...provided.draggableProps}
+          dragHandleProps={provided.dragHandleProps}
+          key={mat.code}
+          mat={mat}
+          idx={i + cumlen} />
+      )}
     </Draggable>
   )
 
