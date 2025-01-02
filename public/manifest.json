@@ -1,4 +1,5 @@
 {
+  "$schema": "https://json.schemastore.org/web-manifest-combined.json",
   "name": "Pensum DO",
   "short_name": "Pensum",
   "start_url": ".",

@@ -1,43 +1,25 @@
-import { memo, useEffect, useState } from "react"
-import { Button, OverlayTrigger, Tooltip } from "react-bootstrap"
-import { serviceWorkerRef } from "serviceWorkerRegistration"
+import { memo, useEffect, useState } from 'react'
+import { Button, OverlayTrigger, Tooltip } from 'react-bootstrap'
 
 const ServiceWorkerUpdateBanner = memo(() => {
-  const [doUpdate, setDoUpdate] = useState<Function | null>(null)
-  
-  useEffect(() => {
-    setTimeout(() => {
-      if (serviceWorkerRef.wb) {
-        const wb = serviceWorkerRef.wb
+    const [doUpdate, setDoUpdate] = useState<Function | null>(null)
 
-        // Taken from https://developers.google.com/web/tools/workbox/guides/advanced-recipes
-        // This simple refresh takes change of updating the cache of js files. :)
-        wb.addEventListener('waiting', event => {
-          setDoUpdate(() => () => {
-            wb.addEventListener('controlling', event => {
-              window.location.reload()
-            })
+    useEffect(() => {
+        const cb = () => setDoUpdate(() => window.location.reload())
+        window.addEventListener('wb-need-refresh', cb)
+        return () => window.removeEventListener('wb-need-refresh', cb)
+    }, [])
 
-            wb.messageSkipWaiting();
-          });
-        })
-      }
-    }, 100)
-  }, [])
-
-  return (doUpdate) ? <OverlayTrigger
-    placement="auto"
-    overlay={
-      <Tooltip>
-        Actualización disponible! Click para refrescar la página
-      </Tooltip>
-    }>
-    <Button 
-      variant="outline-warning"
-      onClick={doUpdate as any}>
-      Actualizar
-    </Button>
-  </OverlayTrigger> : null
+    return doUpdate ? (
+        <OverlayTrigger
+            placement="auto"
+            overlay={<Tooltip>Actualización disponible! Click para refrescar la página</Tooltip>}
+        >
+            <Button variant="outline-warning" onClick={doUpdate as any}>
+                Actualizar
+            </Button>
+        </OverlayTrigger>
+    ) : null
 })
 
-export default ServiceWorkerUpdateBanner;
+export default ServiceWorkerUpdateBanner

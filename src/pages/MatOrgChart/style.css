@@ -6,7 +6,7 @@
   max-width: none;
   padding: 0;
   margin: 0 !important;
-  
+
   height: calc(100vh - 4.24em - 4.46em - 4em);
   /* 100vh - header - footer - margins */
 }

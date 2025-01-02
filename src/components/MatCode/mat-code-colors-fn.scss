@@ -1,11 +1,10 @@
-
 // Standard styles
 @function normal($h, $s, $l, $a, $ld) {
   $hn: $h;
-  $sn: $s;// * (0.5 + 0.2 * $ld);
+  $sn: $s; // * (0.5 + 0.2 * $ld);
   $ln: $l;
   $an: $a;
-  @return hsla($hn, $sn, $ln, $an); 
+  @return hsla($hn, $sn, $ln, $an);
 }
 
 @function hover($h, $s, $l, $a, $ld) {
@@ -15,7 +14,7 @@
   $an: $a;
   $x: hsl(120, 60%, 55%);
   $y: hsl(120, 40%, 40%);
-  @return hsla($hn, $sn, $ln, $an); 
+  @return hsla($hn, $sn, $ln, $an);
 }
 
 @function active($h, $s, $l, $a, $ld) {
@@ -23,7 +22,7 @@
   $sn: 95%;
   $ln: $l - 10%;
   $an: $a;
-  @return hsla($hn, $sn, $ln, $an); 
+  @return hsla($hn, $sn, $ln, $an);
 }
 
 @function disabled($h, $s, $l, $a, $ld) {
@@ -31,9 +30,8 @@
   $sn: $s * 0.45;
   $ln: $l - 10%;
   $an: $a;
-  @return hsla($hn, $sn, $ln, $an); 
+  @return hsla($hn, $sn, $ln, $an);
 }
-
 
 // Table styles
 @function table-odd($h, $s, $l, $a, $ld) {
@@ -41,7 +39,7 @@
   $sn: $s + 30%;
   $ln: $l;
   $an: $a * 0.2;
-  @return hsla($hn, $sn, $ln, $an); 
+  @return hsla($hn, $sn, $ln, $an);
 }
 
 @function table-even($h, $s, $l, $a, $ld) {
@@ -49,7 +47,7 @@
   $sn: $s + 30%;
   $ln: $l;
   $an: $a * 0.3;
-  @return hsla($hn, $sn, $ln, $an); 
+  @return hsla($hn, $sn, $ln, $an);
 }
 
 @function table-hover($h, $s, $l, $a, $ld) {
@@ -57,9 +55,8 @@
   $sn: $s;
   $ln: $l;
   $an: $a * 0.5;
-  @return hsla($hn, $sn, $ln, $an); 
+  @return hsla($hn, $sn, $ln, $an);
 }
-
 
 // Button border styles (usually 1px thin)
 @function border($h, $s, $l, $a, $ld) {
@@ -67,5 +64,5 @@
   $sn: $s;
   $ln: $l;
   $an: $a;
-  @return hsla($hn, $sn, $ln, $an); 
+  @return hsla($hn, $sn, $ln, $an);
 }

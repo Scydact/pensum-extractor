@@ -1,23 +1,21 @@
-
 //https://stackoverflow.com/a/11486224/13255686
 @mixin overlay() {
-  content  : '';
-  top      : 0;
-  right    : 0;
-  bottom   : 0;
-  left     : 0;
-  position : absolute;
+  content: '';
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  position: absolute;
 }
 
 .filter-selector {
-
   .btn {
-    background-color : var(--mat-bg);
-    color            : var(--mat-fg);
-    border-color     : var(--mat-border-color);
+    background-color: var(--mat-bg);
+    color: var(--mat-fg);
+    border-color: var(--mat-border-color);
 
-    font-weight : 500;
-    font-size   : 0.9em;
+    font-weight: 500;
+    font-size: 0.9em;
     &.not-active {
       background: rgba(var(--bs-body-color-rgb), 0.07);
       color: rgba(var(--bs-body-color-rgb), 0.5);

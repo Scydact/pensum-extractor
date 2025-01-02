@@ -1,20 +1,19 @@
-
-$white-alt:    #fafafa !default;
-$gray-50-alt:  #d8d8d8 !default;  //~~
-$gray-100-alt: #e1e1e1 !default;  //~~
-$gray-200-alt: #cfcfcf !default;  //~~
-$gray-300-alt: #b1b1b1 !default;  //~~
-$gray-400-alt: #9e9e9e !default;  //~~
-$gray-500-alt: #7e7e7e !default;  //~~
-$gray-600-alt: #626262 !default;  //~~
-$gray-700-alt: #515151 !default;  //~~
-$gray-800-alt: #3b3b3b !default;  //~~
-$gray-900-alt: #222 !default;  //~~
-$gray-950-alt: #191919 !default;  //~~
-$black-alt:    #111 !default;  //~~
+$white-alt: #fafafa !default;
+$gray-50-alt: #d8d8d8 !default; //~~
+$gray-100-alt: #e1e1e1 !default; //~~
+$gray-200-alt: #cfcfcf !default; //~~
+$gray-300-alt: #b1b1b1 !default; //~~
+$gray-400-alt: #9e9e9e !default; //~~
+$gray-500-alt: #7e7e7e !default; //~~
+$gray-600-alt: #626262 !default; //~~
+$gray-700-alt: #515151 !default; //~~
+$gray-800-alt: #3b3b3b !default; //~~
+$gray-900-alt: #222 !default; //~~
+$gray-950-alt: #191919 !default; //~~
+$black-alt: #111 !default; //~~
 
 /* Themed colors */
-body[color-scheme-light]  {
+body[color-scheme-light] {
   --th-gray-50: $gray-50-alt;
   --th-gray-100: $gray-100-alt;
   --th-gray-200: $gray-200-alt;

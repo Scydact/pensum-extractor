@@ -1,88 +1,64 @@
-import { memo, useContext } from 'react';
-import { Col, Row, Container } from 'react-bootstrap';
-import { DragDropContext, DropResult } from "react-beautiful-dnd";
+import { memo, useContext } from 'react'
+import { Col, Row, Container } from 'react-bootstrap'
 
-import './table.scss';
-import Period from './Period';
-import { defaultPeriodType } from 'functions/pensum-get-period-type';
-import DeveloperModeContext from 'contexts/developer-mode';
-import moveMat from './mat-movement';
-import { MatRowTemplate } from '../Table/MatRow';
- 
+import './table.scss'
+import DevPeriod from './Period'
+import { defaultPeriodType } from '@/functions/pensum-get-period-type'
+import { MatRowTemplate } from '../Table/MatRow'
 
 /** Headers for the pensum table. */
-export const TableHead = memo((props: { periodNumStr?: string | null }) => {
-  // Memo makes this thing pure, and never update >:D (if props don't change).
+const TableHead = memo((props: { periodNumStr?: string | null }) => {
+    // Memo makes this thing pure, and never update >:D (if props don't change).
 
-  const processedPeriod = props.periodNumStr || '';
+    const processedPeriod = props.periodNumStr || ''
 
-  return <Row className="pensum-header row-period">
-    <Col className="row-period-num">{processedPeriod}</Col>
-    <Col className="row-mat-group">
-      <MatRowTemplate
-        rowProps={{ className: "row-mat" }}
-        elems={{
-          checkmark: null,
-          code: 'Código',
-          name: 'Asignatura',
-          cr: 'Cr.',
-          reqs: 'Requisitos',
-        }}
-      />
-    </Col>
-  </Row>
+    return (
+        <Row className="pensum-header row-period">
+            <Col className="row-period-num">{processedPeriod}</Col>
+            <Col className="row-mat-group">
+                <MatRowTemplate
+                    rowProps={{ className: 'row-mat' }}
+                    elems={{
+                        checkmark: null,
+                        code: 'Código',
+                        name: 'Asignatura',
+                        cr: 'Cr.',
+                        reqs: 'Requisitos',
+                    }}
+                />
+            </Col>
+        </Row>
+    )
 })
 
-
-
-
-
-
-
-
 type PensumTableProps = {
-  periods: Pensum.Pensum['periods'],
-  periodIndexStart?: number,
-  periodType?: Pensum.Pensum['periodType'] | null
+    periods: Pensum.Pensum['periods']
+    periodIndexStart?: number
+    periodType?: Pensum.Pensum['periodType'] | null
 }
 
-/** Displays a pensum. */
-function PensumTable({ periods, periodIndexStart = 1, periodType = defaultPeriodType }: PensumTableProps) {
-  const { commands, pensum } = useContext(DeveloperModeContext);
-  // https://stackoverflow.com/a/55261098
-  // CumLen is passed down to calculate if a row is even or odd.
-  const cumulativeSum = (sum: number) => (value: number) => sum += value;
-  const cumlen = periods.map(x => x.length).map(cumulativeSum(0))
+/**
+ * Display the given periods.
+ * Adds a simple header for each period.
+ */
+export default function PensumDevTable({
+    periods,
+    periodIndexStart = 1,
+    periodType = defaultPeriodType,
+}: PensumTableProps) {
+    // https://stackoverflow.com/a/55261098
+    // CumLen is passed down to calculate if a row is even or odd.
+    const cumulativeSum = (sum: number) => (value: number) => (sum += value)
+    const cumlen = periods.map((x) => x.length).map(cumulativeSum(0))
 
-  const onDragEnd = (result: DropResult) => {
-    if (!result.destination) return;
-    const newPensum = moveMat({ ...pensum }, result.source, result.destination);
-    if (newPensum) {
-      commands.set(newPensum);
-    } else {
-      console.warn('Invalid movement!');
-    }
-  } 
-
-
-  const periodElems = periods.map((period, key) =>
-    <Period
-      key={key}
-      period={period}
-      periodNum={key + periodIndexStart}
-      cumlen={cumlen[key - 1]} />
-  );
-  
-  return <DragDropContext onDragEnd={onDragEnd} > 
-    <Container className="pensum-table pensum-table-dev">
-      <TableHead periodNumStr={periodType?.two} />
-      <div 
-      className="pensum-table-body"
-      data-empty-text="No hay materias que cumplan con el filtro actual.">
-        {periodElems}
-      </div>
-    </Container>
-  </DragDropContext>
+    return (
+        <Container className="pensum-table pensum-table-dev">
+            <TableHead periodNumStr={periodType?.two} />
+            <div className="pensum-table-body" data-empty-text="No hay materias que cumplan con el filtro actual.">
+                {periods.map((period, key) => (
+                    <DevPeriod key={key} period={period} periodNum={key + periodIndexStart} cumlen={cumlen[key - 1]} />
+                ))}
+            </div>
+        </Container>
+    )
 }
-
-export default PensumTable;

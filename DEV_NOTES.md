@@ -11,7 +11,7 @@ PS: The `npm run start` script may not work on mac/linux, since I modified it to
 
 
 ## Beautiful hooks
-This React page is using [Beautiful React Hooks](https://antonioru.github.io/beautiful-react-hooks/).
+For any "standard hook", copy the definition manually from [useHooks TS](https://usehooks-ts.com/)
 
 ## Service worker config
 Used the standard workbox from [Google's guide](https://developers.google.com/web/tools/workbox/guides/get-started).
@@ -19,6 +19,7 @@ Used the standard workbox from [Google's guide](https://developers.google.com/we
 Configured for PWA with react using [Medium's guide](https://imranhsayed.medium.com/setup-pwa-workbox-webpack-plugin-for-react-application-workbox-window-precaching-caching-at-40f9289650e5).
 
 ### TODO: Make the app work again
+- [ ] Use manually setting a [Local CORS Proxy](https://github.com/dkaoster/local-cors-anywhere)
 - [ ] Pensum editor (toggle)
   - [ ] Drag & drop mats around cuats
   - [ ] Undo/redo (Ctrl+Z)
@@ -31,7 +32,7 @@ Configured for PWA with react using [Medium's guide](https://imranhsayed.medium.
     - [ ] Bulk add from CSV (use export format, but append instead of replace)
     - [ ] Single mat editor, with a select (multiple) for prereqs
 
-  - Pensum window, set pensum metadata (source, cuat type, university, logo, etc...)
+  - [ ] Pensum window, set pensum metadata (source, cuat type, university, logo, etc...)
 
 - [X] Allow tracking
   - [X] Use a .clickable class to toggle :hover background.
@@ -53,6 +54,7 @@ Configured for PWA with react using [Medium's guide](https://imranhsayed.medium.
 
 - [ ] Save to CSV/EXCEL/JSON
 
+- [X] Migrate to Vite
 - [X] Treeview thing
 	- [X] Dark mode friendly (connection lines are currently black)
   - [X] Export to PDF & PNG

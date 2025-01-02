@@ -1,16 +1,12 @@
-import { useContext } from "react";
+import { useContext } from 'react'
 
-
-import ActivePensumContext from "contexts/active-pensum";
-import PensumMeta from "./PensumMeta";
-import PensumDisplayCards from "./PensumDisplayCards";
-import DeveloperModeContext, { DeveloperModeProvider } from "contexts/developer-mode";
-
-type Props = any;
-
+import ActivePensumContext from '@/contexts/active-pensum'
+import PensumDevMeta from './PensumDevMeta'
+import PensumDevDisplayCards from '../../components/Pensum/DevTable/PensumDevDisplayCards'
+import DeveloperModeContext, { DeveloperModeProvider } from '@/contexts/developer-mode'
 
 // TODO Edit mode per row
-/**
+/*
  * TODO: Each element should be editable if debugMode (developModeContext) is ON.
  * - Prereqs should be one those fancy selector.
  * - Code should be a selector with any unreferenced type
@@ -22,19 +18,12 @@ type Props = any;
  * - MatProgress disabled. Instead, pensum statistics (amount of mats, loose mats, total cr, etc... is used)
  */
 
-
 /** Pensum developer tab for the Pensum app. */
-function PensumDevelop(props: Props) {
-  const { pensum } = useContext(DeveloperModeContext);
-
-  return (<>
-    <PensumMeta />
-    {pensum ? <PensumDisplayCards pensum={pensum} /> : <>Favor crear pensum nuevo.</>}
-  </>)
-} 
-
 export default function PensumDevelopWithContext() {
-  return <DeveloperModeProvider>
-    <PensumDevelop/>
-  </DeveloperModeProvider>
-};
+    return (
+        <DeveloperModeProvider>
+            <PensumDevMeta />
+            <PensumDevDisplayCards />
+        </DeveloperModeProvider>
+    )
+}

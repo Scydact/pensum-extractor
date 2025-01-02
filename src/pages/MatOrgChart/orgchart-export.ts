@@ -1,92 +1,91 @@
-import { createOrgChartPdf } from "./orgchart-to-pdf";
-import { MatOrgChartNode } from "./pensum-to-orgdata";
-import FileSaver from "file-saver";
-import type pdfjsLib from "pdfjs-dist";
-import { getDateIdentifier } from "lib/format-utils";
+import { createOrgChartPdf } from './orgchart-to-pdf'
+import { MatOrgChartNode } from './pensum-to-orgdata'
+import FileSaver from 'file-saver'
+import type pdfjsLib from 'pdfjs-dist'
+import { getDateIdentifier } from '@/lib/format-utils'
 
 function getPdfBlob(title: string, items: MatOrgChartNode[]) {
-  return new Promise<Blob>((resolve, reject) => {
-    createOrgChartPdf(title, items).then(stream => {
-      if (stream == null) {
-        reject('Error: Failed to create pdf stream!')
-        return
-      }
-  
-      stream.on('finish', function () {
-        const blob = stream.toBlob('application/pdf');
-        resolve(blob)
-      });
+    return new Promise<Blob>((resolve, reject) => {
+        createOrgChartPdf(title, items).then((stream) => {
+            if (stream == null) {
+                reject('Error: Failed to create pdf stream!')
+                return
+            }
+
+            stream.on('finish', function () {
+                const blob = stream.toBlob('application/pdf')
+                resolve(blob)
+            })
+        })
     })
-  })
 }
 
 export function previewPdf(title: string, items: MatOrgChartNode[]) {
-  getPdfBlob(title, items)
-    .then(blob => {
-      const url = URL.createObjectURL(blob)
-      window.open(url)
-    })
-    .catch(e => alert(e))
+    getPdfBlob(title, items)
+        .then((blob) => {
+            const url = URL.createObjectURL(blob)
+            window.open(url)
+        })
+        .catch((e) => alert(e))
 }
 
 export function downloadPdf(title: string, items: MatOrgChartNode[], filename: string) {
-  getPdfBlob(title, items)
-    .then(blob => {
-      FileSaver.saveAs(blob, filename + '.pdf');
-    })
-    .catch(e => alert(e))
+    getPdfBlob(title, items)
+        .then((blob) => {
+            FileSaver.saveAs(blob, filename + '.pdf')
+        })
+        .catch((e) => alert(e))
 }
 
 export function downloadPng(title: string, items: MatOrgChartNode[], filename: string, resize = 1.5) {
-  getPngUrl(title, items)
-    .then(url => {
-      FileSaver.saveAs(url, filename + '.png');
+    getPngUrl(title, items).then((url) => {
+        FileSaver.saveAs(url, filename + '.png')
     })
     // .catch(e => alert(e))
 }
 
-async function getPngUrl(title: string, items: MatOrgChartNode[], scale = 1.5) {  
-  const blob = await getPdfBlob(title, items)
-  const buffer = await blob.arrayBuffer()
+async function getPngUrl(title: string, items: MatOrgChartNode[], scale = 1.5) {
+    const blob = await getPdfBlob(title, items)
+    const buffer = await blob.arrayBuffer()
 
-  /**
-   * Yep.... this is the most sane way to use pdfjs on a browser. 
-   * 1. Webpack config override -> config.externals
-   * 2. Load pdf.js directly into HTML (with its configuration for workerSrc...)
-   * 3. Use this abomination
-   */
-  const pdfjs = (window as any)['pdfjsLib'] as typeof pdfjsLib
-  
-  // Load pdf page
-  var pdf = await pdfjs.getDocument(buffer as any).promise
-  
-  var page = await pdf.getPage(1)
-  var viewport = page.getViewport({ scale })
+    /**
+     * Yep.... this is the most sane way to use pdfjs on a browser.
+     * 1. Webpack config override -> config.externals
+     * 2. Load pdf.js directly into HTML (with its configuration for workerSrc...)
+     * 3. Use this abomination
+     */
+    const pdfjs = (window as any)['pdfjsLib'] as typeof pdfjsLib
 
-  // Render to canvas
-  var canvas = document.createElement('canvas')
-  document.body.appendChild(canvas)
-  var ctx = canvas.getContext('2d')
+    // Load pdf page
+    const pdf = await pdfjs.getDocument(buffer as any).promise
 
-  if (!ctx) {
-    throw new Error('Unable to get canvas context!')
-  }
+    const page = await pdf.getPage(1)
+    const viewport = page.getViewport({ scale })
 
-  canvas.width = viewport.width
-  canvas.height = viewport.height
+    // Render to canvas
+    const canvas = document.createElement('canvas')
+    document.body.appendChild(canvas)
+    const ctx = canvas.getContext('2d')
 
-  var task = page.render({ canvasContext: ctx, viewport })
-  await task.promise
+    if (!ctx) {
+        throw new Error('Unable to get canvas context!')
+    }
 
-  // Save as png string
-  var png = canvas.toDataURL('image/png')
+    canvas.width = viewport.width
+    canvas.height = viewport.height
 
-  // Remove canvas
-  document.body.removeChild(canvas)
+    const task = page.render({ canvasContext: ctx, viewport })
+    await task.promise
 
-  return png
+    // Save as png string
+    const png = canvas.toDataURL('image/png')
+
+    // Remove canvas
+    document.body.removeChild(canvas)
+
+    return png
 }
 
 export function getPensumFilename(pensum: Pensum.Pensum | null) {
-  return (pensum ? pensum.code + ' ' + pensum.career : 'EXPORT') + ' ' + getDateIdentifier()
+    return (pensum ? pensum.code + ' ' + pensum.career : 'EXPORT') + ' ' + getDateIdentifier()
 }

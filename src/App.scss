@@ -9,7 +9,7 @@ body.color-scheme-dark {
 .App {
   width: calc(min(100%, 1000px));
   transition: padding 100ms ease;
-  
+
   padding-top: 4.25rem;
 }
 
@@ -23,9 +23,8 @@ body.color-scheme-dark {
 
 .card {
   border-radius: 1rem;
-  margin-bottom: .75rem;
+  margin-bottom: 0.75rem;
   border: none;
-  
 }
 
 // .card-header,
@@ -51,7 +50,7 @@ footer {
 /* More standard stuff. */
 .click-target {
   cursor: pointer;
-  
+
   // Disable selection
   // The user may inadvertently select while clicking to track the entire period.
   user-select: none;

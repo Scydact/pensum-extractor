@@ -1,51 +1,51 @@
 @use 'sass:color';
 @use 'sass:math';
 @use 'sass:map';
-@use 'mat-code-colors-fn'as fn;
+@use 'mat-code-colors-fn' as fn;
 @use 'luminance';
 
 // How to use:
 // 1. Each color is defined as a sass varible
 // 2. Variations are made for normal, hover, active, disabled, table-odd, table-even, table-hover
 // 3. Each is placed into a var for its corresponding class, as mat-bg and mat-fg variables.
-$colors: ("default": hsl(240, 60%, 55%),
-  "passed": hsl(120, 60%, 55%),
-  "course": hsl(40, 60%, 55%),
-  "missing": hsl(0, 60%, 55%),
+$colors: (
+  'default': hsl(240, 60%, 55%),
+  'passed': hsl(120, 60%, 55%),
+  'course': hsl(40, 60%, 55%),
+  'missing': hsl(0, 60%, 55%),
 );
 
 // ld == is Light mode? [0 = false | 1 = true]
 @function create-color($base, $is-light) {
-  $h : hue($base);
-  $s : saturation($base);
-  $l : lightness($base);
-  $a : opacity($base);
+  $h: color.channel($base, 'hue', $space: hsl);
+  $s: color.channel($base, 'saturation', $space: hsl);
+  $l: color.channel($base, 'lightness', $space: hsl);
+  $a: color.opacity($base);
 
-  $color: ( // "normal":     hsla($h, math.div($s * (0.5 + 1.3*$ld), 1%), $l + 0.95*$ld, $a),
-      // "hover":      hsla($h, math.div($s * (0.4 + 0.2*$ld), 1%), 0.80*$l  + $ld, $a),
-      // "active":     hsla($h, math.div($s * (1.0 + 0.0*$ld), 1%), 0.85*$l + 0.5*$ld, $a),
-      // "disabled":   hsla($h, math.div($s * (0.1% + 0.1*$ld), 1%), $l + $ld, $a),
-      // "table-odd":  hsla($h, $s, $l, $a * 0.20),
-      // "table-even": hsla($h, $s, $l, $a * 0.30),
-      // "table-hover":hsla($h, $s, $l, $a * 0.5),
-      // "border":     hsla($h, math.div($s * (0.5 + 1.3*$ld), 1%), 0.85*$l, $a),
-      "normal" : fn.normal($h, $s, $l, $a, $is-light),
-      "hover" : fn.hover($h, $s, $l, $a, $is-light),
-      "active" : fn.active($h, $s, $l, $a, $is-light),
-      "disabled" : fn.disabled($h, $s, $l, $a, $is-light),
-
-      "table-odd" : fn.table-odd($h, $s, $l, $a, $is-light),
-      "table-even" : fn.table-even($h, $s, $l, $a, $is-light),
-      "table-hover" : fn.table-hover($h, $s, $l, $a, $is-light),
-
-      "border" : fn.border($h, $s, $l, $a, $is-light),
-    );
+  $color: (
+    // "normal":     hsla($h, math.div($s * (0.5 + 1.3*$ld), 1%), $l + 0.95*$ld, $a),
+    // "hover":      hsla($h, math.div($s * (0.4 + 0.2*$ld), 1%), 0.80*$l  + $ld, $a),
+    // "active":     hsla($h, math.div($s * (1.0 + 0.0*$ld), 1%), 0.85*$l + 0.5*$ld, $a),
+    // "disabled":   hsla($h, math.div($s * (0.1% + 0.1*$ld), 1%), $l + $ld, $a),
+    // "table-odd":  hsla($h, $s, $l, $a * 0.20),
+    // "table-even": hsla($h, $s, $l, $a * 0.30),
+    // "table-hover":hsla($h, $s, $l, $a * 0.5),
+    // "border":     hsla($h, math.div($s * (0.5 + 1.3*$ld), 1%), 0.85*$l, $a),
+    'normal': fn.normal($h, $s, $l, $a, $is-light),
+    'hover': fn.hover($h, $s, $l, $a, $is-light),
+    'active': fn.active($h, $s, $l, $a, $is-light),
+    'disabled': fn.disabled($h, $s, $l, $a, $is-light),
+    'table-odd': fn.table-odd($h, $s, $l, $a, $is-light),
+    'table-even': fn.table-even($h, $s, $l, $a, $is-light),
+    'table-hover': fn.table-hover($h, $s, $l, $a, $is-light),
+    'border': fn.border($h, $s, $l, $a, $is-light)
+  );
 
   @return $color;
 }
 
 @function get-fg($color, $threshold) {
-  $l : luminance.luminance($color);
+  $l: luminance.luminance($color);
 
   @if $l < $threshold {
     @return white;
@@ -55,63 +55,62 @@ $colors: ("default": hsl(240, 60%, 55%),
 }
 
 @function get-rgb($color) {
-  @return #{color.red($color)},
-  #{color.green($color)},
-  #{color.blue($color)};
+  @return #{color.channel($color, 'red', $space: rgb)}, #{color.channel($color, 'green', $space: rgb)},
+    #{color.channel($color, 'blue', $space: rgb)};
 }
 
 @mixin inner-vars($parsed, $is-light) {
-  $thres : if($is-light == 1, 0.6, 0.6); // Could be different for darkmode
+  $thres: if($is-light == 1, 0.6, 0.6); // Could be different for darkmode
 
   // Backgrounds
-  $normal   : map.get($parsed, "normal");
-  $hover    : map.get($parsed, "hover");
-  $active   : map.get($parsed, "active");
-  $disabled : map.get($parsed, "active");
+  $normal: map.get($parsed, 'normal');
+  $hover: map.get($parsed, 'hover');
+  $active: map.get($parsed, 'active');
+  $disabled: map.get($parsed, 'active');
 
-  --mat-bg           : #{$normal};
-  --mat-bg-hover     : #{$hover};
-  --mat-bg-active    : #{$active};
-  --mat-bg-disabled  : #{$disabled};
+  --mat-bg: #{$normal};
+  --mat-bg-hover: #{$hover};
+  --mat-bg-active: #{$active};
+  --mat-bg-disabled: #{$disabled};
 
-  --mat-border-color : #{map.get($parsed, "border")};
-  --rowmat-bg-odd    : #{map.get($parsed, "table-odd")};
-  --rowmat-bg-even   : #{map.get($parsed, "table-even")};
+  --mat-border-color: #{map.get($parsed, 'border')};
+  --rowmat-bg-odd: #{map.get($parsed, 'table-odd')};
+  --rowmat-bg-even: #{map.get($parsed, 'table-even')};
 
   // Foreground
-  $fg-normal   : get-fg($normal, $thres);
-  $fg-hover    : get-fg($normal, $thres);
-  $fg-active   : get-fg($normal, $thres);
-  $fg-disabled : get-fg($normal, $thres);
+  $fg-normal: get-fg($normal, $thres);
+  $fg-hover: get-fg($normal, $thres);
+  $fg-active: get-fg($normal, $thres);
+  $fg-disabled: get-fg($normal, $thres);
 
-  --mat-fg           : #{$fg-normal};
-  --mat-fg-hover     : #{$fg-hover};
-  --mat-fg-active    : #{$fg-active};
-  --mat-fg-disabled  : #{$fg-disabled};
+  --mat-fg: #{$fg-normal};
+  --mat-fg-hover: #{$fg-hover};
+  --mat-fg-active: #{$fg-active};
+  --mat-fg-disabled: #{$fg-disabled};
 
-  --mat-fg-rgb           : #{get-rgb($fg-normal)};
-  --mat-fg-hover-rgb     : #{get-rgb($fg-hover)};
-  --mat-fg-active-rgb    : #{get-rgb($fg-active)};
-  --mat-fg-disabled-rgb  : #{get-rgb($fg-disabled)};
+  --mat-fg-rgb: #{get-rgb($fg-normal)};
+  --mat-fg-hover-rgb: #{get-rgb($fg-hover)};
+  --mat-fg-active-rgb: #{get-rgb($fg-active)};
+  --mat-fg-disabled-rgb: #{get-rgb($fg-disabled)};
 
   // Foreground with color
-  $base   : if($is-light == 1, black, white);
-  $base-weight : 20%;
+  $base: if($is-light == 1, black, white);
+  $base-weight: 20%;
 
-  $fg-normal-color   : color.mix($base, $normal, $base-weight);
-  $fg-hover-color    : color.mix($base, $hover, $base-weight);
-  $fg-active-color   : color.mix($base, $active, $base-weight);
-  $fg-disabled-color : color.mix($base, $disabled, $base-weight);
+  $fg-normal-color: color.mix($base, $normal, $base-weight);
+  $fg-hover-color: color.mix($base, $hover, $base-weight);
+  $fg-active-color: color.mix($base, $active, $base-weight);
+  $fg-disabled-color: color.mix($base, $disabled, $base-weight);
 
-  --mat-fg-color           : #{$fg-normal-color};
-  --mat-fg-hover-color     : #{$fg-hover-color};
-  --mat-fg-active-color    : #{$fg-active-color};
-  --mat-fg-disabled-color  : #{$fg-disabled-color};
+  --mat-fg-color: #{$fg-normal-color};
+  --mat-fg-hover-color: #{$fg-hover-color};
+  --mat-fg-active-color: #{$fg-active-color};
+  --mat-fg-disabled-color: #{$fg-disabled-color};
 
-  --mat-fg-color-rgb           : #{get-rgb($fg-normal-color)};
-  --mat-fg-hover-color-rgb     : #{get-rgb($fg-hover-color)};
-  --mat-fg-active-color-rgb    : #{get-rgb($fg-active-color)};
-  --mat-fg-disabled-color-rgb  : #{get-rgb($fg-disabled-color)};
+  --mat-fg-color-rgb: #{get-rgb($fg-normal-color)};
+  --mat-fg-hover-color-rgb: #{get-rgb($fg-hover-color)};
+  --mat-fg-active-color-rgb: #{get-rgb($fg-active-color)};
+  --mat-fg-disabled-color-rgb: #{get-rgb($fg-disabled-color)};
 
   // Recommended to set this manually
   // &:hover, &.hover {
@@ -121,30 +120,29 @@ $colors: ("default": hsl(240, 60%, 55%),
 
   &:active,
   &.active {
-    --mat-bg     : var(--mat-bg-active);
-    --mat-fg     : var(--mat-fg-active);
-    --mat-fg-rgb : var(--mat-fg-active-rgb);
+    --mat-bg: var(--mat-bg-active);
+    --mat-fg: var(--mat-fg-active);
+    --mat-fg-rgb: var(--mat-fg-active-rgb);
   }
 
   &:disabled,
   &.disabled {
-    --mat-bg     : var(--mat-bg-disabled);
-    --mat-fg     : var(--mat-fg-disabled);
-    --mat-fg-rgb : var(--mat-fg-disabled-rgb);
+    --mat-bg: var(--mat-bg-disabled);
+    --mat-fg: var(--mat-fg-disabled);
+    --mat-fg-rgb: var(--mat-fg-disabled-rgb);
   }
 
   &.row-mat {
-    --rowmat-bg : var(--rowmat-bg-odd);
+    --rowmat-bg: var(--rowmat-bg-odd);
 
     &.even {
-      --rowmat-bg : var(--rowmat-bg-even);
+      --rowmat-bg: var(--rowmat-bg-even);
     }
   }
-
 }
 
 @mixin create-css-vars($name, $color, $is-light) {
-  $parsed : create-color($color, $is-light);
+  $parsed: create-color($color, $is-light);
 
   .#{$name} {
     @include inner-vars($parsed, $is-light);
@@ -152,59 +150,53 @@ $colors: ("default": hsl(240, 60%, 55%),
 
   // Manual override classes
   .table-hover-#{$name}:hover {
-    --rowmat-hover-bg : #{map.get($parsed, "table-hover")};
+    --rowmat-hover-bg: #{map.get($parsed, 'table-hover')};
   }
 
   .mat-hover-#{$name}:hover {
-    --mat-hover-bg : #{map.get($parsed, "hover")};
+    --mat-hover-bg: #{map.get($parsed, 'hover')};
   }
 }
-
 
 // Default cases
 .row-mat {
-  --rowmat-bg : var(--rowmat-bg-odd);
+  --rowmat-bg: var(--rowmat-bg-odd);
 
   &.even {
-    --rowmat-bg : var(--rowmat-bg-even);
+    --rowmat-bg: var(--rowmat-bg-even);
   }
 }
 
-
 // Light mode
-@each $key,
-$color in $colors {
+@each $key, $color in $colors {
   @include create-css-vars(#{$key}, $color, 1);
 }
 
 :root {
-  $color  : map.get($colors, "default");
-  $parsed : create-color($color, 1);
+  $color: map.get($colors, 'default');
+  $parsed: create-color($color, 1);
   @include inner-vars($parsed, 1);
 
-  $co : color.change(map.get($parsed, "table-even"), $alpha: 0.08);
+  $co: color.change(map.get($parsed, 'table-even'), $alpha: 0.08);
 
-  --rowmat-bg-odd  : transparent;
-  --rowmat-bg-even : #{$co};
+  --rowmat-bg-odd: transparent;
+  --rowmat-bg-even: #{$co};
 }
-
 
 // Dark mode
 .color-scheme-dark {
-
-  @each $key,
-  $color in $colors {
+  @each $key, $color in $colors {
     @include create-css-vars(#{$key}, $color, 0);
   }
 
-  $color  : map.get($colors, "default");
-  $parsed : create-color($color, 0);
+  $color: map.get($colors, 'default');
+  $parsed: create-color($color, 0);
   @include inner-vars($parsed, 0);
 
-  $co : color.change(map.get($parsed, "table-even"), $alpha: 0.1);
+  $co: color.change(map.get($parsed, 'table-even'), $alpha: 0.1);
 
-  --rowmat-bg-odd  : transparent;
-  --rowmat-bg-even : #{$co};
+  --rowmat-bg-odd: transparent;
+  --rowmat-bg-even: #{$co};
 }
 
-@debug $colors;
+// @debug $colors;

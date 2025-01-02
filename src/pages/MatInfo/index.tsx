@@ -1,3 +1,3 @@
-import MatInfo from "./MatInfo";
+import MatInfo from './MatInfo'
 
-export default MatInfo;
+export default MatInfo

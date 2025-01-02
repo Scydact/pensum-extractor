@@ -1,17 +1,17 @@
 .pensum-progress-container {
   div {
-    position : relative;
+    position: relative;
   }
 
   .progress {
-    position : absolute;
-    inset    : 0; // same as top/right/bottom/left
-    height   : 100%;
+    position: absolute;
+    inset: 0; // same as top/right/bottom/left
+    height: 100%;
 
-    border-radius : inherit;
-    background    : transparent;
+    border-radius: inherit;
+    background: transparent;
 
-    opacity : 0.7;
+    opacity: 0.7;
   }
 
   .card-body {
@@ -25,14 +25,14 @@
       font-style: italic;
 
       // Transistion height on extra appearing!
-      transition: max-height 700ms, height 700ms;
+      transition:
+        max-height 700ms,
+        height 700ms;
       max-height: 3em;
       &:empty {
-        max-height: .5em;
-        height: .5em;
+        max-height: 0.5em;
+        height: 0.5em;
       }
     }
-    
   }
-
 }

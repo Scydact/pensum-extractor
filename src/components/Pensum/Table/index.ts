@@ -1,3 +1,3 @@
-import PensumTable from "./Table";
+import PensumTable from './Table'
 
-export default PensumTable;
+export default PensumTable

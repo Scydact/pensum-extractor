@@ -1,42 +1,34 @@
-import { useEffect, useState } from "react";
+import { useEffect, useState } from 'react'
 import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
-import Tooltip from 'react-bootstrap/Tooltip';
+import Tooltip from 'react-bootstrap/Tooltip'
 
-import { BsFillMoonStarsFill } from 'react-icons/bs';
-import { FaSun } from 'react-icons/fa';
-import { getDarkmode, setDarkmode } from ".";
-import './btn-switch.scss';
-
+import { BsFillMoonStarsFill } from 'react-icons/bs'
+import { FaSun } from 'react-icons/fa'
+import { getDarkmode, setDarkmode } from '.'
+import './btn-switch.scss'
 
 function DarkModeSwitch() {
-  const [dark, setDark] = useState(false);
-  
-  // onMount
-  useEffect(() => {
-    setDark(getDarkmode());
-  }, [])
+    const [dark, setDark] = useState(getDarkmode)
 
-  // onChange
-  useEffect(() => {
-    setDarkmode(dark);
-  }, [dark])
-  
+    useEffect(() => {
+        setDarkmode(dark)
+    }, [dark])
 
-  const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
-    setDark(e.target.checked);
-  }
+    const handleChange: React.ChangeEventHandler<HTMLInputElement> = (e) => {
+        setDark(e.target.checked)
+    }
 
-  return <OverlayTrigger
-    placement="left"
-    overlay={<Tooltip>{(dark ? 'Desactivar' : 'Activar') + ' modo oscuro'}</Tooltip>}>
-    <label className={"darkmode-switch" + (dark ? ' dark' : '')}>
-      {(dark) ? <BsFillMoonStarsFill/> : <FaSun />}
-      <input
-        type="checkbox"
-        checked={dark}
-        onChange={handleChange} />
-    </label>
-  </OverlayTrigger>
+    return (
+        <OverlayTrigger
+            placement="left"
+            overlay={<Tooltip>{(dark ? 'Desactivar' : 'Activar') + ' modo oscuro'}</Tooltip>}
+        >
+            <label className={'darkmode-switch' + (dark ? ' dark' : '')}>
+                {dark ? <BsFillMoonStarsFill /> : <FaSun />}
+                <input type="checkbox" checked={dark} onChange={handleChange} />
+            </label>
+        </OverlayTrigger>
+    )
 }
 
-export default DarkModeSwitch;
+export default DarkModeSwitch
