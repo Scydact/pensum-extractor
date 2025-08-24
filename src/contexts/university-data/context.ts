@@ -1,6 +1,6 @@
 import { fetchCarreras, fetchUniversities } from '@/functions/metadata-fetch'
 import { sortByProp } from '@/lib/sort-utils'
-import React, { createContext, createElement, memo, useCallback, useEffect, useReducer } from 'react'
+import React, { createContext, createElement, memo, useCallback, useEffect, useReducer, useRef } from 'react'
 
 function universityDataReducer(
     state: UniversityData.Payload,
@@ -92,6 +92,8 @@ type UniCtxProps = { children: any }
 /** Handles automatic load of university list. */
 export const UniversityProvider = memo(function UniversityProvider({ children }: UniCtxProps) {
     const [state, dispatch] = useReducer(universityDataReducer, initialUniversityData)
+    const lastCode = useRef(state.selected?.code)
+    lastCode.current = state.selected?.code
 
     /** Select a new university from a given code. */
     const select = useCallback(
@@ -104,7 +106,7 @@ export const UniversityProvider = memo(function UniversityProvider({ children }:
 
             // Don't do anything if university code didn't change...
             code = code?.toLowerCase()
-            if (code === state.selected?.code) {
+            if (code === lastCode.current) {
                 return
             }
 
@@ -129,7 +131,7 @@ export const UniversityProvider = memo(function UniversityProvider({ children }:
             }
             return
         },
-        [state.selected, dispatch],
+        [dispatch],
     )
 
     // onMount: load universities

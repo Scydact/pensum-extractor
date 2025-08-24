@@ -62,21 +62,22 @@ function PensumSelector() {
     //  2. Update the selected career <select> value.
     // ***************************************************************************
     useEffect(() => {
-        // If pensums are the same, nothing to change!
-        if (activePensum === previousPensum) return
         // If no pensum is selected, there's nothing to "select"!
         if (!activePensum) return
 
         // Select university
         selectUniversity(activePensum.institution)
-
+    }, [activePensum, selectUniversity])
+    useEffect(() => {
+        // If no pensum is selected, there's nothing to "select"!
+        if (!activePensum) return
         // Try to find existing label
         const careerOption = careerSelectOptions.find((x) => x.value === activePensum.code) || {
             value: activePensum.code,
             label: createLabelString(activePensum.code, activePensum.career),
         }
         setPensumOnInput(careerOption)
-    }, [activePensum, previousPensum])
+    }, [activePensum, careerSelectOptions])
 
     // ***************************************************************************
     // University select
