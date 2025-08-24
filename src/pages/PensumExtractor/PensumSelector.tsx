@@ -176,9 +176,7 @@ function PensumSelector() {
                 <Container>
                     {/* zIndex so that <Select> options are not covered by <MatFilter>. */}
                     <Form onSubmit={handleSubmit} style={{ zIndex: 2, position: 'relative' }}>
-                        {uniImageUrl && (
-                            <img src={uniImageUrl} style={{ height: '100px', display: 'block', margin: 'auto' }} />
-                        )}
+                        {uniImageUrl && <img src={uniImageUrl} className="uni-logo" />}
                         <SelectUni
                             value={selectedUniversity}
                             options={universitySelectOptions}

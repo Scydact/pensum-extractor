@@ -55,3 +55,12 @@ footer {
   // The user may inadvertently select while clicking to track the entire period.
   user-select: none;
 }
+
+/* University logo (PensumSelector.tsx) */
+.uni-logo {
+  display: block;
+  max-height: 100px;
+  max-width: min(100%, 80vw);
+  margin: auto;
+  margin-bottom: 0.5rem;
+}
