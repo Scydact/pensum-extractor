@@ -1,7 +1,7 @@
 import ActivePensumContext from '@/contexts/active-pensum'
 import { activePensumReducer } from '@/contexts/active-pensum/reducer'
-import { createContext, createElement, memo, useContext, useEffect, useRef } from 'react'
 import useUndo, { Actions } from '@/hooks/use-undo'
+import { createContext, createElement, memo, useContext, useEffect, useRef } from 'react'
 
 type DeveloperModeContextProps = {
     pensum: Pensum.Pensum
@@ -35,8 +35,8 @@ export const DeveloperModeProvider = memo(function DeveloperModeProvider({ child
     useEffect(() => {
         if (!wasInitialized.current) {
             wasInitialized.current = true
-        } else {
-            dispatchContextPensum({ type: 'set', payload: history.present })
+        } else if (history.present) {
+            dispatchContextPensum({ type: 'set', payload: history.present, debug: 'Setting from Devmode' })
         }
     }, [history.present, dispatchContextPensum])
 

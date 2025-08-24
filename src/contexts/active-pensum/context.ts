@@ -1,5 +1,5 @@
 import { fetchPensumFromCode, PensumFetchError } from '@/functions/pensum-fetch'
-import { createContext, createElement, memo, useCallback, useEffect, useReducer } from 'react'
+import { createContext, createElement, memo, useCallback, useEffect, useReducer, useRef } from 'react'
 import { activePensumReducer, createPayload } from './reducer'
 
 type ActivePensumContextProps = {
@@ -25,8 +25,12 @@ export const ActivePensumProvider = memo(function ActivePensumProvider({ childre
     const [state, dispatch] = useReducer(activePensumReducer, defaultContext.state)
 
     // onMount: load saved pensum
+    const initialized = useRef(false)
     useEffect(() => {
-        dispatch({ type: 'load/fromSave' })
+        if (!initialized.current) {
+            dispatch({ type: 'load/fromSave', debug: 'Initializing ActivePensum' })
+            initialized.current = true
+        }
     }, [])
 
     useEffect(() => {
@@ -39,7 +43,7 @@ export const ActivePensumProvider = memo(function ActivePensumProvider({ childre
 
         try {
             const pensum = await fetchPensumFromCode(university, code)
-            dispatch({ type: 'set', payload: pensum })
+            dispatch({ type: 'set', payload: pensum, debug: `Setting from load of uni=${university}, code=${code}` })
 
             // TODO: add "payload.loadInfo" (similar to payload.error) to tell user
             //       the process of fetching (fetching from proxy #1, proxy#2, etc...)

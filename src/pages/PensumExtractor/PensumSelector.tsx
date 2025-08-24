@@ -11,11 +11,11 @@ import Select from 'react-select'
 import CreatableSelect from 'react-select/creatable'
 
 import ActivePensumContext from '@/contexts/active-pensum'
-import { sortByProp } from '@/lib/sort-utils'
-import { useNavigate } from 'react-router-dom'
-import { download } from '@/lib/file-utils'
-import fileDialog from 'file-dialog'
 import { validatePensum } from '@/functions/pensum-converter'
+import { download } from '@/lib/file-utils'
+import { sortByProp } from '@/lib/sort-utils'
+import fileDialog from 'file-dialog'
+import { useNavigate } from 'react-router-dom'
 
 // type SelectProps = React.ComponentProps<typeof Select>['onChange'];
 type SelectProps = { label: string; value: string } | null
@@ -164,7 +164,7 @@ function PensumSelector() {
                 const contents = JSON.parse(data)
                 const pensum = validatePensum(contents, contents?.institution ?? '')
                 if (!pensum) throw Error('Invalid pensum')
-                pensumDispatch({ type: 'set', payload: pensum })
+                pensumDispatch({ type: 'set', payload: pensum, debug: 'Setting from uploaded json' })
             })
             .catch((err) => {
                 alert(String(err))

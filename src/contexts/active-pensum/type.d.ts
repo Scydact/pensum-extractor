@@ -22,7 +22,7 @@ declare namespace ActivePensum {
         loading: boolean
     }
 
-    type Action =
+    type Action = { debug?: string } & (
         | {
               type: 'set'
               payload: Payload['pensum']
@@ -45,4 +45,5 @@ declare namespace ActivePensum {
               type: 'loading'
               payload: Payload['loading']
           }
+    )
 }

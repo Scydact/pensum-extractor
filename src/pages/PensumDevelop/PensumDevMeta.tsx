@@ -1,17 +1,26 @@
 import { ChangeEvent, useContext, useMemo } from 'react'
 
 import { Button, ButtonGroup, Card, Form, Row } from 'react-bootstrap'
-import { useNavigate } from 'react-router-dom'
 import { BiEraser } from 'react-icons/bi'
+import { useNavigate } from 'react-router-dom'
 
-import PensumDisplay from '../../components/Pensum/DevTable/PensumDevDisplayCards'
-import ActivePensumContext from '@/contexts/active-pensum'
-import { BsArrowLeftShort } from 'react-icons/bs'
 import DeveloperModeContext from '@/contexts/developer-mode'
+import { BsArrowLeftShort } from 'react-icons/bs'
 
 function PensumDevMeta() {
     const { pensum, commands } = useContext(DeveloperModeContext)
     const navigate = useNavigate()
+
+    const onPensumDetailsChange = useMemo(
+        () => (evt: ChangeEvent<HTMLTextAreaElement>) => {
+            evt.preventDefault()
+            commands.set({
+                ...pensum,
+                info: evt.target.value.split('\n'),
+            })
+        },
+        [commands, pensum],
+    )
 
     return (
         <Card>
@@ -71,16 +80,7 @@ function PensumDevMeta() {
                             placeholder="Ej. Ingeniería Automotriz..."
                             rows={7}
                             value={pensum.info.join('\n')}
-                            onChange={useMemo(
-                                () => (evt: ChangeEvent<HTMLTextAreaElement>) => {
-                                    evt.preventDefault()
-                                    commands.set({
-                                        ...pensum,
-                                        info: evt.target.value.split('\n'),
-                                    })
-                                },
-                                [commands],
-                            )}
+                            onChange={onPensumDetailsChange}
                         ></Form.Control>
                     </Form.Group>
                 </Form>

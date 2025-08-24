@@ -1,6 +1,6 @@
 import { validatePensum } from '@/functions/pensum-converter'
-import pensumToSavePensum from '@/functions/pensum-save'
 import processPensumMats from '@/functions/pensum-get-extras'
+import pensumToSavePensum from '@/functions/pensum-save'
 import { japaneseDateFormat, westernDateFormat } from '@/lib/format-utils'
 
 const PENSUM_STORAGE_KEY = import.meta.env.VITE_PENSUM_STORAGE_PENSUM_KEY || 'PENSUM_DATA'
@@ -51,6 +51,13 @@ export function createPayload(pensum: ActivePensum.Payload['pensum']): ActivePen
 }
 
 export function activePensumReducer(state: ActivePensum.Payload, action: ActivePensum.Action): ActivePensum.Payload {
+    if (action.debug && import.meta.env.DEV) {
+        console.log('[ActivePensum] %s', action.debug, {
+            state,
+            actionType: action.type,
+            payload: (action as any).payload,
+        })
+    }
     switch (action.type) {
         case 'clear':
             // savePensumToLocalStorage(null); // Dont clear save!
