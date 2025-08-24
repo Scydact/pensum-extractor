@@ -7,11 +7,21 @@ function universityDataReducer(
     action: UniversityData.DispatchAction,
 ): UniversityData.Payload {
     switch (action.type) {
-        case 'set/universities':
+        case 'set/universities': {
+            // After reloading the available universities, update the selected one (if any)
+            let selected = state.selected
+            if (selected) {
+                const foundUni = action.payload.find((uni) => uni.code === selected?.code)
+                if (foundUni) {
+                    selected = { ...selected, university: foundUni }
+                }
+            }
             return {
                 ...state,
+                selected,
                 universities: action.payload,
             }
+        }
 
         case 'set/selected': {
             if (!action.payload)
@@ -136,8 +146,10 @@ export const UniversityProvider = memo(function UniversityProvider({ children }:
 
     // onMount: load universities
     useEffect(() => {
+        let ignore = false
         fetchUniversities()
             .then((unis) => {
+                if (ignore) return
                 const u = unis.universities.sort(sortByProp('longName'))
                 dispatch({ type: 'set/universities', payload: u })
             })
@@ -147,6 +159,9 @@ export const UniversityProvider = memo(function UniversityProvider({ children }:
             .finally(() => {
                 dispatch({ type: 'set/loading', payload: false })
             })
+        return () => {
+            ignore = true
+        }
     }, [])
 
     useEffect(() => {
