@@ -20,6 +20,22 @@ export default defineConfig(({ mode }) => {
                     cleanupOutdatedCaches: true,
                     sourcemap: true,
                 },
+                manifest: {
+                    name: 'Pensum DO',
+                    short_name: 'Pensum',
+                    start_url: '.',
+                    display: 'standalone',
+                    background_color: '#21557F',
+                    description: 'Seguidor de pensum para carreras de RD (coming soon).',
+                    theme_color: '#0070cc',
+                    icons: [
+                        {
+                            src: './favicon/favicon-256x256.png',
+                            sizes: '256x256',
+                            type: 'image/png',
+                        },
+                    ],
+                },
             }),
         ],
         resolve: {
