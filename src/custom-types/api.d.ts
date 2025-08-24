@@ -24,6 +24,8 @@ declare namespace PensumJson {
         longName: string
         /** URL of the university's logo/banner, if available. */
         imgUrl: string | null
+        /** Should this university be hidden from the user UI? */
+        hidden?: boolean
     }
 
     /** Single carrera for autocomplete. */

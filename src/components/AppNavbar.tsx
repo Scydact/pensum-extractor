@@ -35,7 +35,19 @@ function AppNavbar({ children }: Props) {
     return (
         <Navbar ref={navbarRef} variant="dark" className="App-header mb-3" fixed="top">
             <Container>
-                <Navbar.Brand onClick={() => navigate('/')}>PENSUMS UNAPEC</Navbar.Brand>
+                <Navbar.Brand onClick={() => navigate('/')}>
+                    <img
+                        src="./favicon/favicon-256x256.png"
+                        alt="Logo"
+                        style={{
+                            height: '50px',
+                            marginInlineEnd: '0.5rem',
+                            marginBlock: '-1rem',
+                            marginBlockEnd: '-0.75rem',
+                        }}
+                    />
+                    Pensum Extractor
+                </Navbar.Brand>
 
                 <div className="flex-grow-1">{children}</div>
 

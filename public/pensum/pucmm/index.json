@@ -1,16 +1,5 @@
 {
-    "university": "PUCMM",
-    "api": "https://www.google.com",
-    "careers": [
-        {
-            "code": "INES7",
-            "name": "INGENIERIA ELECTRICAZA",
-            "school": "Escuela de Ingenierías"
-        },
-        {
-            "code": "IELS7",
-            "name": "INGENIERIA ELECTRONISTICA",
-            "school": "Escuela de Ingenierías"
-        }
-    ]
+  "university": "PUCMM",
+  "api": "https://www.google.com",
+  "careers": []
 }

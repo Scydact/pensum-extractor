@@ -1,16 +1,17 @@
 {
-    "universities": [
-        {
-            "code": "unapec",
-            "shortName": "UNAPEC",
-            "longName": "Universidad APEC",
-            "imgUrl": null
-        },
-        {
-            "code": "pucmm",
-            "shortName": "PUCMM",
-            "longName": "Pucamaima™",
-            "imgUrl": null
-        }
-    ]
+  "universities": [
+    {
+      "code": "unapec",
+      "shortName": "UNAPEC",
+      "longName": "Universidad APEC",
+      "imgUrl": "img/universities/unapec.png"
+    },
+    {
+      "code": "pucmm",
+      "shortName": "PUCMM",
+      "longName": "Pontificia Universidad Católica Madre y Maestra",
+      "imgUrl": "img/universities/pucmm.png",
+      "hidden": true
+    }
+  ]
 }

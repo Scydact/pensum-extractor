@@ -1,5 +1,4 @@
 import UniversityContext from '@/contexts/university-data'
-import { usePrevious } from '@/hooks/use-previous'
 import { memo, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
 import { Button, Card, Container, Dropdown, DropdownButton, Form, InputGroup, Spinner } from 'react-bootstrap'
@@ -38,7 +37,6 @@ function PensumSelector() {
     const { universities, selected: selected_uni, loading: loading_uni, error: error_uni } = universityData
 
     const [pensumOnInput, setPensumOnInput] = useState(null as SelectProps)
-    const previousPensum = usePrevious(activePensum)
 
     const navigate = useNavigate()
 
@@ -83,7 +81,10 @@ function PensumSelector() {
     // University select
     // ***************************************************************************
     const universitySelectOptions = useMemo(
-        () => universities.map((x) => ({ value: x.code, label: createLabelString(x.shortName, x.longName) })),
+        () =>
+            universities
+                .filter((x) => !x.hidden)
+                .map((x) => ({ value: x.code, label: createLabelString(x.shortName, x.longName) })),
         [universities],
     )
 
@@ -133,12 +134,20 @@ function PensumSelector() {
         )
     }
 
+    // ***************************************************************************
+    // University logo
+    // ***************************************************************************
+    const uniImageUrl = useMemo(() => selected_uni?.university.imgUrl, [selected_uni?.university.imgUrl])
+    console.log({ uniImageUrl, universityData })
     return (
         <Card>
             <Card.Body>
                 <Container>
                     {/* zIndex so that <Select> options are not covered by <MatFilter>. */}
                     <Form onSubmit={handleSubmit} style={{ zIndex: 2, position: 'relative' }}>
+                        {uniImageUrl && (
+                            <img src={uniImageUrl} style={{ height: '100px', display: 'block', margin: 'auto' }} />
+                        )}
                         <SelectUni
                             value={selectedUniversity}
                             options={universitySelectOptions}
