@@ -9,7 +9,7 @@ import { RefObject, useEffect } from 'react'
 export function useClassOnHover<T extends HTMLElement, U extends HTMLElement>(
     className: string,
     rowRef: RefObject<T>,
-    clickableRef?: RefObject<T | U>,
+    clickableRef?: RefObject<T | U | null>,
 ) {
     useEffect(() => {
         const cbMouseEnter = () => {

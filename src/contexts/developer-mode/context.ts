@@ -6,7 +6,7 @@ import useUndo, { Actions } from '@/hooks/use-undo'
 type DeveloperModeContextProps = {
     pensum: Pensum.Pensum
     commands: Omit<Actions<Pensum.Pensum>, 'set'> & {
-        new: Function
+        new: () => void
         set: (newPresent: Pensum.Pensum, ignore?: boolean) => void
     }
 }
@@ -38,13 +38,16 @@ export const DeveloperModeProvider = memo(function DeveloperModeProvider({ child
         } else {
             dispatchContextPensum({ type: 'set', payload: history.present })
         }
-    }, [history.present])
+    }, [history.present, dispatchContextPensum])
 
     // Update DEV from ACTIVE CONTEXT.
     useEffect(() => {
+        console.log(contextPensum)
         if (contextPensum && history.present !== contextPensum && !history.past.includes(contextPensum)) {
             commands.set(contextPensum)
         }
+        // Ignore eslint - we only care for current context
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [contextPensum])
 
     const value = {

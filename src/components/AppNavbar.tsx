@@ -4,7 +4,7 @@ import { Container, Navbar } from 'react-bootstrap'
 import { useNavigate } from 'react-router-dom'
 
 type Props = {
-    children: React.ReactChild
+    children: React.ReactNode
 }
 
 function AppNavbar({ children }: Props) {

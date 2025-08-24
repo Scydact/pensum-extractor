@@ -16,11 +16,22 @@ export interface Actions<T> {
     canRedo: boolean
 }
 
-interface Action<T> {
-    type: ActionType
-    historyCheckpoint?: boolean
-    newPresent?: T
-}
+type Action<T> =
+    | {
+          type: ActionType.Undo
+      }
+    | {
+          type: ActionType.Redo
+      }
+    | {
+          type: ActionType.Set
+          historyCheckpoint?: boolean
+          newPresent: T
+      }
+    | {
+          type: ActionType.Reset
+          newPresent: T
+      }
 
 export interface State<T> {
     past: T[]
@@ -44,7 +55,7 @@ const useUndo = <T>(initialPresent: T, opts: Options = {}): [State<T>, Actions<T
         ...opts,
     }
 
-    const reducer = <T>(state: State<T>, action: Action<T>) => {
+    const reducer = <T>(state: State<T>, action: Action<T>): State<T> => {
         const { past, present, future } = state
 
         switch (action.type) {

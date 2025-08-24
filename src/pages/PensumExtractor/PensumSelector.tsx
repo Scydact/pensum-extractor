@@ -1,18 +1,18 @@
 import UniversityContext from '@/contexts/university-data'
-import { memo, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 import { usePrevious } from '@/hooks/use-previous'
+import { memo, useCallback, useContext, useEffect, useMemo, useState } from 'react'
 
 import { Button, Card, Container, Dropdown, DropdownButton, Form, InputGroup, Spinner } from 'react-bootstrap'
-import { FiSettings, FiDelete } from 'react-icons/fi'
+import { FiDelete, FiSettings } from 'react-icons/fi'
 import { HiRefresh, HiUpload } from 'react-icons/hi'
 import { MdOutlineCreate } from 'react-icons/md'
 
+import selectTheme, { optionStyle } from '@/lib/DarkMode/select-theme'
 import Select from 'react-select'
 import CreatableSelect from 'react-select/creatable'
-import selectTheme, { optionStyle } from '@/lib/DarkMode/select-theme'
 
-import { sortByProp } from '@/lib/sort-utils'
 import ActivePensumContext from '@/contexts/active-pensum'
+import { sortByProp } from '@/lib/sort-utils'
 import { useNavigate } from 'react-router-dom'
 
 // type SelectProps = React.ComponentProps<typeof Select>['onChange'];
@@ -76,7 +76,7 @@ function PensumSelector() {
             label: createLabelString(activePensum.code, activePensum.career),
         }
         setPensumOnInput(careerOption)
-    }, [activePensum, previousPensum, careerSelectOptions, selectUniversity])
+    }, [activePensum, previousPensum])
 
     // ***************************************************************************
     // University select
@@ -192,7 +192,7 @@ type CustomSelectProps = {
     value: SelectProps
     options: SelectProps[]
     isLoading: boolean
-    onChange: Function
+    onChange?: (value: SelectProps) => void
 }
 
 const SelectUni = memo(function SelectUni({ value, options, isLoading, onChange }: CustomSelectProps) {
