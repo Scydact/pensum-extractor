@@ -166,6 +166,11 @@ $colors: (
     --rowmat-bg: var(--rowmat-bg-even);
   }
 }
+// On development mode row, ignore touch events
+// See: https://github.com/clauderic/dnd-kit/issues/435
+.row-mat-dev {
+  touch-action: none;
+}
 
 // Light mode
 @each $key, $color in $colors {

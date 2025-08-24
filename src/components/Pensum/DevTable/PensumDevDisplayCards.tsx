@@ -1,33 +1,30 @@
-import Card from 'react-bootstrap/Card'
 import PensumDevTable from '@/components/Pensum/DevTable'
 import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import Card from 'react-bootstrap/Card'
 
+import { DevMatRow } from '@/components/Pensum/DevTable/MatRow'
+import DeveloperModeContext from '@/contexts/developer-mode'
 import {
-    DndContext,
-    useDroppable,
     closestCenter,
-    closestCorners,
+    CollisionDetection,
+    DndContext,
+    DragCancelEvent,
+    DragOverEvent,
+    DragOverlay,
+    DragStartEvent,
+    getFirstCollision,
     KeyboardSensor,
+    MeasuringStrategy,
     PointerSensor,
+    pointerWithin,
+    rectIntersection,
+    UniqueIdentifier,
     useSensor,
     useSensors,
     type DragEndEvent,
-    DragOverlay,
-    DragStartEvent,
-    DragOverEvent,
-    UniqueIdentifier,
-    DragCancelEvent,
-    CollisionDetection,
-    pointerWithin,
-    rectIntersection,
-    getFirstCollision,
-    MeasuringStrategy,
 } from '@dnd-kit/core'
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
-import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import DeveloperModeContext from '@/contexts/developer-mode'
-import { DevMatRow } from '@/components/Pensum/DevTable/MatRow'
-import ActivePensumContext from '@/contexts/active-pensum'
+import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
 import { extractMat, findMat, findMatLocation, getPeriod, insertMat } from './mat-movement'
 
 type Props = {}

@@ -1,17 +1,16 @@
-import React, { forwardRef, memo, useContext, useMemo, useRef } from 'react'
 import { classnames } from '@/lib/format-utils'
+import { forwardRef, memo, useContext, useMemo, useRef } from 'react'
 
-import MatCode from '@/components/MatCode'
-import { useClassOnHover } from '@/hooks/use-hover-class'
-import { useCombinedRefs } from '@/hooks/use-combined-refs'
-import { MdDragIndicator } from 'react-icons/md'
-import DeveloperModeContext from '@/contexts/developer-mode'
-import { findMatLocation, getPeriod, setPeriod } from './mat-movement'
 import EditableInput from '@/components/EditableInput'
-import { MatRowProps, MatRowTemplate, MatRowTemplateProps } from '../Table/MatRow'
-import { useDraggable } from '@dnd-kit/core'
+import MatCode from '@/components/MatCode'
+import DeveloperModeContext from '@/contexts/developer-mode'
+import { useCombinedRefs } from '@/hooks/use-combined-refs'
+import { useClassOnHover } from '@/hooks/use-hover-class'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { MdDragIndicator } from 'react-icons/md'
+import { MatRowProps, MatRowTemplate, MatRowTemplateProps } from '../Table/MatRow'
+import { findMatLocation, getPeriod, setPeriod } from './mat-movement'
 
 const pensumReqEditable = {
     req2str(reqs: Pensum.Requirement[]): string {
@@ -64,6 +63,7 @@ export const DevMatRow = memo(
         // Classes. Any falsy values will be discarded
         const cl = [
             'row-mat',
+            'row-mat-dev',
             idx & 1 && 'even', // Mark the mat as even, if the index is odd????? lol.
             'table-hover-default',
         ]
