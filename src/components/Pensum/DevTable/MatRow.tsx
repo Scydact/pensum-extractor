@@ -63,7 +63,6 @@ export const DevMatRow = memo(
         // Classes. Any falsy values will be discarded
         const cl = [
             'row-mat',
-            'row-mat-dev',
             idx & 1 && 'even', // Mark the mat as even, if the index is odd????? lol.
             'table-hover-default',
         ]

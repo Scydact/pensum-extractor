@@ -6,4 +6,23 @@
   .row-req {
     align-self: stretch;
   }
+
+  .row-check.click-target {
+    // On development mode row, ignore touch events
+    // See: https://github.com/clauderic/dnd-kit/issues/435
+    touch-action: none;
+    padding: 0 1.5rem;
+  }
+
+  .row-req > div:first-child:empty {
+    border: 1px solid hsl(0 0 50% / 50%);
+    border-radius: 0.25rem;
+    justify-content: center;
+    &::after {
+      content: 'Click para agregar req.';
+      opacity: 50%;
+      font-size: 0.85rem;
+      font-style: italic;
+    }
+  }
 }
