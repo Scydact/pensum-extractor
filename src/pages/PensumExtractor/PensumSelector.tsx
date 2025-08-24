@@ -3,7 +3,7 @@ import { memo, useCallback, useContext, useEffect, useMemo, useState } from 'rea
 
 import { Button, Card, Container, Dropdown, DropdownButton, Form, InputGroup, Spinner } from 'react-bootstrap'
 import { FiDelete, FiSettings } from 'react-icons/fi'
-import { HiRefresh, HiUpload } from 'react-icons/hi'
+import { HiDownload, HiRefresh, HiUpload } from 'react-icons/hi'
 import { MdOutlineCreate } from 'react-icons/md'
 
 import selectTheme, { optionStyle } from '@/lib/DarkMode/select-theme'
@@ -13,6 +13,9 @@ import CreatableSelect from 'react-select/creatable'
 import ActivePensumContext from '@/contexts/active-pensum'
 import { sortByProp } from '@/lib/sort-utils'
 import { useNavigate } from 'react-router-dom'
+import { download } from '@/lib/file-utils'
+import fileDialog from 'file-dialog'
+import { validatePensum } from '@/functions/pensum-converter'
 
 // type SelectProps = React.ComponentProps<typeof Select>['onChange'];
 type SelectProps = { label: string; value: string } | null
@@ -20,6 +23,13 @@ type SelectProps = { label: string; value: string } | null
 /** Creates a formatted label, for use with this component's <Select> labels. */
 function createLabelString(code: string, name: string) {
     return `[${code}] ${name}`
+}
+
+/** Download the given pensum as JSON. */
+function downloadPensum(pensum: Pensum.Pensum) {
+    const filename = `${pensum.code}.json`
+    const data = JSON.stringify(pensum, null, 2)
+    download(data, filename)
 }
 
 /** Simple form that manages University and Career selection
@@ -139,6 +149,27 @@ function PensumSelector() {
     // ***************************************************************************
     const uniImageUrl = useMemo(() => selected_uni?.university.imgUrl, [selected_uni?.university.imgUrl])
     console.log({ uniImageUrl, universityData })
+
+    // ***************************************************************************
+    // Pensum upload
+    // ***************************************************************************
+    const uploadPensumJson = useCallback(() => {
+        return fileDialog({ accept: '.json', multiple: false })
+            .then((fileList) => {
+                if (fileList.length !== 1) throw Error('Must select exactly 1 file')
+                const file = fileList[0]
+                return file.text()
+            })
+            .then((data) => {
+                const contents = JSON.parse(data)
+                const pensum = validatePensum(contents, contents?.institution ?? '')
+                if (!pensum) throw Error('Invalid pensum')
+                pensumDispatch({ type: 'set', payload: pensum })
+            })
+            .catch((err) => {
+                alert(String(err))
+            })
+    }, [])
     return (
         <Card>
             <Card.Body>
@@ -177,8 +208,11 @@ function PensumSelector() {
                                     <FiDelete /> Remover pensum
                                 </Dropdown.Item>
                                 <Dropdown.Divider />
-                                <Dropdown.Item>
+                                <Dropdown.Item onClick={uploadPensumJson}>
                                     <HiUpload /> Subir pensum.json
+                                </Dropdown.Item>
+                                <Dropdown.Item disabled={!activePensum} onClick={() => downloadPensum(activePensum!)}>
+                                    <HiDownload /> Descargar pensum.json
                                 </Dropdown.Item>
                                 <Dropdown.Item onClick={() => navigate('dev')}>
                                     <MdOutlineCreate /> Modo desarrollo
