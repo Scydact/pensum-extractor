@@ -22,9 +22,6 @@ export async function fetchPensumFromCode(university?: string, code?: string) {
     pensum = await fetchPensumFromCode_localData(university, code)
     if (pensum) return pensum
 
-    pensum = await fetchPensumFromSource(university, code)
-    if (pensum) return pensum
-
     // Don't return null!
     // Instead throw error, so this gets cached.
     throw new PensumFetchError(`Unable to fetch pensum with identifier ${university}/${code}`)
@@ -48,7 +45,7 @@ async function fetchPensumFromCode_localStorage(university: string, code: string
 }
 
 /** Tries to fetch the pensum from `./pensum/$UNIVERSIDAD.` */
-async function fetchPensumFromCode_localData(university: string, code: string) {
+export async function fetchPensumFromCode_localData(university: string, code: string) {
     const path = [LOCAL_SERVER_PREFIX, university, code].join('/') + '.json'
 
     let pensumData: Pensum.Save.Pensum
@@ -62,13 +59,16 @@ async function fetchPensumFromCode_localData(university: string, code: string) {
     return validatePensum(pensumData, university)
 }
 
-async function fetchPensumFromSource(university: string, code: string) {
+/**
+ * Load a pensum using the PensumExtractor defined for each university.
+ *
+ * Note: We need a valid CORS proxy to use this from the browser.
+ */
+export async function fetchPensumFromSource(university: string, code: string) {
     switch (university) {
         case 'unapec': {
             const extractor = await import('@/extractor/unapec')
-            return await extractor.default(code, (state, url, id) =>
-                console.log(`${state} ${university}/${code}, using proxy #${id}: ${url}`),
-            )
+            return await extractor.default(code)
         }
 
         default:

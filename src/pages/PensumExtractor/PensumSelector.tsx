@@ -12,9 +12,12 @@ import CreatableSelect from 'react-select/creatable'
 
 import ActivePensumContext from '@/contexts/active-pensum'
 import { validatePensum } from '@/functions/pensum-converter'
+import { useLocalStorage } from '@/hooks/use-local-storage'
 import { download } from '@/lib/file-utils'
 import { sortByProp } from '@/lib/sort-utils'
 import fileDialog from 'file-dialog'
+import { LuBrickWall } from 'react-icons/lu'
+import { SiCompilerexplorer } from 'react-icons/si'
 import { useNavigate } from 'react-router-dom'
 
 // type SelectProps = React.ComponentProps<typeof Select>['onChange'];
@@ -39,6 +42,7 @@ function PensumSelector() {
     const {
         state: { pensum: activePensum, error: error_pensum, loading: loading_pensum },
         load: loadPensum,
+        loadWithExtractor,
         dispatch: pensumDispatch,
     } = useContext(ActivePensumContext)
 
@@ -49,6 +53,10 @@ function PensumSelector() {
     const [pensumOnInput, setPensumOnInput] = useState(null as SelectProps)
 
     const navigate = useNavigate()
+    const [pensumCorsProxy, setPensumCorsProxy] = useLocalStorage<string | null>(
+        import.meta.env.VITE_PENSUM_STORAGE_CORSPROXY_KEY,
+        null,
+    )
 
     // ***************************************************************************
     // Carrera select form <options>
@@ -123,6 +131,21 @@ function PensumSelector() {
         },
         [loadPensum, selected_uni, pensumOnInput],
     )
+
+    /** Load using the pensum extractor (user needs to input CORS proxy.) */
+    const handleLoadWithExtractor = useCallback(() => {
+        const uni = selected_uni?.code || ''
+        const code = pensumOnInput?.value || ''
+        loadWithExtractor(uni, code)
+    }, [loadWithExtractor, selected_uni, pensumOnInput])
+
+    const handleSetCorsProxy = useCallback(() => {
+        const msg = 'Proxy CORS para extractor de pensum.\nProyecto de ejemplo: https://github.com/kurrx/cors-proxy'
+        const v = prompt(msg, pensumCorsProxy || '')?.trim() ?? null
+        if (v != null) {
+            setPensumCorsProxy(v)
+        }
+    }, [pensumCorsProxy, setPensumCorsProxy])
 
     // ***************************************************************************
     // Submit btn content & state.
@@ -211,6 +234,13 @@ function PensumSelector() {
                                 </Dropdown.Item>
                                 <Dropdown.Item onClick={() => navigate('dev')}>
                                     <MdOutlineCreate /> Modo desarrollo
+                                </Dropdown.Item>
+                                <Dropdown.Divider />
+                                <Dropdown.Item onClick={handleLoadWithExtractor} disabled={pensumCorsProxy == null}>
+                                    <SiCompilerexplorer /> Extraer pensum
+                                </Dropdown.Item>
+                                <Dropdown.Item onClick={handleSetCorsProxy}>
+                                    <LuBrickWall /> Definir Proxy CORS
                                 </Dropdown.Item>
                             </DropdownButton>
                         </InputGroup>

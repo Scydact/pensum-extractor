@@ -1,17 +1,20 @@
 import { convertPensum2 } from '@/functions/pensum-converter'
-import fetchCORS from '@/lib/fetch-cors'
 import { japaneseDateFormat } from '@/lib/format-utils'
 
 /** Fetches a pensum from UNAPEC. */
 export default async function fetchPensum(
     code: string,
-    requestCallback: Parameters<typeof fetchCORS>[2],
-    api_url = 'https://servicios.unapec.edu.do/pensum/Main/Detalles/',
+    apiUrl = 'https://servicios.unapec.edu.do/pensum/Main/Detalles/',
 ) {
-    const url = api_url + code
+    let url = apiUrl + code
+    const proxyUrl = JSON.parse(localStorage.getItem(import.meta.env.VITE_PENSUM_STORAGE_CORSPROXY_KEY) ?? '""')
+    if (proxyUrl) {
+        url = proxyUrl + url
+    }
+    console.log('Fetching URL ', url)
 
     const opts: RequestInit = { cache: 'force-cache' }
-    const text = await fetchCORS(url, opts, requestCallback)
+    const text = await fetch(url, opts).then((response) => response.text())
 
     if (!text) return null
 

@@ -14,6 +14,7 @@ interface ImportMetaEnv {
     readonly VITE_PENSUM_STORAGE_PENSUM_KEY: string
     readonly VITE_PENSUM_STORAGE_TRACKER_KEY: string
     readonly VITE_PENSUM_STORAGE_PENSUM_LOCALSAVE_KEY: string
+    readonly VITE_PENSUM_STORAGE_CORSPROXY_KEY: string
 }
 
 interface ImportMeta {
