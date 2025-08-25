@@ -60,6 +60,7 @@ const trackerCheckmarks = new Map([
 ])
 
 const MatRow = forwardRef<unknown, MatRowProps>(function MR(props, ref) {
+    const { scrollToRow } = useContext(PensumRowNodesContext)
     const { mat, idx, ...rest } = props
 
     const rowRef = useCombinedRefs<HTMLDivElement>(ref, useRef<HTMLDivElement>(null)) // innerRef in case no ref is given
@@ -104,7 +105,14 @@ const MatRow = forwardRef<unknown, MatRowProps>(function MR(props, ref) {
         code: <Link to={`/mat/${mat.code}`}>{mat.code}</Link>,
         name: mat.name,
         cr: mat.cr,
-        reqs: mat.req.map((code, i) => <MatCode key={i} data={code} fromMat={mat.code} />),
+        reqs: mat.req.map((code, i) => (
+            <MatCode
+                key={i}
+                data={code}
+                fromMat={mat.code}
+                onClick={typeof code === 'string' ? () => scrollToRow(code) : undefined}
+            />
+        )),
     }
 
     return (
