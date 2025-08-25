@@ -104,7 +104,7 @@ export function activePensumReducer(state: ActivePensum.Payload, action: ActiveP
                 info: ['Descripcion de la carrera', 'Creditos: 30', 'Requisitos: Aprobar deporte. Pasantia.'],
                 institution: 'unapec',
                 loose: [],
-                periodType: { acronym: 'cuat', name: 'cuatrimestre', two: 'ct' },
+                periodType: { abbr: 'cuat', name: 'cuatrimestre', two: 'ct' },
                 periods: [],
                 src: { type: 'online', date: japaneseDateFormat(new Date()), url: null },
                 version: 2,

@@ -119,7 +119,7 @@ namespace Pensum {
              * Nombre corto del periodo.
              * @example sem., cuat., tri...
              */
-            acronym: string
+            abbr: string
             /**
              * Nombre super corto del periodo.
              * @example sm, ct, tr...

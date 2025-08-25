@@ -13,13 +13,14 @@ import Col from 'react-bootstrap/Col'
 import MatRow from './MatRow'
 
 type PeriodProps = {
+    periodLabel: string
     period: Pensum.Mat[]
     periodNum: number
     cumlen: number
 }
 
 /** Displays a single period from the pensum as table rows. */
-export const Period = ({ period, periodNum, cumlen = 0 }: PeriodProps) => {
+export const Period = ({ period, periodLabel, periodNum, cumlen = 0 }: PeriodProps) => {
     const dispatch = useContext(MatSelectionDispatchContext)
     const trackerMode = useContext(MatSelectionModeContext)
     const tracker = useContext(MatSelectionTrackerContext)
@@ -32,7 +33,7 @@ export const Period = ({ period, periodNum, cumlen = 0 }: PeriodProps) => {
     )
 
     // css classes
-    const cl = [
+    const periodClasses = [
         'row-period-num',
         'click-target',
 
@@ -61,8 +62,8 @@ export const Period = ({ period, periodNum, cumlen = 0 }: PeriodProps) => {
 
     return (
         <Row className="row-period">
-            <Col className={classnames(cl)} onClick={onClick} data-value={periodNum}>
-                {periodNum}
+            <Col className={classnames(periodClasses)} onClick={onClick} data-value={periodNum}>
+                {periodLabel} {periodNum}
             </Col>
 
             <Col className="row-mat-group">{matrows}</Col>

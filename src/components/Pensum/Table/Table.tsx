@@ -1,11 +1,11 @@
-import './table.scss'
+import { defaultPeriodType } from '@/functions/pensum-get-period-type'
+import { memo } from 'react'
+import Col from 'react-bootstrap/Col'
 import Container from 'react-bootstrap/Container'
 import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import { memo } from 'react'
-import Period from './Period'
-import { defaultPeriodType } from '@/functions/pensum-get-period-type'
 import { MatRowTemplate } from './MatRow'
+import Period from './Period'
+import './table.scss'
 
 /** Headers for the pensum table. */
 export const TableHead = memo((props: { periodNumStr?: string | null }) => {
@@ -45,8 +45,15 @@ function _PensumTable({ periods, periodIndexStart = 1, periodType = defaultPerio
     const cumulativeSum = (sum: number) => (value: number) => (sum += value)
     const cumlen = periods.map((x) => x.length).map(cumulativeSum(0))
 
+    const periodLabel = `${periodType?.abbr ?? 'Per'}.`
     const periodElems = periods.map((period, key) => (
-        <Period key={key} period={period} periodNum={key + periodIndexStart} cumlen={cumlen[key - 1]} />
+        <Period
+            key={key}
+            period={period}
+            periodNum={key + periodIndexStart}
+            periodLabel={periodLabel}
+            cumlen={cumlen[key - 1]}
+        />
     ))
 
     return (

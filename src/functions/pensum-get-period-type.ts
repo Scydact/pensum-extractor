@@ -1,6 +1,6 @@
 export const defaultPeriodType: Pensum.Pensum['periodType'] = {
     name: 'Periodo',
-    acronym: 'Per',
+    abbr: 'Per',
     two: 'Pr',
 }
 

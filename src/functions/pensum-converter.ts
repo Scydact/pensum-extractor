@@ -60,7 +60,7 @@ export function convertPensum2(old: Pensum.Save.Legacy.Pensum2, university: stri
         },
         periodType: {
             name: 'Cuatrimestre',
-            acronym: 'Cuat',
+            abbr: 'Cuat',
             two: 'Ct',
         },
         loose: [],

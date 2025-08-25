@@ -33,10 +33,7 @@ function usePensumData() {
     } = useContext(ActivePensumContext)
     const tracker = useContext(MatSelectionTrackerContext)
     const periodType = getPeriodType(pensum)
-    const items = useMemo(
-        () => pensumdata2org(matData, tracker, periodType.acronym),
-        [matData, tracker, periodType.acronym],
-    )
+    const items = useMemo(() => pensumdata2org(matData, tracker, periodType.abbr), [matData, tracker, periodType.abbr])
     return { items, pensum }
 }
 
