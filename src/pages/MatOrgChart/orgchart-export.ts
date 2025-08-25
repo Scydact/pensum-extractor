@@ -74,7 +74,7 @@ async function getPngUrl(title: string, items: MatOrgChartNode[], scale = 1.5) {
     canvas.width = viewport.width
     canvas.height = viewport.height
 
-    const task = page.render({ canvasContext: ctx, viewport })
+    const task = page.render({ canvasContext: ctx, viewport, canvas })
     await task.promise
 
     // Save as png string
