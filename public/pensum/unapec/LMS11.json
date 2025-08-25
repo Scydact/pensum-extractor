@@ -1,0 +1,453 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "LMS11",
+  "publishDate": "03/01/2018",
+  "fetchDate": "2025-08-24",
+  "career": "LICENCIATURA EN MATEMATICA ORIENTADA A LA EDUCACION SECUNDARIA",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS:                                     189",
+    "TÍTULO:                                     LICENCIATURA EN MATEMATICA ORIENTADA A LA EDUCACION SECUNDARIA",
+    "REQUISITO GENERAL DE LA GRADUACIÓN:                                     Aprobar un Deporte. Actitud Profesional: 60 horas. PAS700: 180 horas. El inglés ENG son asignaturas requeridas sin peso académico y de tres (3) créditos, pueden exonerarse mediante examen de nivel."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2025-08-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/LMS11"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "EDU100",
+        "name": "FUNDAMENTOS FILOSOFICOS E HISTORICOS DE LA EDUCACION",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "ENG001",
+        "name": "INGLES I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP302",
+        "name": "EXPRESION ORAL Y ESCRITA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "LMS140",
+        "name": "ARITMETICA Y GEOMETRIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "PSI100",
+        "name": "PSICOLOGIA GENERAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC013",
+        "name": "FILOSOFIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "EDU101",
+        "name": "DIDACTICA GENERAL",
+        "cr": 5,
+        "req": ["EDU100"]
+      },
+      {
+        "code": "ENG002",
+        "name": "INGLES II",
+        "cr": 3,
+        "req": ["ENG001"]
+      },
+      {
+        "code": "LMS240",
+        "name": "LOGICA MATEMATICA Y TEORIA DE CONJUNTO",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "PSI105",
+        "name": "PSICOLOGIA DEL ADOLESCENTE",
+        "cr": 3,
+        "req": ["PSI100"]
+      },
+      {
+        "code": "SOC031",
+        "name": "ETICA PROFESIONAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC250",
+        "name": "METODOLOGIA DE LA INVESTIGACION CIENTIFICA",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "EDU103",
+        "name": "FUNDAMENTO Y ESTRUCTURA DEL CURRICULUM",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "EDU106",
+        "name": "INVESTIGACION EDUCATIVA",
+        "cr": 3,
+        "req": ["SOC250"]
+      },
+      {
+        "code": "ENG003",
+        "name": "INGLES III",
+        "cr": 3,
+        "req": ["ENG002"]
+      },
+      {
+        "code": "LMS201",
+        "name": "EPISTEMOLOGIA, FILOSOFIA E HISTORIA DE LA MATEMATICA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "LMS262",
+        "name": "ARITMETICA SUPERIOR",
+        "cr": 3,
+        "req": ["LMS240"]
+      },
+      {
+        "code": "PRA001",
+        "name": "PRACTICA DOCENTE I",
+        "cr": 4,
+        "req": ["EDU101"]
+      },
+      {
+        "code": "PSI106",
+        "name": "PSICOLOGIA DEL APRENDIZAJE",
+        "cr": 3,
+        "req": ["PSI105"]
+      }
+    ],
+    [
+      {
+        "code": "EDU110",
+        "name": "EVALUACION DE LOS APRENDIZAJES",
+        "cr": 3,
+        "req": ["EDU101"]
+      },
+      {
+        "code": "EDU200",
+        "name": "MEDIOS Y RECURSOS PARA EL APRENDIZAJE",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG004",
+        "name": "INGLES IV",
+        "cr": 3,
+        "req": ["ENG003"]
+      },
+      {
+        "code": "LMS120",
+        "name": "ALGEBRA SUPERIOR I",
+        "cr": 3,
+        "req": ["LMS240"]
+      },
+      {
+        "code": "LMS230",
+        "name": "GEOMETRIA EUCLIDIANA",
+        "cr": 3,
+        "req": ["LMS240"]
+      },
+      {
+        "code": "PSI200",
+        "name": "NEUROCIENCIA Y APRENDIZAJE",
+        "cr": 3,
+        "req": ["PSI106"]
+      },
+      {
+        "code": "SOC190",
+        "name": "INTRODUCCION A LAS CIENCIAS SOCIALES",
+        "cr": 2,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "EDU105",
+        "name": "CIENCIAS NATURALES",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "EDU202",
+        "name": "LIDERAZGO EDUCATIVO",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "ENG005",
+        "name": "INGLES V",
+        "cr": 3,
+        "req": ["ENG004"]
+      },
+      {
+        "code": "LMS121",
+        "name": "ALGEBRA SUPERIOR II",
+        "cr": 5,
+        "req": ["LMS120"]
+      },
+      {
+        "code": "LMS254",
+        "name": "PROBABILIDAD Y ESTADISTICA",
+        "cr": 4,
+        "req": ["LMS120"]
+      },
+      {
+        "code": "LMS301",
+        "name": "DIDACTICA DE LA MATEMATICA I",
+        "cr": 3,
+        "req": ["EDU101"]
+      }
+    ],
+    [
+      {
+        "code": "EDU203",
+        "name": "ESCUELA, FAMILIA Y COMUNIDAD",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "ENG006",
+        "name": "INGLES VI",
+        "cr": 3,
+        "req": ["ENG005"]
+      },
+      {
+        "code": "LMS135",
+        "name": "GEOMETRIA ANALITICA",
+        "cr": 4,
+        "req": ["LMS121"]
+      },
+      {
+        "code": "LMS231",
+        "name": "GEOMETRIA DEL ESPACIO",
+        "cr": 3,
+        "req": ["LMS230"]
+      },
+      {
+        "code": "LMS232",
+        "name": "TRIGONOMETRIA I",
+        "cr": 3,
+        "req": ["LMS230"]
+      },
+      {
+        "code": "LMS302",
+        "name": "DIDACTICA DE LA MATEMATICA II",
+        "cr": 3,
+        "req": ["LMS301"]
+      },
+      {
+        "code": "PRA002",
+        "name": "PRACTICA DOCENTE II",
+        "cr": 4,
+        "req": ["EDU110", "PRA001"]
+      }
+    ],
+    [
+      {
+        "code": "ART010",
+        "name": "BELLAS ARTES",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "ENG007",
+        "name": "INGLES VII",
+        "cr": 3,
+        "req": ["ENG006"]
+      },
+      {
+        "code": "LMS223",
+        "name": "ALGEBRA LINEAL",
+        "cr": 4,
+        "req": ["LMS121"]
+      },
+      {
+        "code": "LMS233",
+        "name": "TRIGONOMETRIA II",
+        "cr": 3,
+        "req": ["LMS232"]
+      },
+      {
+        "code": "LMS243",
+        "name": "FUNDAMENTOS MATEMATICA FINANCIERA",
+        "cr": 3,
+        "req": ["LMS121"]
+      },
+      {
+        "code": "LMS281",
+        "name": "ANALISIS MATEMATICO I",
+        "cr": 5,
+        "req": ["LMS121"]
+      },
+      {
+        "code": "SOC012",
+        "name": "VISION CRITICA DE LA HISTORIA DOMINICANA",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ENG008",
+        "name": "INGLES VIII",
+        "cr": 3,
+        "req": ["ENG007"]
+      },
+      {
+        "code": "LMS150",
+        "name": "MATEMATICA DISCRETA",
+        "cr": 3,
+        "req": ["LMS223"]
+      },
+      {
+        "code": "LMS220",
+        "name": "ALGEBRA ABSTRACTA",
+        "cr": 4,
+        "req": ["LMS121"]
+      },
+      {
+        "code": "LMS255",
+        "name": "INFERENCIA ESTADISTICA",
+        "cr": 4,
+        "req": ["LMS254"]
+      },
+      {
+        "code": "LMS282",
+        "name": "ANALISIS MATEMATICO II",
+        "cr": 5,
+        "req": ["LMS281"]
+      },
+      {
+        "code": "LMS511",
+        "name": "LAS TIC EN LA ENSEÑANZA DE LA MATEMATICA",
+        "cr": 3,
+        "req": ["EDU200"]
+      }
+    ],
+    [
+      {
+        "code": "IDI200",
+        "name": "REDACCION EN INGLES",
+        "cr": 3,
+        "req": ["ENG008"]
+      },
+      {
+        "code": "LMS284",
+        "name": "ANALISIS MATEMATICO III",
+        "cr": 4,
+        "req": ["LMS282"]
+      },
+      {
+        "code": "LMS293",
+        "name": "ECUACIONES DIFERENCIALES AVANZADAS",
+        "cr": 5,
+        "req": ["LMS282"]
+      },
+      {
+        "code": "PRA003",
+        "name": "PRACTICA DOCENTE III",
+        "cr": 5,
+        "req": ["LMS301", "PRA002"]
+      }
+    ],
+    [
+      {
+        "code": "LMS283",
+        "name": "FUNDAMENTOS DEL CALCULO VECTORIAL",
+        "cr": 4,
+        "req": ["LMS223", "LMS282"]
+      },
+      {
+        "code": "LMS285",
+        "name": "ANALISIS NUMERICO",
+        "cr": 4,
+        "req": ["LMS293"]
+      },
+      {
+        "code": "LMS363",
+        "name": "VARIABLES COMPLEJAS",
+        "cr": 4,
+        "req": ["LMS282"]
+      },
+      {
+        "code": "PRA004",
+        "name": "PRACTICA DOCENTE IV",
+        "cr": 5,
+        "req": ["PRA003"]
+      }
+    ],
+    [
+      {
+        "code": "PAS700",
+        "name": "PASANTIA",
+        "cr": 0,
+        "req": [
+          "PRA004",
+          {
+            "text": "75% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": [
+          {
+            "text": "80% De los créditos aprobados"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "TES-MON",
+        "name": "TRABAJO DE GRADO O CURSO MONOGRAFICO",
+        "cr": 6,
+        "req": [
+          {
+            "text": "92% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0,
+        "req": []
+      }
+    ]
+  ]
+}

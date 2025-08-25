@@ -1,1 +1,508 @@
-{"carrera":"LICENCIATURA EN CONTABILIDAD","codigo":"CON11","vigencia":"01/01/2021","infoCarrera":["TOTAL GENERAL DE CRÉDITOS: 215","TÍTULO: LICENCIATURA EN CONTABILIDAD","REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. Seis (6) niveles de inglés. Actitud Profesional: 60 horas. PAS530: 180 horas."],"cuats":[[{"codigo":"SOC030","asignatura":"ORIENTACION UNIVERSITARIA","creditos":2},{"codigo":"SOC011","asignatura":"HISTORIA SOCIAL DOMINICANA","creditos":3},{"codigo":"SOC043","asignatura":"GESTION AMBIENTAL","creditos":2},{"codigo":"MAT010","asignatura":"MATEMATICA BASICA UNIVERSITARIA","creditos":3},{"codigo":"ESP101","asignatura":"ANALISIS DE TEXTOS DISCURSIVOS","creditos":3},{"codigo":"INF214","asignatura":"APLICACIONES FINANCIERAS","creditos":3},{"codigo":"ENG000","asignatura":"FUNDAMENTOS DE INGLES (I Y II)","creditos":5}],[{"codigo":"SOC013","asignatura":"FILOSOFIA","creditos":2},{"codigo":"SOC101","asignatura":"INTRODUCCION A LA PSICOLOGIA","creditos":3},{"codigo":"MAT121","asignatura":"ALGEBRA UNIVERSITARIA","creditos":4,"prereq":"MAT010"},{"codigo":"ESP106","asignatura":"REDACCION DE TEXTOS DISCURSIVOS I","creditos":3,"prereq":"ESP101"},{"codigo":"ADM103","asignatura":"FUNDAMENTOS DE ADMINISTRACION","creditos":3},{"codigo":"CON091","asignatura":"CONTABILIDAD I","creditos":5,"prereq":["INF214","MAT010"]},{"codigo":"ENG003","asignatura":"INGLES III","creditos":3,"prereq":"ENG000"}],[{"codigo":"SOC200","asignatura":"INTRODUCCION A LA SOCIOLOGIA","creditos":3},{"codigo":"MAT131","asignatura":"CALCULO Y GEOMETRIA ANALITICA I","creditos":5,"prereq":"MAT121"},{"codigo":"ESP107","asignatura":"REDACCION DE TEXTOS DISCURSIVOS II","creditos":3,"prereq":"ESP106"},{"codigo":"CON092","asignatura":"CONTABILIDAD II","creditos":5,"prereq":"CON091"},{"codigo":"MER101","asignatura":"MERCADOTECNIA I","creditos":3},{"codigo":"ENG004","asignatura":"INGLES IV","creditos":3,"prereq":"ENG003"}],[{"codigo":"SOC253","asignatura":"METODOLOGIA Y TECNICAS DE INVESTIGACION","creditos":4},{"codigo":"SOC031","asignatura":"ETICA PROFESIONAL","creditos":3},{"codigo":"MAT241","asignatura":"MATEMATICA FINANCIERA I","creditos":4,"prereq":"MAT131"},{"codigo":"ECO101","asignatura":"ECONOMIA I","creditos":3},{"codigo":"CON093","asignatura":"CONTABILIDAD III","creditos":5,"prereq":"CON092"},{"codigo":"ENG005","asignatura":"INGLES V","creditos":3,"prereq":"ENG004"}],[{"codigo":"ADM540","asignatura":"LIDERAZGO Y HABILIDADES DIRECTIVAS","creditos":3},{"codigo":"MAT250","asignatura":"ESTADISTICA I","creditos":4,"prereq":"MAT131"},{"codigo":"ECO102","asignatura":"ECONOMIA II","creditos":3,"prereq":"ECO101"},{"codigo":"CON094","asignatura":"CONTABILIDAD IV","creditos":5,"prereq":"CON093"},{"codigo":"ADM221","asignatura":"MONEDA Y BANCA","creditos":3},{"codigo":"ENG006","asignatura":"INGLES VI","creditos":3,"prereq":"ENG005"}],[{"codigo":"CON211","asignatura":"SISTEMA TRIBUTARIO DOMINICANO I","creditos":3,"prereq":"CON092"},{"codigo":"CON400","asignatura":"CONTABILIDAD COMPUTARIZADA","creditos":3,"prereq":"CON094"},{"codigo":"CON223","asignatura":"CONTABILIDAD SUPERIOR","creditos":3,"prereq":"CON094"},{"codigo":"ADM130","asignatura":"PRESUPUESTO EMPRESARIAL","creditos":3,"prereq":"MAT250"},{"codigo":"FIN101","asignatura":"FINANZAS I","creditos":3,"prereq":["CON091","MAT241"]},{"codigo":"INF311","asignatura":"INTELIGENCIA DE NEGOCIOS","creditos":3,"prereq":["INF214","MAT250"]},{"codigo":"IDI080","asignatura":"INGLES PARA NEGOCIOS I","creditos":3,"prereq":"ENG006"}],[{"codigo":"CON225","asignatura":"SISTEMA TRIBUTARIO DOMINICANO II","creditos":3,"prereq":"CON211"},{"codigo":"CON219","asignatura":"COSTOS PRODUCTOS Y SERVICIOS I","creditos":5,"prereq":"CON091"},{"codigo":"FIN102","asignatura":"FINANZAS II","creditos":3,"prereq":"FIN101"},{"codigo":"ADM151","asignatura":"SEMINARIO PROYECTO DE NEGOCIOS","creditos":2,"prereqExtra":"50% De los créditos aprobados"},{"codigo":"CON134","asignatura":"DISEÑO DE SISTEMAS CONTABLES","creditos":3,"prereq":"CON092"},{"codigo":"IDI081","asignatura":"INGLES PARA NEGOCIOS II","creditos":3,"prereq":"IDI080"},{"codigo":"ECON I","asignatura":"ELECTIVA I","creditos":3}],[{"codigo":"CON307","asignatura":"AUDITORIA EXTERNA I","creditos":4,"prereq":"CON093"},{"codigo":"CON300","asignatura":"TALLER DE CONTABILIDAD E IMPUESTOS","creditos":2,"prereq":"CON225"},{"codigo":"CON220","asignatura":"COSTOS PRODUCTOS Y SERVICIOS II","creditos":5,"prereq":"CON219"},{"codigo":"CON114","asignatura":"GESTION FINANCIERA BANCARIA","creditos":3,"prereq":"FIN102"},{"codigo":"IDI082","asignatura":"INGLES PARA NEGOCIOS III","creditos":3,"prereq":"IDI081"},{"codigo":"ECON II","asignatura":"ELECTIVA II","creditos":3,"prereqExtra":"50% De los créditos aprobados"}],[{"codigo":"CON308","asignatura":"AUDITORIA EXTERNA II","creditos":4,"prereq":"CON307"},{"codigo":"CON108","asignatura":"CONTABILIDAD DE GESTION","creditos":3,"prereq":"CON219"},{"codigo":"CON213","asignatura":"SIST. GESTION FINANCIERA GUBERNAMENTAL","creditos":3,"prereq":"CON225"},{"codigo":"CON112","asignatura":"FINANZAS INTERNACIONALES","creditos":3,"prereq":["ECO102","FIN102"]},{"codigo":"ADM535","asignatura":"ACTITUD EMPRENDEDORA","creditos":3,"prereq":"SOC101"},{"codigo":"IDI083","asignatura":"INGLES PARA NEGOCIOS IV","creditos":3,"prereq":"IDI082"},{"codigo":"ECON III","asignatura":"ELECTIVA III","creditos":3}],[{"codigo":"CON309","asignatura":"AUDITORIA EXTERNA III","creditos":4,"prereq":"CON308"},{"codigo":"CON315","asignatura":"NIIF PARA PYMES","creditos":3,"prereq":"CON223"},{"codigo":"DER016","asignatura":"DERECHO LABORAL","creditos":3},{"codigo":"SOC281","asignatura":"SEMINARIO DE GRADO","creditos":3,"prereq":"SOC253","prereqExtra":"80% De los créditos aprobados"},{"codigo":"ADM146","asignatura":"SIMULACION DE NEGOCIOS","creditos":3,"prereqExtra":"80% De los créditos aprobados"},{"codigo":"IDI084","asignatura":"INGLES PARA NEGOCIOS V","creditos":3,"prereq":"IDI083"},{"codigo":"PAS530","asignatura":"PASANTIA EMPRESARIAL DE CONTABILIDAD","creditos":0,"prereqExtra":"75% De los créditos aprobados"}],[{"codigo":"CON310","asignatura":"AUDITORIA INTERNA","creditos":4,"prereq":"CON309"},{"codigo":"CON306","asignatura":"AUDITORIA CON EL USO DEL COMPUTADOR","creditos":3,"prereq":"CON308"},{"codigo":"DER011","asignatura":"DERECHO COMERCIAL","creditos":3},{"codigo":"IDI085","asignatura":"INGLES PARA NEGOCIOS VI","creditos":3,"prereq":"IDI084"}],[{"codigo":"TFG100","asignatura":"TRABAJO FINAL DE GRADO","creditos":6,"prereq":"SOC281","prereqExtra":"92% De los créditos aprobados"},{"codigo":"OPTDEP","asignatura":"OPTATIVA DEPORTE","creditos":0}]],"error":null,"version":2}
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "CON11",
+  "publishDate": "01/01/2021",
+  "fetchDate": "2021-04-24",
+  "career": "LICENCIATURA EN CONTABILIDAD",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 215",
+    "TÍTULO: LICENCIATURA EN CONTABILIDAD",
+    "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. Seis (6) niveles de inglés. Actitud Profesional: 60 horas. PAS530: 180 horas."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2021-04-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/CON11"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC043",
+        "name": "GESTION AMBIENTAL",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "MAT010",
+        "name": "MATEMATICA BASICA UNIVERSITARIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "INF214",
+        "name": "APLICACIONES FINANCIERAS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG000",
+        "name": "FUNDAMENTOS DE INGLES (I Y II)",
+        "cr": 5,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "SOC013",
+        "name": "FILOSOFIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC101",
+        "name": "INTRODUCCION A LA PSICOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT121",
+        "name": "ALGEBRA UNIVERSITARIA",
+        "cr": 4,
+        "req": ["MAT010"]
+      },
+      {
+        "code": "ESP106",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS I",
+        "cr": 3,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "ADM103",
+        "name": "FUNDAMENTOS DE ADMINISTRACION",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "CON091",
+        "name": "CONTABILIDAD I",
+        "cr": 5,
+        "req": ["INF214", "MAT010"]
+      },
+      {
+        "code": "ENG003",
+        "name": "INGLES III",
+        "cr": 3,
+        "req": ["ENG000"]
+      }
+    ],
+    [
+      {
+        "code": "SOC200",
+        "name": "INTRODUCCION A LA SOCIOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT131",
+        "name": "CALCULO Y GEOMETRIA ANALITICA I",
+        "cr": 5,
+        "req": ["MAT121"]
+      },
+      {
+        "code": "ESP107",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS II",
+        "cr": 3,
+        "req": ["ESP106"]
+      },
+      {
+        "code": "CON092",
+        "name": "CONTABILIDAD II",
+        "cr": 5,
+        "req": ["CON091"]
+      },
+      {
+        "code": "MER101",
+        "name": "MERCADOTECNIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG004",
+        "name": "INGLES IV",
+        "cr": 3,
+        "req": ["ENG003"]
+      }
+    ],
+    [
+      {
+        "code": "SOC253",
+        "name": "METODOLOGIA Y TECNICAS DE INVESTIGACION",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "SOC031",
+        "name": "ETICA PROFESIONAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT241",
+        "name": "MATEMATICA FINANCIERA I",
+        "cr": 4,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "ECO101",
+        "name": "ECONOMIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "CON093",
+        "name": "CONTABILIDAD III",
+        "cr": 5,
+        "req": ["CON092"]
+      },
+      {
+        "code": "ENG005",
+        "name": "INGLES V",
+        "cr": 3,
+        "req": ["ENG004"]
+      }
+    ],
+    [
+      {
+        "code": "ADM540",
+        "name": "LIDERAZGO Y HABILIDADES DIRECTIVAS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT250",
+        "name": "ESTADISTICA I",
+        "cr": 4,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "ECO102",
+        "name": "ECONOMIA II",
+        "cr": 3,
+        "req": ["ECO101"]
+      },
+      {
+        "code": "CON094",
+        "name": "CONTABILIDAD IV",
+        "cr": 5,
+        "req": ["CON093"]
+      },
+      {
+        "code": "ADM221",
+        "name": "MONEDA Y BANCA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG006",
+        "name": "INGLES VI",
+        "cr": 3,
+        "req": ["ENG005"]
+      }
+    ],
+    [
+      {
+        "code": "CON211",
+        "name": "SISTEMA TRIBUTARIO DOMINICANO I",
+        "cr": 3,
+        "req": ["CON092"]
+      },
+      {
+        "code": "CON400",
+        "name": "CONTABILIDAD COMPUTARIZADA",
+        "cr": 3,
+        "req": ["CON094"]
+      },
+      {
+        "code": "CON223",
+        "name": "CONTABILIDAD SUPERIOR",
+        "cr": 3,
+        "req": ["CON094"]
+      },
+      {
+        "code": "ADM130",
+        "name": "PRESUPUESTO EMPRESARIAL",
+        "cr": 3,
+        "req": ["MAT250"]
+      },
+      {
+        "code": "FIN101",
+        "name": "FINANZAS I",
+        "cr": 3,
+        "req": ["CON091", "MAT241"]
+      },
+      {
+        "code": "INF311",
+        "name": "INTELIGENCIA DE NEGOCIOS",
+        "cr": 3,
+        "req": ["INF214", "MAT250"]
+      },
+      {
+        "code": "IDI080",
+        "name": "INGLES PARA NEGOCIOS I",
+        "cr": 3,
+        "req": ["ENG006"]
+      }
+    ],
+    [
+      {
+        "code": "CON225",
+        "name": "SISTEMA TRIBUTARIO DOMINICANO II",
+        "cr": 3,
+        "req": ["CON211"]
+      },
+      {
+        "code": "CON219",
+        "name": "COSTOS PRODUCTOS Y SERVICIOS I",
+        "cr": 5,
+        "req": ["CON091"]
+      },
+      {
+        "code": "FIN102",
+        "name": "FINANZAS II",
+        "cr": 3,
+        "req": ["FIN101"]
+      },
+      {
+        "code": "ADM151",
+        "name": "SEMINARIO PROYECTO DE NEGOCIOS",
+        "cr": 2,
+        "req": [
+          {
+            "text": "50% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "CON134",
+        "name": "DISEÑO DE SISTEMAS CONTABLES",
+        "cr": 3,
+        "req": ["CON092"]
+      },
+      {
+        "code": "IDI081",
+        "name": "INGLES PARA NEGOCIOS II",
+        "cr": 3,
+        "req": ["IDI080"]
+      },
+      {
+        "code": "ECON I",
+        "name": "ELECTIVA I",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "CON307",
+        "name": "AUDITORIA EXTERNA I",
+        "cr": 4,
+        "req": ["CON093"]
+      },
+      {
+        "code": "CON300",
+        "name": "TALLER DE CONTABILIDAD E IMPUESTOS",
+        "cr": 2,
+        "req": ["CON225"]
+      },
+      {
+        "code": "CON220",
+        "name": "COSTOS PRODUCTOS Y SERVICIOS II",
+        "cr": 5,
+        "req": ["CON219"]
+      },
+      {
+        "code": "CON114",
+        "name": "GESTION FINANCIERA BANCARIA",
+        "cr": 3,
+        "req": ["FIN102"]
+      },
+      {
+        "code": "IDI082",
+        "name": "INGLES PARA NEGOCIOS III",
+        "cr": 3,
+        "req": ["IDI081"]
+      },
+      {
+        "code": "ECON II",
+        "name": "ELECTIVA II",
+        "cr": 3,
+        "req": [
+          {
+            "text": "50% De los créditos aprobados"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "CON308",
+        "name": "AUDITORIA EXTERNA II",
+        "cr": 4,
+        "req": ["CON307"]
+      },
+      {
+        "code": "CON108",
+        "name": "CONTABILIDAD DE GESTION",
+        "cr": 3,
+        "req": ["CON219"]
+      },
+      {
+        "code": "CON213",
+        "name": "SIST. GESTION FINANCIERA GUBERNAMENTAL",
+        "cr": 3,
+        "req": ["CON225"]
+      },
+      {
+        "code": "CON112",
+        "name": "FINANZAS INTERNACIONALES",
+        "cr": 3,
+        "req": ["ECO102", "FIN102"]
+      },
+      {
+        "code": "ADM535",
+        "name": "ACTITUD EMPRENDEDORA",
+        "cr": 3,
+        "req": ["SOC101"]
+      },
+      {
+        "code": "IDI083",
+        "name": "INGLES PARA NEGOCIOS IV",
+        "cr": 3,
+        "req": ["IDI082"]
+      },
+      {
+        "code": "ECON III",
+        "name": "ELECTIVA III",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "CON309",
+        "name": "AUDITORIA EXTERNA III",
+        "cr": 4,
+        "req": ["CON308"]
+      },
+      {
+        "code": "CON315",
+        "name": "NIIF PARA PYMES",
+        "cr": 3,
+        "req": ["CON223"]
+      },
+      {
+        "code": "DER016",
+        "name": "DERECHO LABORAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": [
+          "SOC253",
+          {
+            "text": "80% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "ADM146",
+        "name": "SIMULACION DE NEGOCIOS",
+        "cr": 3,
+        "req": [
+          {
+            "text": "80% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "IDI084",
+        "name": "INGLES PARA NEGOCIOS V",
+        "cr": 3,
+        "req": ["IDI083"]
+      },
+      {
+        "code": "PAS530",
+        "name": "PASANTIA EMPRESARIAL DE CONTABILIDAD",
+        "cr": 0,
+        "req": [
+          {
+            "text": "75% De los créditos aprobados"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "CON310",
+        "name": "AUDITORIA INTERNA",
+        "cr": 4,
+        "req": ["CON309"]
+      },
+      {
+        "code": "CON306",
+        "name": "AUDITORIA CON EL USO DEL COMPUTADOR",
+        "cr": 3,
+        "req": ["CON308"]
+      },
+      {
+        "code": "DER011",
+        "name": "DERECHO COMERCIAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "IDI085",
+        "name": "INGLES PARA NEGOCIOS VI",
+        "cr": 3,
+        "req": ["IDI084"]
+      }
+    ],
+    [
+      {
+        "code": "TFG100",
+        "name": "TRABAJO FINAL DE GRADO",
+        "cr": 6,
+        "req": [
+          "SOC281",
+          {
+            "text": "92% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0,
+        "req": []
+      }
+    ]
+  ]
+}

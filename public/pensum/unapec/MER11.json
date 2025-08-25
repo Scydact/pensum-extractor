@@ -1,19 +1,19 @@
 {
   "version": 5,
   "institution": "unapec",
-  "code": "ADM11",
+  "code": "MER11",
   "publishDate": "01/01/2021",
-  "fetchDate": "2021-04-24",
-  "career": "LICENCIATURA EN ADMINISTRACION DE EMPRESAS",
+  "fetchDate": "2025-08-24",
+  "career": "LICENCIATURA EN MERCADOTECNIA",
   "info": [
-    "TOTAL GENERAL DE CRÉDITOS: 197",
-    "TÍTULO: LICENCIATURA EN ADMINISTRACION DE EMPRESAS",
-    "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. Actitud Profesional: 60 horas. Pasantía (PAS520) 180 horas."
+    "TOTAL GENERAL DE CRÉDITOS:                                     199",
+    "TÍTULO:                                     LICENCIATURA EN MERCADOTECNIA",
+    "REQUISITO GENERAL DE LA GRADUACIÓN:                                     Aprobar un Deporte. Actitud Profesional: 60 horas.  PAS510: 180 horas."
   ],
   "src": {
     "type": "online",
-    "date": "2021-04-24",
-    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/ADM11"
+    "date": "2025-08-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/MER11"
   },
   "periodType": {
     "name": "Cuatrimestre",
@@ -68,12 +68,6 @@
     ],
     [
       {
-        "code": "ADM103",
-        "name": "FUNDAMENTOS DE ADMINISTRACION",
-        "cr": 3,
-        "req": []
-      },
-      {
         "code": "SOC013",
         "name": "FILOSOFIA",
         "cr": 2,
@@ -96,6 +90,12 @@
         "name": "REDACCION DE TEXTOS DISCURSIVOS I",
         "cr": 3,
         "req": ["ESP101"]
+      },
+      {
+        "code": "ADM103",
+        "name": "FUNDAMENTOS DE ADMINISTRACION",
+        "cr": 3,
+        "req": []
       },
       {
         "code": "CON091",
@@ -130,8 +130,8 @@
         "req": ["ESP106"]
       },
       {
-        "code": "CON092",
-        "name": "CONTABILIDAD II",
+        "code": "CON219",
+        "name": "COSTOS PRODUCTOS Y SERVICIOS I",
         "cr": 5,
         "req": ["CON091"]
       },
@@ -168,22 +168,22 @@
         "req": ["MAT131"]
       },
       {
-        "code": "ADM540",
-        "name": "LIDERAZGO Y HABILIDADES DIRECTIVAS",
-        "cr": 3,
-        "req": []
-      },
-      {
-        "code": "NEG102",
-        "name": "INTRODUCCION A LOS NEGOCIOS INTERNACIONALES",
-        "cr": 3,
-        "req": ["MER101"]
-      },
-      {
         "code": "ECO101",
         "name": "ECONOMIA I",
         "cr": 3,
         "req": []
+      },
+      {
+        "code": "MER432",
+        "name": "COMPORTAMIENTO DEL CONSUMIDOR",
+        "cr": 3,
+        "req": ["SOC101"]
+      },
+      {
+        "code": "MER102",
+        "name": "MERCADOTECNIA II",
+        "cr": 3,
+        "req": ["MER101"]
       },
       {
         "code": "ENG005",
@@ -193,12 +193,6 @@
       }
     ],
     [
-      {
-        "code": "MAT260",
-        "name": "MATEMATICA APLICADA",
-        "cr": 4,
-        "req": ["MAT241"]
-      },
       {
         "code": "MAT250",
         "name": "ESTADISTICA I",
@@ -218,16 +212,22 @@
         "req": ["ECO101"]
       },
       {
-        "code": "ADM150",
-        "name": "GERENCIA DE PROCESOS",
-        "cr": 4,
-        "req": ["MAT131"]
+        "code": "DER011",
+        "name": "DERECHO COMERCIAL",
+        "cr": 3,
+        "req": []
       },
       {
-        "code": "NEG105",
-        "name": "LOGISTICA Y CADENA DE SUMINISTROS",
+        "code": "MER320",
+        "name": "ESTRATEGIA DE PRECIOS",
+        "cr": 2,
+        "req": ["MER102"]
+      },
+      {
+        "code": "FIN101",
+        "name": "FINANZAS I",
         "cr": 3,
-        "req": ["NEG102"]
+        "req": ["CON091", "MAT241"]
       },
       {
         "code": "ENG006",
@@ -238,34 +238,34 @@
     ],
     [
       {
+        "code": "MAT251",
+        "name": "ESTADISTICA II",
+        "cr": 4,
+        "req": ["MAT250"]
+      },
+      {
+        "code": "ADM540",
+        "name": "LIDERAZGO Y HABILIDADES DIRECTIVAS",
+        "cr": 3,
+        "req": []
+      },
+      {
         "code": "ADM130",
         "name": "PRESUPUESTO EMPRESARIAL",
         "cr": 3,
         "req": ["MAT250"]
       },
       {
-        "code": "DER011",
-        "name": "DERECHO COMERCIAL",
-        "cr": 3,
-        "req": []
-      },
-      {
-        "code": "FIN101",
-        "name": "FINANZAS I",
-        "cr": 3,
-        "req": ["CON091", "MAT241"]
+        "code": "MER321",
+        "name": "ADMINISTRACION DE VENTAS",
+        "cr": 4,
+        "req": ["MER320"]
       },
       {
         "code": "INF311",
         "name": "INTELIGENCIA DE NEGOCIOS",
         "cr": 3,
         "req": ["INF005", "MAT250"]
-      },
-      {
-        "code": "MAT251",
-        "name": "ESTADISTICA II",
-        "cr": 4,
-        "req": ["MAT250"]
       },
       {
         "code": "IDI080",
@@ -286,63 +286,63 @@
         ]
       },
       {
-        "code": "FIN102",
-        "name": "FINANZAS II",
+        "code": "ART210",
+        "name": "PENSAMIENTO CREATIVO",
         "cr": 3,
-        "req": ["FIN101"]
+        "req": []
       },
       {
-        "code": "CON221",
-        "name": "FUNDAMENTOS DE COSTOS",
-        "cr": 4,
-        "req": ["CON091"]
+        "code": "ART452",
+        "name": "FUNDAMENTOS DE PUBLICIDAD Y RELACIONES PUBLICAS",
+        "cr": 3,
+        "req": []
       },
       {
-        "code": "ADM162",
-        "name": "GERENCIA DE OPERACIONES",
+        "code": "MER234",
+        "name": "CANALES DE DISTRIBUCION",
         "cr": 3,
-        "req": ["ADM150", "MAT131"]
+        "req": ["MER321"]
+      },
+      {
+        "code": "EMER 1",
+        "name": "ELECTIVA I",
+        "cr": 3,
+        "req": []
       },
       {
         "code": "IDI081",
         "name": "INGLES PARA NEGOCIOS II",
         "cr": 3,
         "req": ["IDI080"]
-      },
-      {
-        "code": "EADM",
-        "name": "ELECTIVA I",
-        "cr": 3,
-        "req": []
       }
     ],
     [
       {
-        "code": "DER016",
-        "name": "DERECHO LABORAL",
+        "code": "ART161",
+        "name": "PUBLICIDAD I",
         "cr": 3,
-        "req": []
+        "req": ["ART452"]
       },
       {
-        "code": "ADM124",
-        "name": "GESTION DEL TALENTO HUMANO",
-        "cr": 4,
-        "req": ["ADM103"]
+        "code": "MER147",
+        "name": "MERCADOTECNIA INTERNACIONAL",
+        "cr": 3,
+        "req": ["ADM151"]
       },
       {
-        "code": "NEG126",
-        "name": "TECNICAS DE NEGOCIACION",
+        "code": "ADM104",
+        "name": "COMPORTAMIENTO ORGANIZACIONAL",
         "cr": 3,
         "req": ["ADM540"]
       },
       {
-        "code": "ADM118",
-        "name": "GERENCIA DE LA CALIDAD TOTAL",
-        "cr": 3,
-        "req": ["ADM162"]
+        "code": "MER436",
+        "name": "E-BUSINESS",
+        "cr": 2,
+        "req": []
       },
       {
-        "code": "EADM2",
+        "code": "EMER 2",
         "name": "ELECTIVA II",
         "cr": 3,
         "req": []
@@ -356,22 +356,34 @@
     ],
     [
       {
-        "code": "ADM191",
-        "name": "ESTRATEGIA EMPRESARIAL",
+        "code": "MER180",
+        "name": "PROMOCION DE VENTAS",
+        "cr": 3,
+        "req": ["MER234"]
+      },
+      {
+        "code": "MER435",
+        "name": "TRADE MARKETING Y TECNICAS DE MERCHANDISING",
+        "cr": 2,
+        "req": ["MER234"]
+      },
+      {
+        "code": "MER437",
+        "name": "MARKETING DIGITAL",
+        "cr": 3,
+        "req": ["MER436"]
+      },
+      {
+        "code": "MER439",
+        "name": "INVESTIGACION DE MERCADOS",
         "cr": 4,
-        "req": ["ADM118"]
+        "req": ["INF311", "SOC253"]
       },
       {
-        "code": "CON211",
-        "name": "SISTEMA TRIBUTARIO DOMINICANO I",
+        "code": "EMER 3",
+        "name": "ELECTIVA III",
         "cr": 3,
-        "req": ["CON092"]
-      },
-      {
-        "code": "ADM104",
-        "name": "COMPORTAMIENTO ORGANIZACIONAL",
-        "cr": 3,
-        "req": ["ADM540"]
+        "req": []
       },
       {
         "code": "IDI083",
@@ -380,14 +392,8 @@
         "req": ["IDI082"]
       },
       {
-        "code": "EADM3",
-        "name": "ELECTIVA III",
-        "cr": 3,
-        "req": []
-      },
-      {
-        "code": "PAS520",
-        "name": "PASANTIA EMPRESARIAL DE ADMINISTRACION DE EMPRESAS",
+        "code": "PAS510",
+        "name": "PASANTIA EMPRESARIAL DE MERCADOTECNIA",
         "cr": 0,
         "req": [
           {
@@ -398,6 +404,30 @@
     ],
     [
       {
+        "code": "MER440",
+        "name": "MERCADOTECNIA RELACIONAL-SOCIAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MER441",
+        "name": "DESARROLLO Y LANZAMIENTO DE NUEVOS PRODUCTOS",
+        "cr": 3,
+        "req": ["MER180"]
+      },
+      {
+        "code": "MER442",
+        "name": "REDES SOCIALES Y MARKETING DE CONTENIDO",
+        "cr": 2,
+        "req": ["MER437"]
+      },
+      {
+        "code": "IDI084",
+        "name": "INGLES PARA NEGOCIOS V",
+        "cr": 3,
+        "req": ["IDI083"]
+      },
+      {
         "code": "SOC281",
         "name": "SEMINARIO DE GRADO",
         "cr": 3,
@@ -407,42 +437,26 @@
             "text": "80% De los créditos aprobados"
           }
         ]
-      },
-      {
-        "code": "ADM147",
-        "name": "GESTION DE COMPRAS Y LOGISTICA",
-        "cr": 3,
-        "req": ["ADM130"]
-      },
-      {
-        "code": "ADM126",
-        "name": "PRODUCTIVIDAD Y COMPETITIVIDAD",
-        "cr": 3,
-        "req": ["ADM150", "ADM191"]
-      },
-      {
-        "code": "IDI084",
-        "name": "INGLES PARA NEGOCIOS V",
-        "cr": 3,
-        "req": ["IDI083"]
       }
     ],
     [
       {
-        "code": "ADM146",
-        "name": "SIMULACION DE NEGOCIOS",
+        "code": "MER300",
+        "name": "GERENCIA DE MARCA",
         "cr": 3,
-        "req": [
-          {
-            "text": "80% De los créditos aprobados"
-          }
-        ]
+        "req": ["MER441"]
       },
       {
-        "code": "ADM536",
-        "name": "CREACION E INNOVACION DE NEGOCIOS",
+        "code": "MER443",
+        "name": "SEMINARIO PLAN DE MARKETING ESTRATEGICO",
         "cr": 3,
-        "req": ["ADM535"]
+        "req": ["MER441"]
+      },
+      {
+        "code": "MER444",
+        "name": "SEMINARIO INTEGRADOR DE MERCADOTECNIA",
+        "cr": 3,
+        "req": ["MER441"]
       },
       {
         "code": "IDI085",

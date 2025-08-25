@@ -1,1 +1,490 @@
-{"carrera":"LICENCIATURA EN COMUNICACION DIGITAL","codigo":"CDG11","vigencia":"01/05/2021","infoCarrera":["TOTAL GENERAL DE CRÉDITOS: 190","TÍTULO: LICENCIATURA EN COMUNICACION DIGITAL","REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. Diez (10) niveles de inglés. Actitud Profesional: 60 horas. Pasantía (PAS640) de 180 horas."],"cuats":[[{"codigo":"SOC011","asignatura":"HISTORIA SOCIAL DOMINICANA","creditos":3},{"codigo":"ESP101","asignatura":"ANALISIS DE TEXTOS DISCURSIVOS","creditos":3},{"codigo":"MAT010","asignatura":"MATEMATICA BASICA UNIVERSITARIA","creditos":3},{"codigo":"SOC030","asignatura":"ORIENTACION UNIVERSITARIA","creditos":2},{"codigo":"SOC043","asignatura":"GESTION AMBIENTAL","creditos":2},{"codigo":"ART465","asignatura":"FUNDAMENTOS DEL DISEÑO","creditos":3},{"codigo":"CDG100","asignatura":"LENGUAJE AUDIOVISUAL","creditos":3}],[{"codigo":"SOC013","asignatura":"FILOSOFIA","creditos":2},{"codigo":"SOC101","asignatura":"INTRODUCCION A LA PSICOLOGIA","creditos":3},{"codigo":"ESP106","asignatura":"REDACCION DE TEXTOS DISCURSIVOS I","creditos":3,"prereq":"ESP101"},{"codigo":"ART214","asignatura":"TEORIA DE LA COMUNICACION","creditos":3},{"codigo":"ART458","asignatura":"INTRODUCCION AL DISEÑO GRAFICO","creditos":3,"prereq":"ART465"},{"codigo":"CDG105","asignatura":"DISEÑO DIGITAL I","creditos":3}],[{"codigo":"SOC200","asignatura":"INTRODUCCION A LA SOCIOLOGIA","creditos":3},{"codigo":"ESP107","asignatura":"REDACCION DE TEXTOS DISCURSIVOS II","creditos":3,"prereq":"ESP106"},{"codigo":"ART210","asignatura":"PENSAMIENTO CREATIVO","creditos":3},{"codigo":"ART012","asignatura":"HISTORIA DE LA COMUNICACION I","creditos":3},{"codigo":"CDG106","asignatura":"DISEÑO DIGITAL II","creditos":3,"prereq":"CDG105"},{"codigo":"CDG205","asignatura":"FOTOGRAFIA DIGITAL I","creditos":3}],[{"codigo":"SOC253","asignatura":"METODOLOGIA Y TECNICAS DE INVESTIGACION","creditos":4},{"codigo":"SOC031","asignatura":"ETICA PROFESIONAL","creditos":3},{"codigo":"ART014","asignatura":"HISTORIA DE LA COMUNICACION II","creditos":3,"prereq":"ART012"},{"codigo":"ART575","asignatura":"BOCETO PARA STORYBOARD","creditos":5},{"codigo":"CDG107","asignatura":"DISEÑO DIGITAL III","creditos":3,"prereq":"CDG106"},{"codigo":"CDG210","asignatura":"FOTOGRAFIA DIGITAL II","creditos":3,"prereq":["CDG106","CDG205"]}],[{"codigo":"ADM535","asignatura":"ACTITUD EMPRENDEDORA","creditos":3,"prereq":"SOC101"},{"codigo":"ART577","asignatura":"ESCRITURA CREATIVA","creditos":3},{"codigo":"ART525","asignatura":"TECNICAS DE DOCUMENTACION EN LA COMUNICACION","creditos":3,"prereq":"SOC253"},{"codigo":"ART452","asignatura":"FUNDAMENTOS DE PUBLICIDAD Y RELACIONES PUBLICAS","creditos":3},{"codigo":"CDG405","asignatura":"TALLER CREATIVO EN COMUNICACION GRAFICA I","creditos":3,"prereq":["CDG106","CDG205"]},{"codigo":"CDG410","asignatura":"DISEÑO WEB","creditos":3,"prereq":"CDG106"}],[{"codigo":"MER101","asignatura":"MERCADOTECNIA I","creditos":3},{"codigo":"CDG815","asignatura":"ILUSTRACION DIGITAL (2D)","creditos":3,"prereq":["ART575","CDG106"]},{"codigo":"CDG505","asignatura":"DISEÑO Y ANIMACION DIGITAL I","creditos":3,"prereq":"CDG106"},{"codigo":"CDG406","asignatura":"TALLER CREATIVO EN COMUNICACION GRAFICA II","creditos":3,"prereq":"CDG405"},{"codigo":"CDG502","asignatura":"PREPRODUCCION AUDIOVISUAL","creditos":3,"prereq":["ART577","CDG100"]},{"codigo":"CDG515","asignatura":"DISEÑO UI/UX","creditos":3,"prereq":"CDG410"}],[{"codigo":"MER102","asignatura":"MERCADOTECNIA II","creditos":3,"prereq":"MER101"},{"codigo":"MAT250","asignatura":"ESTADISTICA I","creditos":4,"prereq":"MAT010"},{"codigo":"CDG525","asignatura":"COMUNICACION DIGITAL I","creditos":3,"prereq":"CDG405"},{"codigo":"CDG600","asignatura":"DISEÑO Y ANIMACION DIGITAL II","creditos":3,"prereq":"CDG505"},{"codigo":"CDG605","asignatura":"GRABACION Y EDICION DE SONIDO DIGITAL","creditos":3,"prereq":"CDG502"},{"codigo":"ECDG 1","asignatura":"ELECTIVA I","creditos":3}],[{"codigo":"CDG520","asignatura":"PRESUPUESTO PARA MEDIOS DIGITALES","creditos":3,"prereq":"MAT010"},{"codigo":"CDG805","asignatura":"GRABACION Y EDICION DE VIDEO DIGITAL","creditos":3,"prereq":"CDG502"},{"codigo":"CDG526","asignatura":"COMUNICACION DIGITAL II","creditos":3,"prereq":"CDG525"},{"codigo":"CDG800","asignatura":"TECNICAS DE ILUSTRACION 3D","creditos":4,"prereq":"CDG815"},{"codigo":"ECDG 2","asignatura":"ELECTIVA II","creditos":3,"prereq":"ECDG 1"}],[{"codigo":"CDG530","asignatura":"MOTION GRAPHICS","creditos":3,"prereq":["CDG600","CDG800"]},{"codigo":"CDG528","asignatura":"COMUNICACION DIGITAL III","creditos":3,"prereq":"CDG526"},{"codigo":"CDG535","asignatura":"GESTION DE CONTENIDOS (CMS)","creditos":3,"prereq":["CDG410","CDG525"]},{"codigo":"CDG540","asignatura":"PRODUCCION Y REALIZACION AUDIOVISUAL","creditos":4,"prereq":["CDG605","CDG805"]},{"codigo":"ECDG 3","asignatura":"ELECTIVA III","creditos":3,"prereq":"ECDG 2"}],[{"codigo":"SOC281","asignatura":"SEMINARIO DE GRADO","creditos":3,"prereq":"SOC253","prereqExtra":"80% De los créditos aprobados"},{"codigo":"DER520","asignatura":"PROPIEDAD INTELECTUAL Y LEGISLACION DE LA COMUNICACION","creditos":2},{"codigo":"CDG545","asignatura":"CREACION DE TIENDAS VIRTUALES","creditos":3,"prereq":["CDG410","CDG525"]},{"codigo":"CDG527","asignatura":"COMUNICACION DIGITAL IV","creditos":3,"prereq":"CDG528"},{"codigo":"IDI530","asignatura":"INGLES PARA COMUNICADORES I","creditos":3,"prereq":"ENG010"}],[{"codigo":"ART496","asignatura":"PORTAFOLIO PROFESIONAL","creditos":2,"prereqExtra":"90% De los créditos aprobados"},{"codigo":"CDG529","asignatura":"COMUNICACION INTERACTIVA","creditos":3,"prereq":"CDG530"},{"codigo":"IDI531","asignatura":"INGLES PARA COMUNICADORES II","creditos":3,"prereq":"IDI530"}],[{"codigo":"TFG100","asignatura":"TRABAJO FINAL DE GRADO","creditos":6,"prereq":"SOC281","prereqExtra":"92% De los créditos aprobados"},{"codigo":"OPTDEP","asignatura":"OPTATIVA DEPORTE","creditos":0},{"codigo":"PAS640","asignatura":"PASANTIA EMPRESARIAL","creditos":0},{"codigo":"ENG000","asignatura":"FUNDAMENTOS DE INGLES (I Y II)","creditos":5},{"codigo":"ENG003","asignatura":"INGLES III","creditos":3},{"codigo":"ENG004","asignatura":"INGLES IV","creditos":3},{"codigo":"ENG005","asignatura":"INGLES V","creditos":3},{"codigo":"ENG006","asignatura":"INGLES VI","creditos":3},{"codigo":"ENG007","asignatura":"INGLES VII","creditos":3},{"codigo":"ENG008","asignatura":"INGLES VIII","creditos":3}]],"error":null,"version":2}
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "CDG11",
+  "publishDate": "01/05/2021",
+  "fetchDate": "2021-04-24",
+  "career": "LICENCIATURA EN COMUNICACION DIGITAL",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 190",
+    "TÍTULO: LICENCIATURA EN COMUNICACION DIGITAL",
+    "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. Diez (10) niveles de inglés. Actitud Profesional: 60 horas. Pasantía (PAS640) de 180 horas."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2021-04-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/CDG11"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT010",
+        "name": "MATEMATICA BASICA UNIVERSITARIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC043",
+        "name": "GESTION AMBIENTAL",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "ART465",
+        "name": "FUNDAMENTOS DEL DISEÑO",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "CDG100",
+        "name": "LENGUAJE AUDIOVISUAL",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "SOC013",
+        "name": "FILOSOFIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC101",
+        "name": "INTRODUCCION A LA PSICOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP106",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS I",
+        "cr": 3,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "ART214",
+        "name": "TEORIA DE LA COMUNICACION",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART458",
+        "name": "INTRODUCCION AL DISEÑO GRAFICO",
+        "cr": 3,
+        "req": ["ART465"]
+      },
+      {
+        "code": "CDG105",
+        "name": "DISEÑO DIGITAL I",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "SOC200",
+        "name": "INTRODUCCION A LA SOCIOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP107",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS II",
+        "cr": 3,
+        "req": ["ESP106"]
+      },
+      {
+        "code": "ART210",
+        "name": "PENSAMIENTO CREATIVO",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART012",
+        "name": "HISTORIA DE LA COMUNICACION I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "CDG106",
+        "name": "DISEÑO DIGITAL II",
+        "cr": 3,
+        "req": ["CDG105"]
+      },
+      {
+        "code": "CDG205",
+        "name": "FOTOGRAFIA DIGITAL I",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "SOC253",
+        "name": "METODOLOGIA Y TECNICAS DE INVESTIGACION",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "SOC031",
+        "name": "ETICA PROFESIONAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART014",
+        "name": "HISTORIA DE LA COMUNICACION II",
+        "cr": 3,
+        "req": ["ART012"]
+      },
+      {
+        "code": "ART575",
+        "name": "BOCETO PARA STORYBOARD",
+        "cr": 5,
+        "req": []
+      },
+      {
+        "code": "CDG107",
+        "name": "DISEÑO DIGITAL III",
+        "cr": 3,
+        "req": ["CDG106"]
+      },
+      {
+        "code": "CDG210",
+        "name": "FOTOGRAFIA DIGITAL II",
+        "cr": 3,
+        "req": ["CDG106", "CDG205"]
+      }
+    ],
+    [
+      {
+        "code": "ADM535",
+        "name": "ACTITUD EMPRENDEDORA",
+        "cr": 3,
+        "req": ["SOC101"]
+      },
+      {
+        "code": "ART577",
+        "name": "ESCRITURA CREATIVA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART525",
+        "name": "TECNICAS DE DOCUMENTACION EN LA COMUNICACION",
+        "cr": 3,
+        "req": ["SOC253"]
+      },
+      {
+        "code": "ART452",
+        "name": "FUNDAMENTOS DE PUBLICIDAD Y RELACIONES PUBLICAS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "CDG405",
+        "name": "TALLER CREATIVO EN COMUNICACION GRAFICA I",
+        "cr": 3,
+        "req": ["CDG106", "CDG205"]
+      },
+      {
+        "code": "CDG410",
+        "name": "DISEÑO WEB",
+        "cr": 3,
+        "req": ["CDG106"]
+      }
+    ],
+    [
+      {
+        "code": "MER101",
+        "name": "MERCADOTECNIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "CDG815",
+        "name": "ILUSTRACION DIGITAL (2D)",
+        "cr": 3,
+        "req": ["ART575", "CDG106"]
+      },
+      {
+        "code": "CDG505",
+        "name": "DISEÑO Y ANIMACION DIGITAL I",
+        "cr": 3,
+        "req": ["CDG106"]
+      },
+      {
+        "code": "CDG406",
+        "name": "TALLER CREATIVO EN COMUNICACION GRAFICA II",
+        "cr": 3,
+        "req": ["CDG405"]
+      },
+      {
+        "code": "CDG502",
+        "name": "PREPRODUCCION AUDIOVISUAL",
+        "cr": 3,
+        "req": ["ART577", "CDG100"]
+      },
+      {
+        "code": "CDG515",
+        "name": "DISEÑO UI/UX",
+        "cr": 3,
+        "req": ["CDG410"]
+      }
+    ],
+    [
+      {
+        "code": "MER102",
+        "name": "MERCADOTECNIA II",
+        "cr": 3,
+        "req": ["MER101"]
+      },
+      {
+        "code": "MAT250",
+        "name": "ESTADISTICA I",
+        "cr": 4,
+        "req": ["MAT010"]
+      },
+      {
+        "code": "CDG525",
+        "name": "COMUNICACION DIGITAL I",
+        "cr": 3,
+        "req": ["CDG405"]
+      },
+      {
+        "code": "CDG600",
+        "name": "DISEÑO Y ANIMACION DIGITAL II",
+        "cr": 3,
+        "req": ["CDG505"]
+      },
+      {
+        "code": "CDG605",
+        "name": "GRABACION Y EDICION DE SONIDO DIGITAL",
+        "cr": 3,
+        "req": ["CDG502"]
+      },
+      {
+        "code": "ECDG 1",
+        "name": "ELECTIVA I",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "CDG520",
+        "name": "PRESUPUESTO PARA MEDIOS DIGITALES",
+        "cr": 3,
+        "req": ["MAT010"]
+      },
+      {
+        "code": "CDG805",
+        "name": "GRABACION Y EDICION DE VIDEO DIGITAL",
+        "cr": 3,
+        "req": ["CDG502"]
+      },
+      {
+        "code": "CDG526",
+        "name": "COMUNICACION DIGITAL II",
+        "cr": 3,
+        "req": ["CDG525"]
+      },
+      {
+        "code": "CDG800",
+        "name": "TECNICAS DE ILUSTRACION 3D",
+        "cr": 4,
+        "req": ["CDG815"]
+      },
+      {
+        "code": "ECDG 2",
+        "name": "ELECTIVA II",
+        "cr": 3,
+        "req": ["ECDG 1"]
+      }
+    ],
+    [
+      {
+        "code": "CDG530",
+        "name": "MOTION GRAPHICS",
+        "cr": 3,
+        "req": ["CDG600", "CDG800"]
+      },
+      {
+        "code": "CDG528",
+        "name": "COMUNICACION DIGITAL III",
+        "cr": 3,
+        "req": ["CDG526"]
+      },
+      {
+        "code": "CDG535",
+        "name": "GESTION DE CONTENIDOS (CMS)",
+        "cr": 3,
+        "req": ["CDG410", "CDG525"]
+      },
+      {
+        "code": "CDG540",
+        "name": "PRODUCCION Y REALIZACION AUDIOVISUAL",
+        "cr": 4,
+        "req": ["CDG605", "CDG805"]
+      },
+      {
+        "code": "ECDG 3",
+        "name": "ELECTIVA III",
+        "cr": 3,
+        "req": ["ECDG 2"]
+      }
+    ],
+    [
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": [
+          "SOC253",
+          {
+            "text": "80% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "DER520",
+        "name": "PROPIEDAD INTELECTUAL Y LEGISLACION DE LA COMUNICACION",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "CDG545",
+        "name": "CREACION DE TIENDAS VIRTUALES",
+        "cr": 3,
+        "req": ["CDG410", "CDG525"]
+      },
+      {
+        "code": "CDG527",
+        "name": "COMUNICACION DIGITAL IV",
+        "cr": 3,
+        "req": ["CDG528"]
+      },
+      {
+        "code": "IDI530",
+        "name": "INGLES PARA COMUNICADORES I",
+        "cr": 3,
+        "req": ["ENG010"]
+      }
+    ],
+    [
+      {
+        "code": "ART496",
+        "name": "PORTAFOLIO PROFESIONAL",
+        "cr": 2,
+        "req": [
+          {
+            "text": "90% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "CDG529",
+        "name": "COMUNICACION INTERACTIVA",
+        "cr": 3,
+        "req": ["CDG530"]
+      },
+      {
+        "code": "IDI531",
+        "name": "INGLES PARA COMUNICADORES II",
+        "cr": 3,
+        "req": ["IDI530"]
+      }
+    ],
+    [
+      {
+        "code": "TFG100",
+        "name": "TRABAJO FINAL DE GRADO",
+        "cr": 6,
+        "req": [
+          "SOC281",
+          {
+            "text": "92% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0,
+        "req": []
+      },
+      {
+        "code": "PAS640",
+        "name": "PASANTIA EMPRESARIAL",
+        "cr": 0,
+        "req": []
+      },
+      {
+        "code": "ENG000",
+        "name": "FUNDAMENTOS DE INGLES (I Y II)",
+        "cr": 5,
+        "req": []
+      },
+      {
+        "code": "ENG003",
+        "name": "INGLES III",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG004",
+        "name": "INGLES IV",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG005",
+        "name": "INGLES V",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG006",
+        "name": "INGLES VI",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG007",
+        "name": "INGLES VII",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG008",
+        "name": "INGLES VIII",
+        "cr": 3,
+        "req": []
+      }
+    ]
+  ]
+}

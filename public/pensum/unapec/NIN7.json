@@ -1,1 +1,432 @@
-{"carrera":"LICENCIATURA EN NEGOCIOS INTERNACIONALES","codigo":"NIN7","vigencia":"01/09/2008","infoCarrera":["TOTAL GENERAL DE CRÉDITOS: 199","TÍTULO: LICENCIATURA EN NEGOCIOS INTERNACIONALES","REQUISITO GENERAL DE LA GRADUACIÓN: Un Deporte. Actitud Profesional: 60 horas = 6 creditos. Una pasantia."],"cuats":[[{"codigo":"ADM101","asignatura":"GESTION DE NEGOCIOS","creditos":3},{"codigo":"CON101","asignatura":"CONTABILIDAD-LABORATORIO I","creditos":5},{"codigo":"ESP101","asignatura":"ANALISIS TEXTOS DISCURSIVOS","creditos":3},{"codigo":"IDI060","asignatura":"INGLES I","creditos":3},{"codigo":"MAT126","asignatura":"MATEMATICA BASICA PARA INGENIERIA","creditos":4},{"codigo":"SOC030","asignatura":"ORIENTACION UNIVERSITARIA","creditos":2}],[{"codigo":"CON102","asignatura":"CONTABILIDAD - LABORATORIO II","creditos":5,"prereq":"CON101"},{"codigo":"ESP102","asignatura":"REDACCION TEXTOS DISCURSIVOS I","creditos":4,"prereq":"ESP101"},{"codigo":"IDI061","asignatura":"INGLES II","creditos":3,"prereq":"IDI060"},{"codigo":"MAT131","asignatura":"CÁLCULO Y GEOM. ANALITICA I","creditos":5,"prereq":"MAT126"},{"codigo":"NEG101","asignatura":"INTRODUCCION A LOS NEGOCIOS","creditos":3,"prereq":"ADM101"}],[{"codigo":"DER011","asignatura":"DERECHO COMERCIAL","creditos":3},{"codigo":"ESP301","asignatura":"EXPRESION ORAL","creditos":3,"prereq":"ESP102"},{"codigo":"IDI062","asignatura":"INGLES III","creditos":3,"prereq":"IDI061"},{"codigo":"MAT241","asignatura":"MATEMATICA FINANCIERA I","creditos":4,"prereq":"MAT131"},{"codigo":"MER101","asignatura":"MERCADOTECNIA I","creditos":3},{"codigo":"SOC011","asignatura":"HISTORIA SOCIAL DOMINICANA","creditos":3},{"codigo":"SOC291","asignatura":"ECONOMIA I","creditos":3}],[{"codigo":"ADM120","asignatura":"LIDERAZ. Y TECNICAS DE SUPERV.","creditos":3},{"codigo":"ADM140","asignatura":"ADMINISTRACION FINANCIERA I ","creditos":3,"prereq":["MAT241","CON102"]},{"codigo":"DER181","asignatura":"DERECHO INTERNACIONAL PRIVADO ","creditos":4,"prereq":"DER011"},{"codigo":"IDI063","asignatura":"INGLES IV","creditos":3,"prereq":"IDI062"},{"codigo":"MAT250","asignatura":"ESTADISTICA I","creditos":4,"prereq":"MAT131"},{"codigo":"MER140","asignatura":"ADMINISTRACION DE VENTAS I","creditos":3,"prereq":"MER101"}],[{"codigo":"ADM141","asignatura":"ADMINISTRACION FINANCIERA II","creditos":3,"prereq":"ADM140"},{"codigo":"IDI064","asignatura":"INGLES V","creditos":3,"prereq":"IDI063"},{"codigo":"MAT260","asignatura":"MATEMATICA APLICADA","creditos":4,"prereq":"MAT241"},{"codigo":"NEG105","asignatura":"LOGISTICA Y CADENA DE SUMINISTROS","creditos":3,"prereq":["MER140","NEG101"]},{"codigo":"NEG109","asignatura":"INTEGRACION ECONOMICA","creditos":3,"prereq":"ADM140"},{"codigo":"SOC033","asignatura":"ETICA EN LOS NEGOCIOS","creditos":2}],[{"codigo":"ADM219","asignatura":"FORMULAC.Y EVAL. DE PROYECTOS","creditos":3,"prereq":["SOC291","ADM141"]},{"codigo":"IDI065","asignatura":"INGLES VI","creditos":3,"prereq":"IDI064"},{"codigo":"INF313","asignatura":"SIST.INFORM.P/LA ADMINIST.","creditos":3},{"codigo":"NEG113","asignatura":"CONTRATO INTERNACIONALES","creditos":3,"prereq":"NEG109"},{"codigo":"SOC250","asignatura":"METDGIA.DE LA INVES.CIENTIFICA","creditos":3},{"codigo":"SOC325","asignatura":"ECONOMIA INTERNACIONAL","creditos":3,"prereq":"ADM141"}],[{"codigo":"ADM149","asignatura":"COMERCIO ELECTRONICO","creditos":3,"prereq":"INF313"},{"codigo":"ADM221","asignatura":"MONEDA Y BANCA","creditos":3,"prereq":"SOC325"},{"codigo":"CON112","asignatura":"FINANZAS INTERNACIONALES ","creditos":3,"prereq":["CON102","ADM141"]},{"codigo":"IDI066","asignatura":"INGLES VII","creditos":3,"prereq":"IDI065"},{"codigo":"MER147","asignatura":"MERCADOTECNIA INTERNACIONAL","creditos":3,"prereq":"NEG105"},{"codigo":"MER162","asignatura":"INVESTIGACION DE MERCADO I","creditos":3,"prereq":"SOC250"},{"codigo":"SOC315","asignatura":"GESTION SOCIAL","creditos":2,"prereq":"ADM120"}],[{"codigo":"ADM117","asignatura":"GERENCIA DE SERVICIOS","creditos":3,"prereq":"ADM120"},{"codigo":"IDI067","asignatura":"INGLES VIII","creditos":3,"prereq":"IDI066"},{"codigo":"NEG121","asignatura":"MERCADOS DE VALORES","creditos":3,"prereq":["ADM141","CON112"]},{"codigo":"NEG125","asignatura":"ANAL. OPORTUNIDAD.NEG.MERC.EU,AL Y CAR.","creditos":3,"prereq":["MER147","NEG109"]},{"codigo":"NEG129","asignatura":"OPERACIONES DE IMPORTACION Y EXPORTAC","creditos":3,"prereq":"MER147"}],[{"codigo":"DER160","asignatura":"DERECHO DE PROPIEDAD INDUSTRIAL","creditos":3,"prereq":"DER181"},{"codigo":"IDI070","asignatura":"INGLES TECNICO PARA NEGOCIOS I","creditos":3,"prereq":"IDI067"},{"codigo":"NEG133","asignatura":"NORMATIVA INTER.SEG. HIGIENE Y CALIDAD","creditos":3,"prereq":"NEG129"},{"codigo":"NEG137","asignatura":"ANAL.OPORT.NEG.MERCADOS DE EUROPA","creditos":3,"prereq":["NEG121","NEG129"]},{"codigo":"NEG141","asignatura":"NEGOCIOS INTERNACIONALES I","creditos":3,"prereq":"NEG101"}],[{"codigo":"IDI071","asignatura":"INGLES TECNICO PARA NEGOCIOS II","creditos":3,"prereq":"IDI070"},{"codigo":"MER299","asignatura":"ADMINIST.Y TEC.DE NEGOCIOS INMOBILIARIOS","creditos":2,"prereq":["ADM141","ADM219"]},{"codigo":"NEG142","asignatura":"NEGOCIOS INTERNACIONALES II","creditos":3,"prereq":"NEG141"},{"codigo":"NEG145","asignatura":"ANAL.OPOR.NEG.MERC.ASIA,MED.ORIENTE Y AF","creditos":3,"prereq":["NEG129","NEG141"]},{"codigo":"SOC281","asignatura":"SEMINARIO DE GRADO","creditos":3}],[{"codigo":"DER230","asignatura":"ARBITRAJE INTERNACIONAL","creditos":3,"prereq":"NEG113"},{"codigo":"NEG153","asignatura":"SIMULACION DE NEGOCIOS MERCADOS INTERNC.","creditos":5,"prereq":["NEG142","MER147"]},{"codigo":"NEG157","asignatura":"ESTRATEGIAS GRALES.COMPETITIVIDAD INT.","creditos":3,"prereq":["MER147","NEG142"]}],[{"codigo":"TES500","asignatura":"TRABAJO DE GRADO O CURSO MONOGRAFICO","creditos":6,"prereqExtra":"92% De los créditos aprobados"},{"codigo":"OPTDEP","asignatura":"OPTATIVA DEPORTE","creditos":0}]],"error":null,"version":2}
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "NIN7",
+  "publishDate": "01/09/2008",
+  "fetchDate": "2021-04-24",
+  "career": "LICENCIATURA EN NEGOCIOS INTERNACIONALES",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 199",
+    "TÍTULO: LICENCIATURA EN NEGOCIOS INTERNACIONALES",
+    "REQUISITO GENERAL DE LA GRADUACIÓN: Un Deporte. Actitud Profesional: 60 horas = 6 creditos. Una pasantia."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2025-08-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/NIN7"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "ADM101",
+        "name": "GESTION DE NEGOCIOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "CON101",
+        "name": "CONTABILIDAD-LABORATORIO I",
+        "cr": 5,
+        "req": []
+      },
+      {
+        "code": "ESP101",
+        "name": "ANALISIS TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "IDI060",
+        "name": "INGLES I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT126",
+        "name": "MATEMATICA BASICA PARA INGENIERIA",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "CON102",
+        "name": "CONTABILIDAD - LABORATORIO II",
+        "cr": 5,
+        "req": ["CON101"]
+      },
+      {
+        "code": "ESP102",
+        "name": "REDACCION TEXTOS DISCURSIVOS I",
+        "cr": 4,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "IDI061",
+        "name": "INGLES II",
+        "cr": 3,
+        "req": ["IDI060"]
+      },
+      {
+        "code": "MAT131",
+        "name": "CÁLCULO Y GEOM. ANALITICA I",
+        "cr": 5,
+        "req": ["MAT126"]
+      },
+      {
+        "code": "NEG101",
+        "name": "INTRODUCCION A LOS NEGOCIOS",
+        "cr": 3,
+        "req": ["ADM101"]
+      }
+    ],
+    [
+      {
+        "code": "DER011",
+        "name": "DERECHO COMERCIAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP301",
+        "name": "EXPRESION ORAL",
+        "cr": 3,
+        "req": ["ESP102"]
+      },
+      {
+        "code": "IDI062",
+        "name": "INGLES III",
+        "cr": 3,
+        "req": ["IDI061"]
+      },
+      {
+        "code": "MAT241",
+        "name": "MATEMATICA FINANCIERA I",
+        "cr": 4,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "MER101",
+        "name": "MERCADOTECNIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC291",
+        "name": "ECONOMIA I",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ADM120",
+        "name": "LIDERAZ. Y TECNICAS DE SUPERV.",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ADM140",
+        "name": "ADMINISTRACION FINANCIERA I ",
+        "cr": 3,
+        "req": ["MAT241", "CON102"]
+      },
+      {
+        "code": "DER181",
+        "name": "DERECHO INTERNACIONAL PRIVADO ",
+        "cr": 4,
+        "req": ["DER011"]
+      },
+      {
+        "code": "IDI063",
+        "name": "INGLES IV",
+        "cr": 3,
+        "req": ["IDI062"]
+      },
+      {
+        "code": "MAT250",
+        "name": "ESTADISTICA I",
+        "cr": 4,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "MER140",
+        "name": "ADMINISTRACION DE VENTAS I",
+        "cr": 3,
+        "req": ["MER101"]
+      }
+    ],
+    [
+      {
+        "code": "ADM141",
+        "name": "ADMINISTRACION FINANCIERA II",
+        "cr": 3,
+        "req": ["ADM140"]
+      },
+      {
+        "code": "IDI064",
+        "name": "INGLES V",
+        "cr": 3,
+        "req": ["IDI063"]
+      },
+      {
+        "code": "MAT260",
+        "name": "MATEMATICA APLICADA",
+        "cr": 4,
+        "req": ["MAT241"]
+      },
+      {
+        "code": "NEG105",
+        "name": "LOGISTICA Y CADENA DE SUMINISTROS",
+        "cr": 3,
+        "req": ["MER140", "NEG101"]
+      },
+      {
+        "code": "NEG109",
+        "name": "INTEGRACION ECONOMICA",
+        "cr": 3,
+        "req": ["ADM140"]
+      },
+      {
+        "code": "SOC033",
+        "name": "ETICA EN LOS NEGOCIOS",
+        "cr": 2,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ADM219",
+        "name": "FORMULAC.Y EVAL. DE PROYECTOS",
+        "cr": 3,
+        "req": ["SOC291", "ADM141"]
+      },
+      {
+        "code": "IDI065",
+        "name": "INGLES VI",
+        "cr": 3,
+        "req": ["IDI064"]
+      },
+      {
+        "code": "INF313",
+        "name": "SIST.INFORM.P/LA ADMINIST.",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "NEG113",
+        "name": "CONTRATO INTERNACIONALES",
+        "cr": 3,
+        "req": ["NEG109"]
+      },
+      {
+        "code": "SOC250",
+        "name": "METDGIA.DE LA INVES.CIENTIFICA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC325",
+        "name": "ECONOMIA INTERNACIONAL",
+        "cr": 3,
+        "req": ["ADM141"]
+      }
+    ],
+    [
+      {
+        "code": "ADM149",
+        "name": "COMERCIO ELECTRONICO",
+        "cr": 3,
+        "req": ["INF313"]
+      },
+      {
+        "code": "ADM221",
+        "name": "MONEDA Y BANCA",
+        "cr": 3,
+        "req": ["SOC325"]
+      },
+      {
+        "code": "CON112",
+        "name": "FINANZAS INTERNACIONALES ",
+        "cr": 3,
+        "req": ["CON102", "ADM141"]
+      },
+      {
+        "code": "IDI066",
+        "name": "INGLES VII",
+        "cr": 3,
+        "req": ["IDI065"]
+      },
+      {
+        "code": "MER147",
+        "name": "MERCADOTECNIA INTERNACIONAL",
+        "cr": 3,
+        "req": ["NEG105"]
+      },
+      {
+        "code": "MER162",
+        "name": "INVESTIGACION DE MERCADO I",
+        "cr": 3,
+        "req": ["SOC250"]
+      },
+      {
+        "code": "SOC315",
+        "name": "GESTION SOCIAL",
+        "cr": 2,
+        "req": ["ADM120"]
+      }
+    ],
+    [
+      {
+        "code": "ADM117",
+        "name": "GERENCIA DE SERVICIOS",
+        "cr": 3,
+        "req": ["ADM120"]
+      },
+      {
+        "code": "IDI067",
+        "name": "INGLES VIII",
+        "cr": 3,
+        "req": ["IDI066"]
+      },
+      {
+        "code": "NEG121",
+        "name": "MERCADOS DE VALORES",
+        "cr": 3,
+        "req": ["ADM141", "CON112"]
+      },
+      {
+        "code": "NEG125",
+        "name": "ANAL. OPORTUNIDAD.NEG.MERC.EU,AL Y CAR.",
+        "cr": 3,
+        "req": ["MER147", "NEG109"]
+      },
+      {
+        "code": "NEG129",
+        "name": "OPERACIONES DE IMPORTACION Y EXPORTAC",
+        "cr": 3,
+        "req": ["MER147"]
+      }
+    ],
+    [
+      {
+        "code": "DER160",
+        "name": "DERECHO DE PROPIEDAD INDUSTRIAL",
+        "cr": 3,
+        "req": ["DER181"]
+      },
+      {
+        "code": "IDI070",
+        "name": "INGLES TECNICO PARA NEGOCIOS I",
+        "cr": 3,
+        "req": ["IDI067"]
+      },
+      {
+        "code": "NEG133",
+        "name": "NORMATIVA INTER.SEG. HIGIENE Y CALIDAD",
+        "cr": 3,
+        "req": ["NEG129"]
+      },
+      {
+        "code": "NEG137",
+        "name": "ANAL.OPORT.NEG.MERCADOS DE EUROPA",
+        "cr": 3,
+        "req": ["NEG121", "NEG129"]
+      },
+      {
+        "code": "NEG141",
+        "name": "NEGOCIOS INTERNACIONALES I",
+        "cr": 3,
+        "req": ["NEG101"]
+      }
+    ],
+    [
+      {
+        "code": "IDI071",
+        "name": "INGLES TECNICO PARA NEGOCIOS II",
+        "cr": 3,
+        "req": ["IDI070"]
+      },
+      {
+        "code": "MER299",
+        "name": "ADMINIST.Y TEC.DE NEGOCIOS INMOBILIARIOS",
+        "cr": 2,
+        "req": ["ADM141", "ADM219"]
+      },
+      {
+        "code": "NEG142",
+        "name": "NEGOCIOS INTERNACIONALES II",
+        "cr": 3,
+        "req": ["NEG141"]
+      },
+      {
+        "code": "NEG145",
+        "name": "ANAL.OPOR.NEG.MERC.ASIA,MED.ORIENTE Y AF",
+        "cr": 3,
+        "req": ["NEG129", "NEG141"]
+      },
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "DER230",
+        "name": "ARBITRAJE INTERNACIONAL",
+        "cr": 3,
+        "req": ["NEG113"]
+      },
+      {
+        "code": "NEG153",
+        "name": "SIMULACION DE NEGOCIOS MERCADOS INTERNC.",
+        "cr": 5,
+        "req": ["NEG142", "MER147"]
+      },
+      {
+        "code": "NEG157",
+        "name": "ESTRATEGIAS GRALES.COMPETITIVIDAD INT.",
+        "cr": 3,
+        "req": ["MER147", "NEG142"]
+      }
+    ],
+    [
+      {
+        "code": "TES500",
+        "name": "TRABAJO DE GRADO O CURSO MONOGRAFICO",
+        "cr": 6,
+        "req": [
+          {
+            "text": "92% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0,
+        "req": []
+      }
+    ]
+  ]
+}

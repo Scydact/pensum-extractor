@@ -1,1 +1,396 @@
-{"carrera":"LICENCIATURA EN DISEÑO DE INTERIORES","codigo":"DIN10","vigencia":"10/4/2011","infoCarrera":["TOTAL GENERAL DE CRÉDITOS: 189","TÍTULO: LICENCIATURA EN DISEÑO DE INTERIORES","REQUISITO GENERAL DE LA GRADUACIÓN: Un Deporte. 8 niveles de inglés. Pasantía (PAS620) de 150 a 300 horas. Actitud Profesional: 60 horas."],"cuats":[[{"codigo":"SOC030","asignatura":"ORIENTACION UNIVERSITARIA","creditos":2},{"codigo":"ART396","asignatura":"DIBUJO ANALITICO I","creditos":4},{"codigo":"ART203","asignatura":"DIBUJO TECNICO I","creditos":4},{"codigo":"ESP101","asignatura":"ANALISIS DE TEXTOS DISCURSIVOS","creditos":3},{"codigo":"MAT100","asignatura":"MATEMATICA PRE-UNIVERSITARIA","creditos":3},{"codigo":"SOC041","asignatura":"ECOLOGIA","creditos":2}],[{"codigo":"SOC011","asignatura":"HISTORIA SOCIAL DOMINICANA","creditos":3},{"codigo":"ART397","asignatura":"DIBUJO ANALITICO II","creditos":4,"prereq":"ART396"},{"codigo":"MAT110","asignatura":"MATEMATICA BASICA GENERAL","creditos":4,"prereq":"MAT100"},{"codigo":"ESP102","asignatura":"REDACCION TEXTOS DISCURSIVOS I","creditos":4,"prereq":"ESP101"}],[{"codigo":"ART120","asignatura":"GEOMETRIA DESCRIPTIVA","creditos":4,"prereq":"MAT110"},{"codigo":"ART130","asignatura":"FUNDAMENTOS DEL DISEÑO","creditos":4,"prereq":"ART397"},{"codigo":"ART138","asignatura":"ERGONOMIA","creditos":2,"prereq":"ART203"},{"codigo":"ESP103","asignatura":"REDACCION TEXTOS DISCURSIVOS II","creditos":4,"prereq":"ESP102"},{"codigo":"SOC101","asignatura":"INTRODUCCION A LA PSICOLOGIA","creditos":3}],[{"codigo":"ART421","asignatura":"HISTORIA DEL DISEÑO I","creditos":3,"prereq":"ART130"},{"codigo":"ART164","asignatura":"HISTORIA DEL MUEBLE","creditos":3,"prereq":["ART130","ART138"]},{"codigo":"SOC250","asignatura":"METODOLOGIA DE LA INVESTIGACION CIENTIFICA","creditos":3},{"codigo":"ART440","asignatura":"DISEÑO VECTORIAL","creditos":3,"prereq":"ART397"},{"codigo":"ART167","asignatura":"ARTES APLICADAS I","creditos":3,"prereq":"ART130"},{"codigo":"SOC200","asignatura":"INTRODUCCION A LA SOCIOLOGIA","creditos":3}],[{"codigo":"ART422","asignatura":"HISTORIA DEL DISEÑO II","creditos":3,"prereq":"ART421"},{"codigo":"ART441","asignatura":"EDICION Y MANIPULACION IMAGENES","creditos":3,"prereq":"ART440"},{"codigo":"ART168","asignatura":"ARTES APLICADAS II","creditos":3,"prereq":"ART167"},{"codigo":"ART260","asignatura":"DIBUJO ARQUITECTONICO I","creditos":4,"prereq":["ART120","ART138"]},{"codigo":"ART432","asignatura":"PERSPECTIVA DE INTERIORES","creditos":4,"prereq":"ART120"}],[{"codigo":"ART425","asignatura":"DISEÑO DE INTERIORES I -VIVIENDA-","creditos":4,"prereq":"ART260"},{"codigo":"ART423","asignatura":"FOTOGRAFIA ANALITICA","creditos":3,"prereq":"ART441"},{"codigo":"ART431","asignatura":"TECNICAS DE REPRESENTACION","creditos":4,"prereq":"ART432"},{"codigo":"ART261","asignatura":"DIBUJO ARQUITECTONICO II","creditos":4,"prereq":"ART260"},{"codigo":"ART433","asignatura":"DIBUJO INFORMATIZADO I","creditos":4,"prereq":["ART203","ART440"]}],[{"codigo":"ART426","asignatura":"DISEÑO DE INTERIORES II -OFICINA-","creditos":4,"prereq":["ART261","ART425"]},{"codigo":"ART434","asignatura":"DIBUJO INFORMATIZADO II","creditos":4,"prereq":"ART433"},{"codigo":"ART436","asignatura":"MODELADO","creditos":4,"prereq":["ART138","ART261"]},{"codigo":"ART170","asignatura":"DISEÑO DE MUEBLES","creditos":4,"prereq":"ART164"}],[{"codigo":"ART427","asignatura":"DISEÑO DE INTERIORES III -INSTITUCIONAL-","creditos":4,"prereq":"ART426"},{"codigo":"ART171","asignatura":"DISEÑO DE MUEBLES II","creditos":4,"prereq":"ART170"},{"codigo":"ART156","asignatura":"MATERIALES Y METODOS I","creditos":3,"prereq":"ART261"},{"codigo":"ART435","asignatura":"DIBUJO INFORMATIZADO III","creditos":4,"prereq":"ART434"},{"codigo":"ADM535","asignatura":"ACTITUD EMPRENDEDORA","creditos":3}],[{"codigo":"ART428","asignatura":"DISEÑO DE INTERIORES IV -COMERCIAL-","creditos":4,"prereq":"ART427"},{"codigo":"ART165","asignatura":"PAISAJISMO","creditos":4,"prereq":"ART431"},{"codigo":"SOC290","asignatura":"ECONOMIA GENERAL","creditos":3},{"codigo":"ART157","asignatura":"MATERIALES Y METODOS II","creditos":3,"prereq":"ART156"},{"codigo":"ART439","asignatura":"AMBIENTES TEMPORALES","creditos":2,"prereq":"ART427"}],[{"codigo":"ART429","asignatura":"DISEÑO DE INTERIORES V -RESTAURANTES-","creditos":4,"prereq":"ART428"},{"codigo":"ART200","asignatura":"RESTAURACION Y CONSERVACION","creditos":3,"prereq":"ART427"},{"codigo":"ART189","asignatura":"ESTUDIO DE ILUMINACION Y CLIMATIZACION","creditos":3,"prereq":"ART425"},{"codigo":"ART289","asignatura":"DISEÑO DE JARDINES","creditos":4,"prereq":"ART165"},{"codigo":"ART438","asignatura":"ANALISIS DE COSTOS","creditos":3,"prereq":"ART157"}],[{"codigo":"ART430","asignatura":"DISEñO DE INTERIORES VI -GRAN PROYECTO-","creditos":4,"prereq":"ART429"},{"codigo":"SOC281","asignatura":"SEMINARIO DE GRADO","creditos":3},{"codigo":"SOC031","asignatura":"ETICA PROFESIONAL","creditos":3},{"codigo":"DER521","asignatura":"PROPIEDAD INTELECTUAL Y PATENTES","creditos":2},{"codigo":"ADM120","asignatura":"LIDERAZGO Y TECNICAS DE SUPERVISION","creditos":3}],[{"codigo":"TES-MON","asignatura":"TRABAJO DE GRADO O CURSO MONOGRAFICO","creditos":6,"prereqExtra":"92% De los créditos aprobados"},{"codigo":"OPTDEP","asignatura":"OPTATIVA DEPORTE","creditos":2}]],"error":null,"version":2}
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "DIN10",
+  "publishDate": "10/4/2011",
+  "fetchDate": "2021-04-24",
+  "career": "LICENCIATURA EN DISEÑO DE INTERIORES",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 189",
+    "TÍTULO: LICENCIATURA EN DISEÑO DE INTERIORES",
+    "REQUISITO GENERAL DE LA GRADUACIÓN: Un Deporte. 8 niveles de inglés. Pasantía (PAS620) de 150 a 300 horas. Actitud Profesional: 60 horas."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2021-04-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/DIN10"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "ART396",
+        "name": "DIBUJO ANALITICO I",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "ART203",
+        "name": "DIBUJO TECNICO I",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT100",
+        "name": "MATEMATICA PRE-UNIVERSITARIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC041",
+        "name": "ECOLOGIA",
+        "cr": 2,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART397",
+        "name": "DIBUJO ANALITICO II",
+        "cr": 4,
+        "req": ["ART396"]
+      },
+      {
+        "code": "MAT110",
+        "name": "MATEMATICA BASICA GENERAL",
+        "cr": 4,
+        "req": ["MAT100"]
+      },
+      {
+        "code": "ESP102",
+        "name": "REDACCION TEXTOS DISCURSIVOS I",
+        "cr": 4,
+        "req": ["ESP101"]
+      }
+    ],
+    [
+      {
+        "code": "ART120",
+        "name": "GEOMETRIA DESCRIPTIVA",
+        "cr": 4,
+        "req": ["MAT110"]
+      },
+      {
+        "code": "ART130",
+        "name": "FUNDAMENTOS DEL DISEÑO",
+        "cr": 4,
+        "req": ["ART397"]
+      },
+      {
+        "code": "ART138",
+        "name": "ERGONOMIA",
+        "cr": 2,
+        "req": ["ART203"]
+      },
+      {
+        "code": "ESP103",
+        "name": "REDACCION TEXTOS DISCURSIVOS II",
+        "cr": 4,
+        "req": ["ESP102"]
+      },
+      {
+        "code": "SOC101",
+        "name": "INTRODUCCION A LA PSICOLOGIA",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ART421",
+        "name": "HISTORIA DEL DISEÑO I",
+        "cr": 3,
+        "req": ["ART130"]
+      },
+      {
+        "code": "ART164",
+        "name": "HISTORIA DEL MUEBLE",
+        "cr": 3,
+        "req": ["ART130", "ART138"]
+      },
+      {
+        "code": "SOC250",
+        "name": "METODOLOGIA DE LA INVESTIGACION CIENTIFICA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART440",
+        "name": "DISEÑO VECTORIAL",
+        "cr": 3,
+        "req": ["ART397"]
+      },
+      {
+        "code": "ART167",
+        "name": "ARTES APLICADAS I",
+        "cr": 3,
+        "req": ["ART130"]
+      },
+      {
+        "code": "SOC200",
+        "name": "INTRODUCCION A LA SOCIOLOGIA",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ART422",
+        "name": "HISTORIA DEL DISEÑO II",
+        "cr": 3,
+        "req": ["ART421"]
+      },
+      {
+        "code": "ART441",
+        "name": "EDICION Y MANIPULACION IMAGENES",
+        "cr": 3,
+        "req": ["ART440"]
+      },
+      {
+        "code": "ART168",
+        "name": "ARTES APLICADAS II",
+        "cr": 3,
+        "req": ["ART167"]
+      },
+      {
+        "code": "ART260",
+        "name": "DIBUJO ARQUITECTONICO I",
+        "cr": 4,
+        "req": ["ART120", "ART138"]
+      },
+      {
+        "code": "ART432",
+        "name": "PERSPECTIVA DE INTERIORES",
+        "cr": 4,
+        "req": ["ART120"]
+      }
+    ],
+    [
+      {
+        "code": "ART425",
+        "name": "DISEÑO DE INTERIORES I -VIVIENDA-",
+        "cr": 4,
+        "req": ["ART260"]
+      },
+      {
+        "code": "ART423",
+        "name": "FOTOGRAFIA ANALITICA",
+        "cr": 3,
+        "req": ["ART441"]
+      },
+      {
+        "code": "ART431",
+        "name": "TECNICAS DE REPRESENTACION",
+        "cr": 4,
+        "req": ["ART432"]
+      },
+      {
+        "code": "ART261",
+        "name": "DIBUJO ARQUITECTONICO II",
+        "cr": 4,
+        "req": ["ART260"]
+      },
+      {
+        "code": "ART433",
+        "name": "DIBUJO INFORMATIZADO I",
+        "cr": 4,
+        "req": ["ART203", "ART440"]
+      }
+    ],
+    [
+      {
+        "code": "ART426",
+        "name": "DISEÑO DE INTERIORES II -OFICINA-",
+        "cr": 4,
+        "req": ["ART261", "ART425"]
+      },
+      {
+        "code": "ART434",
+        "name": "DIBUJO INFORMATIZADO II",
+        "cr": 4,
+        "req": ["ART433"]
+      },
+      {
+        "code": "ART436",
+        "name": "MODELADO",
+        "cr": 4,
+        "req": ["ART138", "ART261"]
+      },
+      {
+        "code": "ART170",
+        "name": "DISEÑO DE MUEBLES",
+        "cr": 4,
+        "req": ["ART164"]
+      }
+    ],
+    [
+      {
+        "code": "ART427",
+        "name": "DISEÑO DE INTERIORES III -INSTITUCIONAL-",
+        "cr": 4,
+        "req": ["ART426"]
+      },
+      {
+        "code": "ART171",
+        "name": "DISEÑO DE MUEBLES II",
+        "cr": 4,
+        "req": ["ART170"]
+      },
+      {
+        "code": "ART156",
+        "name": "MATERIALES Y METODOS I",
+        "cr": 3,
+        "req": ["ART261"]
+      },
+      {
+        "code": "ART435",
+        "name": "DIBUJO INFORMATIZADO III",
+        "cr": 4,
+        "req": ["ART434"]
+      },
+      {
+        "code": "ADM535",
+        "name": "ACTITUD EMPRENDEDORA",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ART428",
+        "name": "DISEÑO DE INTERIORES IV -COMERCIAL-",
+        "cr": 4,
+        "req": ["ART427"]
+      },
+      {
+        "code": "ART165",
+        "name": "PAISAJISMO",
+        "cr": 4,
+        "req": ["ART431"]
+      },
+      {
+        "code": "SOC290",
+        "name": "ECONOMIA GENERAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART157",
+        "name": "MATERIALES Y METODOS II",
+        "cr": 3,
+        "req": ["ART156"]
+      },
+      {
+        "code": "ART439",
+        "name": "AMBIENTES TEMPORALES",
+        "cr": 2,
+        "req": ["ART427"]
+      }
+    ],
+    [
+      {
+        "code": "ART429",
+        "name": "DISEÑO DE INTERIORES V -RESTAURANTES-",
+        "cr": 4,
+        "req": ["ART428"]
+      },
+      {
+        "code": "ART200",
+        "name": "RESTAURACION Y CONSERVACION",
+        "cr": 3,
+        "req": ["ART427"]
+      },
+      {
+        "code": "ART189",
+        "name": "ESTUDIO DE ILUMINACION Y CLIMATIZACION",
+        "cr": 3,
+        "req": ["ART425"]
+      },
+      {
+        "code": "ART289",
+        "name": "DISEÑO DE JARDINES",
+        "cr": 4,
+        "req": ["ART165"]
+      },
+      {
+        "code": "ART438",
+        "name": "ANALISIS DE COSTOS",
+        "cr": 3,
+        "req": ["ART157"]
+      }
+    ],
+    [
+      {
+        "code": "ART430",
+        "name": "DISEñO DE INTERIORES VI -GRAN PROYECTO-",
+        "cr": 4,
+        "req": ["ART429"]
+      },
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC031",
+        "name": "ETICA PROFESIONAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "DER521",
+        "name": "PROPIEDAD INTELECTUAL Y PATENTES",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "ADM120",
+        "name": "LIDERAZGO Y TECNICAS DE SUPERVISION",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "TES-MON",
+        "name": "TRABAJO DE GRADO O CURSO MONOGRAFICO",
+        "cr": 6,
+        "req": [
+          {
+            "text": "92% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 2,
+        "req": []
+      }
+    ]
+  ]
+}

@@ -1,0 +1,274 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "TAF11",
+  "publishDate": "15/01/2019",
+  "fetchDate": "2025-08-24",
+  "career": "TECNICO ANALISTA FINANCIERO",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS:                                     116",
+    "TÍTULO:                                     TECNICO ANALISTA FINANCIERO",
+    "REQUISITO GENERAL DE LA GRADUACIÓN:"
+  ],
+  "src": {
+    "type": "online",
+    "date": "2025-08-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/TAF11"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "ADM091",
+        "name": "ADMINISTRACION I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "INF214",
+        "name": "APLICACIONES FINANCIERAS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT160",
+        "name": "PENSAMIENTO NUMERICO",
+        "cr": 5,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC043",
+        "name": "GESTION AMBIENTAL",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "ENG001",
+        "name": "INGLES I",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ADM092",
+        "name": "ADMINISTRACION II",
+        "cr": 3,
+        "req": ["ADM091"]
+      },
+      {
+        "code": "CON091",
+        "name": "CONTABILIDAD I",
+        "cr": 5,
+        "req": []
+      },
+      {
+        "code": "ESP102",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS I",
+        "cr": 4,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "MAT121",
+        "name": "ALGEBRA UNIVERSITARIA",
+        "cr": 4,
+        "req": ["MAT160"]
+      },
+      {
+        "code": "ENG002",
+        "name": "INGLES II",
+        "cr": 3,
+        "req": ["ENG001"]
+      },
+      {
+        "code": "OPTTAF1",
+        "name": "ELECTIVA GENERAL I",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "CON092",
+        "name": "CONTABILIDAD II",
+        "cr": 5,
+        "req": ["CON091"]
+      },
+      {
+        "code": "ECO101",
+        "name": "ECONOMIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT131",
+        "name": "CALCULO Y GEOMETRIA ANALITICA I",
+        "cr": 5,
+        "req": ["MAT121"]
+      },
+      {
+        "code": "SOC031",
+        "name": "ETICA PROFESIONAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG003",
+        "name": "INGLES III",
+        "cr": 3,
+        "req": ["ENG002"]
+      },
+      {
+        "code": "OPTTAF2",
+        "name": "ELECTIVA GENERAL II",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ADM221",
+        "name": "MONEDA Y BANCA",
+        "cr": 3,
+        "req": ["ECO101"]
+      },
+      {
+        "code": "CON221",
+        "name": "FUNDAMENTOS DE COSTOS",
+        "cr": 4,
+        "req": ["CON092"]
+      },
+      {
+        "code": "ECO102",
+        "name": "ECONOMIA II",
+        "cr": 3,
+        "req": ["ECO101"]
+      },
+      {
+        "code": "MAT241",
+        "name": "MATEMATICA FINANCIERA I",
+        "cr": 4,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "MAT250",
+        "name": "ESTADISTICA I",
+        "cr": 4,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "ENG004",
+        "name": "INGLES IV",
+        "cr": 3,
+        "req": ["ENG003"]
+      }
+    ],
+    [
+      {
+        "code": "ADM140",
+        "name": "ADMINISTRACION FINANCIERA I",
+        "cr": 3,
+        "req": ["MAT241"]
+      },
+      {
+        "code": "ADM535",
+        "name": "ACTITUD EMPRENDEDORA",
+        "cr": 3,
+        "req": ["ADM091"]
+      },
+      {
+        "code": "DER011",
+        "name": "DERECHO COMERCIAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT242",
+        "name": "MATEMATICA FINANCIERA II",
+        "cr": 4,
+        "req": ["MAT241"]
+      },
+      {
+        "code": "MER101",
+        "name": "MERCADOTECNIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC250",
+        "name": "METODOLOGIA DE LA INVESTIGACION CIENTIFICA",
+        "cr": 3,
+        "req": ["MAT250"]
+      },
+      {
+        "code": "ENG005",
+        "name": "INGLES V",
+        "cr": 3,
+        "req": ["ENG004"]
+      }
+    ],
+    [
+      {
+        "code": "ADM141",
+        "name": "ADMINISTRACION FINANCIERA II",
+        "cr": 3,
+        "req": ["ADM140"]
+      },
+      {
+        "code": "ADM540",
+        "name": "LIDERAZGO Y HABILIDADES DIRECTIVAS",
+        "cr": 3,
+        "req": ["ADM092"]
+      },
+      {
+        "code": "CON211",
+        "name": "SISTEMA TRIBUTARIO DOMINICANO I",
+        "cr": 3,
+        "req": ["CON092"]
+      },
+      {
+        "code": "CON518",
+        "name": "ANALISIS DE ESTADOS FINANCIEROS",
+        "cr": 3,
+        "req": ["CON092"]
+      },
+      {
+        "code": "FIN210",
+        "name": "PRESUPUESTO Y PLANEACION FINANCIERA",
+        "cr": 3,
+        "req": ["CON221"]
+      },
+      {
+        "code": "IDI075",
+        "name": "COMUNICACION EN INGLES",
+        "cr": 5,
+        "req": ["ENG005"]
+      }
+    ],
+    [
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0,
+        "req": []
+      }
+    ]
+  ]
+}

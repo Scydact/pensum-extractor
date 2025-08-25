@@ -1,19 +1,19 @@
 {
   "version": 5,
   "institution": "unapec",
-  "code": "DIG11",
+  "code": "PUB11",
   "publishDate": "01/05/2021",
-  "fetchDate": "2021-04-24",
-  "career": "LICENCIATURA EN DISEÑO GRAFICO",
+  "fetchDate": "2025-08-24",
+  "career": "LICENCIATURA EN PUBLICIDAD",
   "info": [
-    "TOTAL GENERAL DE CRÉDITOS: 175",
-    "TÍTULO: LICENCIATURA EN DISEÑO GRAFICO",
-    "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. Diez(10) niveles de inglés. Pasantía (PAS600) de 180 horas. Actitud Profesional: 60 horas."
+    "TOTAL GENERAL DE CRÉDITOS:                                     181",
+    "TÍTULO:                                     LICENCIATURA EN PUBLICIDAD",
+    "REQUISITO GENERAL DE LA GRADUACIÓN:                                     Aprobar un Deporte. Diez (10) niveles de inglés para cursar IDI530. Pasantía (PAS610) de 180 horas. Actitud Profesional: 60 horas."
   ],
   "src": {
     "type": "online",
-    "date": "2021-04-24",
-    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/DIG11"
+    "date": "2025-08-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/PUB11"
   },
   "periodType": {
     "name": "Cuatrimestre",
@@ -36,15 +36,15 @@
         "req": []
       },
       {
-        "code": "SOC030",
-        "name": "ORIENTACION UNIVERSITARIA",
-        "cr": 2,
-        "req": []
-      },
-      {
         "code": "MAT010",
         "name": "MATEMATICA BASICA UNIVERSITARIA",
         "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
         "req": []
       },
       {
@@ -98,8 +98,8 @@
         "req": []
       },
       {
-        "code": "ART458",
-        "name": "INTRODUCCION AL DISEÑO GRAFICO",
+        "code": "ART214",
+        "name": "TEORIA DE LA COMUNICACION",
         "cr": 3,
         "req": []
       }
@@ -118,8 +118,8 @@
         "req": ["ESP106"]
       },
       {
-        "code": "ART214",
-        "name": "TEORIA DE LA COMUNICACION",
+        "code": "ART210",
+        "name": "PENSAMIENTO CREATIVO",
         "cr": 3,
         "req": []
       },
@@ -162,10 +162,10 @@
         "req": ["ART141"]
       },
       {
-        "code": "ART464",
-        "name": "DISEÑO GRAFICO DIGITAL III",
+        "code": "ART452",
+        "name": "FUNDAMENTOS DE PUBLICIDAD Y RELACIONES PUBLICAS",
         "cr": 3,
-        "req": ["ART462"]
+        "req": []
       },
       {
         "code": "ART014",
@@ -174,109 +174,97 @@
         "req": ["ART012"]
       },
       {
-        "code": "ART515",
-        "name": "DISEÑO TIPOGRAFICO",
-        "cr": 3,
-        "req": []
+        "code": "MAT250",
+        "name": "ESTADISTICA I",
+        "cr": 4,
+        "req": ["MAT010"]
       }
     ],
     [
       {
-        "code": "ART401",
-        "name": "MEDIOS DE REPRODUCCION GRAFICA",
+        "code": "ART161",
+        "name": "PUBLICIDAD I",
+        "cr": 3,
+        "req": ["ART452"]
+      },
+      {
+        "code": "ART080",
+        "name": "BRANDING",
         "cr": 3,
         "req": []
       },
       {
-        "code": "ART510",
-        "name": "MAQUETACION WEB",
+        "code": "ART076",
+        "name": "EXPRESION GRAFICA PUBLICITARIA",
         "cr": 3,
-        "req": ["ART464"]
+        "req": ["ART462"]
       },
       {
-        "code": "ART505",
-        "name": "DISEÑO GRAFICO PUBLICITARIO",
-        "cr": 3,
-        "req": ["ART515"]
-      },
-      {
-        "code": "ART520",
-        "name": "ANALISIS SEMIOTICO DE LA COMUNICACION",
-        "cr": 3,
-        "req": ["ART014"]
+        "code": "ART231",
+        "name": "FOTOGRAFIA PUBLICITARIA",
+        "cr": 4,
+        "req": ["ART142"]
       },
       {
         "code": "ART525",
         "name": "TECNICAS DE DOCUMENTACION EN LA COMUNICACION",
         "cr": 3,
         "req": ["SOC253"]
+      }
+    ],
+    [
+      {
+        "code": "ESP301",
+        "name": "EXPRESION ORAL",
+        "cr": 3,
+        "req": ["ESP107"]
+      },
+      {
+        "code": "ART162",
+        "name": "PUBLICIDAD II",
+        "cr": 3,
+        "req": ["ART161"]
+      },
+      {
+        "code": "ART577",
+        "name": "ESCRITURA CREATIVA",
+        "cr": 3,
+        "req": ["ESP107"]
       },
       {
         "code": "ADM535",
         "name": "ACTITUD EMPRENDEDORA",
         "cr": 3,
         "req": []
-      }
-    ],
-    [
-      {
-        "code": "ART205",
-        "name": "PREPRENSA DIGITAL",
-        "cr": 3,
-        "req": ["ART401"]
-      },
-      {
-        "code": "ART530",
-        "name": "DISEÑO GRAFICO CORPORATIVO",
-        "cr": 3,
-        "req": ["ART505"]
-      },
-      {
-        "code": "ART399",
-        "name": "ILUSTRACION DIGITAL",
-        "cr": 3,
-        "req": ["ART510"]
-      },
-      {
-        "code": "ART535",
-        "name": "DISEÑO GRAFICO Y SISTEMAS SEÑALETICO",
-        "cr": 3,
-        "req": ["ART520"]
       },
       {
         "code": "SOC115",
         "name": "PSICOLOGIA DEL CONSUMIDOR",
         "cr": 3,
-        "req": ["SOC101"]
+        "req": []
       }
     ],
     [
       {
-        "code": "ART540",
-        "name": "DISEÑO GRAFICO EDITORIAL I",
+        "code": "ART040",
+        "name": "PLANIFICACION DE MEDIOS I",
         "cr": 3,
-        "req": ["ART399"]
+        "req": ["ART214"]
       },
       {
-        "code": "ART545",
-        "name": "PENSAMIENTO ESTRATEGICO DEL DIRCOM",
+        "code": "ART285",
+        "name": "CREATIVIDAD PUBLICITARIA",
         "cr": 3,
-        "req": ["ART530"]
+        "req": ["ART210"]
       },
       {
-        "code": "ART405",
-        "name": "ANIMACION PUBLICITARIA",
-        "cr": 4,
-        "req": ["ART399"]
-      },
-      {
-        "code": "ART550",
-        "name": "DISEÑO DE ENVASES Y PRODUCTOS",
+        "code": "MER101",
+        "name": "MERCADOTECNIA I",
         "cr": 3,
-        "req": ["ART530"]
+        "req": []
       },
       {
-        "code": "EDIG 1",
+        "code": "EPUB 1",
         "name": "ELECTIVA I",
         "cr": 3,
         "req": []
@@ -284,28 +272,34 @@
     ],
     [
       {
-        "code": "ART555",
-        "name": "MODELADO E IMPRESION DIGITAL 3D",
-        "cr": 4,
+        "code": "ART461",
+        "name": "PLANIFICACION DE LAS RELACIONES PUBLICAS",
+        "cr": 3,
+        "req": ["ART161"]
+      },
+      {
+        "code": "ART317",
+        "name": "SONIDO Y MUSICALIZACION",
+        "cr": 3,
         "req": []
       },
       {
-        "code": "ART541",
-        "name": "DISEÑO GRAFICO EDITORIAL II",
+        "code": "ART041",
+        "name": "PLANIFICACION DE MEDIOS II",
         "cr": 3,
-        "req": ["ART540"]
+        "req": ["ART040"]
       },
       {
-        "code": "ART560",
-        "name": "DISEÑO GRAFICO MULTIMEDIA",
-        "cr": 4,
-        "req": ["ART550"]
+        "code": "MER102",
+        "name": "MERCADOTECNIA II",
+        "cr": 3,
+        "req": ["MER101"]
       },
       {
-        "code": "EDIG 2",
+        "code": "EPUB 2",
         "name": "ELECTIVA II",
         "cr": 3,
-        "req": ["EDIG 1"]
+        "req": ["EPUB 1"]
       }
     ],
     [
@@ -316,22 +310,28 @@
         "req": []
       },
       {
-        "code": "ART565",
-        "name": "DISEÑO Y GESTION DE REDES SOCIALES",
+        "code": "MER436",
+        "name": "E-BUSINESS",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "ART016",
+        "name": "RESPONSABILIDAD SOCIAL CORPORATIVA",
         "cr": 3,
-        "req": ["ART560"]
+        "req": ["ART080"]
       },
       {
-        "code": "ART570",
-        "name": "DISEÑO GRAFICO Y ESTRATEGIAS DE COMUNICACION",
-        "cr": 4,
-        "req": ["ART560"]
+        "code": "ART338",
+        "name": "PRODUCCION DE RADIO",
+        "cr": 3,
+        "req": ["ART317"]
       },
       {
-        "code": "EDIG 3",
+        "code": "EPUB 3",
         "name": "ELECTIVA III",
         "cr": 3,
-        "req": ["EDIG 2"]
+        "req": ["EPUB 2"]
       }
     ],
     [
@@ -347,36 +347,54 @@
         ]
       },
       {
+        "code": "ADM536",
+        "name": "CREACION E INNOVACION DE NEGOCIOS",
+        "cr": 3,
+        "req": ["ADM535"]
+      },
+      {
+        "code": "ART340",
+        "name": "PRODUCCION DE TELEVISION",
+        "cr": 3,
+        "req": ["ART338"]
+      },
+      {
+        "code": "MER437",
+        "name": "MARKETING DIGITAL",
+        "cr": 3,
+        "req": []
+      },
+      {
         "code": "IDI530",
         "name": "INGLES PARA COMUNICADORES I",
         "cr": 3,
         "req": ["ENG010"]
-      },
-      {
-        "code": "ART485",
-        "name": "GESTION DE CONTENIDO WEB",
-        "cr": 3,
-        "req": ["ART565"]
-      },
-      {
-        "code": "ART491",
-        "name": "DISEÑO GRAFICO Y COMUNICACION INTEGRAL",
-        "cr": 4,
-        "req": ["ART570"]
       }
     ],
     [
       {
-        "code": "ART495",
-        "name": "NARRACION TRANSMEDIA",
+        "code": "ART090",
+        "name": "PRODUCCION DE COMERCIALES",
         "cr": 3,
-        "req": ["ART485"]
+        "req": ["ART340"]
       },
       {
-        "code": "IDI531",
-        "name": "INGLES PARA COMUNICADORES II",
+        "code": "ART091",
+        "name": "POSTPRODUCCIÓN DE COMERCIALES",
+        "cr": 2,
+        "req": ["ART340"]
+      },
+      {
+        "code": "ART094",
+        "name": "PUBLICIDAD INTERACTIVA",
         "cr": 3,
-        "req": ["IDI530"]
+        "req": ["ART162", "MER436"]
+      },
+      {
+        "code": "MER442",
+        "name": "REDES SOCIALES Y MARKETING DE CONTENIDO",
+        "cr": 2,
+        "req": ["MER436"]
       },
       {
         "code": "ART496",
@@ -384,9 +402,15 @@
         "cr": 2,
         "req": [
           {
-            "text": "90% De los créditos aprobados"
+            "text": "80% De los créditos aprobados"
           }
         ]
+      },
+      {
+        "code": "IDI531",
+        "name": "INGLES PARA COMUNICADORES II",
+        "cr": 3,
+        "req": ["IDI530"]
       }
     ],
     [
@@ -397,7 +421,7 @@
         "req": [
           "SOC281",
           {
-            "text": "95% De los créditos aprobados"
+            "text": "92% De los créditos aprobados"
           }
         ]
       },
@@ -408,8 +432,8 @@
         "req": []
       },
       {
-        "code": "PAS600",
-        "name": "PASANTIA EMPRESARIAL DE DISEÑO GRAFICO",
+        "code": "PAS610",
+        "name": "PASANTIA EMPRESARIAL DE PUBLICIDAD",
         "cr": 0,
         "req": []
       },
@@ -423,37 +447,49 @@
         "code": "ENG003",
         "name": "INGLES III",
         "cr": 3,
-        "req": []
+        "req": ["ENG000"]
       },
       {
         "code": "ENG004",
         "name": "INGLES IV",
         "cr": 3,
-        "req": []
+        "req": ["ENG003"]
       },
       {
         "code": "ENG005",
         "name": "INGLES V",
         "cr": 3,
-        "req": []
+        "req": ["ENG004"]
       },
       {
         "code": "ENG006",
         "name": "INGLES VI",
         "cr": 3,
-        "req": []
+        "req": ["ENG005"]
       },
       {
         "code": "ENG007",
         "name": "INGLES VII",
         "cr": 3,
-        "req": []
+        "req": ["ENG006"]
       },
       {
         "code": "ENG008",
         "name": "INGLES VIII",
         "cr": 3,
-        "req": []
+        "req": ["ENG007"]
+      },
+      {
+        "code": "ENG009",
+        "name": "INGLES IX",
+        "cr": 3,
+        "req": ["ENG008"]
+      },
+      {
+        "code": "ENG010",
+        "name": "INGLES X",
+        "cr": 3,
+        "req": ["ENG009"]
       }
     ]
   ]
