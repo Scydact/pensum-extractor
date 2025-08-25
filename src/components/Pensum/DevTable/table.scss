@@ -15,7 +15,7 @@
   }
 
   .row-req > div:first-child:empty {
-    border: 1px solid hsl(0 0 50% / 50%);
+    border: 1px solid hsl(0deg 0% 50% / 50%);
     border-radius: 0.25rem;
     justify-content: center;
     &::after {
@@ -23,6 +23,27 @@
       opacity: 50%;
       font-size: 0.85rem;
       font-style: italic;
+    }
+  }
+
+  .btn-action {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 0.85rem;
+    gap: 0.5rem;
+    & > svg {
+      font-size: 1.5rem;
+      flex-shrink: 0;
+    }
+  }
+  @media screen and (max-width: 800px) {
+    .btn-action {
+      flex-grow: 0;
+      border-radius: 100rem;
+    }
+    .btn-action-label {
+      display: none;
     }
   }
 }

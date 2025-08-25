@@ -1,38 +1,20 @@
-import { memo, useCallback, useContext, useRef } from 'react'
-import { MatSelectionDispatchContext } from '@/contexts/mat-selection'
-
-import Row from 'react-bootstrap/Row'
-import { DevMatRow, DevMatRowSortable } from './MatRow'
-import {
-    useDroppable,
-    closestCenter,
-    KeyboardSensor,
-    PointerSensor,
-    useSensor,
-    useSensors,
-    DragOverlay,
-} from '@dnd-kit/core'
-import { arrayMove, SortableContext, sortableKeyboardCoordinates, verticalListSortingStrategy } from '@dnd-kit/sortable'
-import DeveloperModeContext from '@/contexts/developer-mode'
-import { getPeriod, insertPeriod, setPeriod } from './mat-movement'
 import ActivePensumContext from '@/contexts/active-pensum'
-import { usePrevious } from '@/hooks/use-previous'
+import DeveloperModeContext from '@/contexts/developer-mode'
+import { MatSelectionDispatchContext } from '@/contexts/mat-selection'
+import { useDroppable } from '@dnd-kit/core'
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable'
+import { memo, useCallback, useContext } from 'react'
+import { Dropdown, DropdownMenu, DropdownToggle } from 'react-bootstrap'
+import Row from 'react-bootstrap/Row'
+import { BiDotsVerticalRounded, BiEraser, BiLayerMinus, BiMoveVertical, BiPlus } from 'react-icons/bi'
+import { CgInsertAfter, CgInsertBefore } from 'react-icons/cg'
+import { getPeriod, insertPeriod, setPeriod } from './mat-movement'
+import { DevMatRowSortable } from './MatRow'
 
 type PeriodProps = {
     period: Pensum.Mat[]
     periodNum: number
     cumlen: number
-}
-
-export function useHasChanged<T>(value: T): boolean {
-    const currentRef = useRef(value)
-    const previousRef = useRef<T>(undefined)
-    if (currentRef.current !== value) {
-        previousRef.current = currentRef.current
-        currentRef.current = value
-        return true
-    }
-    return false
 }
 
 /**
@@ -43,22 +25,16 @@ const DevPeriod = memo(function DevPeriod({ period, periodNum, cumlen = 0 }: Per
     const dispatch = useContext(MatSelectionDispatchContext)
     const { setNodeRef } = useDroppable({ id: periodNum })
 
-    const onClick = useCallback(
+    const onPeriodClick = useCallback(
         (evt: any) => {
             dispatch({ type: 'selectPeriod', payload: period.map((x) => x.code) })
         },
         [period, dispatch],
     )
-    const mats = period.map((x) => x.code).join(', ')
-    const hasMatsChanged = useHasChanged(mats)
-
-    if ((periodNum === 4 || periodNum === 5) && hasMatsChanged) {
-        console.log(`Period ${periodNum} has mats: ${mats}`)
-    }
 
     return (
         <div className="row-period">
-            <Row className="row-period-dev-sidebar" onClick={onClick} data-value={periodNum}>
+            <Row className="row-period-dev-sidebar" onClick={onPeriodClick} data-value={periodNum}>
                 <DevPeriodToolBar period={period} periodNum={periodNum} />
             </Row>
             <Row className="row-mat-group" ref={setNodeRef}>
@@ -94,122 +70,152 @@ function DevPeriodToolBar({ period, periodNum }: Omit<PeriodProps, 'cumlen'>) {
             matData: { codeMap },
         },
     } = useContext(ActivePensumContext)
-    const styleHiddenIfLoose = periodNum === 0 ? { display: 'none' } : undefined
+    const isLoose = periodNum === 0
+    const styleHiddenIfLoose = isLoose ? { display: 'none' } : undefined
+
+    function actionDeletePeriod() {
+        if (period.length) {
+            const msg =
+                'Seguro que desea borrar este periodo?\n' +
+                'Todas las materias de este periodo se moveran a la categoria "Demás materias".\n' +
+                period.map((mat) => ` - [${mat.code}] ${mat.name}`).join('\n')
+            if (!window.confirm(msg)) return
+        }
+        const newPeriods = Array.from(pensum.periods)
+        const idx = newPeriods.indexOf(period)
+        newPeriods.splice(idx, 1)
+        const newLoose = [...pensum.loose, ...period]
+        commands.set({ ...pensum, periods: newPeriods, loose: newLoose })
+    }
+
+    function actionDeleteMats() {
+        if (period.length) {
+            const msg =
+                'Seguro que desea borrar las siguientes materias?\n' +
+                period.map((mat) => ` - [${mat.code}] ${mat.name}`).join('\n')
+            if (!window.confirm(msg)) return
+        }
+        const newPensum = { ...pensum }
+        setPeriod(newPensum, periodNum, [])
+        commands.set(newPensum)
+    }
+
+    function actionMoveMats() {
+        const msg =
+            'Mover las materias al periodo...?\n' +
+            '(0 == "Demás materias").\n' +
+            (pensum.periods.length ? `(${1}-${pensum.periods.length} == Periodo N)\n` : '') +
+            '------------------\n' +
+            period.map((mat) => ` - [${mat.code}] ${mat.name}`).join('\n')
+        const userInput = window.prompt(msg)
+        if (!userInput) return
+        const idx = parseInt(userInput)
+        const newPensum = { ...pensum }
+        let nextPeriod = getPeriod(newPensum, idx)
+        if (!nextPeriod) {
+            window.alert(`Indice invalido! Debe ser entre 0 y ${pensum.periods.length}!`)
+            return
+        }
+        nextPeriod = Array.from(nextPeriod)
+        nextPeriod.push(...period)
+        setPeriod(newPensum, idx, nextPeriod)
+        setPeriod(newPensum, periodNum, [])
+        commands.set(newPensum)
+    }
+
+    function actionAddMat() {
+        const newPensum = { ...pensum }
+        const newPeriod = Array.from(period)
+        let code = ''
+        while (!code || codeMap.has(code)) {
+            const n = Math.round((Math.random() * 1000) % 1000)
+            const l = 'X' + randomLetters(2)
+            code = l + n.toString().padStart(3, '0')
+            console.log(code)
+        }
+        newPeriod.push({ code, name: '*Materia', req: [], cr: 1 })
+        setPeriod(newPensum, periodNum, newPeriod)
+        commands.set(newPensum)
+    }
+
+    function actionInsertPeriodBefore() {
+        const newPensum = { ...pensum }
+        insertPeriod(newPensum, periodNum, [])
+        commands.set(newPensum)
+    }
+
+    function actionInsertPeriodAfter() {
+        const newPensum = { ...pensum }
+        insertPeriod(newPensum, periodNum + 1, [])
+        commands.set(newPensum)
+    }
+
     return (
-        <div className="d-flex align-items-center flex-wrap align-items-stretch" style={{ gap: '.25rem' }}>
-            <b className="col d-flex align-items-center">Periodo #{periodNum}:</b>
+        <div className="d-flex align-items-center flex-wrap align-items-stretch mb-2 mt-3" style={{ gap: '.25rem' }}>
+            <b className="col d-flex align-items-center">
+                {pensum.periodType.name ?? 'Periodo'} #{periodNum}:
+            </b>
+
             <button
                 type="button"
-                className="col btn btn-primary"
+                className="col btn btn-primary btn-action"
+                onClick={actionAddMat}
+                title="Agregar materia"
+            >
+                <BiPlus />
+                <span className="btn-action-label">Nueva materia</span>
+            </button>
+            <button
+                type="button"
+                className="col btn btn-secondary btn-action"
                 style={styleHiddenIfLoose}
-                onClick={() => {
-                    if (period.length) {
-                        const msg =
-                            'Seguro que desea borrar este periodo?\n' +
-                            'Todas las materias de este periodo se moveran a la categoria "Demás materias".\n' +
-                            period.map((mat) => ` - [${mat.code}] ${mat.name}`).join('\n')
-                        if (!window.confirm(msg)) return
-                    }
-                    const newPeriods = Array.from(pensum.periods)
-                    const idx = newPeriods.indexOf(period)
-                    newPeriods.splice(idx, 1)
-                    const newLoose = [...pensum.loose, ...period]
-                    commands.set({ ...pensum, periods: newPeriods, loose: newLoose })
-                }}
+                onClick={actionInsertPeriodBefore}
+                title="Agregar periodo antes"
             >
-                Borrar periodo
+                <CgInsertBefore />
+                <span className="btn-action-label">Periodo antes</span>
             </button>
             <button
                 type="button"
-                className="col btn btn-primary"
-                disabled={!period.length}
-                onClick={() => {
-                    if (period.length) {
-                        const msg =
-                            'Seguro que desea borrar las siguientes materias?\n' +
-                            period.map((mat) => ` - [${mat.code}] ${mat.name}`).join('\n')
-                        if (!window.confirm(msg)) return
-                    }
-                    const newPensum = { ...pensum }
-                    setPeriod(newPensum, periodNum, [])
-                    commands.set(newPensum)
-                }}
-            >
-                Borrar materias
-            </button>
-            <button
-                type="button"
-                className="col btn btn-primary"
-                disabled={!period.length}
-                onClick={() => {
-                    const msg =
-                        'Mover las materias al periodo...?\n' +
-                        '(0 == "Demás materias").\n' +
-                        (pensum.periods.length ? `(${1}-${pensum.periods.length} == Periodo N)\n` : '') +
-                        '------------------\n' +
-                        period.map((mat) => ` - [${mat.code}] ${mat.name}`).join('\n')
-                    const userInput = window.prompt(msg)
-                    if (!userInput) return
-                    const idx = parseInt(userInput)
-                    const newPensum = { ...pensum }
-                    let nextPeriod = getPeriod(newPensum, idx)
-                    if (!nextPeriod) {
-                        window.alert(`Indice invalido! Debe ser entre 0 y ${pensum.periods.length}!`)
-                        return
-                    }
-                    nextPeriod = Array.from(nextPeriod)
-                    nextPeriod.push(...period)
-                    setPeriod(newPensum, idx, nextPeriod)
-                    setPeriod(newPensum, periodNum, [])
-                    commands.set(newPensum)
-                }}
-            >
-                Mover materias
-            </button>
-            <button
-                type="button"
-                className="col btn btn-primary"
-                onClick={() => {
-                    const newPensum = { ...pensum }
-                    const newPeriod = Array.from(period)
-                    let code = ''
-                    while (!code || codeMap.has(code)) {
-                        const n = Math.round((Math.random() * 1000) % 1000)
-                        const l = 'X' + randomLetters(2)
-                        code = l + n.toString().padStart(3, '0')
-                        console.log(code)
-                    }
-                    newPeriod.push({ code, name: '*Materia', req: [], cr: 1 })
-                    setPeriod(newPensum, periodNum, newPeriod)
-                    commands.set(newPensum)
-                }}
-            >
-                Nueva materia
-            </button>
-            <button
-                type="button"
-                className="col btn btn-primary"
+                className="col btn btn-secondary btn-action"
                 style={styleHiddenIfLoose}
-                onClick={() => {
-                    const newPensum = { ...pensum }
-                    insertPeriod(newPensum, periodNum, [])
-                    commands.set(newPensum)
-                }}
+                onClick={actionInsertPeriodAfter}
+                title="Agregar periodo después"
             >
-                Agregar periodo antes
+                <CgInsertAfter />
+                <span className="btn-action-label">Periodo después</span>
             </button>
-            <button
-                type="button"
-                className="col btn btn-primary"
-                style={styleHiddenIfLoose}
-                onClick={() => {
-                    const newPensum = { ...pensum }
-                    insertPeriod(newPensum, periodNum + 1, [])
-                    commands.set(newPensum)
-                }}
-            >
-                Agregar periodo despues
-            </button>
+
+            <Dropdown>
+                <DropdownToggle variant="secondary">
+                    <BiDotsVerticalRounded />
+                </DropdownToggle>
+                <DropdownMenu>
+                    <Dropdown.Item onClick={actionAddMat}>
+                        <BiPlus /> Nueva materia
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={actionMoveMats}>
+                        <BiMoveVertical /> Mover materias
+                    </Dropdown.Item>
+                    <Dropdown.Item onClick={actionDeleteMats}>
+                        <BiEraser /> Borrar materias
+                    </Dropdown.Item>
+                    {!isLoose && (
+                        <>
+                            <Dropdown.Divider />
+                            <Dropdown.Item onClick={actionInsertPeriodBefore}>
+                                <CgInsertBefore /> Agregar periodo antes
+                            </Dropdown.Item>
+                            <Dropdown.Item onClick={actionInsertPeriodAfter}>
+                                <CgInsertAfter /> Agregar periodo después
+                            </Dropdown.Item>
+                            <Dropdown.Item onClick={actionDeletePeriod}>
+                                <BiLayerMinus /> Borrar periodo
+                            </Dropdown.Item>
+                        </>
+                    )}
+                </DropdownMenu>
+            </Dropdown>
         </div>
     )
 }

@@ -3,7 +3,7 @@ import { memo, useCallback, useContext, useEffect, useMemo, useState } from 'rea
 
 import { Button, Card, Container, Dropdown, DropdownButton, Form, InputGroup, Spinner } from 'react-bootstrap'
 import { FiDelete, FiSettings } from 'react-icons/fi'
-import { HiDownload, HiRefresh, HiUpload } from 'react-icons/hi'
+import { HiDownload, HiUpload } from 'react-icons/hi'
 import { MdOutlineCreate } from 'react-icons/md'
 
 import selectTheme, { optionStyle } from '@/lib/DarkMode/select-theme'
@@ -196,9 +196,6 @@ function PensumSelector() {
                                 {submitBtnOpt.content}
                             </Button>
                             <DropdownButton title={<FiSettings />}>
-                                <Dropdown.Item disabled={!activePensum || !activePensum.src.url}>
-                                    <HiRefresh /> Forzar recarga
-                                </Dropdown.Item>
                                 <Dropdown.Item
                                     disabled={!activePensum}
                                     onClick={() => pensumDispatch({ type: 'clear' })}
