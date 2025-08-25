@@ -3,7 +3,7 @@
   "institution": "unapec",
   "code": "ADM10",
   "publishDate": "10/10/2010",
-  "fetchDate": "2021-04-24",
+  "fetchDate": "2023-12-26",
   "career": "LICENCIATURA EN ADMINISTRACIÓN DE EMPRESAS",
   "info": [
     "TOTAL GENERAL DE CRÉDITOS: 198",
@@ -11,9 +11,9 @@
     "REQUISITO GENERAL DE LA GRADUACIÓN: Un Deporte. Tener cursado el ENG008 para poder inscribir la IDI070. Pasantía (PAS520) = 180 horas. Actitud Profesional: 60 horas = 6 créditos."
   ],
   "src": {
-    "type": "online",
-    "date": "2021-04-24",
-    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/ADM10"
+    "type": "pdf",
+    "date": "2011-11-10",
+    "url": "pensum/unapec/src/ADM10.pdf"
   },
   "periodType": {
     "name": "Cuatrimestre",

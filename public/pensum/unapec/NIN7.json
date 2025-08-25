@@ -3,7 +3,7 @@
   "institution": "unapec",
   "code": "NIN7",
   "publishDate": "01/09/2008",
-  "fetchDate": "2021-04-24",
+  "fetchDate": "2023-12-26",
   "career": "LICENCIATURA EN NEGOCIOS INTERNACIONALES",
   "info": [
     "TOTAL GENERAL DE CRÉDITOS: 199",
@@ -11,9 +11,9 @@
     "REQUISITO GENERAL DE LA GRADUACIÓN: Un Deporte. Actitud Profesional: 60 horas = 6 creditos. Una pasantia."
   ],
   "src": {
-    "type": "online",
-    "date": "2025-08-24",
-    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/NIN7"
+    "type": "pdf",
+    "date": "2012-08-02",
+    "url": "pensum/unapec/src/nin7.pdf"
   },
   "periodType": {
     "name": "Cuatrimestre",

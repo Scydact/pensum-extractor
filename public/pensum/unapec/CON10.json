@@ -3,7 +3,7 @@
   "institution": "unapec",
   "code": "CON10",
   "publishDate": "10/4/2010",
-  "fetchDate": "2021-04-24",
+  "fetchDate": "2023-12-26",
   "career": "LICENCIATURA EN CONTABILIDAD",
   "info": [
     "TOTAL GENERAL DE CRÉDITOS: 205",
@@ -11,9 +11,9 @@
     "PRERREQUISITOS DE GRADUACION: Un Deporte. 8 niveles de inglés al concluir el 8vo cuatrimestre. Pasantía (PAS530). Actitud Profesional: 60 horas."
   ],
   "src": {
-    "type": "online",
-    "date": "2021-04-24",
-    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/CON10"
+    "type": "pdf",
+    "date": "2011-11-10",
+    "url": "pensum/unapec/src/con10.pdf"
   },
   "periodType": {
     "name": "Cuatrimestre",
