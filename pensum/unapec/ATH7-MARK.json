@@ -3,7 +3,7 @@
   "institution": "unapec",
   "code": "ATH7-MARK",
   "publishDate": "01/05/2005",
-  "fetchDate": "2021-04-24",
+  "fetchDate": "2023-12-26",
   "career": "LICENCIATURA EN ADMINISTRACION TURISTICA Y HOTELERA MENCIÓN MARKETING Y GESTIÓN TURISTICO",
   "info": [
     "TOTAL GENERAL: MENCIÓN MARKETING Y GESTIÓN TURISTICO: 209 CRS (REQUERIDOS 206 CRS)",
@@ -12,9 +12,9 @@
     "NOTA: La asignatura TUR-311 'Operación de Transporte Aéreo' define la mención de Marketing y Gestión de Servicios Hoteleros y la TUR-340 'Recreación y Animación Turística' la mención Gestión de Servicios y Banquetes. Estas asignaturas no son sujetas a convalidaciones ni exoneraciones."
   ],
   "src": {
-    "type": "online",
-    "date": "2021-04-24",
-    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/ATH7"
+    "type": "pdf",
+    "date": "2011-11-10",
+    "url": "pensum/unapec/src/ATH7.pdf"
   },
   "periodType": {
     "name": "Cuatrimestre",

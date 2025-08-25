@@ -3,7 +3,7 @@
   "institution": "unapec",
   "code": "DIG10",
   "publishDate": "10/9/2010",
-  "fetchDate": "2021-04-24",
+  "fetchDate": "2023-12-26",
   "career": "LICENCIATURA EN DISEÑO GRAFICO",
   "info": [
     "TOTAL GENERAL DE CRÉDITOS: 191",
@@ -11,9 +11,9 @@
     "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. 8 niveles de inglés. Pasantía (PAS610) de 150 a 300 horas. Actitud Profesional: 60 horas."
   ],
   "src": {
-    "type": "online",
-    "date": "2021-04-24",
-    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/DIG10"
+    "type": "pdf",
+    "date": "2011-11-10",
+    "url": "pensum/unapec/src/DIG10.pdf"
   },
   "periodType": {
     "name": "Cuatrimestre",

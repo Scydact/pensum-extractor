@@ -3,7 +3,7 @@
   "institution": "unapec",
   "code": "DIN10",
   "publishDate": "10/4/2011",
-  "fetchDate": "2021-04-24",
+  "fetchDate": "2023-12-26",
   "career": "LICENCIATURA EN DISEÑO DE INTERIORES",
   "info": [
     "TOTAL GENERAL DE CRÉDITOS: 189",
@@ -11,9 +11,9 @@
     "REQUISITO GENERAL DE LA GRADUACIÓN: Un Deporte. 8 niveles de inglés. Pasantía (PAS620) de 150 a 300 horas. Actitud Profesional: 60 horas."
   ],
   "src": {
-    "type": "online",
-    "date": "2021-04-24",
-    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/DIN10"
+    "type": "pdf",
+    "date": "2011-11-10",
+    "url": "pensum/unapec/src/DIn10.pdf"
   },
   "periodType": {
     "name": "Cuatrimestre",

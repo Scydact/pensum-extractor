@@ -3,7 +3,7 @@
   "institution": "unapec",
   "code": "MER10",
   "publishDate": "10/4/2010",
-  "fetchDate": "2021-04-24",
+  "fetchDate": "2023-12-26",
   "career": "LICENCIATURA EN MERCADEO",
   "info": [
     "TOTAL GENERAL DE CRÉDITOS: 193",
@@ -11,9 +11,9 @@
     "PRERREQUISITOS DE GRADUACION: Un Deporte. 8 niveles de inglés al concluir el 9no cuatrimestre. Pasantía (PAS510). Actitud Profesional: 60 horas = 6 crs."
   ],
   "src": {
-    "type": "online",
-    "date": "2025-08-24",
-    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/MER10"
+    "type": "pdf",
+    "date": "2011-11-10",
+    "url": "pensum/unapec/src/mer10.pdf"
   },
   "periodType": {
     "name": "Cuatrimestre",
