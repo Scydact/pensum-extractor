@@ -3,12 +3,21 @@ import { defineConfig, loadEnv } from 'vite'
 import { nodePolyfills } from 'vite-plugin-node-polyfills'
 import react from '@vitejs/plugin-react-swc'
 import { VitePWA } from 'vite-plugin-pwa'
+import { execSync } from 'node:child_process'
+import { fmtDateYYYYMMDD } from './src/lib/date-utils'
+
+const commitHash = execSync('git rev-parse --short HEAD').toString()
+const date = fmtDateYYYYMMDD()
+const appVersion = `${date}-${commitHash}`
 
 // https://vite.dev/config/
 export default defineConfig(({ mode }) => {
     Object.assign(process.env, loadEnv(mode, process.cwd()))
     return {
         base: process.env.VITE_BASE_URL ?? '',
+        define: {
+            __APP_VERSION__: JSON.stringify(appVersion),
+        },
         plugins: [
             react(),
             // Workaround has been applied to install this!

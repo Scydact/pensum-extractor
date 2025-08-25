@@ -46,7 +46,7 @@ export function convertSavePensum(save: Pensum.Save.Pensum): Pensum.Pensum {
 /** Loads a legacy pensum, mapping the old properties to the new ones. */
 export function convertPensum2(old: Pensum.Save.Legacy.Pensum2, university: string): Pensum.Pensum {
     const pensum: Pensum.Pensum = {
-        version: Number(import.meta.env.VITE_SAVE_VERSION),
+        version: Number(import.meta.env.VITE_PENSUM_FORMAT_VERSION),
         institution: university ?? '',
         code: old.codigo ?? '',
         publishDate: old.vigencia ?? '0000-00-00',

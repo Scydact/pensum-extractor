@@ -4,27 +4,29 @@ function AppFooter() {
     const navigate = useNavigate()
 
     return (
-        <footer className="my-3 navbar navbar-expand navbar-light static-bottom text-center">
+        <footer className="navbar navbar-expand navbar-light static-bottom app-footer">
             <span>Pensum Extractor DO</span>
-            <span>Fernando Rivas, 2021</span>
+            <span>Fernando Rivas, 2025</span>
             <span>
-                <a href="http://scydact.github.io/" target="_blank" rel="noreferrer">
-                    scydact.github.io
+                <a href={`https://${import.meta.env.VITE_HOMEPAGE}`} target="_blank" rel="noreferrer">
+                    {import.meta.env.VITE_HOMEPAGE}
                 </a>
                 <span style={{ margin: '0 .5rem' }}>
                     (
-                    <a href="https://github.com/Scydact/pensum-extractor-react" target="_blank" rel="noreferrer">
+                    <a href={import.meta.env.VITE_REPO_URL} target="_blank" rel="noreferrer">
                         Ver en GitHub
                     </a>
                     )
                 </span>
             </span>
-            <span>
-                Version v{import.meta.env.VITE_VERSION} | save v{import.meta.env.VITE_SAVE_VERSION}
+            <span className="text-muted">
+                [ Revisión {__APP_VERSION__} | pensumV{import.meta.env.VITE_PENSUM_FORMAT_VERSION} ]
             </span>
-            <span>
+            <span className="mt-2">
                 En caso de problemas o sugerencias, favor escribir a{' '}
-                <a href="mailto:scydact@gmail.com?subject=[Pensum Extractor]">scydact@gmail.com</a>
+                <a href={`mailto:${import.meta.env.VITE_CONTACT_EMAIL}@gmail.com?subject=[Pensum Extractor]`}>
+                    {import.meta.env.VITE_CONTACT_EMAIL}
+                </a>
                 <span className="muted" onClick={() => navigate('debug')} title="Debug">
                     .
                 </span>

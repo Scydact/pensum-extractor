@@ -33,9 +33,12 @@ body.color-scheme-dark {
   border-top-right-radius: inherit;
 }
 
-footer {
+.app-footer {
   display: flex;
   flex-direction: column;
+  font-size: 0.8rem;
+  margin-top: 2rem;
+  padding-bottom: 3rem;
 }
 
 /** Navbar scroll */
