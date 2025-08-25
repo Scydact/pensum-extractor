@@ -1,0 +1,460 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "DIG11",
+  "publishDate": "01/05/2021",
+  "fetchDate": "2021-04-24",
+  "career": "LICENCIATURA EN DISEÑO GRAFICO",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 175",
+    "TÍTULO: LICENCIATURA EN DISEÑO GRAFICO",
+    "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. Diez(10) niveles de inglés. Pasantía (PAS600) de 180 horas. Actitud Profesional: 60 horas."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2021-04-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/DIG11"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "MAT010",
+        "name": "MATEMATICA BASICA UNIVERSITARIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC043",
+        "name": "GESTION AMBIENTAL",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "ART465",
+        "name": "FUNDAMENTOS DEL DISEÑO",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART467",
+        "name": "DIBUJO I",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "SOC013",
+        "name": "FILOSOFIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC101",
+        "name": "INTRODUCCION A LA PSICOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP106",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS I",
+        "cr": 3,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "ART500",
+        "name": "TECNICAS DEL BOCETO",
+        "cr": 3,
+        "req": ["ART467"]
+      },
+      {
+        "code": "ART460",
+        "name": "DISEÑO GRAFICO DIGITAL I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART458",
+        "name": "INTRODUCCION AL DISEÑO GRAFICO",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "SOC200",
+        "name": "INTRODUCCION A LA SOCIOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP107",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS II",
+        "cr": 3,
+        "req": ["ESP106"]
+      },
+      {
+        "code": "ART214",
+        "name": "TEORIA DE LA COMUNICACION",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART462",
+        "name": "DISEÑO GRAFICO DIGITAL II",
+        "cr": 3,
+        "req": ["ART460"]
+      },
+      {
+        "code": "ART012",
+        "name": "HISTORIA DE LA COMUNICACION I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART141",
+        "name": "FOTOGRAFIA I",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "SOC253",
+        "name": "METODOLOGIA Y TECNICAS DE INVESTIGACION",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "SOC031",
+        "name": "ETICA PROFESIONAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART142",
+        "name": "FOTOGRAFIA II",
+        "cr": 3,
+        "req": ["ART141"]
+      },
+      {
+        "code": "ART464",
+        "name": "DISEÑO GRAFICO DIGITAL III",
+        "cr": 3,
+        "req": ["ART462"]
+      },
+      {
+        "code": "ART014",
+        "name": "HISTORIA DE LA COMUNICACION II",
+        "cr": 3,
+        "req": ["ART012"]
+      },
+      {
+        "code": "ART515",
+        "name": "DISEÑO TIPOGRAFICO",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ART401",
+        "name": "MEDIOS DE REPRODUCCION GRAFICA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART510",
+        "name": "MAQUETACION WEB",
+        "cr": 3,
+        "req": ["ART464"]
+      },
+      {
+        "code": "ART505",
+        "name": "DISEÑO GRAFICO PUBLICITARIO",
+        "cr": 3,
+        "req": ["ART515"]
+      },
+      {
+        "code": "ART520",
+        "name": "ANALISIS SEMIOTICO DE LA COMUNICACION",
+        "cr": 3,
+        "req": ["ART014"]
+      },
+      {
+        "code": "ART525",
+        "name": "TECNICAS DE DOCUMENTACION EN LA COMUNICACION",
+        "cr": 3,
+        "req": ["SOC253"]
+      },
+      {
+        "code": "ADM535",
+        "name": "ACTITUD EMPRENDEDORA",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ART205",
+        "name": "PREPRENSA DIGITAL",
+        "cr": 3,
+        "req": ["ART401"]
+      },
+      {
+        "code": "ART530",
+        "name": "DISEÑO GRAFICO CORPORATIVO",
+        "cr": 3,
+        "req": ["ART505"]
+      },
+      {
+        "code": "ART399",
+        "name": "ILUSTRACION DIGITAL",
+        "cr": 3,
+        "req": ["ART510"]
+      },
+      {
+        "code": "ART535",
+        "name": "DISEÑO GRAFICO Y SISTEMAS SEÑALETICO",
+        "cr": 3,
+        "req": ["ART520"]
+      },
+      {
+        "code": "SOC115",
+        "name": "PSICOLOGIA DEL CONSUMIDOR",
+        "cr": 3,
+        "req": ["SOC101"]
+      }
+    ],
+    [
+      {
+        "code": "ART540",
+        "name": "DISEÑO GRAFICO EDITORIAL I",
+        "cr": 3,
+        "req": ["ART399"]
+      },
+      {
+        "code": "ART545",
+        "name": "PENSAMIENTO ESTRATEGICO DEL DIRCOM",
+        "cr": 3,
+        "req": ["ART530"]
+      },
+      {
+        "code": "ART405",
+        "name": "ANIMACION PUBLICITARIA",
+        "cr": 4,
+        "req": ["ART399"]
+      },
+      {
+        "code": "ART550",
+        "name": "DISEÑO DE ENVASES Y PRODUCTOS",
+        "cr": 3,
+        "req": ["ART530"]
+      },
+      {
+        "code": "EDIG 1",
+        "name": "ELECTIVA I",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ART555",
+        "name": "MODELADO E IMPRESION DIGITAL 3D",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "ART541",
+        "name": "DISEÑO GRAFICO EDITORIAL II",
+        "cr": 3,
+        "req": ["ART540"]
+      },
+      {
+        "code": "ART560",
+        "name": "DISEÑO GRAFICO MULTIMEDIA",
+        "cr": 4,
+        "req": ["ART550"]
+      },
+      {
+        "code": "EDIG 2",
+        "name": "ELECTIVA II",
+        "cr": 3,
+        "req": ["EDIG 1"]
+      }
+    ],
+    [
+      {
+        "code": "DER520",
+        "name": "PROPIEDAD INTELECTUAL Y LEGISLACION DE LA COMUNICACION",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "ART565",
+        "name": "DISEÑO Y GESTION DE REDES SOCIALES",
+        "cr": 3,
+        "req": ["ART560"]
+      },
+      {
+        "code": "ART570",
+        "name": "DISEÑO GRAFICO Y ESTRATEGIAS DE COMUNICACION",
+        "cr": 4,
+        "req": ["ART560"]
+      },
+      {
+        "code": "EDIG 3",
+        "name": "ELECTIVA III",
+        "cr": 3,
+        "req": ["EDIG 2"]
+      }
+    ],
+    [
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": [
+          "SOC253",
+          {
+            "text": "80% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "IDI530",
+        "name": "INGLES PARA COMUNICADORES I",
+        "cr": 3,
+        "req": ["ENG010"]
+      },
+      {
+        "code": "ART485",
+        "name": "GESTION DE CONTENIDO WEB",
+        "cr": 3,
+        "req": ["ART565"]
+      },
+      {
+        "code": "ART491",
+        "name": "DISEÑO GRAFICO Y COMUNICACION INTEGRAL",
+        "cr": 4,
+        "req": ["ART570"]
+      }
+    ],
+    [
+      {
+        "code": "ART495",
+        "name": "NARRACION TRANSMEDIA",
+        "cr": 3,
+        "req": ["ART485"]
+      },
+      {
+        "code": "IDI531",
+        "name": "INGLES PARA COMUNICADORES II",
+        "cr": 3,
+        "req": ["IDI530"]
+      },
+      {
+        "code": "ART496",
+        "name": "PORTAFOLIO PROFESIONAL",
+        "cr": 2,
+        "req": [
+          {
+            "text": "90% De los créditos aprobados"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "TFG100",
+        "name": "TRABAJO FINAL DE GRADO",
+        "cr": 6,
+        "req": [
+          "SOC281",
+          {
+            "text": "95% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0,
+        "req": []
+      },
+      {
+        "code": "PAS600",
+        "name": "PASANTIA EMPRESARIAL DE DISEÑO GRAFICO",
+        "cr": 0,
+        "req": []
+      },
+      {
+        "code": "ENG000",
+        "name": "FUNDAMENTOS DE INGLES (I Y II)",
+        "cr": 5,
+        "req": []
+      },
+      {
+        "code": "ENG003",
+        "name": "INGLES III",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG004",
+        "name": "INGLES IV",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG005",
+        "name": "INGLES V",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG006",
+        "name": "INGLES VI",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG007",
+        "name": "INGLES VII",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG008",
+        "name": "INGLES VIII",
+        "cr": 3,
+        "req": []
+      }
+    ]
+  ]
+}

@@ -1,0 +1,508 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "ISC10",
+  "publishDate": "01/05/2012",
+  "fetchDate": "2021-04-24",
+  "career": "INGENIERIA DE SISTEMAS DE COMPUTACION",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 208",
+    "TÍTULO: INGENIERIA DE SISTEMAS DE COMPUTACION",
+    "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. Ocho (8) niveles de inglés. Actitud Profesional: 60 horas. PAS210: 150 horas."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2021-04-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/ISC10"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "INF319",
+        "name": "COMPUTACION I",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "MAT126",
+        "name": "MATEMATICA BASICA PARA INGENIERIA",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC043",
+        "name": "GESTION AMBIENTAL",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "ENG001",
+        "name": "INGLES I",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ESP102",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS I",
+        "cr": 4,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "INF321",
+        "name": "ALGORITMOS",
+        "cr": 4,
+        "req": ["INF319"]
+      },
+      {
+        "code": "MAT127",
+        "name": "MATEMATICA SUPERIOR PARA INGENIERIA",
+        "cr": 5,
+        "req": ["MAT126"]
+      },
+      {
+        "code": "TEC111",
+        "name": "FISICA GENERAL",
+        "cr": 4,
+        "req": ["MAT126"]
+      },
+      {
+        "code": "TEC132",
+        "name": "LABORATORIO FISICA GENERAL",
+        "cr": 1,
+        "req": ["MAT126"]
+      },
+      {
+        "code": "ENG002",
+        "name": "INGLES II",
+        "cr": 3,
+        "req": ["ENG001"]
+      }
+    ],
+    [
+      {
+        "code": "ESP103",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS II",
+        "cr": 4,
+        "req": ["ESP102"]
+      },
+      {
+        "code": "INF140",
+        "name": "PROGRAMACION ESTRUCTURADA",
+        "cr": 3,
+        "req": ["INF321"]
+      },
+      {
+        "code": "INF323",
+        "name": "ARQUITECTURA DEL COMPUTADOR",
+        "cr": 3,
+        "req": ["INF321"]
+      },
+      {
+        "code": "MAT222",
+        "name": "ALGEBRA LINEAL",
+        "cr": 4,
+        "req": ["MAT127"]
+      },
+      {
+        "code": "SOC031",
+        "name": "ETICA PROFESIONAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC150",
+        "name": "RELACIONES HUMANAS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG003",
+        "name": "INGLES III",
+        "cr": 3,
+        "req": ["ENG002"]
+      }
+    ],
+    [
+      {
+        "code": "CON107",
+        "name": "CONTABILIDAD EMPRESARIAL",
+        "cr": 5,
+        "req": ["MAT222", "SOC031"]
+      },
+      {
+        "code": "INF111",
+        "name": "PROGRAMACION ORIENTADA A OBJETOS",
+        "cr": 3,
+        "req": ["INF140"]
+      },
+      {
+        "code": "INF160",
+        "name": "ANALISIS Y DISEÑO DE SISTEMAS I",
+        "cr": 3,
+        "req": ["INF140"]
+      },
+      {
+        "code": "INF168",
+        "name": "SISTEMAS OPERATIVOS I",
+        "cr": 3,
+        "req": ["INF323"]
+      },
+      {
+        "code": "MAT131",
+        "name": "CALCULO Y GEOMETRIA ANALITICA I",
+        "cr": 5,
+        "req": ["MAT222"]
+      },
+      {
+        "code": "ENG004",
+        "name": "INGLES IV",
+        "cr": 3,
+        "req": ["ENG003"]
+      }
+    ],
+    [
+      {
+        "code": "INF152",
+        "name": "ESTRUCTURA DE DATOS",
+        "cr": 3,
+        "req": ["INF111"]
+      },
+      {
+        "code": "INF161",
+        "name": "ANALISIS Y DISEÑO DE SISTEMAS II",
+        "cr": 3,
+        "req": ["INF160"]
+      },
+      {
+        "code": "MAT132",
+        "name": "CALCULO Y GEOMETRIA ANALITICA II",
+        "cr": 5,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "TEC113",
+        "name": "FISICA ELECTRICA",
+        "cr": 4,
+        "req": ["TEC111", "TEC132"]
+      },
+      {
+        "code": "TEC120",
+        "name": "LABORATORIO FISICA ELECTRICA",
+        "cr": 1,
+        "req": ["TEC111", "TEC132"]
+      },
+      {
+        "code": "ENG005",
+        "name": "INGLES V",
+        "cr": 3,
+        "req": ["ENG004"]
+      }
+    ],
+    [
+      {
+        "code": "INF166",
+        "name": "TELEPROCESO I",
+        "cr": 3,
+        "req": ["INF168"]
+      },
+      {
+        "code": "INF169",
+        "name": "SISTEMAS OPERATIVOS II",
+        "cr": 3,
+        "req": ["INF168"]
+      },
+      {
+        "code": "MAT151",
+        "name": "MATEMATICA DISCRETA",
+        "cr": 4,
+        "req": ["MAT132"]
+      },
+      {
+        "code": "MAT252",
+        "name": "PROBABILIDAD Y ESTADISTICA",
+        "cr": 4,
+        "req": ["MAT132"]
+      },
+      {
+        "code": "TEC123",
+        "name": "LABOR.CIRCUITOS ELECTRICOS I",
+        "cr": 1,
+        "req": ["TEC113", "TEC120"]
+      },
+      {
+        "code": "TEC146",
+        "name": "CIRCUITOS ELECTRICOS I",
+        "cr": 3,
+        "req": ["TEC113", "TEC120"]
+      },
+      {
+        "code": "ENG006",
+        "name": "INGLES VI",
+        "cr": 3,
+        "req": ["ENG005"]
+      }
+    ],
+    [
+      {
+        "code": "ADM091",
+        "name": "ADMINISTRACION I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "INF167",
+        "name": "TELEPROCESO II",
+        "cr": 3,
+        "req": ["INF166"]
+      },
+      {
+        "code": "INF315",
+        "name": "SISTEMAS OPERATIVOS III",
+        "cr": 3,
+        "req": ["INF169"]
+      },
+      {
+        "code": "INF402",
+        "name": "FUNDAMENTOS DE BASES DE DATOS",
+        "cr": 3,
+        "req": ["MAT151"]
+      },
+      {
+        "code": "SOC250",
+        "name": "METODOLOGIA DE LA INVESTIGACION CIENTIFICA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG007",
+        "name": "INGLES VII",
+        "cr": 3,
+        "req": ["ENG006"]
+      }
+    ],
+    [
+      {
+        "code": "ADM150",
+        "name": "GERENCIA DE PROCESOS",
+        "cr": 4,
+        "req": ["ADM091"]
+      },
+      {
+        "code": "INF309",
+        "name": "TECNOLOGIAS DE INTERNET",
+        "cr": 3,
+        "req": ["INF315"]
+      },
+      {
+        "code": "INF325",
+        "name": "PROGRAMACION VISUAL",
+        "cr": 4,
+        "req": ["INF152"]
+      },
+      {
+        "code": "INF327",
+        "name": "COMUNICACIONES",
+        "cr": 3,
+        "req": ["INF169"]
+      },
+      {
+        "code": "TEC148",
+        "name": "ELECTRONICA I",
+        "cr": 3,
+        "req": ["TEC123", "TEC146"]
+      },
+      {
+        "code": "TEC155",
+        "name": "LAB.DE ELECTRONICA I",
+        "cr": 1,
+        "req": ["TEC123", "TEC146"]
+      },
+      {
+        "code": "ENG008",
+        "name": "INGLES VIII",
+        "cr": 3,
+        "req": ["ENG007"]
+      }
+    ],
+    [
+      {
+        "code": "IDI045",
+        "name": "INGLES PARA INFORMATICA I",
+        "cr": 3,
+        "req": ["ENG008"]
+      },
+      {
+        "code": "IND371",
+        "name": "INVESTIGACION DE OPERACIONES PARA INFORMATICA",
+        "cr": 3,
+        "req": ["MAT252"]
+      },
+      {
+        "code": "INF307",
+        "name": "ADMINISTRACION DE REDES",
+        "cr": 3,
+        "req": ["INF327"]
+      },
+      {
+        "code": "INF324",
+        "name": "INTROD. INTELIGENCIA ARTIF.",
+        "cr": 3,
+        "req": ["INF309"]
+      },
+      {
+        "code": "INF403",
+        "name": "BASES DE DATOS DISTRIBUIDAS Y MULTIDIMENSIONALES",
+        "cr": 3,
+        "req": ["INF309", "INF325"]
+      },
+      {
+        "code": "TEC190",
+        "name": "LOGICA DIGITAL I",
+        "cr": 3,
+        "req": ["TEC148", "TEC155"]
+      },
+      {
+        "code": "TEC200",
+        "name": "LAB. LOGICA DIGITAL I",
+        "cr": 1,
+        "req": ["TEC148", "TEC155"]
+      }
+    ],
+    [
+      {
+        "code": "DER179",
+        "name": "DERECHO APLICADO A LA INFORMATICA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "IDI046",
+        "name": "INGLES PARA INFORMATICA II",
+        "cr": 3,
+        "req": ["IDI045"]
+      },
+      {
+        "code": "IND423",
+        "name": "INGENIERIA ECONOMICA",
+        "cr": 3,
+        "req": ["IND371"]
+      },
+      {
+        "code": "INF329",
+        "name": "SEGURIDAD",
+        "cr": 4,
+        "req": ["INF307"]
+      },
+      {
+        "code": "ISC404",
+        "name": "ESTANDARES Y TENDENCIAS DE LA INDUSTRIA",
+        "cr": 3,
+        "req": ["TEC190"]
+      },
+      {
+        "code": "TEC614",
+        "name": "AUTOMATIZACION Y ROBOTICA",
+        "cr": 4,
+        "req": ["INF324"]
+      }
+    ],
+    [
+      {
+        "code": "ADM120",
+        "name": "LIDERAZGO Y TECNICAS DE SUPERVISION",
+        "cr": 3,
+        "req": ["ADM150"]
+      },
+      {
+        "code": "ADM535",
+        "name": "ACTITUD EMPRENDEDORA",
+        "cr": 3,
+        "req": ["ADM150"]
+      },
+      {
+        "code": "INF204",
+        "name": "ADMINISTRACION DE CENTROS",
+        "cr": 3,
+        "req": ["INF329"]
+      },
+      {
+        "code": "INF328",
+        "name": "SISTEMAS BASADOS EN EL CONOCIMIENTO",
+        "cr": 3,
+        "req": ["INF324"]
+      },
+      {
+        "code": "INF407",
+        "name": "HACKING ETICO",
+        "cr": 3,
+        "req": ["DER179", "INF329"]
+      },
+      {
+        "code": "ISC406",
+        "name": "COMPUTACION FORENSE",
+        "cr": 3,
+        "req": ["DER179", "INF329"]
+      },
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": [
+          {
+            "text": "80% De los créditos aprobados"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0,
+        "req": []
+      },
+      {
+        "code": "PAS210",
+        "name": "PASANTIA EMPRESARIAL",
+        "cr": 0,
+        "req": []
+      },
+      {
+        "code": "TES-MON",
+        "name": "TRABAJO DE GRADO O CURSO MONOGRAFICO",
+        "cr": 6,
+        "req": [
+          {
+            "text": "92% De los créditos aprobados"
+          }
+        ]
+      }
+    ]
+  ]
+}

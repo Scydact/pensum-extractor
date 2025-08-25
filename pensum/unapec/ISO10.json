@@ -1,0 +1,530 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "ISO10",
+  "publishDate": "01/05/2012",
+  "fetchDate": "2021-04-24",
+  "career": "INGENIERIA DE SOFTWARE",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 237",
+    "TÍTULO: INGENIERIA DE SOFTWARE",
+    "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. Ocho (8) niveles de inglés. Actitud Profesional: 60 horas. PAS261: 150 horas."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2021-04-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/ISO10"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ISO100",
+        "name": "FUNDAMENTOS DE INFORMATICA Y ALGORITMOS",
+        "cr": 5,
+        "req": []
+      },
+      {
+        "code": "ISO105",
+        "name": "FUNDAMENTOS DE SISTEMAS OPERATIVOS Y COMUNICACIONES",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT126",
+        "name": "MATEMATICA BASICA PARA INGENIERIA",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "TEC098",
+        "name": "INTRODUCCION A LA INGENIERIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "ENG001",
+        "name": "INGLES I",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ESP102",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS I",
+        "cr": 4,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "ING701",
+        "name": "FISICA I Y LABORATORIO",
+        "cr": 5,
+        "req": ["MAT126"]
+      },
+      {
+        "code": "ISO200",
+        "name": "PROGRAMACION Y ESTRUCTURAS DE DATOS",
+        "cr": 5,
+        "req": ["ISO100", "ISO105"]
+      },
+      {
+        "code": "MAT127",
+        "name": "MATEMATICA SUPERIOR PARA INGENIERIA",
+        "cr": 5,
+        "req": ["MAT126"]
+      },
+      {
+        "code": "SOC043",
+        "name": "GESTION AMBIENTAL",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "ENG002",
+        "name": "INGLES II",
+        "cr": 3,
+        "req": ["ENG001"]
+      }
+    ],
+    [
+      {
+        "code": "ESP103",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS II",
+        "cr": 4,
+        "req": ["ESP102"]
+      },
+      {
+        "code": "INF111",
+        "name": "PROGRAMACION ORIENTADA A OBJETOS",
+        "cr": 3,
+        "req": ["ISO200"]
+      },
+      {
+        "code": "ISO300",
+        "name": "FUNDAMENTOS DE INGENIERIA DE SOFTWARE",
+        "cr": 4,
+        "req": ["ISO200"]
+      },
+      {
+        "code": "ISO305",
+        "name": "DISEÑO WEB I",
+        "cr": 4,
+        "req": ["ISO200"]
+      },
+      {
+        "code": "MAT222",
+        "name": "ALGEBRA LINEAL",
+        "cr": 4,
+        "req": ["MAT127"]
+      },
+      {
+        "code": "SOC150",
+        "name": "RELACIONES HUMANAS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG003",
+        "name": "INGLES III",
+        "cr": 3,
+        "req": ["ENG002"]
+      }
+    ],
+    [
+      {
+        "code": "CON107",
+        "name": "CONTABILIDAD EMPRESARIAL",
+        "cr": 5,
+        "req": ["MAT222"]
+      },
+      {
+        "code": "INF164",
+        "name": "BASE DE DATOS I",
+        "cr": 3,
+        "req": ["INF111"]
+      },
+      {
+        "code": "ISO400",
+        "name": "ANALISIS Y DISEÑO ORIENTADO A OBJETOS",
+        "cr": 4,
+        "req": ["INF111"]
+      },
+      {
+        "code": "ISO405",
+        "name": "SISTEMAS OPERATIVOS AVANZADOS",
+        "cr": 4,
+        "req": ["INF111"]
+      },
+      {
+        "code": "ISO410",
+        "name": "VERIFICACION Y VALIDACION DE SOFTWARE",
+        "cr": 4,
+        "req": ["ISO300"]
+      },
+      {
+        "code": "MAT131",
+        "name": "CALCULO Y GEOMETRIA ANALITICA I",
+        "cr": 5,
+        "req": ["MAT222"]
+      },
+      {
+        "code": "ENG004",
+        "name": "INGLES IV",
+        "cr": 3,
+        "req": ["ENG003"]
+      }
+    ],
+    [
+      {
+        "code": "INF165",
+        "name": "BASE DE DATOS II",
+        "cr": 3,
+        "req": ["INF164"]
+      },
+      {
+        "code": "INF244",
+        "name": "PROGRAMACION WEB I",
+        "cr": 3,
+        "req": ["INF164", "ISO305"]
+      },
+      {
+        "code": "ING702",
+        "name": "FISICA II Y LABORATORIO",
+        "cr": 5,
+        "req": ["ING701"]
+      },
+      {
+        "code": "ISO500",
+        "name": "INGENIERIA DE REQUISITOS",
+        "cr": 3,
+        "req": ["ISO400"]
+      },
+      {
+        "code": "ISO505",
+        "name": "INGENIERIA DE LA USABILIDAD",
+        "cr": 3,
+        "req": ["ISO410"]
+      },
+      {
+        "code": "MAT132",
+        "name": "CALCULO Y GEOMETRIA ANALITICA II",
+        "cr": 5,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "ENG005",
+        "name": "INGLES V",
+        "cr": 3,
+        "req": ["ENG004"]
+      }
+    ],
+    [
+      {
+        "code": "ISO600",
+        "name": "ADMINISTRACION DE CONFIGURACION",
+        "cr": 3,
+        "req": ["ISO500"]
+      },
+      {
+        "code": "ISO605",
+        "name": "DESARROLLO DE SOFTWARE CON TECNOLOGIA PROPIETARIA I",
+        "cr": 3,
+        "req": ["INF165", "INF244", "ISO505"]
+      },
+      {
+        "code": "ISO610",
+        "name": "DESARROLLO DE SOFTWARE CON TECNOLOGIA OPEN SOURCE I",
+        "cr": 3,
+        "req": ["INF165", "INF244", "ISO505"]
+      },
+      {
+        "code": "MAT151",
+        "name": "MATEMATICA DISCRETA",
+        "cr": 4,
+        "req": ["MAT132"]
+      },
+      {
+        "code": "MAT252",
+        "name": "PROBABILIDAD Y ESTADISTICA",
+        "cr": 4,
+        "req": ["MAT132"]
+      },
+      {
+        "code": "SOC031",
+        "name": "ETICA PROFESIONAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG006",
+        "name": "INGLES VI",
+        "cr": 3,
+        "req": ["ENG005"]
+      }
+    ],
+    [
+      {
+        "code": "ADM091",
+        "name": "ADMINISTRACION I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ISO700",
+        "name": "GESTION DE SITIOS WEB",
+        "cr": 3,
+        "req": ["INF244"]
+      },
+      {
+        "code": "ISO705",
+        "name": "PROYECTO DE SOFTWARE I",
+        "cr": 4,
+        "req": ["ISO600", "ISO605", "ISO610"]
+      },
+      {
+        "code": "ISO710",
+        "name": "DESARROLLO DE SOFTWARE CON TECNOLOGIA PROPIETARIA II",
+        "cr": 3,
+        "req": ["ISO605"]
+      },
+      {
+        "code": "ISO715",
+        "name": "DESARROLLO DE SOFTWARE CON TECNOLOGIA OPEN SOURCE II",
+        "cr": 3,
+        "req": ["ISO610"]
+      },
+      {
+        "code": "SOC250",
+        "name": "METODOLOGIA DE LA INVESTIGACION CIENTIFICA",
+        "cr": 3,
+        "req": [
+          {
+            "text": "55% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "ENG007",
+        "name": "INGLES VII",
+        "cr": 3,
+        "req": ["ENG006"]
+      }
+    ],
+    [
+      {
+        "code": "ADM150",
+        "name": "GERENCIA DE PROCESOS",
+        "cr": 4,
+        "req": ["ADM091"]
+      },
+      {
+        "code": "ISO915",
+        "name": "FUNDAMENTOS DE SEGURIDAD DE SOFTWARE",
+        "cr": 3,
+        "req": ["ISO600"]
+      },
+      {
+        "code": "ISO800",
+        "name": "GESTION DE CALIDAD DE SOFTWARE",
+        "cr": 3,
+        "req": ["ISO705"]
+      },
+      {
+        "code": "ISO805",
+        "name": "GESTION DE PROYECTOS DE SOFTWARE",
+        "cr": 3,
+        "req": ["ISO705"]
+      },
+      {
+        "code": "ISO810",
+        "name": "INTEGRACION DE APLICACIONES CON TECNOLOGIA PROPIETARIA",
+        "cr": 3,
+        "req": ["ISO710"]
+      },
+      {
+        "code": "ISO815",
+        "name": "INTEGRACION DE APLICACIONES CON TECNOLOGIA OPEN SOURCE",
+        "cr": 3,
+        "req": ["ISO715"]
+      },
+      {
+        "code": "ENG008",
+        "name": "INGLES VIII",
+        "cr": 3,
+        "req": ["ENG007"]
+      }
+    ],
+    [
+      {
+        "code": "ADM120",
+        "name": "LIDERAZGO Y TECNICAS DE SUPERVISION",
+        "cr": 3,
+        "req": ["ADM091"]
+      },
+      {
+        "code": "IDI045",
+        "name": "INGLES PARA INFORMATICA I",
+        "cr": 3,
+        "req": ["ENG008"]
+      },
+      {
+        "code": "IND423",
+        "name": "INGENIERIA ECONOMICA",
+        "cr": 3,
+        "req": ["ADM150"]
+      },
+      {
+        "code": "ISO900",
+        "name": "ADMINISTRACION DE DESARROLLO",
+        "cr": 4,
+        "req": ["ISO800", "ISO805"]
+      },
+      {
+        "code": "ISO905",
+        "name": "ARQUITECTURA DE DESARROLLO CON TECNOLOGIA PROPIETARIA",
+        "cr": 3,
+        "req": ["ISO810"]
+      },
+      {
+        "code": "ISO910",
+        "name": "ARQUITECTURA DE DESARROLLO CON TECNOLOGIA OPEN SOURCE",
+        "cr": 3,
+        "req": ["ISO815"]
+      },
+      {
+        "code": "INF333",
+        "name": "ADMINISTRACION DE LA SEGURIDAD DE LA INFORMACION",
+        "cr": 4,
+        "req": ["ISO915"]
+      }
+    ],
+    [
+      {
+        "code": "ADM535",
+        "name": "ACTITUD EMPRENDEDORA",
+        "cr": 3,
+        "req": ["ADM120"]
+      },
+      {
+        "code": "IDI046",
+        "name": "INGLES PARA INFORMATICA II",
+        "cr": 3,
+        "req": ["IDI045"]
+      },
+      {
+        "code": "ISO920",
+        "name": "ESTANDARES DE LA INDUSTRIA DEL SOFTWARE",
+        "cr": 3,
+        "req": ["ISO900"]
+      },
+      {
+        "code": "ISO923",
+        "name": "IMPLEMENTACION DE E-COMMERCE CON TECNOLOGIA PROPIETARIA",
+        "cr": 3,
+        "req": ["ISO905"]
+      },
+      {
+        "code": "ISO926",
+        "name": "IMPLEMENTACION DE E-COMMERCE CON TECNOLOGIA OPEN SOURCE",
+        "cr": 3,
+        "req": ["ISO910"]
+      },
+      {
+        "code": "ISO929",
+        "name": "ESTRATEGIAS DE COMERCIO ELECTRONICO",
+        "cr": 3,
+        "req": ["ISO905", "ISO910"]
+      },
+      {
+        "code": "ISO931",
+        "name": "INTELIGENCIA DE NEGOCIOS",
+        "cr": 3,
+        "req": ["ISO710", "ISO715"]
+      }
+    ],
+    [
+      {
+        "code": "INF335",
+        "name": "AUDITORIA INFORMATICA",
+        "cr": 3,
+        "req": ["ISO920"]
+      },
+      {
+        "code": "ISO934",
+        "name": "PROYECTO DE SOFTWARE II",
+        "cr": 4,
+        "req": ["ISO900"]
+      },
+      {
+        "code": "ISO937",
+        "name": "COMPUTACION UBICUA",
+        "cr": 4,
+        "req": ["ISO931"]
+      },
+      {
+        "code": "ISO939",
+        "name": "INTEGRACION DE APLICACIONES CORPORATIVAS",
+        "cr": 3,
+        "req": ["ISO931"]
+      },
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": [
+          {
+            "text": "80% De los créditos aprobados"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0,
+        "req": []
+      },
+      {
+        "code": "PAS261",
+        "name": "PASANTIA EMPRESARIAL",
+        "cr": 0,
+        "req": []
+      },
+      {
+        "code": "TES-MON",
+        "name": "TRABAJO DE GRADO O CURSO MONOGRAFICO",
+        "cr": 6,
+        "req": [
+          {
+            "text": "92% De los créditos aprobados"
+          }
+        ]
+      }
+    ]
+  ]
+}

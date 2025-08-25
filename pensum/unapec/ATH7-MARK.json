@@ -1,0 +1,576 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "ATH7-MARK",
+  "publishDate": "01/05/2005",
+  "fetchDate": "2021-04-24",
+  "career": "LICENCIATURA EN ADMINISTRACION TURISTICA Y HOTELERA MENCIÓN MARKETING Y GESTIÓN TURISTICO",
+  "info": [
+    "TOTAL GENERAL: MENCIÓN MARKETING Y GESTIÓN TURISTICO: 209 CRS (REQUERIDOS 206 CRS)",
+    "TITULO: LICENCIADO EN ADMINISTRACION TURISTICA Y HOTELERA MENCION MARKETING Y GESTION TURISTICO.",
+    "PREREQUISITOS DE GRADUACION: Actitud profesional: 6 crs.  Pasantías I y II (PAS-300 y PAS-400). Cursar: un Deporte, 6 niveles de Ingles para nivel técnico y 4 adicionales para el grado, 3 niveles de francés, alemán o italiano.",
+    "NOTA: La asignatura TUR-311 'Operación de Transporte Aéreo' define la mención de Marketing y Gestión de Servicios Hoteleros y la TUR-340 'Recreación y Animación Turística' la mención Gestión de Servicios y Banquetes. Estas asignaturas no son sujetas a convalidaciones ni exoneraciones."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2021-04-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/ATH7"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "ADM101",
+        "name": "GESTION DE NEGOCIOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT100",
+        "name": "MATEMATICA PRE-UNIVERSITARIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTIACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC041",
+        "name": "ECOLOGIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC200",
+        "name": "INTRODUCCION A LA SOCIOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "TUR101",
+        "name": "TEORIA TURISTICA",
+        "cr": 3,
+        "req": [
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "ADM102",
+        "name": "FUNCIONES ADMINISTRATIVAS",
+        "cr": 3,
+        "req": ["ADM101"]
+      },
+      {
+        "code": "CON101",
+        "name": "CONTABILIDAD-LABORATORIO I",
+        "cr": 5,
+        "req": []
+      },
+      {
+        "code": "ESP102",
+        "name": "REDACCION TEXTOS DISCURSIVOS I",
+        "cr": 4,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "MAT121",
+        "name": "ALGEBRA UNIVERSITARIA",
+        "cr": 4,
+        "req": ["MAT100"]
+      },
+      {
+        "code": "TUR110",
+        "name": "GEOGRAFIA TURISTICA DE R. D.",
+        "cr": 3,
+        "req": [
+          "TUR101",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "CON126",
+        "name": "CONTABILIDAD HOTELERA",
+        "cr": 5,
+        "req": ["CON101"]
+      },
+      {
+        "code": "ESP103",
+        "name": "REDACCION TEXTOS DISCURSIVOS II",
+        "cr": 4,
+        "req": ["ESP102"]
+      },
+      {
+        "code": "INF214",
+        "name": "APLICACIONES FINANCIERAS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC101",
+        "name": "INTRODUCCION A LA PSICOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC250",
+        "name": "METODOLOGIA DE LA INVESTIGACION CIENTIFICA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "TUR102",
+        "name": "EMPRESAS DE SERVICIOS TURISTICOS",
+        "cr": 3,
+        "req": [
+          "TUR101",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "CON218",
+        "name": "CONTABILIDAD DE COSTOS HOTELEROS",
+        "cr": 5,
+        "req": ["CON126"]
+      },
+      {
+        "code": "ESP301",
+        "name": "EXPRESION ORAL",
+        "cr": 3,
+        "req": ["ESP103"]
+      },
+      {
+        "code": "MAT241",
+        "name": "MATEMATICA FINANCIERA I",
+        "cr": 4,
+        "req": ["MAT121"]
+      },
+      {
+        "code": "SOC270",
+        "name": "INTRODUCCION TECNICAS INVESTIGACION SOCIAL",
+        "cr": 3,
+        "req": ["SOC250"]
+      },
+      {
+        "code": "SOC290",
+        "name": "ECONOMIA GENERAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "TUR130",
+        "name": "FOLKLORE DOMINICANO",
+        "cr": 2,
+        "req": [
+          "TUR110",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "ADM140",
+        "name": "ADMINISTRACION FINANCIERA I",
+        "cr": 3,
+        "req": ["ADM102", "MAT241"]
+      },
+      {
+        "code": "ART158",
+        "name": "ARTESANIA DOMINICANA",
+        "cr": 2,
+        "req": [
+          "TUR110",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      },
+      {
+        "code": "ART159",
+        "name": "MONUMENTALISMO",
+        "cr": 2,
+        "req": [
+          "TUR110",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      },
+      {
+        "code": "MAT250",
+        "name": "ESTADISTICA I",
+        "cr": 4,
+        "req": ["MAT121"]
+      },
+      {
+        "code": "SOC031",
+        "name": "ETICA PROFESIONAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "TUR210",
+        "name": "ALOJAMIENTO Y HOSPITALIDAD",
+        "cr": 3,
+        "req": [
+          "TUR102",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      },
+      {
+        "code": "TUR222",
+        "name": "AGENCIA DE VIAJES I",
+        "cr": 3,
+        "req": [
+          "TUR102",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "MER105",
+        "name": "MERCADOTECNIA TURISTICA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "TUR215",
+        "name": "ESTRUCTURA HOTELERA",
+        "cr": 3,
+        "req": [
+          "TUR210",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      },
+      {
+        "code": "TUR223",
+        "name": "AGENCIA DE VIAJES II",
+        "cr": 3,
+        "req": [
+          "TUR222",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      },
+      {
+        "code": "TUR250",
+        "name": "CIENCIAS DE ALIMENTACION",
+        "cr": 3,
+        "req": [
+          "TUR210",
+          {
+            "text": "Obligatorio tomar teoría y práctica juntas"
+          }
+        ]
+      },
+      {
+        "code": "TUR253",
+        "name": "LABORATORIO CIENCIAS DE ALIMENTACION",
+        "cr": 2,
+        "req": [
+          "TUR210",
+          {
+            "text": "Obligatorio tomar teoría y práctica juntas"
+          }
+        ]
+      },
+      {
+        "code": "TUR320",
+        "name": "HIGIENE, ETIQUETA Y PROTOCOLO",
+        "cr": 3,
+        "req": [
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "ADM111",
+        "name": "ADMINISTRACION DE PERSONAL I",
+        "cr": 3,
+        "req": ["ADM102"]
+      },
+      {
+        "code": "ADM115",
+        "name": "ADMINISTRACION HOTELERA I",
+        "cr": 3,
+        "req": ["ADM102", "TUR215", "PAS300"]
+      },
+      {
+        "code": "ADM120",
+        "name": "LIDERAZGO Y TECNICAS DE SUPERVISION",
+        "cr": 3,
+        "req": ["ADM101"]
+      },
+      {
+        "code": "MER106",
+        "name": "MERCADOTECNIA TURISTICA II",
+        "cr": 3,
+        "req": ["MER105"]
+      },
+      {
+        "code": "SOC150",
+        "name": "RELACIONES HUMANAS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "TUR270",
+        "name": "TRANSPORTACION TURISTICA",
+        "cr": 3,
+        "req": [
+          "TUR102",
+          "ENGAO6",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "ADM116",
+        "name": "ADMINISTRACION HOTELERA II",
+        "cr": 3,
+        "req": [
+          "ADM115",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      },
+      {
+        "code": "ADM130",
+        "name": "PRESUPUESTO EMPRESARIAL",
+        "cr": 3,
+        "req": ["CON126"]
+      },
+      {
+        "code": "DER041",
+        "name": "LEGISLACION TURISTICA",
+        "cr": 3,
+        "req": ["TUR102"]
+      },
+      {
+        "code": "TUR112",
+        "name": "GEOGRAFIA DESTINOS TURISTICOS MUNDIALES",
+        "cr": 3,
+        "req": [
+          "TUR110",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      },
+      {
+        "code": "TUR310",
+        "name": "AEROPUERTEOS Y SERVICIOS AUXILIARES",
+        "cr": 3,
+        "req": [
+          "TUR270",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      },
+      {
+        "code": "TUR352",
+        "name": "PLANIFICACION DEL DESARROLLO TURISTICO",
+        "cr": 3,
+        "req": ["SOC290"]
+      }
+    ],
+    [
+      {
+        "code": "ADM219",
+        "name": "FORMULACION Y EVAL DE PROYECTOS",
+        "cr": 3,
+        "req": ["ADM140", "MAT241"]
+      },
+      {
+        "code": "DER016",
+        "name": "DERECHO LABORAL",
+        "cr": 3,
+        "req": ["ADM111"]
+      },
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "TUR311",
+        "name": "OPERACION TRANSPORTE AEREO",
+        "cr": 3,
+        "req": [
+          "TUR310",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      },
+      {
+        "code": "TUR351",
+        "name": "ECOTURISMO",
+        "cr": 3,
+        "req": [
+          "SOC041",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "TUR257",
+        "name": "GESTION Y CONTROL CALIDAD TURISTICA",
+        "cr": 4,
+        "req": [
+          "TUR102",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      },
+      {
+        "code": "TUR297",
+        "name": "ORGANIZACION DE EVENTOS",
+        "cr": 3,
+        "req": [
+          "TUR270",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      },
+      {
+        "code": "MER181",
+        "name": "PROMOCION TURISTICA",
+        "cr": 3,
+        "req": ["MER106", "TUR311"]
+      },
+      {
+        "code": "SOC115",
+        "name": "PSICOLOGIA DEL CONSUMIDOR",
+        "cr": 3,
+        "req": ["SOC101", "TUR311"]
+      },
+      {
+        "code": "TUR256",
+        "name": "FRONT-OFFICE",
+        "cr": 3,
+        "req": [
+          "TUR215",
+          "TUR311",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      },
+      {
+        "code": "TUR335",
+        "name": "RELACIONES TURISTICAS INTERNACIONALES",
+        "cr": 3,
+        "req": ["DER041", "TUR311"]
+      }
+    ],
+    [
+      {
+        "code": "TUR258",
+        "name": "TECNICAS DE VENTA DE SERVICIOS HOTELEROS",
+        "cr": 3,
+        "req": [
+          "MER106",
+          "ENGAC3",
+          "TUR311",
+          {
+            "text": "Práctica de Campo-Viajes Educativos"
+          }
+        ]
+      },
+      {
+        "code": "MER214",
+        "name": "SEMINARIO DESARROLLO LANZAMIENTO PRODUCTO TURISTICO",
+        "cr": 4,
+        "req": ["MER106", "TUR311"]
+      },
+      {
+        "code": "MER412",
+        "name": "SIMULACION DINAMICA MARKETING TURISTICO",
+        "cr": 4,
+        "req": [
+          "MER106",
+          "TUR311",
+          {
+            "text": "Lab. de simulación"
+          }
+        ]
+      },
+      {
+        "code": "TUR269",
+        "name": "RELACIONES PUBLICAS APLICADAS AL TURISMO",
+        "cr": 3,
+        "req": ["MER181", "ENGAC3", "TUR311"]
+      }
+    ],
+    [
+      {
+        "code": "TES500",
+        "name": "TRABAJO DE GRADO O CURSO MONOGRAFICO",
+        "cr": 6,
+        "req": []
+      },
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0,
+        "req": []
+      }
+    ]
+  ]
+}

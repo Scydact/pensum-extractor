@@ -1,0 +1,426 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "CON10",
+  "publishDate": "10/4/2010",
+  "fetchDate": "2021-04-24",
+  "career": "LICENCIATURA EN CONTABILIDAD",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 205",
+    "TÍTULO: LICENCIATURA EN CONTABILIDAD",
+    "PRERREQUISITOS DE GRADUACION: Un Deporte. 8 niveles de inglés al concluir el 8vo cuatrimestre. Pasantía (PAS530). Actitud Profesional: 60 horas."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2021-04-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/CON10"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "ADM091",
+        "name": "ADMINISTRACION I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "CON091",
+        "name": "CONTABILIDAD I",
+        "cr": 5,
+        "req": []
+      },
+      {
+        "code": "MER101",
+        "name": "MERCADOTECNIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC043",
+        "name": "GESTION AMBIENTAL",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "MAT100",
+        "name": "MATEMATICA PRE-UNIVERSITARIA",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ADM092",
+        "name": "ADMINISTRACION II",
+        "cr": 3,
+        "req": ["ADM091"]
+      },
+      {
+        "code": "CON092",
+        "name": "CONTABILIDAD II",
+        "cr": 5,
+        "req": ["CON091"]
+      },
+      {
+        "code": "ESP102",
+        "name": "REDACCION TEXTOS DISCURSIVOS I",
+        "cr": 4,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "MAT121",
+        "name": "ALGEBRA UNIVERSITARIA",
+        "cr": 4,
+        "req": ["MAT100"]
+      },
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ESP103",
+        "name": "REDACCION TEXTOS DISCURSIVOS II",
+        "cr": 4,
+        "req": ["ESP102"]
+      },
+      {
+        "code": "MAT131",
+        "name": "CÁLCULO Y GEOMETRIA ANALITICA I",
+        "cr": 5,
+        "req": ["MAT121"]
+      },
+      {
+        "code": "SOC101",
+        "name": "INTRODUCCION A LA PSICOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC200",
+        "name": "INTRODUCCION A LA SOCIOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC250",
+        "name": "METODOLOGIA DE LA INVESTIGACION CIENTIFICA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC290",
+        "name": "ECONOMIA GENERAL",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "CON219",
+        "name": "COSTOS PRODUCTOS Y SERVICIOS I",
+        "cr": 5,
+        "req": ["CON092"]
+      },
+      {
+        "code": "ESP301",
+        "name": "EXPRESION ORAL",
+        "cr": 3,
+        "req": ["ESP103"]
+      },
+      {
+        "code": "MAT241",
+        "name": "MATEMATICA FINANCIERA I",
+        "cr": 4,
+        "req": ["MAT121", "MAT131"]
+      },
+      {
+        "code": "MAT250",
+        "name": "ESTADISTICA I",
+        "cr": 4,
+        "req": ["MAT121", "MAT131"]
+      },
+      {
+        "code": "ADM535",
+        "name": "ACTITUD EMPRENDEDORA",
+        "cr": 3,
+        "req": ["SOC101"]
+      }
+    ],
+    [
+      {
+        "code": "ADM124",
+        "name": "GESTION DEL TALENTO HUMANO",
+        "cr": 4,
+        "req": ["ADM092"]
+      },
+      {
+        "code": "ADM120",
+        "name": "LIDERAZGO Y TECNICAS DE SUPERVISION",
+        "cr": 3,
+        "req": ["ADM091"]
+      },
+      {
+        "code": "ADM140",
+        "name": "ADMINISTRACION FINANCIERA I",
+        "cr": 3,
+        "req": ["MAT241"]
+      },
+      {
+        "code": "DER011",
+        "name": "DERECHO COMERCIAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT251",
+        "name": "ESTADISTICA II",
+        "cr": 4,
+        "req": ["MAT250"]
+      }
+    ],
+    [
+      {
+        "code": "ADM221",
+        "name": "MONEDA Y BANCA",
+        "cr": 3,
+        "req": ["SOC290"]
+      },
+      {
+        "code": "CON093",
+        "name": "CONTABILIDAD III",
+        "cr": 5,
+        "req": ["CON092"]
+      },
+      {
+        "code": "CON211",
+        "name": "SISTEMA TRIBUTARIO DOMINICANO I",
+        "cr": 3,
+        "req": ["CON092"]
+      },
+      {
+        "code": "CON220",
+        "name": "COSTOS PRODUCTOS Y SERVICIOS II",
+        "cr": 5,
+        "req": ["CON219"]
+      },
+      {
+        "code": "MAT242",
+        "name": "MATEMATICA FINANCIERA II",
+        "cr": 4,
+        "req": ["MAT241"]
+      }
+    ],
+    [
+      {
+        "code": "ADM141",
+        "name": "ADMINISTRACION FINANCIERA II",
+        "cr": 3,
+        "req": ["ADM140", "MAT242"]
+      },
+      {
+        "code": "CON094",
+        "name": "CONTABILIDAD IV",
+        "cr": 5,
+        "req": ["CON093"]
+      },
+      {
+        "code": "CON133",
+        "name": "CONTABILIDAD BANCARIA",
+        "cr": 4,
+        "req": ["ADM221", "CON093"]
+      },
+      {
+        "code": "CON134",
+        "name": "DISEÑO DE SISTEMAS CONTABLES",
+        "cr": 3,
+        "req": ["CON091", "CON092"]
+      },
+      {
+        "code": "CON225",
+        "name": "SISTEMA TRIBUTARIO DOMINICANO II",
+        "cr": 3,
+        "req": ["CON211"]
+      },
+      {
+        "code": "ADM130",
+        "name": "PRESUPUESTO EMPRESARIAL",
+        "cr": 3,
+        "req": ["CON092"]
+      }
+    ],
+    [
+      {
+        "code": "ADM219",
+        "name": "FORMULAC.Y EVAL. DE PROYECTOS",
+        "cr": 3,
+        "req": ["ADM130", "SOC290"]
+      },
+      {
+        "code": "CON223",
+        "name": "CONTABILIDAD SUPERIOR",
+        "cr": 3,
+        "req": ["CON094"]
+      },
+      {
+        "code": "CON307",
+        "name": "AUDITORIA EXTERNA I",
+        "cr": 4,
+        "req": ["CON093"]
+      },
+      {
+        "code": "DER016",
+        "name": "DERECHO LABORAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "NEG121",
+        "name": "MERCADO DE VALORES",
+        "cr": 3,
+        "req": ["ADM141"]
+      },
+      {
+        "code": "CON400",
+        "name": "CONTABILIDAD COMPUTARIZADA",
+        "cr": 3,
+        "req": ["CON093"]
+      }
+    ],
+    [
+      {
+        "code": "ADM162",
+        "name": "GERENCIA DE OPERACIONES",
+        "cr": 3,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "CON108",
+        "name": "CONTABILIDAD DE GESTION",
+        "cr": 3,
+        "req": ["CON219"]
+      },
+      {
+        "code": "CON213",
+        "name": "SIST. GESTION FINANCIERA GUBERNAMENTAL",
+        "cr": 3,
+        "req": ["CON225", "SOC290"]
+      },
+      {
+        "code": "CON300",
+        "name": "TALLER DE CONTABILIDAD E IMPUESTOS",
+        "cr": 2,
+        "req": ["CON223", "CON225"]
+      },
+      {
+        "code": "CON308",
+        "name": "AUDITORIA EXTERNA II",
+        "cr": 4,
+        "req": ["CON307"]
+      },
+      {
+        "code": "IDI070",
+        "name": "INGLES TECNICO PARA NEGOCIOS I",
+        "cr": 3,
+        "req": ["ENG008"]
+      }
+    ],
+    [
+      {
+        "code": "CON309",
+        "name": "AUDITORIA EXTERNA III",
+        "cr": 4,
+        "req": ["CON308"]
+      },
+      {
+        "code": "CON310",
+        "name": "AUDITORIA INTERNA",
+        "cr": 4,
+        "req": ["CON308"]
+      },
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "IDI071",
+        "name": "INGLES TECNICO PARA NEGOCIOS II",
+        "cr": 3,
+        "req": ["IDI070"]
+      }
+    ],
+    [
+      {
+        "code": "CON224",
+        "name": "CODIGO DE ETICA DEL CONTADOR",
+        "cr": 2,
+        "req": ["CON093"]
+      },
+      {
+        "code": "CON216",
+        "name": "CONTABILIDAD INTERNACIONAL",
+        "cr": 2,
+        "req": ["CON108", "CON308"]
+      },
+      {
+        "code": "ADM175",
+        "name": "CREACION Y GERENCIA PYME",
+        "cr": 3,
+        "req": ["ADM219"]
+      },
+      {
+        "code": "ADM146",
+        "name": "SIMULACION DE NEGOCIOS",
+        "cr": 3,
+        "req": ["ADM130", "ADM141"]
+      },
+      {
+        "code": "CON306",
+        "name": "AUDITORIA CON EL USO DEL COMPUTADOR",
+        "cr": 3,
+        "req": ["CON308"]
+      }
+    ],
+    [
+      {
+        "code": "TES-MON",
+        "name": "TRABAJO DE GRADO O CURSO MONOGRAFICO",
+        "cr": 6,
+        "req": [
+          {
+            "text": "92% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 2,
+        "req": []
+      }
+    ]
+  ]
+}

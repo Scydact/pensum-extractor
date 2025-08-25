@@ -1,0 +1,426 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "MER10",
+  "publishDate": "10/4/2010",
+  "fetchDate": "2021-04-24",
+  "career": "LICENCIATURA EN MERCADEO",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 193",
+    "TÍTULO: LICENCIATURA EN MERCADOTECNIA",
+    "PRERREQUISITOS DE GRADUACION: Un Deporte. 8 niveles de inglés al concluir el 9no cuatrimestre. Pasantía (PAS510). Actitud Profesional: 60 horas = 6 crs."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2025-08-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/MER10"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "ADM091",
+        "name": "ADMINISTRACION I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "CON091",
+        "name": "CONTABILIDAD I",
+        "cr": 5,
+        "req": []
+      },
+      {
+        "code": "MER101",
+        "name": "MERCADOTECNIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC043",
+        "name": "GESTION AMBIENTAL",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "MAT100",
+        "name": "MATEMATICA PRE-UNIVERSITARIA",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ADM092",
+        "name": "ADMINISTRACION II",
+        "cr": 3,
+        "req": ["ADM091"]
+      },
+      {
+        "code": "ESP102",
+        "name": "REDACCION TEXTOS DISCURSIVOS I",
+        "cr": 4,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "MAT121",
+        "name": "ALGEBRA UNIVERSITARIA",
+        "cr": 4,
+        "req": ["MAT100"]
+      },
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC290",
+        "name": "ECONOMIA GENERAL",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ESP103",
+        "name": "REDACCION TEXTOS DISCURSIVOS II",
+        "cr": 4,
+        "req": ["ESP102"]
+      },
+      {
+        "code": "MAT131",
+        "name": "CALCULO Y GEOMETRIA ANALITICA I",
+        "cr": 5,
+        "req": ["MAT121"]
+      },
+      {
+        "code": "SOC101",
+        "name": "INTRODUCCION A LA PSICOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC200",
+        "name": "INTRODUCCION A LA SOCIOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC250",
+        "name": "METODOLOGIA DE LA INVESTIGACION CIENTIFICA",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "CON219",
+        "name": "COSTOS PRODUCTOS Y SERVICIOS I",
+        "cr": 5,
+        "req": ["CON091"]
+      },
+      {
+        "code": "ESP301",
+        "name": "EXPRESION ORAL",
+        "cr": 3,
+        "req": ["ESP103"]
+      },
+      {
+        "code": "MAT241",
+        "name": "MATEMATICA FINANCIERA I",
+        "cr": 4,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "MAT250",
+        "name": "ESTADISTICA I",
+        "cr": 4,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "ADM535",
+        "name": "ACTITUD EMPRENDEDORA",
+        "cr": 3,
+        "req": ["SOC101"]
+      }
+    ],
+    [
+      {
+        "code": "ADM124",
+        "name": "GESTION DEL TALENTO HUMANO",
+        "cr": 4,
+        "req": ["ADM092"]
+      },
+      {
+        "code": "ADM120",
+        "name": "LIDERAZGO Y TECNICAS DE SUPERVISION",
+        "cr": 3,
+        "req": ["ADM091"]
+      },
+      {
+        "code": "ADM140",
+        "name": "ADMINISTRACION FINANCIERA I",
+        "cr": 3,
+        "req": ["MAT241"]
+      },
+      {
+        "code": "MER102",
+        "name": "MERCADOTECNIA II",
+        "cr": 3,
+        "req": ["CON219", "MER101"]
+      },
+      {
+        "code": "DER011",
+        "name": "DERECHO COMERCIAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT251",
+        "name": "ESTADISTICA II",
+        "cr": 4,
+        "req": ["MAT250"]
+      }
+    ],
+    [
+      {
+        "code": "ART161",
+        "name": "PUBLICIDAD I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MER423",
+        "name": "MARKETING RELACIONAL",
+        "cr": 2,
+        "req": ["MER102"]
+      },
+      {
+        "code": "ADM219",
+        "name": "FORMULAC.Y EVAL. DE PROYECTOS",
+        "cr": 3,
+        "req": ["ADM140"]
+      },
+      {
+        "code": "MER426",
+        "name": "POLITICA Y ESTRATEGIA DE PRECIO",
+        "cr": 2,
+        "req": ["MER102"]
+      },
+      {
+        "code": "SOC033",
+        "name": "ETICA EN LOS NEGOCIOS",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "MER140",
+        "name": "ADMINISTRACION DE VENTAS I",
+        "cr": 3,
+        "req": ["MER102"]
+      },
+      {
+        "code": "MER162",
+        "name": "INVESTIGACION DE MERCADO I",
+        "cr": 3,
+        "req": ["MAT250"]
+      }
+    ],
+    [
+      {
+        "code": "NEG105",
+        "name": "LOGISTICA Y CADENA DE SUMINISTROS",
+        "cr": 3,
+        "req": ["MER140"]
+      },
+      {
+        "code": "MER141",
+        "name": "ADMINISTRACION DE VENTAS II",
+        "cr": 3,
+        "req": ["MER140"]
+      },
+      {
+        "code": "ART162",
+        "name": "PUBLICIDAD II",
+        "cr": 3,
+        "req": ["ART161"]
+      },
+      {
+        "code": "MER233",
+        "name": "SISTEMA CANALES DE DISTRIBUCION",
+        "cr": 3,
+        "req": ["MER102"]
+      },
+      {
+        "code": "MER225",
+        "name": "MERCADOTECNIA DE SERVICIOS",
+        "cr": 3,
+        "req": ["MER102"]
+      },
+      {
+        "code": "MER163",
+        "name": "INVESTIGACION DE MERCADO II",
+        "cr": 3,
+        "req": ["MER162"]
+      }
+    ],
+    [
+      {
+        "code": "MER429",
+        "name": "PLANEACION DE ESTRTEGIAS GENERALES",
+        "cr": 3,
+        "req": ["MER163", "MER233"]
+      },
+      {
+        "code": "MER120",
+        "name": "MERCADOTECNIA INTERNACIONAL",
+        "cr": 4,
+        "req": ["MER426"]
+      },
+      {
+        "code": "SOC160",
+        "name": "RELACIONES PUBLICAS",
+        "cr": 3,
+        "req": ["MER102"]
+      },
+      {
+        "code": "MER170",
+        "name": "PRESUP.Y PRONOSTICO VENTAS",
+        "cr": 3,
+        "req": ["MER141"]
+      },
+      {
+        "code": "ART180",
+        "name": "CREATIVIDAD",
+        "cr": 3,
+        "req": ["ART162"]
+      },
+      {
+        "code": "NEG129",
+        "name": "OPERACIONES DE IMPORTACION Y EXPORTACION",
+        "cr": 3,
+        "req": ["NEG105"]
+      }
+    ],
+    [
+      {
+        "code": "ADM175",
+        "name": "CREACION Y GERENCIA PYME",
+        "cr": 3,
+        "req": ["ADM219"]
+      },
+      {
+        "code": "MER180",
+        "name": "PROMOCION DE VENTAS",
+        "cr": 3,
+        "req": ["MER170", "SOC160"]
+      },
+      {
+        "code": "MER430",
+        "name": "MARKETING SOCIAL",
+        "cr": 3,
+        "req": ["MER233"]
+      },
+      {
+        "code": "MER217",
+        "name": "SEMINARIO DESARR.LANZAM. DEL PRODUCTO",
+        "cr": 4,
+        "req": ["MER163", "MER170"]
+      },
+      {
+        "code": "MER432",
+        "name": "COMPORTAMIENTO DEL CONSUMIDOR",
+        "cr": 3,
+        "req": ["SOC101"]
+      }
+    ],
+    [
+      {
+        "code": "MER434",
+        "name": "TRADE MARKETING",
+        "cr": 3,
+        "req": ["MER180", "MER233"]
+      },
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "IDI070",
+        "name": "INGLES TECNICO PARA NEGOCIOS I",
+        "cr": 3,
+        "req": ["ENG008"]
+      },
+      {
+        "code": "MER300",
+        "name": "GERENCIA DE MARCA",
+        "cr": 3,
+        "req": ["MER217"]
+      },
+      {
+        "code": "MER436",
+        "name": "E-BUSINESS",
+        "cr": 2,
+        "req": ["MER180"]
+      }
+    ],
+    [
+      {
+        "code": "MER413",
+        "name": "SIMULACION DINAMICA DE MERCADOTECNIA",
+        "cr": 3,
+        "req": ["MER120", "MER436"]
+      },
+      {
+        "code": "MER438",
+        "name": "SEMINARIO PLAN DE MARKETING",
+        "cr": 4,
+        "req": ["MER217", "MER429"]
+      },
+      {
+        "code": "IDI071",
+        "name": "INGLES TECNICO PARA NEGOCIOS II",
+        "cr": 3,
+        "req": ["IDI070"]
+      }
+    ],
+    [
+      {
+        "code": "TES-MON",
+        "name": "TRABAJO DE GRADO O CURSO MONOGRAFICO",
+        "cr": 6,
+        "req": [
+          {
+            "text": "92% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 2,
+        "req": []
+      }
+    ]
+  ]
+}

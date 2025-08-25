@@ -1,0 +1,643 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "IEL7",
+  "publishDate": "01/05/2004",
+  "fetchDate": "2021-04-24",
+  "career": "INGENIERIA ELECTRONICA",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 302",
+    "TÍTULO: INGENIERIA ELECTRONICA",
+    "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. Cursar dos asignaturas en inglés. Realizar seis (6) visitas programadas a industrias."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2021-04-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/IEL7"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "IDI033",
+        "name": "INGLES PARA INGENIERIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT126",
+        "name": "MATEMATICA BASICA PARA INGENIERIA",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC041",
+        "name": "ECOLOGIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "TEC098",
+        "name": "INTRODUCCION A LA INGENIERIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "TEC105",
+        "name": "QUIMICA GENERAL I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "TEC107",
+        "name": "LABORATORIO QUIMICA GENERAL I",
+        "cr": 1,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ESP102",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS I",
+        "cr": 4,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "IDI034",
+        "name": "INGLES PARA INGENIERIA II",
+        "cr": 3,
+        "req": ["IDI033"]
+      },
+      {
+        "code": "MAT127",
+        "name": "MATEMATICA SUPERIOR PARA INGENIERIA",
+        "cr": 5,
+        "req": ["MAT126"]
+      },
+      {
+        "code": "TEC106",
+        "name": "QUIMICA GENERAL II",
+        "cr": 3,
+        "req": ["TEC105"]
+      },
+      {
+        "code": "TEC108",
+        "name": "LABORATORIO QUIMICA GENERAL II",
+        "cr": 1,
+        "req": ["TEC105", "TEC107"]
+      },
+      {
+        "code": "TEC111",
+        "name": "FISICA GENERAL",
+        "cr": 4,
+        "req": ["MAT126"]
+      },
+      {
+        "code": "TEC132",
+        "name": "LABORATORIO FISICA GENERAL",
+        "cr": 1,
+        "req": ["MAT126"]
+      }
+    ],
+    [
+      {
+        "code": "ESP103",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS II",
+        "cr": 4,
+        "req": ["ESP102"]
+      },
+      {
+        "code": "IDI035",
+        "name": "INGLES P/INGENIERIA III",
+        "cr": 3,
+        "req": ["IDI034"]
+      },
+      {
+        "code": "MAT131",
+        "name": "CALCULO Y GEOMETRIA ANALITICA I",
+        "cr": 5,
+        "req": ["MAT127"]
+      },
+      {
+        "code": "MAT222",
+        "name": "ALGEBRA LINEAL",
+        "cr": 4,
+        "req": ["MAT127"]
+      },
+      {
+        "code": "TEC112",
+        "name": "FISICA MECANICA",
+        "cr": 4,
+        "req": ["MAT127", "TEC111"]
+      },
+      {
+        "code": "TEC114",
+        "name": "LABORATORIO FISICA MECANICA",
+        "cr": 1,
+        "req": ["TEC111", "TEC132"]
+      }
+    ],
+    [
+      {
+        "code": "IDI036",
+        "name": "INGLES P/INGENIERIA IV",
+        "cr": 3,
+        "req": ["IDI035"]
+      },
+      {
+        "code": "MAT132",
+        "name": "CALCULO Y GEOMETRIA ANALITICA II",
+        "cr": 5,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "MAT253",
+        "name": "PROBAB. Y ESTADISTICA PARA INGENIERIA",
+        "cr": 4,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "TEC113",
+        "name": "FISICA ELECTRICA",
+        "cr": 4,
+        "req": ["TEC112"]
+      },
+      {
+        "code": "TEC120",
+        "name": "LABORATORIO FISICA ELECTRICA",
+        "cr": 1,
+        "req": ["TEC112", "TEC114"]
+      },
+      {
+        "code": "TEC174",
+        "name": "CIENCIA DE LOS MATERIALES",
+        "cr": 3,
+        "req": ["TEC106"]
+      }
+    ],
+    [
+      {
+        "code": "IDI037",
+        "name": "INGLES P/INGENIERIA V",
+        "cr": 3,
+        "req": ["IDI036"]
+      },
+      {
+        "code": "MAT270",
+        "name": "ECUACIONES DIFERENCIALES",
+        "cr": 5,
+        "req": ["MAT132"]
+      },
+      {
+        "code": "TEC123",
+        "name": "LABOR.CIRCUITOS ELECTRICOS I",
+        "cr": 1,
+        "req": ["TEC113", "TEC120"]
+      },
+      {
+        "code": "TEC128",
+        "name": "FISICA CUANTICA",
+        "cr": 3,
+        "req": ["TEC113"]
+      },
+      {
+        "code": "TEC129",
+        "name": "DIBUJO TECNICO ASISTIDO POR COMPUTADORAS",
+        "cr": 3,
+        "req": ["MAT127"]
+      },
+      {
+        "code": "TEC146",
+        "name": "CIRCUITOS ELECTRICOS I",
+        "cr": 3,
+        "req": ["MAT132", "TEC113"]
+      },
+      {
+        "code": "TEC190",
+        "name": "LOGICA DIGITAL I",
+        "cr": 3,
+        "req": ["TEC113"]
+      },
+      {
+        "code": "TEC200",
+        "name": "LAB. LOGICA DIGITAL I",
+        "cr": 1,
+        "req": ["TEC113", "TEC120"]
+      }
+    ],
+    [
+      {
+        "code": "IDI038",
+        "name": "INGLES P/INGENIERIA VI",
+        "cr": 3,
+        "req": ["IDI037"]
+      },
+      {
+        "code": "MAT271",
+        "name": "METODO MATEMATICO",
+        "cr": 5,
+        "req": ["MAT270"]
+      },
+      {
+        "code": "TEC124",
+        "name": "LABOR.CIRCUITOS ELECTRICOS II",
+        "cr": 1,
+        "req": ["TEC123", "TEC146"]
+      },
+      {
+        "code": "TEC147",
+        "name": "CIRCUITOS ELECTRICOS II",
+        "cr": 3,
+        "req": ["MAT270", "TEC146"]
+      },
+      {
+        "code": "TEC148",
+        "name": "ELECTRONICA I",
+        "cr": 3,
+        "req": ["TEC146"]
+      },
+      {
+        "code": "TEC155",
+        "name": "LAB.DE ELECTRONICA I",
+        "cr": 1,
+        "req": ["TEC123", "TEC146"]
+      },
+      {
+        "code": "TEC269",
+        "name": "ELECTRODINAMICA",
+        "cr": 3,
+        "req": ["MAT270"]
+      },
+      {
+        "code": "TEC650",
+        "name": "DISEÑO DE INGENIERIA ASISTIDO POR COMPUTADORA",
+        "cr": 3,
+        "req": ["TEC129"]
+      }
+    ],
+    [
+      {
+        "code": "IDI039",
+        "name": "INGLES P/INGENIERIA VII",
+        "cr": 3,
+        "req": ["IDI038"]
+      },
+      {
+        "code": "SOC250",
+        "name": "METODOLOGIA DE LA INVESTIGACION CIENTIFICA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "TEC149",
+        "name": "ELECTRONICA II",
+        "cr": 3,
+        "req": ["TEC148", "TEC155"]
+      },
+      {
+        "code": "TEC156",
+        "name": "LAB.ELECTRONICA II",
+        "cr": 1,
+        "req": ["TEC148", "TEC155"]
+      },
+      {
+        "code": "TEC164",
+        "name": "CIRCUITOS ELECTRICOS III",
+        "cr": 3,
+        "req": ["TEC147"]
+      },
+      {
+        "code": "TEC175",
+        "name": "TEORIA DE COMUNICACIONES",
+        "cr": 3,
+        "req": ["MAT271", "TEC147"]
+      },
+      {
+        "code": "TEC191",
+        "name": "LOGICA DIGITAL II",
+        "cr": 3,
+        "req": ["TEC190"]
+      },
+      {
+        "code": "TEC201",
+        "name": "LAB. LOGICA DIGITAL II",
+        "cr": 1,
+        "req": ["TEC190", "TEC200"]
+      },
+      {
+        "code": "TEC611",
+        "name": "LABORATORIO TEORIA DE COMUNICACIONES",
+        "cr": 1,
+        "req": ["TEC124", "TEC147"]
+      }
+    ],
+    [
+      {
+        "code": "CON127",
+        "name": "CONTABILIDAD DE COSTOS PARA INGENIEROS",
+        "cr": 3,
+        "req": ["MAT127"]
+      },
+      {
+        "code": "IDI040",
+        "name": "INGLES P/INGENIERIA VIII",
+        "cr": 3,
+        "req": ["IDI039"]
+      },
+      {
+        "code": "TEC154",
+        "name": "ELECTRONICA DE POTENCIA",
+        "cr": 3,
+        "req": ["TEC149"]
+      },
+      {
+        "code": "TEC157",
+        "name": "LAB.DE ELECTRONICA DE POTENCIA",
+        "cr": 1,
+        "req": ["TEC149", "TEC156"]
+      },
+      {
+        "code": "TEC176",
+        "name": "MICROPROCESADORES I",
+        "cr": 3,
+        "req": ["TEC191", "TEC201"]
+      },
+      {
+        "code": "TEC205",
+        "name": "LABOR. MICROPROCESADORES I",
+        "cr": 1,
+        "req": ["TEC191", "TEC201"]
+      },
+      {
+        "code": "TEC213",
+        "name": "SISTEMA DE CONTROL I",
+        "cr": 3,
+        "req": ["MAT222", "TEC164"]
+      },
+      {
+        "code": "TEC713",
+        "name": "ONDAS ELECTROMAGNETICAS Y FEEDERS-LABORATORIO",
+        "cr": 4,
+        "req": ["MAT271"]
+      }
+    ],
+    [
+      {
+        "code": "IDI041",
+        "name": "INGLES P/INGENIERIA IX",
+        "cr": 3,
+        "req": ["IDI040"]
+      },
+      {
+        "code": "IND423",
+        "name": "INGENIERIA ECONOMICA",
+        "cr": 3,
+        "req": ["CON127"]
+      },
+      {
+        "code": "TEC177",
+        "name": "MICROPROCESADORES II",
+        "cr": 3,
+        "req": ["TEC176"]
+      },
+      {
+        "code": "TEC206",
+        "name": "LABOR. MICROPROCESADORES II",
+        "cr": 1,
+        "req": ["TEC176", "TEC205"]
+      },
+      {
+        "code": "TEC557",
+        "name": "PROCESAMIENTO DIGITAL DE SEÑALES I",
+        "cr": 3,
+        "req": ["TEC713"]
+      },
+      {
+        "code": "TEC604",
+        "name": "LAB. PROC. DIGITAL DE SEÑALES I",
+        "cr": 1,
+        "req": ["TEC713"]
+      },
+      {
+        "code": "TEC618",
+        "name": "ANTENAS",
+        "cr": 3,
+        "req": ["TEC713"]
+      },
+      {
+        "code": "TEC620",
+        "name": "LABORATORIO DE ANTENAS",
+        "cr": 1,
+        "req": ["TEC713"]
+      },
+      {
+        "code": "TEC621",
+        "name": "COMUNICACIONES OPTICAS",
+        "cr": 3,
+        "req": ["TEC164", "TEC175", "TEC713"]
+      },
+      {
+        "code": "TEC622",
+        "name": "LABORATORIO DE FIBRAS OPTICAS",
+        "cr": 1,
+        "req": ["TEC164", "TEC175", "TEC713"]
+      }
+    ],
+    [
+      {
+        "code": "ADM140",
+        "name": "ADMINISTRACION FINANCIERA I",
+        "cr": 3,
+        "req": ["MAT270"]
+      },
+      {
+        "code": "IDI042",
+        "name": "INGLES P/INGENIERIA X",
+        "cr": 3,
+        "req": ["IDI041"]
+      },
+      {
+        "code": "TEC178",
+        "name": "TELECOMUNICACIONES",
+        "cr": 3,
+        "req": ["TEC621", "TEC622", "TEC713"]
+      },
+      {
+        "code": "TEC294",
+        "name": "SISTEMA DE TELEVISION",
+        "cr": 3,
+        "req": ["TEC618", "TEC620", "TEC713"]
+      },
+      {
+        "code": "TEC296",
+        "name": "LABORATORIO SISTEMA DE TELEVISION",
+        "cr": 1,
+        "req": ["TEC618", "TEC620", "TEC713"]
+      },
+      {
+        "code": "TEC297",
+        "name": "MICROONDAS",
+        "cr": 3,
+        "req": ["TEC618", "TEC620", "TEC713"]
+      },
+      {
+        "code": "TEC298",
+        "name": "LABORATORIO MICROONDAS",
+        "cr": 1,
+        "req": ["TEC618", "TEC620", "TEC713"]
+      },
+      {
+        "code": "TEC558",
+        "name": "PROCESAMIENTO DIGITAL DE SEÑALES II",
+        "cr": 3,
+        "req": ["TEC557", "TEC604", "TEC713"]
+      },
+      {
+        "code": "TEC608",
+        "name": "LABORATORIO PROCESAMIENTO DIGITAL DE SEÑALES II",
+        "cr": 1,
+        "req": ["TEC557", "TEC604", "TEC713"]
+      }
+    ],
+    [
+      {
+        "code": "ADM219",
+        "name": "FORMULAC.Y EVAL. DE PROYECTOS",
+        "cr": 3,
+        "req": ["IND423"]
+      },
+      {
+        "code": "IND421",
+        "name": "GERENCIA DE RECURSOS HUMANOS",
+        "cr": 3,
+        "req": ["CON127"]
+      },
+      {
+        "code": "OPT1",
+        "name": "ELECTIVA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "TEC632",
+        "name": "COMUNICACIONES DIGITALES",
+        "cr": 4,
+        "req": ["TEC175", "TEC713"]
+      },
+      {
+        "code": "TEC633",
+        "name": "LAB. COMUNICACIONES DIGITALES",
+        "cr": 1,
+        "req": ["TEC175", "TEC713"]
+      },
+      {
+        "code": "TEC634",
+        "name": "SIST. TRANSM. RADIO FRECUENCIA",
+        "cr": 4,
+        "req": ["TEC618", "TEC620", "TEC713"]
+      },
+      {
+        "code": "TEC644",
+        "name": "DISEÑO FUENTES DE PODER CONMUTADAS",
+        "cr": 3,
+        "req": ["TEC154", "TEC157"]
+      },
+      {
+        "code": "TEC646",
+        "name": "LAB. SIST. TRANSM. RADIO FRECUENCIA",
+        "cr": 1,
+        "req": ["TEC618", "TEC620", "TEC713"]
+      }
+    ],
+    [
+      {
+        "code": "ADM120",
+        "name": "LIDERAZGO Y TECNICAS DE SUPERVISION",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "IND360",
+        "name": "SEGURIDAD E HIGIENE INDUSTRIAL",
+        "cr": 3,
+        "req": ["TEC098"]
+      },
+      {
+        "code": "OPT2",
+        "name": "ELECTIVA II",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC031",
+        "name": "ETICA PROFESIONAL",
+        "cr": 3,
+        "req": ["SOC250"]
+      },
+      {
+        "code": "SOC280",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 2,
+        "req": [
+          "SOC250",
+          {
+            "text": "73% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "TEC629",
+        "name": "TEORIA DE TELEFONIA",
+        "cr": 4,
+        "req": ["TEC621", "TEC622", "TEC713"]
+      },
+      {
+        "code": "TEC712",
+        "name": "LABORATORIO TEORIA DE TELEFONIA",
+        "cr": 1,
+        "req": ["TEC621", "TEC622", "TEC713"]
+      }
+    ],
+    [
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0,
+        "req": []
+      },
+      {
+        "code": "TES-MON",
+        "name": "TRABAJO DE GRADO O CURSO MONOGRAFICO",
+        "cr": 6,
+        "req": [
+          {
+            "text": "92% De los créditos aprobados"
+          }
+        ]
+      }
+    ]
+  ]
+}

@@ -1,0 +1,401 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "LIE11",
+  "publishDate": "03/01/2018",
+  "fetchDate": "2025-08-24",
+  "career": "LICENCIATURA EN INGLES ORIENTADA A LA ENSEÑANZA",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS:                                     188",
+    "TÍTULO:                                     LICENCIATURA EN INGLES ORIENTADA A LA ENSEÑANZA",
+    "REQUISITO GENERAL DE LA GRADUACIÓN:                                     Aprobar un Deporte. Actitud Profesional: 60 horas. PAS702: 180 horas."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2025-08-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/LIE11"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "EDU100",
+        "name": "FUNDAMENTOS FILOSOFICOS E HISTORICOS DE LA EDUCACION",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "ESP302",
+        "name": "EXPRESION ORAL Y ESCRITA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "IDI007",
+        "name": "INGLES INTERMEDIO I",
+        "cr": 4,
+        "req": ["ENG006"]
+      },
+      {
+        "code": "LMS140",
+        "name": "ARITMETICA Y GEOMETRIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "PSI100",
+        "name": "PSICOLOGIA GENERAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "EDU101",
+        "name": "DIDACTICA GENERAL",
+        "cr": 5,
+        "req": ["EDU100"]
+      },
+      {
+        "code": "IDI008",
+        "name": "INGLES INTERMEDIO II",
+        "cr": 4,
+        "req": ["IDI007"]
+      },
+      {
+        "code": "PSI105",
+        "name": "PSICOLOGIA DEL ADOLESCENTE",
+        "cr": 3,
+        "req": ["PSI100"]
+      },
+      {
+        "code": "SOC013",
+        "name": "FILOSOFIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC031",
+        "name": "ETICA PROFESIONAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC250",
+        "name": "METODOLOGIA DE LA INVESTIGACION CIENTIFICA",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "EDU103",
+        "name": "FUNDAMENTO Y ESTRUCTURA DEL CURRICULUM",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "EDU106",
+        "name": "INVESTIGACION EDUCATIVA",
+        "cr": 3,
+        "req": ["SOC250"]
+      },
+      {
+        "code": "IDI009",
+        "name": "INGLES AVANZADO I",
+        "cr": 5,
+        "req": ["IDI008"]
+      },
+      {
+        "code": "PRA001",
+        "name": "PRACTICA DOCENTE I",
+        "cr": 4,
+        "req": ["EDU101"]
+      },
+      {
+        "code": "PSI106",
+        "name": "PSICOLOGIA DEL APRENDIZAJE",
+        "cr": 3,
+        "req": ["PSI105"]
+      }
+    ],
+    [
+      {
+        "code": "EDU110",
+        "name": "EVALUACION DE LOS APRENDIZAJES",
+        "cr": 3,
+        "req": ["EDU101"]
+      },
+      {
+        "code": "EDU200",
+        "name": "MEDIOS Y RECURSOS PARA EL APRENDIZAJE",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "IDI010",
+        "name": "INGLES AVANZADO II",
+        "cr": 5,
+        "req": ["IDI009"]
+      },
+      {
+        "code": "PSI200",
+        "name": "NEUROCIENCIA Y APRENDIZAJE",
+        "cr": 3,
+        "req": ["PSI106"]
+      },
+      {
+        "code": "SOC190",
+        "name": "INTRODUCCION A LAS CIENCIAS SOCIALES",
+        "cr": 2,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "EDU105",
+        "name": "CIENCIAS NATURALES",
+        "cr": 3,
+        "req": ["EDU110"]
+      },
+      {
+        "code": "EDU202",
+        "name": "LIDERAZGO EDUCATIVO",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "INF604",
+        "name": "LAS TIC EN LA ENSEÑANZA DEL INGLES",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "LIE100",
+        "name": "LENGUA Y LINGUISTICA",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "LIE120",
+        "name": "GRAMATICA AVANZADA INGLESA",
+        "cr": 4,
+        "req": ["IDI010"]
+      }
+    ],
+    [
+      {
+        "code": "EDU203",
+        "name": "ESCUELA, FAMILIA Y COMUNIDAD",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "LIE110",
+        "name": "FONETICA Y FONOLOGIA",
+        "cr": 4,
+        "req": ["LIE100"]
+      },
+      {
+        "code": "LIE205",
+        "name": "REDACCION ACADEMICA EN INGLES",
+        "cr": 4,
+        "req": ["LIE120"]
+      },
+      {
+        "code": "LIE310",
+        "name": "TEORIAS DE ENSEÑANZA Y APRENDIZAJE EN LA LENGUA INGLESA",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "PRA002",
+        "name": "PRACTICA DOCENTE II",
+        "cr": 4,
+        "req": ["EDU110", "PRA001"]
+      }
+    ],
+    [
+      {
+        "code": "ART010",
+        "name": "BELLAS ARTES",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "LIE101",
+        "name": "LINGUISTICA APLICADA",
+        "cr": 4,
+        "req": ["LIE100"]
+      },
+      {
+        "code": "LIE210",
+        "name": "DIDACTICA DE LA ENSEÑANZA DEL INGLES COMO LENGUA EXTRANJERA I",
+        "cr": 4,
+        "req": ["LIE120"]
+      },
+      {
+        "code": "LIE300",
+        "name": "CIVILIZACION Y CULTURA INGLESA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "LIE301",
+        "name": "TEORIAS LITERARIAS",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "SOC012",
+        "name": "VISION CRITICA DE LA HISTORIA DOMINICANA",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "LIE200",
+        "name": "EL CUENTO Y LA LITERATURA INFANTIL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "LIE211",
+        "name": "DIDACTICA DE LA ENSEÑANZA DEL INGLES COMO LENGUA EXTRANJERA II",
+        "cr": 4,
+        "req": ["LIE210"]
+      },
+      {
+        "code": "LIE215",
+        "name": "EVALUACION DEL APRENDIZAJE EN LA LENGUA INGLESA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "LIE307",
+        "name": "TEORIAS Y TECNICAS DE LA TRADUCCION",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "OPTESP",
+        "name": "OPTATIVA EN ESPAÑOL",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "LIE209",
+        "name": "FUNDAMENTOS DEL DISCURSO EN INGLES",
+        "cr": 3,
+        "req": ["LIE205"]
+      },
+      {
+        "code": "LIE303",
+        "name": "LITERATURA DEL CARIBE ANGLOFONO",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "LIE304",
+        "name": "LITERATURA ANGLOFONA I - GRAN BRETAÑA",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "PRA003",
+        "name": "PRACTICA DOCENTE III",
+        "cr": 5,
+        "req": ["LIE211", "PRA002"]
+      }
+    ],
+    [
+      {
+        "code": "LIE115",
+        "name": "LINGUISTICA Y ANALISIS COMPARATIVO ENTRE INGLES Y ESPAÑOL",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "LIE305",
+        "name": "LITERATURA ANGLOFONA II - ESTADOS UNIDOS",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "LIE306",
+        "name": "LITERATURA LATINO-NORTEAMERICA",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "PRA004",
+        "name": "PRACTICA DOCENTE IV",
+        "cr": 5,
+        "req": ["PRA003"]
+      }
+    ],
+    [
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": [
+          {
+            "text": "80% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "PAS702",
+        "name": "PASANTIA",
+        "cr": 0,
+        "req": [
+          "PRA004",
+          {
+            "text": "75% De los créditos aprobados"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "TES-MON",
+        "name": "TRABAJO DE GRADO O CURSO MONOGRAFICO",
+        "cr": 6,
+        "req": []
+      },
+      {
+        "code": "OPTIDI",
+        "name": "OPTATIVA IDIOMAS",
+        "cr": 0,
+        "req": []
+      },
+      {
+        "code": "ESP110",
+        "name": "NORMAS Y PRACTICAS ORTOGRAFICAS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0,
+        "req": []
+      }
+    ]
+  ]
+}

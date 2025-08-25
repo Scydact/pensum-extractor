@@ -1,0 +1,426 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "CIN11",
+  "publishDate": "01/09/2021",
+  "fetchDate": "2021-04-24",
+  "career": "LICENCIATURA EN CINEMATOGRAFIA",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 192",
+    "TÍTULO: LICENCIATURA EN CINEMATOGRAFIA",
+    "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. Diez (10) niveles de inglés. Pasantía (PAS625) de 180 horas. Actitud Profesional: 60 horas."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2021-04-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/CIN11"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT010",
+        "name": "MATEMATICA BASICA UNIVERSITARIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC043",
+        "name": "GESTION AMBIENTAL",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "ART020",
+        "name": "HISTORIA DEL CINE UNIVERSAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART022",
+        "name": "APRECIACION AUDIOVISUAL",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "SOC013",
+        "name": "FILOSOFIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC101",
+        "name": "INTRODUCCION A LA PSICOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP106",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS I",
+        "cr": 3,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "ART141",
+        "name": "FOTOGRAFIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART024",
+        "name": "ARTE Y ESTILO I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART028",
+        "name": "LENGUAJE CINEMATOGRAFICO",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "SOC200",
+        "name": "INTRODUCCION A LA SOCIOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP107",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS II",
+        "cr": 3,
+        "req": ["ESP106"]
+      },
+      {
+        "code": "ART210",
+        "name": "PENSAMIENTO CREATIVO",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART026",
+        "name": "ARTE Y ESTILO II",
+        "cr": 3,
+        "req": ["ART024"]
+      },
+      {
+        "code": "ART032",
+        "name": "GUION CINEMATOGRAFICO I",
+        "cr": 3,
+        "req": ["ART028"]
+      },
+      {
+        "code": "ART142",
+        "name": "FOTOGRAFIA II",
+        "cr": 3,
+        "req": ["ART141"]
+      }
+    ],
+    [
+      {
+        "code": "SOC253",
+        "name": "METODOLOGIA Y TECNICAS DE INVESTIGACION",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "SOC031",
+        "name": "ETICA PROFESIONAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART575",
+        "name": "BOCETO PARA STORYBOARD",
+        "cr": 5,
+        "req": []
+      },
+      {
+        "code": "ART035",
+        "name": "FOTOGRAFIA CINEMATOGRAFICA I",
+        "cr": 3,
+        "req": ["ART142"]
+      },
+      {
+        "code": "ART033",
+        "name": "GUION CINEMATOGRAFICO II",
+        "cr": 3,
+        "req": ["ART032"]
+      },
+      {
+        "code": "CDG105",
+        "name": "DISEÑO DIGITAL I",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ART030",
+        "name": "CASTING Y PREPARACION DE ACTORES",
+        "cr": 3,
+        "req": ["ART033"]
+      },
+      {
+        "code": "ART042",
+        "name": "DISEÑO DE PRODUCCION",
+        "cr": 3,
+        "req": ["ART033"]
+      },
+      {
+        "code": "ART043",
+        "name": "DIRECCION DE ARTE I",
+        "cr": 4,
+        "req": ["ART033", "ART035"]
+      },
+      {
+        "code": "ART036",
+        "name": "FOTOGRAFIA CINEMATOGRAFICA II",
+        "cr": 3,
+        "req": ["ART035"]
+      },
+      {
+        "code": "CDG106",
+        "name": "DISEÑO DIGITAL II",
+        "cr": 3,
+        "req": ["CDG105"]
+      },
+      {
+        "code": "ADM535",
+        "name": "ACTITUD EMPRENDEDORA",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ART044",
+        "name": "DIRECCION DE ARTE II",
+        "cr": 4,
+        "req": ["ART043"]
+      },
+      {
+        "code": "CDG505",
+        "name": "DISEÑO Y ANIMACION DIGITAL I",
+        "cr": 3,
+        "req": ["CDG106"]
+      },
+      {
+        "code": "ART052",
+        "name": "PRODUCCION Y REALIZACION I",
+        "cr": 4,
+        "req": ["ART042", "ART043"]
+      },
+      {
+        "code": "ADM540",
+        "name": "LIDERAZGO Y HABILIDADES DIRECTIVAS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART317",
+        "name": "SONIDO Y MUSICALIZACION",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ART054",
+        "name": "PRODUCCION Y REALIZACION II",
+        "cr": 4,
+        "req": ["ART052"]
+      },
+      {
+        "code": "ART046",
+        "name": "DISEÑO DE SONIDO",
+        "cr": 4,
+        "req": ["ART317"]
+      },
+      {
+        "code": "ART056",
+        "name": "DIRECCION CINEMATOGRAFICA I",
+        "cr": 4,
+        "req": ["ART044", "ART052"]
+      },
+      {
+        "code": "CDG600",
+        "name": "DISEÑO Y ANIMACION DIGITAL II",
+        "cr": 3,
+        "req": ["CDG505"]
+      },
+      {
+        "code": "ECIN 1",
+        "name": "ELECTIVA I",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ART058",
+        "name": "DIRECCION CINEMATOGRAFICA II",
+        "cr": 4,
+        "req": ["ART056"]
+      },
+      {
+        "code": "ART060",
+        "name": "POST PRODUCCION PARA CINE I",
+        "cr": 4,
+        "req": ["ART054", "CDG600"]
+      },
+      {
+        "code": "MER101",
+        "name": "MERCADOTECNIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC125",
+        "name": "PSICOLOGIA DE LA PERCEPCION",
+        "cr": 3,
+        "req": ["SOC101"]
+      },
+      {
+        "code": "ECIN 2",
+        "name": "ELECTIVA II",
+        "cr": 3,
+        "req": ["ECIN 1"]
+      }
+    ],
+    [
+      {
+        "code": "ART064",
+        "name": "COLORIZACION EN CINE",
+        "cr": 4,
+        "req": ["ART060"]
+      },
+      {
+        "code": "ART062",
+        "name": "POST PRODUCCION PARA CINE II",
+        "cr": 4,
+        "req": ["ART060"]
+      },
+      {
+        "code": "ART066",
+        "name": "PRESUPUESTO PARA CINE",
+        "cr": 3,
+        "req": ["MAT010"]
+      },
+      {
+        "code": "ECIN 3",
+        "name": "ELECTIVA III",
+        "cr": 3,
+        "req": ["ECIN 2"]
+      }
+    ],
+    [
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": [
+          "SOC253",
+          {
+            "text": "80% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "DER560",
+        "name": "LEY DE CINE Y DERECHO DE AUTOR",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART070",
+        "name": "PROYECTO CINEMATOGRAFICO I",
+        "cr": 4,
+        "req": ["ART058", "ART062"]
+      },
+      {
+        "code": "IDI520",
+        "name": "INGLES PARA CINEASTAS I",
+        "cr": 3,
+        "req": ["ENG010"]
+      }
+    ],
+    [
+      {
+        "code": "ART072",
+        "name": "PROYECTO CINEMATOGRAFICO II",
+        "cr": 4,
+        "req": ["ART070"]
+      },
+      {
+        "code": "MER452",
+        "name": "MARKETING PARA CINE",
+        "cr": 3,
+        "req": ["MER101"]
+      },
+      {
+        "code": "ART074",
+        "name": "APRECIACION Y CRITICA DEL CINE",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "IDI525",
+        "name": "INGLES PARA CINEASTAS II",
+        "cr": 3,
+        "req": ["IDI520"]
+      }
+    ],
+    [
+      {
+        "code": "TFG100",
+        "name": "TRABAJO FINAL DE GRADO",
+        "cr": 6,
+        "req": [
+          "SOC281",
+          {
+            "text": "95% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "PAS625",
+        "name": "PASANTIA CINEMATOGRAFIA",
+        "cr": 0,
+        "req": []
+      },
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0,
+        "req": []
+      }
+    ]
+  ]
+}

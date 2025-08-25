@@ -1,0 +1,575 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "DER7",
+  "publishDate": "01/05/2005",
+  "fetchDate": "2021-04-24",
+  "career": "LICENCIATURA EN DERECHO",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 242",
+    "TÍTULO: LICENCIATURA EN DERECHO",
+    "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. Diez (10) niveles de inglés y/o Ocho (8) niveles de francés."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2021-04-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/DER7"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "DER104",
+        "name": "INTRODUCCION AL ESTUDIO DEL DERECHO",
+        "cr": 5,
+        "req": []
+      },
+      {
+        "code": "DER135",
+        "name": "DERECHO ROMANO",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT100",
+        "name": "MATEMATICA PRE-UNIVERSITARIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC001",
+        "name": "HISTORIA DE LA CULTURA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC190",
+        "name": "INTRODUCCION A LAS CIENCIAS SOCIALES",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "OPT-I1",
+        "name": "OPTATIVA IDIOMAS",
+        "cr": 0,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "DER115",
+        "name": "DERECHO DE LAS PERSONAS",
+        "cr": 4,
+        "req": ["DER104"]
+      },
+      {
+        "code": "DER172",
+        "name": "DERECHO CONSTITUCIONAL",
+        "cr": 3,
+        "req": ["DER104"]
+      },
+      {
+        "code": "DER182",
+        "name": "TEORIA GENERAL DE DERECHO",
+        "cr": 3,
+        "req": ["DER104"]
+      },
+      {
+        "code": "ESP102",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS I",
+        "cr": 4,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "MAT111",
+        "name": "NOCIONES DE MATEMATICA",
+        "cr": 4,
+        "req": ["MAT100"]
+      },
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC013",
+        "name": "FILOSOFIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "OPT-I2",
+        "name": "OPTATIVA IDIOMAS",
+        "cr": 0,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "DER105",
+        "name": "HISTORIA DE LAS INSTITUCIONES DOMINICANAS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "DER116",
+        "name": "DERECHO DE LA FAMILIA",
+        "cr": 4,
+        "req": ["DER115"]
+      },
+      {
+        "code": "DER174",
+        "name": "DERECHO PROCESAL CONSTITUCIONAL",
+        "cr": 3,
+        "req": ["DER172"]
+      },
+      {
+        "code": "ESP103",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS II",
+        "cr": 4,
+        "req": ["ESP102"]
+      },
+      {
+        "code": "SOC041",
+        "name": "ECOLOGIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC250",
+        "name": "METODOLOGIA DE LA INVESTIGACION CIENTIFICA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "OPT-I3",
+        "name": "OPTATIVA IDIOMAS",
+        "cr": 0,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "DER123",
+        "name": "LOGICA JURIDICA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "DER147",
+        "name": "DERECHO PENAL GENERAL I",
+        "cr": 4,
+        "req": ["DER174"]
+      },
+      {
+        "code": "DER190",
+        "name": "DERECHO OBLIGACIONES I",
+        "cr": 4,
+        "req": ["DER116"]
+      },
+      {
+        "code": "DER237",
+        "name": "DERECHO COMERCIAL I",
+        "cr": 3,
+        "req": ["DER104"]
+      },
+      {
+        "code": "ESP301",
+        "name": "EXPRESION ORAL",
+        "cr": 3,
+        "req": ["ESP103"]
+      },
+      {
+        "code": "SOC101",
+        "name": "INTRODUCCION A LA PSICOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC260",
+        "name": "SOCIOLOGIA JURIDICA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC270",
+        "name": "INTRODUCCION A LAS TECNICAS DE INVESTIGACION SOCIAL",
+        "cr": 3,
+        "req": ["SOC250"]
+      },
+      {
+        "code": "OPT-I4",
+        "name": "OPTATIVA IDIOMAS",
+        "cr": 0,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "DER148",
+        "name": "DERECHO PENAL GENERAL II",
+        "cr": 4,
+        "req": ["DER147"]
+      },
+      {
+        "code": "DER168",
+        "name": "DERECHO ADMINISTRATIVO I",
+        "cr": 3,
+        "req": ["DER174"]
+      },
+      {
+        "code": "DER180",
+        "name": "DERECHO INTERNACIONAL PUBLICO",
+        "cr": 4,
+        "req": ["DER174"]
+      },
+      {
+        "code": "DER191",
+        "name": "DERECHO OBLIGACIONES II",
+        "cr": 4,
+        "req": ["DER190"]
+      },
+      {
+        "code": "DER216",
+        "name": "HISTOR.DE LAS IDEAS POLITICAS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "DER227",
+        "name": "DERECHO LABORAL I",
+        "cr": 3,
+        "req": ["DER190"]
+      },
+      {
+        "code": "DER238",
+        "name": "DERECHO COMERCIAL II",
+        "cr": 3,
+        "req": ["DER237"]
+      },
+      {
+        "code": "OPT-I5",
+        "name": "OPTATIVA IDIOMAS",
+        "cr": 0,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "DER154",
+        "name": "DERECHO PROCESAL CIVIL I",
+        "cr": 4,
+        "req": ["DER191"]
+      },
+      {
+        "code": "DER169",
+        "name": "DERECHO ADMINISTRATIVO II",
+        "cr": 3,
+        "req": ["DER168"]
+      },
+      {
+        "code": "DER181",
+        "name": "DERECHO INTERNACIONAL PRIVADO",
+        "cr": 4,
+        "req": ["DER180"]
+      },
+      {
+        "code": "DER186",
+        "name": "DERECHO PENAL ESPECIAL I",
+        "cr": 3,
+        "req": ["DER148"]
+      },
+      {
+        "code": "DER192",
+        "name": "DERECHO OBLIGACIONES III",
+        "cr": 4,
+        "req": ["DER191"]
+      },
+      {
+        "code": "OPT-I6",
+        "name": "OPTATIVA IDIOMAS",
+        "cr": 0,
+        "req": []
+      },
+      {
+        "code": "DER228",
+        "name": "DERECHO LABORAL II",
+        "cr": 3,
+        "req": ["DER227"]
+      }
+    ],
+    [
+      {
+        "code": "DER149",
+        "name": "DERECHO DE LA NIÑEZ Y ADOLESCENCIA",
+        "cr": 3,
+        "req": ["DER148"]
+      },
+      {
+        "code": "DER155",
+        "name": "DERECHO PROCESAL CIVIL II",
+        "cr": 4,
+        "req": ["DER154"]
+      },
+      {
+        "code": "DER178",
+        "name": "DERECHOS REALES",
+        "cr": 4,
+        "req": ["DER192"]
+      },
+      {
+        "code": "DER187",
+        "name": "DERECHO PENAL ESPECIAL II",
+        "cr": 3,
+        "req": ["DER186"]
+      },
+      {
+        "code": "DER229",
+        "name": "DERECHO PROCESAL LABORAL",
+        "cr": 3,
+        "req": ["DER228"]
+      },
+      {
+        "code": "DER252",
+        "name": "ORGAN. COMUNIDAD INTERNACIONAL",
+        "cr": 3,
+        "req": ["DER181"]
+      },
+      {
+        "code": "DER301",
+        "name": "ETICA JURIDICA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "OPT-I7",
+        "name": "OPTATIVA IDIOMAS",
+        "cr": 0,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "DER150",
+        "name": "DERECHO PROPIEDAD INTELECTUAL",
+        "cr": 4,
+        "req": ["DER155"]
+      },
+      {
+        "code": "DER156",
+        "name": "DERECHO PROCESAL CIVIL III",
+        "cr": 4,
+        "req": ["DER155"]
+      },
+      {
+        "code": "DER196",
+        "name": "DERECHO PROCESAL PENAL I",
+        "cr": 3,
+        "req": ["DER187"]
+      },
+      {
+        "code": "DER218",
+        "name": "CRIMINOLOGIA",
+        "cr": 3,
+        "req": ["DER187"]
+      },
+      {
+        "code": "DER259",
+        "name": "DERECHO DE LOS PRINCIPALES CONTRATOS",
+        "cr": 4,
+        "req": ["DER178"]
+      },
+      {
+        "code": "DER279",
+        "name": "DERECHO FISCAL",
+        "cr": 3,
+        "req": ["DER169"]
+      },
+      {
+        "code": "OPT-I8",
+        "name": "OPTATIVA IDIOMAS",
+        "cr": 0,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "DER151",
+        "name": "DER. TELECOMUNIC.Y TECNOLOG. INFORMAC.",
+        "cr": 3,
+        "req": ["DER150"]
+      },
+      {
+        "code": "DER157",
+        "name": "DERECHO PROCESAL CIVIL IV",
+        "cr": 4,
+        "req": ["DER156"]
+      },
+      {
+        "code": "DER170",
+        "name": "DERECHO DE LA COMPETENCIA",
+        "cr": 3,
+        "req": ["DER238"]
+      },
+      {
+        "code": "DER197",
+        "name": "DERECHO PROCESAL PENAL II",
+        "cr": 3,
+        "req": ["DER196"]
+      },
+      {
+        "code": "DER210",
+        "name": "DERECHO PROCESAL ADM. Y FISCAL",
+        "cr": 3,
+        "req": ["DER279"]
+      },
+      {
+        "code": "DER260",
+        "name": "DERECHO DE LAS GARANTIAS",
+        "cr": 4,
+        "req": ["DER259"]
+      },
+      {
+        "code": "SOC290",
+        "name": "ECONOMIA GENERAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "OPT-I9",
+        "name": "OPTATIVA IDIOMAS",
+        "cr": 0,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "DER152",
+        "name": "DERECHO AMBIENTAL",
+        "cr": 3,
+        "req": ["SOC041"]
+      },
+      {
+        "code": "DER153",
+        "name": "DERECHO REGISTRAL",
+        "cr": 3,
+        "req": ["DER178"]
+      },
+      {
+        "code": "DER183",
+        "name": "LEGISLACION ECONOMICA Y EMPRESARIAL",
+        "cr": 4,
+        "req": ["DER279"]
+      },
+      {
+        "code": "DER201",
+        "name": "RESOLUCION ALTERNATIVAS DE DISPUTAS",
+        "cr": 2,
+        "req": ["DER197"]
+      },
+      {
+        "code": "DER274",
+        "name": "DERECHO DE LOS REGIMENES MATRIMONIALES",
+        "cr": 4,
+        "req": ["DER260"]
+      },
+      {
+        "code": "DER281",
+        "name": "DERECHO COMPARADO",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "DER292",
+        "name": "PRACTICA JURIDICA I",
+        "cr": 3,
+        "req": ["DER157", "DER197"]
+      },
+      {
+        "code": "OPT-I10",
+        "name": "OPTATIVA IDIOMAS",
+        "cr": 0,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ADM120",
+        "name": "LIDERAZGO Y TECNICAS DE SUPERVISION",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "DER203",
+        "name": "LEGISLACION BANCARIA Y DE SEGUROS",
+        "cr": 3,
+        "req": ["DER174"]
+      },
+      {
+        "code": "DER204",
+        "name": "DERECHOS HUMANOS",
+        "cr": 3,
+        "req": ["DER252"]
+      },
+      {
+        "code": "DER275",
+        "name": "DER. DE SUCESIONES Y LIBERALIDADES",
+        "cr": 4,
+        "req": ["DER274"]
+      },
+      {
+        "code": "DER293",
+        "name": "PRACTICA JURIDICA II",
+        "cr": 3,
+        "req": ["DER292"]
+      },
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": [
+          "SOC270",
+          {
+            "text": "80% De los créditos aprobados"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0,
+        "req": []
+      },
+      {
+        "code": "TES-MON",
+        "name": "TRABAJO DE GRADO O CURSO MONOGRAFICO",
+        "cr": 6,
+        "req": [
+          {
+            "text": "92% De los créditos aprobados"
+          }
+        ]
+      }
+    ]
+  ]
+}

@@ -1,0 +1,408 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "PUB10",
+  "publishDate": "10/10/2010",
+  "fetchDate": "2021-04-24",
+  "career": "LICENCIATURA EN PUBLICIDAD",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 191",
+    "TÍTULO: LICENCIATURA EN PUBLICIDAD",
+    "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. 8 niveles de inglés. Pasantía (PAS610) de 150 a 300 horas. Actitud Profesional: 60 horas."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2025-08-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/PUB10"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "ART396",
+        "name": "DIBUJO ANALITICO I",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "ART400",
+        "name": "DISEÑO BASICO",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "ART401",
+        "name": "MEDIOS DE REPRODUCCION GRAFICA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT100",
+        "name": "MATEMATICA PRE-UNIVERSITARIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC041",
+        "name": "ECOLOGIA",
+        "cr": 2,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ART148",
+        "name": "DISEÑO INFORMATIZADO I ",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART397",
+        "name": "DIBUJO ANALITICO II",
+        "cr": 4,
+        "req": ["ART396"]
+      },
+      {
+        "code": "ART402",
+        "name": "DISEÑO TIPOGRAFICO",
+        "cr": 4,
+        "req": ["ART400"]
+      },
+      {
+        "code": "ESP102",
+        "name": "REDACCION TEXTOS DISCURSIVOS I",
+        "cr": 4,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "MAT250",
+        "name": "ESTADISTICA I",
+        "cr": 4,
+        "req": ["MAT100"]
+      }
+    ],
+    [
+      {
+        "code": "ART149",
+        "name": "DISEÑO INFORMATIZADO II",
+        "cr": 3,
+        "req": ["ART148"]
+      },
+      {
+        "code": "ART403",
+        "name": "DISEÑO PUBLICITARIO",
+        "cr": 4,
+        "req": ["ART402"]
+      },
+      {
+        "code": "ART236",
+        "name": "ARTE Y COMUNICACION I ",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP103",
+        "name": "REDACCION TEXTOS DISCURSIVOS II",
+        "cr": 4,
+        "req": ["ESP102"]
+      },
+      {
+        "code": "SOC101",
+        "name": "INTRODUCCION A LA PSICOLOGIA ",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ART141",
+        "name": "FOTOGRAFIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART150",
+        "name": "DISEÑO INFORMATIZADO III",
+        "cr": 3,
+        "req": ["ART149"]
+      },
+      {
+        "code": "ART237",
+        "name": "ARTE Y COMUNICACION II",
+        "cr": 3,
+        "req": ["ART236"]
+      },
+      {
+        "code": "ART398",
+        "name": "DISEÑO Y GESTION DE MARCAS",
+        "cr": 4,
+        "req": ["ART403"]
+      },
+      {
+        "code": "ART405",
+        "name": "ANIMACION PUBLICITARIA",
+        "cr": 4,
+        "req": ["ART397"]
+      },
+      {
+        "code": "SOC200",
+        "name": "INTRODUCCION A LA SOCIOLOGIA",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ART142",
+        "name": "FOTOGRAFIA II ",
+        "cr": 3,
+        "req": ["ART141"]
+      },
+      {
+        "code": "ART151",
+        "name": "DISEÑO INFORMATIZADO IV",
+        "cr": 3,
+        "req": ["ART150"]
+      },
+      {
+        "code": "ART238",
+        "name": "ARTE Y COMUNICACION III",
+        "cr": 3,
+        "req": ["ART237"]
+      },
+      {
+        "code": "ART404",
+        "name": "DISEÑO DE ENVASES Y PRODUCTOS ",
+        "cr": 4,
+        "req": ["ART398"]
+      },
+      {
+        "code": "SOC290",
+        "name": "ECONOMIA GENERAL ",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ART161",
+        "name": "PUBLICIDAD I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART214",
+        "name": "TEORIA DE LA COMUNICACION",
+        "cr": 3,
+        "req": ["ART238"]
+      },
+      {
+        "code": "ART231",
+        "name": "FOTOGRAFIA PUBLICITARIA",
+        "cr": 4,
+        "req": ["ART142"]
+      },
+      {
+        "code": "ART407",
+        "name": "COMUNICACION ORGANIZACIONAL",
+        "cr": 3,
+        "req": ["ART398"]
+      },
+      {
+        "code": "ESP420",
+        "name": "REDACCION PUBLICITARIA",
+        "cr": 3,
+        "req": ["ESP103"]
+      }
+    ],
+    [
+      {
+        "code": "ART162",
+        "name": "PUBLICIDAD II",
+        "cr": 3,
+        "req": ["ART161"]
+      },
+      {
+        "code": "ART225",
+        "name": "MEDIOS DE COMUNICACION ",
+        "cr": 3,
+        "req": ["ART214"]
+      },
+      {
+        "code": "ESP421",
+        "name": "ANALISIS SEMIOTICO DE LA PUBLICIDAD",
+        "cr": 3,
+        "req": ["ART214", "ESP420"]
+      },
+      {
+        "code": "SOC250",
+        "name": "METODOLOGIA DE LA INVESTIGACION CIENTIFICA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC031",
+        "name": "ETICA PROFESIONAL",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ART185",
+        "name": "CREATIVIDAD PUBLICITARIA I",
+        "cr": 3,
+        "req": ["ART162"]
+      },
+      {
+        "code": "ART201",
+        "name": "RELACIONES PUBLICAS",
+        "cr": 3,
+        "req": ["ART161", "ART214"]
+      },
+      {
+        "code": "ART226",
+        "name": "ESTRATEGIA DE MEDIOS",
+        "cr": 3,
+        "req": ["ART225"]
+      },
+      {
+        "code": "ART317",
+        "name": "SONIDO Y MUSICALIZACION",
+        "cr": 3,
+        "req": ["ART162"]
+      },
+      {
+        "code": "DER520",
+        "name": "PROPIEDAD INTELECTUAL Y LEGISLACION DE LA COMUNICACION",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC115",
+        "name": "PSICOLOGIA DEL CONSUMIDOR",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ADM135",
+        "name": "PRESUPUESTO PUBLICITARIO",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART163",
+        "name": "DISEÑO PUBLICITARIO MULTIMEDIA",
+        "cr": 4,
+        "req": ["ART151"]
+      },
+      {
+        "code": "ART186",
+        "name": "CREATIVIDAD PUBLICITARIA II",
+        "cr": 3,
+        "req": ["ART185"]
+      },
+      {
+        "code": "ART338",
+        "name": "PRODUCCION DE RADIO",
+        "cr": 3,
+        "req": ["ART317"]
+      },
+      {
+        "code": "MER101",
+        "name": "MERCADOTECNIA I",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ADM119",
+        "name": "CREACION Y GESTION EMP. PUBLIC",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ADM120",
+        "name": "LIDERAZGO Y TECNICAS DE SUPERVISION",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART202",
+        "name": "PRODUCCION DE T.V.",
+        "cr": 6,
+        "req": ["ART338"]
+      },
+      {
+        "code": "MER102",
+        "name": "MERCADOTECNIA II",
+        "cr": 3,
+        "req": ["MER101"]
+      }
+    ],
+    [
+      {
+        "code": "ART243",
+        "name": "PRODUCCION Y POSTPRODUCCION COMERCIALES ",
+        "cr": 6,
+        "req": ["ART202", "ART338"]
+      },
+      {
+        "code": "MER120",
+        "name": "MERCADOTECNIA INTERNACIONAL",
+        "cr": 4,
+        "req": ["MER102"]
+      },
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "TES500",
+        "name": "TRABAJO DE GRADO O CURSO MONOGRAFICO",
+        "cr": 6,
+        "req": [
+          {
+            "text": "92% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 2,
+        "req": []
+      }
+    ]
+  ]
+}

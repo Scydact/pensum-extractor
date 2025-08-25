@@ -1,0 +1,553 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "IND7",
+  "publishDate": "01/05/2004",
+  "fetchDate": "2021-04-24",
+  "career": "INGENIERIA INDUSTRIAL",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 254",
+    "TÍTULO: INGENIERIA INDUSTRIAL",
+    "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. Cursar dos asignaturas en inglés. Realizar seis (6) visitas Programadas a Industrias."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2021-04-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/IND7"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "IDI033",
+        "name": "INGLES PARA INGENIERIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT126",
+        "name": "MATEMATICA BASICA PARA INGENIERIA",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC041",
+        "name": "ECOLOGIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "TEC098",
+        "name": "INTRODUCCION A LA INGENIERIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "TEC105",
+        "name": "QUIMICA GENERAL I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "TEC107",
+        "name": "LABORATORIO QUIMICA GENERAL I",
+        "cr": 1,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ESP102",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS I",
+        "cr": 4,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "IDI034",
+        "name": "INGLES PARA INGENIERIA II",
+        "cr": 3,
+        "req": ["IDI033"]
+      },
+      {
+        "code": "MAT127",
+        "name": "MATEMATICA SUPERIOR PARA INGENIERIA",
+        "cr": 5,
+        "req": ["MAT126"]
+      },
+      {
+        "code": "TEC106",
+        "name": "QUIMICA GENERAL II",
+        "cr": 3,
+        "req": ["TEC105"]
+      },
+      {
+        "code": "TEC108",
+        "name": "LABORATORIO QUIMICA GENERAL II",
+        "cr": 1,
+        "req": ["TEC105", "TEC107"]
+      },
+      {
+        "code": "TEC111",
+        "name": "FISICA GENERAL",
+        "cr": 4,
+        "req": ["MAT126"]
+      },
+      {
+        "code": "TEC132",
+        "name": "LABORATORIO FISICA GENERAL",
+        "cr": 1,
+        "req": ["MAT126"]
+      }
+    ],
+    [
+      {
+        "code": "ESP103",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS II",
+        "cr": 4,
+        "req": ["ESP102"]
+      },
+      {
+        "code": "IDI035",
+        "name": "INGLES P/INGENIERIA III",
+        "cr": 3,
+        "req": ["IDI034"]
+      },
+      {
+        "code": "MAT131",
+        "name": "CALCULO Y GEOMETRIA ANALITICA I",
+        "cr": 5,
+        "req": ["MAT127"]
+      },
+      {
+        "code": "MAT222",
+        "name": "ALGEBRA LINEAL",
+        "cr": 4,
+        "req": ["MAT127"]
+      },
+      {
+        "code": "TEC112",
+        "name": "FISICA MECANICA",
+        "cr": 4,
+        "req": ["MAT127", "TEC111"]
+      },
+      {
+        "code": "TEC114",
+        "name": "LABORATORIO FISICA MECANICA",
+        "cr": 1,
+        "req": ["TEC111", "TEC132"]
+      }
+    ],
+    [
+      {
+        "code": "IDI036",
+        "name": "INGLES P/INGENIERIA IV",
+        "cr": 3,
+        "req": ["IDI035"]
+      },
+      {
+        "code": "MAT132",
+        "name": "CALCULO Y GEOMETRIA ANALITICA II",
+        "cr": 5,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "MAT253",
+        "name": "PROBAB. Y ESTADISTICA PARA INGENIERIA",
+        "cr": 4,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "TEC113",
+        "name": "FISICA ELECTRICA",
+        "cr": 4,
+        "req": ["TEC112"]
+      },
+      {
+        "code": "TEC120",
+        "name": "LABORATORIO FISICA ELECTRICA",
+        "cr": 1,
+        "req": ["TEC112", "TEC114"]
+      },
+      {
+        "code": "TEC174",
+        "name": "CIENCIA DE LOS MATERIALES",
+        "cr": 3,
+        "req": ["TEC106"]
+      }
+    ],
+    [
+      {
+        "code": "ADM101",
+        "name": "GESTION DE NEGOCIOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "IDI037",
+        "name": "INGLES P/INGENIERIA V",
+        "cr": 3,
+        "req": ["IDI036"]
+      },
+      {
+        "code": "MAT251",
+        "name": "ESTADISTICA II",
+        "cr": 4,
+        "req": ["MAT253"]
+      },
+      {
+        "code": "MAT270",
+        "name": "ECUACIONES DIFERENCIALES",
+        "cr": 5,
+        "req": ["MAT132"]
+      },
+      {
+        "code": "TEC123",
+        "name": "LABOR.CIRCUITOS ELECTRICOS I",
+        "cr": 1,
+        "req": ["TEC113", "TEC120"]
+      },
+      {
+        "code": "TEC129",
+        "name": "DIBUJO TECNICO ASISTIDO POR COMPUTADORAS",
+        "cr": 3,
+        "req": ["MAT127"]
+      },
+      {
+        "code": "TEC146",
+        "name": "CIRCUITOS ELECTRICOS I",
+        "cr": 3,
+        "req": ["MAT132", "TEC113"]
+      }
+    ],
+    [
+      {
+        "code": "IDI038",
+        "name": "INGLES P/INGENIERIA VI",
+        "cr": 3,
+        "req": ["IDI037"]
+      },
+      {
+        "code": "IND173",
+        "name": "TERMODINAMICA",
+        "cr": 3,
+        "req": ["TEC112"]
+      },
+      {
+        "code": "IND179",
+        "name": "RESISTENCIA DE LOS MATERIALES",
+        "cr": 3,
+        "req": ["TEC112", "TEC174"]
+      },
+      {
+        "code": "MAT271",
+        "name": "METODO MATEMATICO",
+        "cr": 5,
+        "req": ["MAT270"]
+      },
+      {
+        "code": "TEC503",
+        "name": "ELECTRONICA INDUSTRIAL",
+        "cr": 4,
+        "req": ["TEC146"]
+      },
+      {
+        "code": "TEC504",
+        "name": "LABORATORIO ELECTRONICA INDUSTRIAL",
+        "cr": 1,
+        "req": ["TEC123"]
+      },
+      {
+        "code": "TEC650",
+        "name": "DISEÑO DE INGENIERIA ASISTIDO POR COMPUTADORA",
+        "cr": 3,
+        "req": ["TEC129"]
+      }
+    ],
+    [
+      {
+        "code": "ADM120",
+        "name": "LIDERAZGO Y TECNICAS DE SUPERVISION",
+        "cr": 3,
+        "req": ["ADM101"]
+      },
+      {
+        "code": "IDI039",
+        "name": "INGLES P/INGENIERIA VII",
+        "cr": 3,
+        "req": ["IDI038"]
+      },
+      {
+        "code": "IND370",
+        "name": "INVEST. DE OPERACIONES I",
+        "cr": 4,
+        "req": ["MAT132"]
+      },
+      {
+        "code": "IND543",
+        "name": "DISEÑO DE SISTEMAS DE PRODUCCION",
+        "cr": 4,
+        "req": ["MAT253"]
+      },
+      {
+        "code": "SOC250",
+        "name": "METODOLOGIA DE LA INVESTIGACION CIENTIFICA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "TEC172",
+        "name": "MECANICA DE LOS FLUIDOS",
+        "cr": 4,
+        "req": ["IND173"]
+      }
+    ],
+    [
+      {
+        "code": "ADM140",
+        "name": "ADMINISTRACION FINANCIERA I",
+        "cr": 3,
+        "req": ["ADM120", "MAT253"]
+      },
+      {
+        "code": "CON127",
+        "name": "CONTABILIDAD DE COSTOS PARA INGENIEROS",
+        "cr": 3,
+        "req": ["MAT127"]
+      },
+      {
+        "code": "IDI040",
+        "name": "INGLES P/INGENIERIA VIII",
+        "cr": 3,
+        "req": ["IDI039"]
+      },
+      {
+        "code": "IND384",
+        "name": "PROCESOS INDUSTRIALES I",
+        "cr": 3,
+        "req": ["TEC174"]
+      },
+      {
+        "code": "IND390",
+        "name": "INGENIERIA DE METODOS I",
+        "cr": 3,
+        "req": ["MAT253"]
+      },
+      {
+        "code": "IND410",
+        "name": "CONTROL DE PRODUCCION I",
+        "cr": 3,
+        "req": ["IND543"]
+      },
+      {
+        "code": "IND430",
+        "name": "CONTROL ESTADISTICO DE CALIDAD",
+        "cr": 3,
+        "req": ["MAT253"]
+      }
+    ],
+    [
+      {
+        "code": "ADM162",
+        "name": "GERENCIA DE OPERACIONES",
+        "cr": 3,
+        "req": ["IND370"]
+      },
+      {
+        "code": "IDI041",
+        "name": "INGLES P/INGENIERIA IX",
+        "cr": 3,
+        "req": ["IDI040"]
+      },
+      {
+        "code": "IND386",
+        "name": "PROCESOS INDUSTRIALES II",
+        "cr": 3,
+        "req": ["IND384"]
+      },
+      {
+        "code": "IND395",
+        "name": "INGENIERIA DE METODOS II",
+        "cr": 3,
+        "req": ["IND390"]
+      },
+      {
+        "code": "IND415",
+        "name": "CONTROL DE PRODUCCION II",
+        "cr": 3,
+        "req": ["IND410"]
+      },
+      {
+        "code": "IND423",
+        "name": "INGENIERIA ECONOMICA",
+        "cr": 3,
+        "req": ["ADM140", "CON127"]
+      },
+      {
+        "code": "INF312",
+        "name": "SISTEMA DE INFORMACION GERENCIAL",
+        "cr": 3,
+        "req": ["ADM101"]
+      }
+    ],
+    [
+      {
+        "code": "IDI042",
+        "name": "INGLES P/INGENIERIA X",
+        "cr": 3,
+        "req": ["IDI041"]
+      },
+      {
+        "code": "IND432",
+        "name": "LOGISTICA",
+        "cr": 3,
+        "req": ["IND543"]
+      },
+      {
+        "code": "IND452",
+        "name": "GERENCIA DE MANTENIMIENTO",
+        "cr": 3,
+        "req": ["IND543", "TEC503"]
+      },
+      {
+        "code": "IND455",
+        "name": "SISTEMA COMPT. DE PRODUCCION",
+        "cr": 4,
+        "req": ["IND415"]
+      },
+      {
+        "code": "SOC110",
+        "name": "PSICOLOGIA INDUSTRIAL",
+        "cr": 3,
+        "req": ["ADM101"]
+      },
+      {
+        "code": "TEC302",
+        "name": "SIMULACION DE MODELO POR COMPUT.",
+        "cr": 4,
+        "req": ["IND395"]
+      }
+    ],
+    [
+      {
+        "code": "ADM219",
+        "name": "FORMULAC.Y EVAL. DE PROYECTOS",
+        "cr": 3,
+        "req": ["IND423"]
+      },
+      {
+        "code": "DER016",
+        "name": "DERECHO LABORAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "IND421",
+        "name": "GERENCIA DE RECURSOS HUMANOS",
+        "cr": 3,
+        "req": ["ADM101"]
+      },
+      {
+        "code": "IND501",
+        "name": "SISTEMAS DE SEGURIDAD",
+        "cr": 3,
+        "req": ["IND452"]
+      },
+      {
+        "code": "OPT1",
+        "name": "ELECTIVA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "TEC614",
+        "name": "AUTOMATIZACION Y ROBOTICA",
+        "cr": 4,
+        "req": ["IND395", "TEC503"]
+      }
+    ],
+    [
+      {
+        "code": "IND451",
+        "name": "TOPICOS ESPEC. ING. INDUSTRIAL",
+        "cr": 4,
+        "req": ["IND386"]
+      },
+      {
+        "code": "IND460",
+        "name": "DECISIONES GERENCIALES",
+        "cr": 3,
+        "req": ["ADM140", "IND430"]
+      },
+      {
+        "code": "IND890",
+        "name": "INGENIERIA AMBIENTAL",
+        "cr": 2,
+        "req": ["IND370", "SOC041"]
+      },
+      {
+        "code": "OPT2",
+        "name": "ELECTIVA II",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC031",
+        "name": "ETICA PROFESIONAL",
+        "cr": 3,
+        "req": ["SOC250"]
+      },
+      {
+        "code": "SOC280",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 2,
+        "req": [
+          "SOC250",
+          {
+            "text": "80% De los créditos aprobados"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0,
+        "req": []
+      },
+      {
+        "code": "TES-MON",
+        "name": "TRABAJO DE GRADO O CURSO MONOGRAFICO",
+        "cr": 6,
+        "req": [
+          {
+            "text": "97% De los créditos aprobados"
+          }
+        ]
+      }
+    ]
+  ]
+}

@@ -1,0 +1,490 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "FIN11",
+  "publishDate": "01/09/2016",
+  "fetchDate": "2021-04-24",
+  "career": "LICENCIATURA EN FINANZAS",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 190",
+    "TÍTULO: LICENCIATURA EN FINANZAS",
+    "REQUISITO GENERAL DE LA GRADUACIÓN: Aprobar un Deporte. Actitud Profesional: 60 horas. PAS540: 180 horas."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2021-04-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/FIN11"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "ADM091",
+        "name": "ADMINISTRACION I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "CNL101",
+        "name": "CONTABILIDAD I LAB",
+        "cr": 5,
+        "req": []
+      },
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT160",
+        "name": "PENSAMIENTO NUMERICO",
+        "cr": 5,
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC043",
+        "name": "GESTION AMBIENTAL",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "ENG001",
+        "name": "INGLES I",
+        "cr": 3,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ADM092",
+        "name": "ADMINISTRACION II",
+        "cr": 3,
+        "req": ["ADM091"]
+      },
+      {
+        "code": "CNL102",
+        "name": "CONTABILIDAD II LAB",
+        "cr": 5,
+        "req": ["CNL101"]
+      },
+      {
+        "code": "ESP102",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS I",
+        "cr": 4,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "MAT121",
+        "name": "ALGEBRA UNIVERSITARIA",
+        "cr": 4,
+        "req": ["MAT160"]
+      },
+      {
+        "code": "OPTF1A",
+        "name": "ELECTIVA GENERAL FINANZAS I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG002",
+        "name": "INGLES II",
+        "cr": 3,
+        "req": ["ENG001"]
+      }
+    ],
+    [
+      {
+        "code": "ECO101",
+        "name": "ECONOMIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP103",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS II",
+        "cr": 4,
+        "req": ["ESP102"]
+      },
+      {
+        "code": "FIN100",
+        "name": "INTRODUCCION A LAS FINANZAS CORPORATIVAS",
+        "cr": 2,
+        "req": ["CNL101"]
+      },
+      {
+        "code": "MAT131",
+        "name": "CALCULO Y GEOMETRIA ANALITICA I",
+        "cr": 5,
+        "req": ["MAT121"]
+      },
+      {
+        "code": "OPTF1B",
+        "name": "ELECTIVA GENERAL FINANZAS II",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG003",
+        "name": "INGLES III",
+        "cr": 3,
+        "req": ["ENG002"]
+      }
+    ],
+    [
+      {
+        "code": "ECO102",
+        "name": "ECONOMIA II",
+        "cr": 3,
+        "req": ["ECO101"]
+      },
+      {
+        "code": "ESP301",
+        "name": "EXPRESION ORAL",
+        "cr": 3,
+        "req": ["ESP103"]
+      },
+      {
+        "code": "MAT241",
+        "name": "MATEMATICA FINANCIERA I",
+        "cr": 4,
+        "req": ["MAT121"]
+      },
+      {
+        "code": "MAT250",
+        "name": "ESTADISTICA I",
+        "cr": 4,
+        "req": ["MAT121"]
+      },
+      {
+        "code": "SOC250",
+        "name": "METODOLOGIA DE LA INVESTIGACION CIENTIFICA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG004",
+        "name": "INGLES IV",
+        "cr": 3,
+        "req": ["ENG003"]
+      }
+    ],
+    [
+      {
+        "code": "ADM535",
+        "name": "ACTITUD EMPRENDEDORA",
+        "cr": 3,
+        "req": ["ADM091"]
+      },
+      {
+        "code": "INF214",
+        "name": "APLICACIONES FINANCIERAS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT242",
+        "name": "MATEMATICA FINANCIERA II",
+        "cr": 4,
+        "req": ["MAT241"]
+      },
+      {
+        "code": "MAT251",
+        "name": "ESTADISTICA II",
+        "cr": 4,
+        "req": ["MAT250"]
+      },
+      {
+        "code": "MER101",
+        "name": "MERCADOTECNIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG005",
+        "name": "INGLES V",
+        "cr": 3,
+        "req": ["ENG004"]
+      }
+    ],
+    [
+      {
+        "code": "ADM540",
+        "name": "LIDERAZGO Y HABILIDADES DIRECTIVAS",
+        "cr": 3,
+        "req": ["ADM092"]
+      },
+      {
+        "code": "CON221",
+        "name": "FUNDAMENTOS DE COSTOS",
+        "cr": 4,
+        "req": ["CNL102"]
+      },
+      {
+        "code": "CON518",
+        "name": "ANALISIS DE ESTADOS FINANCIEROS",
+        "cr": 3,
+        "req": ["CNL102"]
+      },
+      {
+        "code": "FIN110",
+        "name": "ECONOMETRIA Y ANALISIS DE DATOS LAB",
+        "cr": 3,
+        "req": ["MAT251"]
+      },
+      {
+        "code": "FIN120",
+        "name": "SISTEMA FINANCIERO NACIONAL Y NORMATIVAS",
+        "cr": 3,
+        "req": ["FIN100"]
+      },
+      {
+        "code": "ENG006",
+        "name": "INGLES VI",
+        "cr": 3,
+        "req": ["ENG005"]
+      }
+    ],
+    [
+      {
+        "code": "FIN125",
+        "name": "RIESGO Y RENDIMIENTO FINANCIERO",
+        "cr": 3,
+        "req": ["MAT251"]
+      },
+      {
+        "code": "FIN130",
+        "name": "VALORACION DE INSTRUMENTO DE RENTA FIJA Y VARIABLE",
+        "cr": 3,
+        "req": ["FIN120"]
+      },
+      {
+        "code": "FIN210",
+        "name": "PRESUPUESTO Y PLANEACION FINANCIERA",
+        "cr": 3,
+        "req": ["CON221", "INF214"]
+      },
+      {
+        "code": "FIN250",
+        "name": "INGENIERIA ECONOMICA Y FINANCIERA",
+        "cr": 3,
+        "req": ["CON221", "FIN110"]
+      },
+      {
+        "code": "MAT254",
+        "name": "METODOS CUANTITATIVOS APLICADO A LOS NEGOCIOS",
+        "cr": 5,
+        "req": ["MAT251"]
+      },
+      {
+        "code": "ENG007",
+        "name": "INGLES VII",
+        "cr": 3,
+        "req": ["ENG006"]
+      }
+    ],
+    [
+      {
+        "code": "CON112",
+        "name": "FINANZAS INTERNACIONALES",
+        "cr": 3,
+        "req": ["FIN210"]
+      },
+      {
+        "code": "DER011",
+        "name": "DERECHO COMERCIAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "FIN160",
+        "name": "ADMINISTRACION DEL CAPITAL DE TRABAJO",
+        "cr": 3,
+        "req": ["FIN125"]
+      },
+      {
+        "code": "FIN150",
+        "name": "PRESUPUESTO Y COSTO DE CAPITAL",
+        "cr": 3,
+        "req": ["FIN125"]
+      },
+      {
+        "code": "SOC031",
+        "name": "ETICA PROFESIONAL",
+        "cr": 3,
+        "req": [
+          {
+            "text": "60% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "OPTF2A",
+        "name": "ELECTIVA ESPECIALIZADA FINANZAS I",
+        "cr": 3,
+        "req": [
+          {
+            "text": "60% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "ENG008",
+        "name": "INGLES VIII",
+        "cr": 3,
+        "req": ["ENG007"]
+      }
+    ],
+    [
+      {
+        "code": "CON211",
+        "name": "SISTEMA TRIBUTARIO DOMINICANO I",
+        "cr": 3,
+        "req": ["CNL102"]
+      },
+      {
+        "code": "IDI070",
+        "name": "INGLES TECNICO PARA NEGOCIOS I",
+        "cr": 3,
+        "req": ["ENG008"]
+      },
+      {
+        "code": "FIN115",
+        "name": "USO DE LAS APLICACIONES FINANCIERAS I LAB",
+        "cr": 3,
+        "req": ["INF214"]
+      },
+      {
+        "code": "FIN200",
+        "name": "ESTRUCTURA FINANCIERA Y APALANCAMIENTO EMPRESARIAL",
+        "cr": 3,
+        "req": ["FIN160"]
+      },
+      {
+        "code": "OPTF2B",
+        "name": "ELECTIVA ESPECIALIZADA FINANZAS II",
+        "cr": 3,
+        "req": [
+          {
+            "text": "60% De los créditos aprobados"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "IDI071",
+        "name": "INGLES TECNICO PARA NEGOCIOS II",
+        "cr": 3,
+        "req": ["IDI070"]
+      },
+      {
+        "code": "FIN116",
+        "name": "USO DE APLICACIONES FINANCIERAS II LAB",
+        "cr": 3,
+        "req": ["FIN115"]
+      },
+      {
+        "code": "FIN135",
+        "name": "DEONTOLOGIA FINANCIERA Y CUMPLIMIENTO",
+        "cr": 2,
+        "req": ["FIN100", "SOC031"]
+      },
+      {
+        "code": "FIN260",
+        "name": "MERCADO DE CAPITALES",
+        "cr": 3,
+        "req": ["CON112"]
+      },
+      {
+        "code": "OPTF2C",
+        "name": "ELECTIVA ESPECIALIZADA FINANZAS III",
+        "cr": 3,
+        "req": [
+          {
+            "text": "60% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "PAS540",
+        "name": "PASANTIA EMPRESARIAL DE FINANZAS",
+        "cr": 0,
+        "req": [
+          {
+            "text": "75% De los créditos aprobados"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "DER016",
+        "name": "DERECHO LABORAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "FIN300",
+        "name": "FUSIONES Y ADQUISICIONES",
+        "cr": 3,
+        "req": ["FIN260"]
+      },
+      {
+        "code": "FIN305",
+        "name": "ESTUDIO DE CASOS EN FINANZAS",
+        "cr": 2,
+        "req": ["FIN260"]
+      },
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": [
+          {
+            "text": "80% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "OPTF2D",
+        "name": "ELECTIVA ESPECIALIZADA FINANZAS IV",
+        "cr": 3,
+        "req": [
+          {
+            "text": "60% De los créditos aprobados"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "TES-MON",
+        "name": "TRABAJO DE GRADO O CURSO MONOGRAFICO",
+        "cr": 6,
+        "req": [
+          {
+            "text": "92% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0,
+        "req": []
+      }
+    ]
+  ]
+}

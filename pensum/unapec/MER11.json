@@ -1,0 +1,488 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "code": "MER11",
+  "publishDate": "01/01/2021",
+  "fetchDate": "2025-08-24",
+  "career": "LICENCIATURA EN MERCADOTECNIA",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS:                                     199",
+    "TÍTULO:                                     LICENCIATURA EN MERCADOTECNIA",
+    "REQUISITO GENERAL DE LA GRADUACIÓN:                                     Aprobar un Deporte. Actitud Profesional: 60 horas.  PAS510: 180 horas."
+  ],
+  "src": {
+    "type": "online",
+    "date": "2025-08-24",
+    "url": "https://servicios.unapec.edu.do/pensum/Main/Detalles/MER11"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "SOC030",
+        "name": "ORIENTACION UNIVERSITARIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC011",
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "SOC043",
+        "name": "GESTION AMBIENTAL",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "MAT010",
+        "name": "MATEMATICA BASICA UNIVERSITARIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ESP101",
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "INF005",
+        "name": "INFORMATICA APLICADA A LOS NEGOCIOS",
+        "cr": 5,
+        "req": []
+      },
+      {
+        "code": "ENG000",
+        "name": "FUNDAMENTOS DE INGLES (I Y II)",
+        "cr": 5,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "SOC013",
+        "name": "FILOSOFIA",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "SOC101",
+        "name": "INTRODUCCION A LA PSICOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT121",
+        "name": "ALGEBRA UNIVERSITARIA",
+        "cr": 4,
+        "req": ["MAT010"]
+      },
+      {
+        "code": "ESP106",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS I",
+        "cr": 3,
+        "req": ["ESP101"]
+      },
+      {
+        "code": "ADM103",
+        "name": "FUNDAMENTOS DE ADMINISTRACION",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "CON091",
+        "name": "CONTABILIDAD I",
+        "cr": 5,
+        "req": ["INF005", "MAT010"]
+      },
+      {
+        "code": "ENG003",
+        "name": "INGLES III",
+        "cr": 3,
+        "req": ["ENG000"]
+      }
+    ],
+    [
+      {
+        "code": "SOC200",
+        "name": "INTRODUCCION A LA SOCIOLOGIA",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT131",
+        "name": "CALCULO Y GEOMETRIA ANALITICA I",
+        "cr": 5,
+        "req": ["MAT121"]
+      },
+      {
+        "code": "ESP107",
+        "name": "REDACCION DE TEXTOS DISCURSIVOS II",
+        "cr": 3,
+        "req": ["ESP106"]
+      },
+      {
+        "code": "CON219",
+        "name": "COSTOS PRODUCTOS Y SERVICIOS I",
+        "cr": 5,
+        "req": ["CON091"]
+      },
+      {
+        "code": "MER101",
+        "name": "MERCADOTECNIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ENG004",
+        "name": "INGLES IV",
+        "cr": 3,
+        "req": ["ENG003"]
+      }
+    ],
+    [
+      {
+        "code": "SOC253",
+        "name": "METODOLOGIA Y TECNICAS DE INVESTIGACION",
+        "cr": 4,
+        "req": []
+      },
+      {
+        "code": "SOC031",
+        "name": "ETICA PROFESIONAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MAT241",
+        "name": "MATEMATICA FINANCIERA I",
+        "cr": 4,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "ECO101",
+        "name": "ECONOMIA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MER432",
+        "name": "COMPORTAMIENTO DEL CONSUMIDOR",
+        "cr": 3,
+        "req": ["SOC101"]
+      },
+      {
+        "code": "MER102",
+        "name": "MERCADOTECNIA II",
+        "cr": 3,
+        "req": ["MER101"]
+      },
+      {
+        "code": "ENG005",
+        "name": "INGLES V",
+        "cr": 3,
+        "req": ["ENG004"]
+      }
+    ],
+    [
+      {
+        "code": "MAT250",
+        "name": "ESTADISTICA I",
+        "cr": 4,
+        "req": ["MAT131"]
+      },
+      {
+        "code": "ADM535",
+        "name": "ACTITUD EMPRENDEDORA",
+        "cr": 3,
+        "req": ["SOC101"]
+      },
+      {
+        "code": "ECO102",
+        "name": "ECONOMIA II",
+        "cr": 3,
+        "req": ["ECO101"]
+      },
+      {
+        "code": "DER011",
+        "name": "DERECHO COMERCIAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MER320",
+        "name": "ESTRATEGIA DE PRECIOS",
+        "cr": 2,
+        "req": ["MER102"]
+      },
+      {
+        "code": "FIN101",
+        "name": "FINANZAS I",
+        "cr": 3,
+        "req": ["CON091", "MAT241"]
+      },
+      {
+        "code": "ENG006",
+        "name": "INGLES VI",
+        "cr": 3,
+        "req": ["ENG005"]
+      }
+    ],
+    [
+      {
+        "code": "MAT251",
+        "name": "ESTADISTICA II",
+        "cr": 4,
+        "req": ["MAT250"]
+      },
+      {
+        "code": "ADM540",
+        "name": "LIDERAZGO Y HABILIDADES DIRECTIVAS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ADM130",
+        "name": "PRESUPUESTO EMPRESARIAL",
+        "cr": 3,
+        "req": ["MAT250"]
+      },
+      {
+        "code": "MER321",
+        "name": "ADMINISTRACION DE VENTAS",
+        "cr": 4,
+        "req": ["MER320"]
+      },
+      {
+        "code": "INF311",
+        "name": "INTELIGENCIA DE NEGOCIOS",
+        "cr": 3,
+        "req": ["INF005", "MAT250"]
+      },
+      {
+        "code": "IDI080",
+        "name": "INGLES PARA NEGOCIOS I",
+        "cr": 3,
+        "req": ["ENG006"]
+      }
+    ],
+    [
+      {
+        "code": "ADM151",
+        "name": "SEMINARIO PROYECTO DE NEGOCIOS",
+        "cr": 2,
+        "req": [
+          {
+            "text": "50% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "ART210",
+        "name": "PENSAMIENTO CREATIVO",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "ART452",
+        "name": "FUNDAMENTOS DE PUBLICIDAD Y RELACIONES PUBLICAS",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MER234",
+        "name": "CANALES DE DISTRIBUCION",
+        "cr": 3,
+        "req": ["MER321"]
+      },
+      {
+        "code": "EMER 1",
+        "name": "ELECTIVA I",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "IDI081",
+        "name": "INGLES PARA NEGOCIOS II",
+        "cr": 3,
+        "req": ["IDI080"]
+      }
+    ],
+    [
+      {
+        "code": "ART161",
+        "name": "PUBLICIDAD I",
+        "cr": 3,
+        "req": ["ART452"]
+      },
+      {
+        "code": "MER147",
+        "name": "MERCADOTECNIA INTERNACIONAL",
+        "cr": 3,
+        "req": ["ADM151"]
+      },
+      {
+        "code": "ADM104",
+        "name": "COMPORTAMIENTO ORGANIZACIONAL",
+        "cr": 3,
+        "req": ["ADM540"]
+      },
+      {
+        "code": "MER436",
+        "name": "E-BUSINESS",
+        "cr": 2,
+        "req": []
+      },
+      {
+        "code": "EMER 2",
+        "name": "ELECTIVA II",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "IDI082",
+        "name": "INGLES PARA NEGOCIOS III",
+        "cr": 3,
+        "req": ["IDI081"]
+      }
+    ],
+    [
+      {
+        "code": "MER180",
+        "name": "PROMOCION DE VENTAS",
+        "cr": 3,
+        "req": ["MER234"]
+      },
+      {
+        "code": "MER435",
+        "name": "TRADE MARKETING Y TECNICAS DE MERCHANDISING",
+        "cr": 2,
+        "req": ["MER234"]
+      },
+      {
+        "code": "MER437",
+        "name": "MARKETING DIGITAL",
+        "cr": 3,
+        "req": ["MER436"]
+      },
+      {
+        "code": "MER439",
+        "name": "INVESTIGACION DE MERCADOS",
+        "cr": 4,
+        "req": ["INF311", "SOC253"]
+      },
+      {
+        "code": "EMER 3",
+        "name": "ELECTIVA III",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "IDI083",
+        "name": "INGLES PARA NEGOCIOS IV",
+        "cr": 3,
+        "req": ["IDI082"]
+      },
+      {
+        "code": "PAS510",
+        "name": "PASANTIA EMPRESARIAL DE MERCADOTECNIA",
+        "cr": 0,
+        "req": [
+          {
+            "text": "75% De los créditos aprobados"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "MER440",
+        "name": "MERCADOTECNIA RELACIONAL-SOCIAL",
+        "cr": 3,
+        "req": []
+      },
+      {
+        "code": "MER441",
+        "name": "DESARROLLO Y LANZAMIENTO DE NUEVOS PRODUCTOS",
+        "cr": 3,
+        "req": ["MER180"]
+      },
+      {
+        "code": "MER442",
+        "name": "REDES SOCIALES Y MARKETING DE CONTENIDO",
+        "cr": 2,
+        "req": ["MER437"]
+      },
+      {
+        "code": "IDI084",
+        "name": "INGLES PARA NEGOCIOS V",
+        "cr": 3,
+        "req": ["IDI083"]
+      },
+      {
+        "code": "SOC281",
+        "name": "SEMINARIO DE GRADO",
+        "cr": 3,
+        "req": [
+          "SOC253",
+          {
+            "text": "80% De los créditos aprobados"
+          }
+        ]
+      }
+    ],
+    [
+      {
+        "code": "MER300",
+        "name": "GERENCIA DE MARCA",
+        "cr": 3,
+        "req": ["MER441"]
+      },
+      {
+        "code": "MER443",
+        "name": "SEMINARIO PLAN DE MARKETING ESTRATEGICO",
+        "cr": 3,
+        "req": ["MER441"]
+      },
+      {
+        "code": "MER444",
+        "name": "SEMINARIO INTEGRADOR DE MERCADOTECNIA",
+        "cr": 3,
+        "req": ["MER441"]
+      },
+      {
+        "code": "IDI085",
+        "name": "INGLES PARA NEGOCIOS VI",
+        "cr": 3,
+        "req": ["IDI084"]
+      }
+    ],
+    [
+      {
+        "code": "TFG100",
+        "name": "TRABAJO FINAL DE GRADO",
+        "cr": 6,
+        "req": [
+          "SOC281",
+          {
+            "text": "92% De los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "OPTDEP",
+        "name": "OPTATIVA DEPORTE",
+        "cr": 0,
+        "req": []
+      }
+    ]
+  ]
+}
