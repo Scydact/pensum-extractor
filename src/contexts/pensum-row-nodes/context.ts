@@ -6,13 +6,13 @@
  * since new mats will be added while keeping the old mats empty refs.
  */
 
-import React, { createContext, createElement, memo, MutableRefObject, useCallback, useRef } from 'react'
+import { createContext, createElement, memo, RefObject, useCallback, useRef } from 'react'
 
-type mapArg = React.RefObject<HTMLElement>
+type mapArg = RefObject<HTMLElement>
 
 type PensumRowNodesContextProps = {
     /** Map that contains pensum row references.  */
-    map: MutableRefObject<Map<string, mapArg>>
+    map: RefObject<Map<string, mapArg>>
     /** Scrolls to the pensum row of the given mat code. */
     scrollToRow: (code: string) => void
     /** Updates the row reference on map. */
