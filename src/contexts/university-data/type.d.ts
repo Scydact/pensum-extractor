@@ -6,6 +6,7 @@ declare namespace UniversityData {
             code: string
             university: PensumJson.University
             careers: PensumJson.Carrera[]
+            careersGroupOrder?: string[]
         } | null
         loading: boolean
         error: string | null

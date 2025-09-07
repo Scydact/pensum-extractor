@@ -26,7 +26,7 @@ function PensumDisplayCards({ pensum }: Props) {
             {loose.length > 0 && (
                 <Card className="pensum-table-container">
                     <Card.Header>
-                        <Card.Title>Demás materias</Card.Title>
+                        <Card.Title>Materias sin periodo</Card.Title>
                     </Card.Header>
                     <Card.Body>
                         <PensumTable periods={[loose]} periodIndexStart={0} />

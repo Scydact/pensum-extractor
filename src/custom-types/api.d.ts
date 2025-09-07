@@ -36,6 +36,8 @@ declare namespace PensumJson {
         name: string
         /** Escuela a la que pertenece la carrera. */
         school: string
+        /** Grupo de esta carrera (opcional). */
+        group?: string
     }
 
     /** Pensum Index file (path at $PUBLIC/pensum/$UNIVERSIRY/index.json) */
@@ -46,6 +48,8 @@ declare namespace PensumJson {
         api: string | null
         /** List of recorded pensums. */
         careers: Carrera[]
+        /** Preferred order of each career group. */
+        groupOrder?: string[]
     }
 }
 

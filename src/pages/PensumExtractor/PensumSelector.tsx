@@ -68,8 +68,29 @@ function PensumSelector() {
 
         const o = pensumList.sort(sortByProp('code'))
 
-        return o.map((x) => ({ value: x.code, label: createLabelString(x.code, x.name) }))
+        return o.map((x) => ({ value: x.code, label: createLabelString(x.code, x.name), group: x.group }))
     }, [selected_uni])
+    const careerSelectOptionsGrouped = useMemo(() => {
+        if (!careerSelectOptions.length) return []
+        const DEFAULT_GROUP = ''
+
+        // Find available groups
+        const groups = new Set<string>([DEFAULT_GROUP])
+        careerSelectOptions.forEach((opt) => opt.group && groups.add(opt.group))
+
+        // Map each item to its group
+        const groupMap = new Map<string, typeof careerSelectOptions>()
+        // Set default in expected order
+        selected_uni?.careersGroupOrder?.forEach((label) => groupMap.set(label, []))
+        careerSelectOptions.forEach((opt) => {
+            const key = opt.group ?? ''
+            if (!groupMap.has(key)) groupMap.set(key, [])
+            groupMap.get(key)!.push(opt)
+        })
+
+        // Convert to react-select options
+        return [...groupMap.entries()].map(([k, v]) => ({ label: k, options: v }))
+    }, [careerSelectOptions, selected_uni?.careersGroupOrder])
 
     // ***************************************************************************
     // On pensum change
@@ -209,7 +230,7 @@ function PensumSelector() {
 
                         <SelectCareer
                             value={pensumOnInput}
-                            options={careerSelectOptions}
+                            options={careerSelectOptionsGrouped}
                             isLoading={loading_uni}
                             onChange={setPensumOnInput}
                         />
@@ -259,7 +280,7 @@ function PensumSelector() {
 // ***************************************************************************
 type CustomSelectProps = {
     value: SelectProps
-    options: SelectProps[]
+    options: SelectProps[] | { label: string; options: SelectProps[] }[]
     isLoading: boolean
     onChange?: (value: SelectProps) => void
 }

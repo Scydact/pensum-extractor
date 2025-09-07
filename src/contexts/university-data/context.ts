@@ -32,7 +32,7 @@ function universityDataReducer(
                 }
 
             const { code, data: careerIndex } = action.payload
-            const { careers } = careerIndex
+            const { careers, groupOrder } = careerIndex
 
             const university = state.universities.find((x) => x.code === code) || {
                 code,
@@ -58,6 +58,7 @@ function universityDataReducer(
                     code,
                     university,
                     careers,
+                    careersGroupOrder: groupOrder,
                 },
             }
         }
