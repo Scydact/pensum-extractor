@@ -1,0 +1,850 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "career": "Ingeniería Electrónica",
+  "code": "IEL11",
+  "publishDate": "01/01/2024",
+  "fetchDate": "2025-09-07",
+  "info": [
+    "Este programa tiene una duración de 12 cuatrimestres y está conformado por 86 asignaturas, con un total de 217 créditos.",
+    "Título a Ortorgar: INGENIERO (A) ELECTRÓNICO (A)"
+  ],
+  "src": {
+    "type": "online",
+    "url": "https://unapec.edu.do/academia/programas-de-grado/ingenieria-electronica",
+    "date": "2025-09-07"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "ESP101",
+        "cr": 3,
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "req": []
+      },
+      {
+        "code": "SOC011",
+        "cr": 3,
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "cr": 2,
+        "name": "ORIENTACION UNIVERSITARIA",
+        "req": []
+      },
+      {
+        "code": "TEC098",
+        "cr": 2,
+        "name": "INTRODUCCION A LA INGENIERIA",
+        "req": []
+      },
+      {
+        "code": "ING116",
+        "cr": 3,
+        "name": "QUIMICA I",
+        "req": []
+      },
+      {
+        "code": "ING117",
+        "cr": 1,
+        "name": "LABORATORIO DE QUIMICA I",
+        "req": []
+      },
+      {
+        "code": "MAT127",
+        "cr": 5,
+        "name": "MATEMATICA SUPERIOR PARA INGENIERIA",
+        "req": []
+      },
+      {
+        "code": "ENG001",
+        "cr": 0,
+        "name": "INGLES I",
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "SOC013",
+        "cr": 2,
+        "name": "FILOSOFIA",
+        "req": []
+      },
+      {
+        "code": "ESP106",
+        "cr": 3,
+        "name": "REDACCION DE TEXTOS DISCURSIVOS I",
+        "req": [
+          "ESP101"
+        ]
+      },
+      {
+        "code": "SOC101",
+        "cr": 3,
+        "name": "INTRODUCCION A LA PSICOLOGIA",
+        "req": []
+      },
+      {
+        "code": "SOC043",
+        "cr": 2,
+        "name": "GESTION AMBIENTAL",
+        "req": []
+      },
+      {
+        "code": "MAT131",
+        "cr": 5,
+        "name": "CALCULO Y GEOMETRIA ANALITICA I",
+        "req": [
+          "MAT127"
+        ]
+      },
+      {
+        "code": "ING118",
+        "cr": 3,
+        "name": "QUÍMICA I",
+        "req": [
+          "ING116"
+        ]
+      },
+      {
+        "code": "ING119",
+        "cr": 1,
+        "name": "LABORATORIO DE QUIMICA II",
+        "req": [
+          "ING117"
+        ]
+      },
+      {
+        "code": "ENG002",
+        "cr": 0,
+        "name": "INGLES II",
+        "req": [
+          "ENG001"
+        ]
+      }
+    ],
+    [
+      {
+        "code": "SOC200",
+        "cr": 3,
+        "name": "INTRODUCCION A LA SOCIOLOGIA",
+        "req": []
+      },
+      {
+        "code": "ESP107",
+        "cr": 3,
+        "name": "REDACCION DE TEXTOS DISCURSIVOS II",
+        "req": [
+          "ESP106"
+        ]
+      },
+      {
+        "code": "MAT132",
+        "cr": 5,
+        "name": "CALCULO Y GEOMETRIA ANALITICA II",
+        "req": [
+          "MAT131"
+        ]
+      },
+      {
+        "code": "TEC174",
+        "cr": 3,
+        "name": "CIENCIA DE LOS MATERIALES",
+        "req": [
+          "ING118"
+        ]
+      },
+      {
+        "code": "ING716",
+        "cr": 3,
+        "name": "FISICA I",
+        "req": [
+          "MAT131"
+        ]
+      },
+      {
+        "code": "ING717",
+        "cr": 1,
+        "name": "LABORATORIO DE FISICA I",
+        "req": [
+          "MAT131"
+        ]
+      },
+      {
+        "code": "ENG003",
+        "cr": 0,
+        "name": "INGLES III",
+        "req": [
+          "ENG002"
+        ]
+      }
+    ],
+    [
+      {
+        "code": "IND500",
+        "cr": 3,
+        "name": "METODOS ESTADISTICOS DE LA INGENIERIA",
+        "req": [
+          "MAT132"
+        ]
+      },
+      {
+        "code": "MAT410",
+        "cr": 3,
+        "name": "ANALISIS VECTORIAL",
+        "req": [
+          "MAT131"
+        ]
+      },
+      {
+        "code": "ING718",
+        "cr": 3,
+        "name": "FISICA II",
+        "req": [
+          "ING716"
+        ]
+      },
+      {
+        "code": "ING719",
+        "cr": 1,
+        "name": "LABORATORIO DE FISICA II",
+        "req": [
+          "ING717"
+        ]
+      },
+      {
+        "code": "INF410",
+        "cr": 3,
+        "name": "ALGORITMOS Y PROGRAMACION DE COMPUTADORAS",
+        "req": [
+          "TEC098"
+        ]
+      },
+      {
+        "code": "SOC253",
+        "cr": 4,
+        "name": "METODOLOGIA Y TECNICAS DE INVESTIGACION",
+        "req": []
+      },
+      {
+        "code": "SOC031",
+        "cr": 3,
+        "name": "ETICA PROFESIONAL",
+        "req": []
+      },
+      {
+        "code": "ENG004",
+        "cr": 0,
+        "name": "INGLES IV",
+        "req": [
+          "ENG003"
+        ]
+      }
+    ],
+    [
+      {
+        "code": "MAT270",
+        "cr": 5,
+        "name": "ECUACIONES DIFERENCIALES",
+        "req": [
+          "MAT132"
+        ]
+      },
+      {
+        "code": "TEC129",
+        "cr": 3,
+        "name": "DIBUJO TECNICO ASISTIDO POR COMPUTADORAS",
+        "req": [
+          "TEC098"
+        ]
+      },
+      {
+        "code": "ING711",
+        "cr": 3,
+        "name": "ANALISIS DE COSTOS PARA INGENIERIA",
+        "req": [
+          "IND500"
+        ]
+      },
+      {
+        "code": "ING720",
+        "cr": 3,
+        "name": "FISICA III",
+        "req": [
+          "ING718"
+        ]
+      },
+      {
+        "code": "ING721",
+        "cr": 1,
+        "name": "LABORATORIO DE FISICA III",
+        "req": [
+          "ING719"
+        ]
+      },
+      {
+        "code": "ENG005",
+        "cr": 0,
+        "name": "INGLES V",
+        "req": [
+          "ENG004"
+        ]
+      },
+      {
+        "code": "E032",
+        "cr": 3,
+        "name": "ELECTIVA I",
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "MAT271",
+        "cr": 5,
+        "name": "METODO MATEMATICO",
+        "req": [
+          "MAT270"
+        ]
+      },
+      {
+        "code": "ENG006",
+        "cr": 0,
+        "name": "INGLES VI",
+        "req": [
+          "ENG005"
+        ]
+      },
+      {
+        "code": "ING704",
+        "cr": 3,
+        "name": "FISICA IV",
+        "req": [
+          "ING720",
+          "MAT410"
+        ]
+      },
+      {
+        "code": "ING421",
+        "cr": 3,
+        "name": "CIRCUITOS ELECTRICOS I",
+        "req": [
+          "ING720",
+          "MAT410"
+        ]
+      },
+      {
+        "code": "ING422",
+        "cr": 1,
+        "name": "LABORATORIO DE CIRCUITOS ELECTRICOS I",
+        "req": [
+          "ING721",
+          "MAT410"
+        ]
+      },
+      {
+        "code": "ING707",
+        "cr": 3,
+        "name": "MECANICA DE LOS FLUIDOS",
+        "req": [
+          "ING720",
+          "MAT270"
+        ]
+      },
+      {
+        "code": "E033",
+        "cr": 3,
+        "name": "ELECTIVA II",
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ING423",
+        "cr": 3,
+        "name": "CIRCUITOS ELECTRICOS II",
+        "req": [
+          "ING421"
+        ]
+      },
+      {
+        "code": "ING424",
+        "cr": 1,
+        "name": "LABORATORIO DE CIRCUITOS ELECTRICOS II",
+        "req": [
+          "ING422"
+        ]
+      },
+      {
+        "code": "ING425",
+        "cr": 3,
+        "name": "FUNDAMENTOS DE ELECTRONICA",
+        "req": [
+          "ING421"
+        ]
+      },
+      {
+        "code": "ING426",
+        "cr": 1,
+        "name": "LABORATORIO DE FUNDAMENTOS DE ELECTRONICA",
+        "req": [
+          "ING422"
+        ]
+      },
+      {
+        "code": "ING901",
+        "cr": 3,
+        "name": "CIRCUITOS DIGITALES",
+        "req": [
+          "ING421"
+        ]
+      },
+      {
+        "code": "ING902",
+        "cr": 1,
+        "name": "LABORATORIO DE CIRCUITOS DIGITALES",
+        "req": [
+          "ING422"
+        ]
+      },
+      {
+        "code": "ING710",
+        "cr": 3,
+        "name": "ONDAS ELECTROMAGNETICAS",
+        "req": [
+          "ING704",
+          "MAT271"
+        ]
+      },
+      {
+        "code": "IEL400",
+        "cr": 2,
+        "name": "REDES DE DATOS",
+        "req": [
+          "INF410"
+        ]
+      }
+    ],
+    [
+      {
+        "code": "IEL421",
+        "cr": 3,
+        "name": "ELECTRONICA ANALOGICA",
+        "req": [
+          "ING425"
+        ]
+      },
+      {
+        "code": "IEL422",
+        "cr": 1,
+        "name": "LABORATORIO DE ELECTRONICA ANALOGICA",
+        "req": [
+          "ING426"
+        ]
+      },
+      {
+        "code": "IEL423",
+        "cr": 3,
+        "name": "MICROPROCESADORES Y MICROCONTROLADORES",
+        "req": [
+          "ING901"
+        ]
+      },
+      {
+        "code": "IEL424",
+        "cr": 1,
+        "name": "LABORATORIO DE MICROPROCESADORES Y MICROCONTROLADORES",
+        "req": [
+          "ING902"
+        ]
+      },
+      {
+        "code": "INE504",
+        "cr": 3,
+        "name": "SISTEMAS DE CONTROL ",
+        "req": [
+          "ING423",
+          "MAT271"
+        ]
+      },
+      {
+        "code": "IDI510",
+        "cr": 3,
+        "name": "ACADEMIC WRITING - INGENIERIA",
+        "req": [
+          "ENG006"
+        ]
+      },
+      {
+        "code": "IEL402",
+        "cr": 3,
+        "name": "CONTROLADORES LOGICOS PROGRAMABLES (PLC) ",
+        "req": [
+          "ING425"
+        ]
+      },
+      {
+        "code": "E034",
+        "cr": 3,
+        "name": "ELECTIVA III",
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "IND423",
+        "cr": 3,
+        "name": "INGENIERIA ECONOMICA",
+        "req": []
+      },
+      {
+        "code": "IEL425",
+        "cr": 3,
+        "name": "ELECTRONICA DE POTENCIA",
+        "req": [
+          "IEL421"
+        ]
+      },
+      {
+        "code": "IEL426",
+        "cr": 1,
+        "name": "LABORATORIO DE ELECTRONICA DE POTENCIA",
+        "req": [
+          "IEL422"
+        ]
+      },
+      {
+        "code": "IEL405",
+        "cr": 3,
+        "name": "SEÑALES Y SISTEMAS",
+        "req": [
+          "IEL421",
+          "MAT271"
+        ]
+      },
+      {
+        "code": "INF420",
+        "cr": 3,
+        "name": "FUNDAMENTOS DE INTELIGENCIA ARTIFICIAL",
+        "req": [
+          "INF410"
+        ]
+      },
+      {
+        "code": "TEC730",
+        "cr": 3,
+        "name": "INSTRUMENTACION ELECTRONICA",
+        "req": [
+          "ING425"
+        ]
+      },
+      {
+        "code": "E035",
+        "cr": 3,
+        "name": "ELECTIVA IV",
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "IEL406",
+        "cr": 3,
+        "name": "ELECTRONICA DE ALTA FRECUENCIA",
+        "req": [
+          "IEL421"
+        ]
+      },
+      {
+        "code": "IEL407",
+        "cr": 2,
+        "name": "APLICACIONES USANDO MICROCOMPUTADORES",
+        "req": [
+          "IEL423"
+        ]
+      },
+      {
+        "code": "IND453",
+        "cr": 2,
+        "name": "FORMULACION Y EVALUACION DE PROYECTOS DE INGENIERIA (impartida en ingles)",
+        "req": [
+          "IDI510",
+          "IND423"
+        ]
+      },
+      {
+        "code": "IEL427",
+        "cr": 3,
+        "name": "PROCESAMIENTO DIGITAL DE SEÑALES",
+        "req": [
+          "IEL405"
+        ]
+      },
+      {
+        "code": "IEL428",
+        "cr": 1,
+        "name": "LABORATORIO PROCESAMIENTO DIGITAL DE SEÑALES",
+        "req": [
+          "IEL405"
+        ]
+      },
+      {
+        "code": "IEL409",
+        "cr": 3,
+        "name": "DISEÑO DE INSTRUMENTACION VIRTUAL",
+        "req": [
+          "TEC730"
+        ]
+      },
+      {
+        "code": "ING113",
+        "cr": 3,
+        "name": "PROYECTO DE INVESTIGACION INTEGRADOR DE CONOCIMIENTOS",
+        "req": [
+          "IND423"
+        ]
+      }
+    ],
+    [
+      {
+        "code": "ING409",
+        "cr": 4,
+        "name": "AUTOMATIZACION Y ROBOTICA Y LABORATORIO",
+        "req": [
+          "ING425"
+        ]
+      },
+      {
+        "code": "IEL410",
+        "cr": 3,
+        "name": "COMUNICACIONES DIGITALES",
+        "req": [
+          "IEL427"
+        ]
+      },
+      {
+        "code": "TEC644",
+        "cr": 3,
+        "name": "DISEÑO FUENTES DE PODER CONMUTADAS",
+        "req": [
+          "IEL425"
+        ]
+      },
+      {
+        "code": "IEL429",
+        "cr": 3,
+        "name": "ANTENAS",
+        "req": [
+          "IEL406",
+          "ING710"
+        ]
+      },
+      {
+        "code": "IEL430",
+        "cr": 1,
+        "name": "LABORATORIO DE ANTENAS",
+        "req": [
+          "IEL406",
+          "ING710"
+        ]
+      },
+      {
+        "code": "SOC281",
+        "cr": 3,
+        "name": "SEMINARIO DE GRADO",
+        "req": [
+          "SOC253",
+          {
+            "text": "80% de los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "DER010",
+        "cr": 3,
+        "name": "EDUCACION CONSTITUCIONAL",
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "TFG",
+        "cr": 6,
+        "name": "TRABAJO FINAL DE GRADO",
+        "req": []
+      },
+      {
+        "code": "ODEP",
+        "cr": 0,
+        "name": "OPTATIVA DE DEPORTE",
+        "req": []
+      }
+    ]
+  ],
+  "additionalPeriods": {
+    "Electiva I": {
+      "description": "",
+      "electiveCode": "E032",
+      "mats": [
+        {
+          "code": "ADM103",
+          "name": "Fundamentos de Administración",
+          "req": [],
+          "cr": 3
+        },
+        {
+          "code": "ADM535",
+          "name": "Actitud Emprendedora",
+          "req": [
+            "SOC101"
+          ],
+          "cr": 3
+        },
+        {
+          "code": "ING712",
+          "name": "Ingeniería Ambiental",
+          "req": [
+            "IND500",
+            "SOC043"
+          ],
+          "cr": 3
+        },
+        {
+          "code": "INE360",
+          "name": "Seguridad e Higiene Industrial",
+          "req": [
+            "IND500"
+          ],
+          "cr": 3
+        }
+      ]
+    },
+    "Electiva II": {
+      "description": "",
+      "electiveCode": "E033",
+      "mats": [
+        {
+          "code": "MER101",
+          "name": "Mercadotecnia I",
+          "req": [
+            "E032"
+          ],
+          "cr": 3
+        },
+        {
+          "code": "DER011",
+          "name": "Derecho Comercial",
+          "req": [
+            "E032"
+          ],
+          "cr": 3
+        },
+        {
+          "code": "DER016",
+          "name": "Derecho Laboral",
+          "req": [
+            "E032"
+          ],
+          "cr": 3
+        },
+        {
+          "code": "IND606",
+          "name": "Diseño de Experimentos",
+          "req": [
+            "E032",
+            "IND500"
+          ],
+          "cr": 3
+        }
+      ]
+    },
+    "Electiva III": {
+      "description": "",
+      "electiveCode": "E034",
+      "mats": [
+        {
+          "code": "ECO101",
+          "name": "Economía I",
+          "req": [
+            "E033"
+          ],
+          "cr": 3
+        },
+        {
+          "code": "INE800",
+          "name": "Introducción a Energías Renovables",
+          "req": [
+            "E033",
+            "ING718"
+          ],
+          "cr": 3
+        },
+        {
+          "code": "ADM536",
+          "name": "Creación e Innovación de Negocios",
+          "req": [
+            "E033",
+            "ADM535"
+          ],
+          "cr": 3
+        },
+        {
+          "code": "AMD104",
+          "name": "Comportamiento Organizacional",
+          "req": [
+            "E033"
+          ],
+          "cr": 3
+        }
+      ]
+    },
+    "Electiva IV": {
+      "description": "",
+      "electiveCode": "E035",
+      "mats": [
+        {
+          "code": "DER160",
+          "name": "Introducción al Derecho de la Propiedad Intelectual",
+          "req": [
+            "E034"
+          ],
+          "cr": 3
+        },
+        {
+          "code": "INE323",
+          "name": "Auditoría, Calidad y Ahorro de Energías",
+          "req": [
+            "E034",
+            "ING421",
+            "IND500"
+          ],
+          "cr": 3
+        },
+        {
+          "code": "IND421",
+          "name": "Gerencia de Recursos Humanos",
+          "req": [
+            "E034",
+            "IND500"
+          ],
+          "cr": 3
+        },
+        {
+          "code": "TEC709",
+          "name": "Ingeniería de Mantenimiento",
+          "req": [
+            "E034",
+            "IND500"
+          ],
+          "cr": 3
+        }
+      ]
+    }
+  }
+}

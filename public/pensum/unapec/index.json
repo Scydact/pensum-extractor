@@ -4,6 +4,12 @@
   "groupOrder": ["Programas del 2020-2030", "Programas del 2010-2020", "Programas del 2000-2010"],
   "careers": [
     {
+      "code": "IEL11",
+      "name": "INGENIERIA ELECTRÓNICA",
+      "school": "Escuela de Ingeniería",
+      "group": "Programas del 2020-2030"
+    },
+    {
       "code": "INE11",
       "name": "INGENIERIA ELECTRICA",
       "school": "Escuela de Ingeniería",
