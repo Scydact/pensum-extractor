@@ -6,13 +6,19 @@
     {
       "code": "INE11",
       "name": "INGENIERIA ELECTRICA",
-      "school": "Escuela de Ingenierías",
+      "school": "Escuela de Ingeniería",
+      "group": "Programas del 2020-2030"
+    },
+    {
+      "code": "ISC11",
+      "name": "INGENIERÍA DE SISTEMAS DE COMPUTACIÓN",
+      "school": "Escuela de Informática",
       "group": "Programas del 2020-2030"
     },
     {
       "code": "ISO11",
       "name": "INGENIERIA DE SOFTWARE",
-      "school": "Escuela de Ingenierías",
+      "school": "Escuela de Informática",
       "group": "Programas del 2020-2030"
     },
     {
