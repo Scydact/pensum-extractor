@@ -67,7 +67,7 @@ namespace Pensum {
 
     /** Pensum singular de una carrera. */
     type Pensum = {
-        /** Version del pensum. Debe ser 2. */
+        /** Version del pensum. Debe ser `Number(import.meta.env.VITE_PENSUM_FORMAT_VERSION)`. */
         version: number
         /** Universidad/escuela a la que pertenece este pensum. */
         institution: string
@@ -130,6 +130,18 @@ namespace Pensum {
         loose: Mat[]
         /** Cuatrimestres, cada uno con sus respectivas materias. */
         periods: Mat[][]
+        /** Materias pertenecientes que no pertenecen a un cuatrimestre como tal. */
+        additionalPeriods: Record<string, AdditionalPeriod>
+    }
+
+    /** Periodo de materia adicionales, e.g. cursos especiales o  */
+    type AdditionalPeriod = {
+        /** Si este periodo representa posibles electivas, cual es el ID de esta electiva? */
+        electiveCode: string | ''
+        /** Descripcion de esta electiva (o materias). */
+        description: string | ''
+        /** Materias. */
+        mats: Mat[]
     }
 
     /** Data format that gets saved onto a file. */
@@ -137,12 +149,17 @@ namespace Pensum {
         /** Materia en formato de guardado. Sin postrequisitos, y con prerequisitos opcionales. */
         type Mat = PartialBy<Pensum.Mat, 'req'>
 
+        /** Periodo adicional en su formato de guardado. */
+        type AdditionalPeriod = Omit<Pensum.AdditionalPeriod, 'mats'> & { mats: Mat[] }
+
         /** Pensum en formato guardado. `loose` y `periods` tienen sus materias con prereq opcionales. */
-        type Pensum = Omit<Pensum.Pensum, 'loose' | 'periods'> & {
+        type Pensum = Omit<Pensum.Pensum, 'loose' | 'periods' | 'additionalPeriods'> & {
             /** Materias que no estan explicitamente en el pensum, pero que aun asi son requisitos. (ej. ENG100) */
             loose: Mat[]
             /** Cuatrimestres, cada uno con sus respectivas materias. */
             periods: Mat[][]
+            /** Materias pertenecientes que no pertenecen a un cuatrimestre como tal. */
+            additionalPeriods?: Record<string, AdditionalPeriod>
         }
 
         /** Old format */

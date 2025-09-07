@@ -6,7 +6,7 @@ type Props = {
 }
 
 function PensumDisplayCards({ pensum }: Props) {
-    const { career, periods, loose, periodType } = pensum
+    const { career, periods, loose, additionalPeriods, periodType } = pensum
 
     return (
         <>
@@ -19,16 +19,28 @@ function PensumDisplayCards({ pensum }: Props) {
                 </Card.Body>
             </Card>
 
-            {loose && loose.length > 0 && (
+            {loose.length > 0 && (
                 <Card className="pensum-table-container">
                     <Card.Header>
                         <Card.Title>Demás materias</Card.Title>
                     </Card.Header>
                     <Card.Body>
-                        <PensumTable periods={[loose]} periodType={null} periodIndexStart={0} />
+                        <PensumTable periods={[loose]} periodIndexStart={0} />
                     </Card.Body>
                 </Card>
             )}
+
+            {Object.entries(additionalPeriods).length > 0 &&
+                Object.entries(additionalPeriods).map(([periodName, periodDetails]) => (
+                    <Card className="pensum-table-container">
+                        <Card.Header>
+                            <Card.Title>{periodName}</Card.Title>
+                        </Card.Header>
+                        <Card.Body>
+                            <PensumTable periods={[periodDetails.mats]} periodIndexStart={0} />
+                        </Card.Body>
+                    </Card>
+                ))}
         </>
     )
 }

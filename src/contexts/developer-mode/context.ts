@@ -42,7 +42,6 @@ export const DeveloperModeProvider = memo(function DeveloperModeProvider({ child
 
     // Update DEV from ACTIVE CONTEXT.
     useEffect(() => {
-        console.log(contextPensum)
         if (contextPensum && history.present !== contextPensum && !history.past.includes(contextPensum)) {
             commands.set(contextPensum)
         }

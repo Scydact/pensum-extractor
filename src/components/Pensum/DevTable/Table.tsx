@@ -1,10 +1,10 @@
-import { memo, useContext } from 'react'
-import { Col, Row, Container } from 'react-bootstrap'
+import { memo } from 'react'
+import { Col, Container, Row } from 'react-bootstrap'
 
-import './table.scss'
-import DevPeriod from './Period'
 import { defaultPeriodType } from '@/functions/pensum-get-period-type'
 import { MatRowTemplate } from '../Table/MatRow'
+import DevPeriod from './Period'
+import './table.scss'
 
 /** Headers for the pensum table. */
 const TableHead = memo((props: { periodNumStr?: string | null }) => {
@@ -33,7 +33,7 @@ const TableHead = memo((props: { periodNumStr?: string | null }) => {
 
 type PensumTableProps = {
     periods: Pensum.Pensum['periods']
-    periodIndexStart?: number
+    periodIndexStart?: number | string
     periodType?: Pensum.Pensum['periodType'] | null
 }
 
@@ -56,7 +56,12 @@ export default function PensumDevTable({
             <TableHead periodNumStr={periodType?.two} />
             <div className="pensum-table-body" data-empty-text="No hay materias que cumplan con el filtro actual.">
                 {periods.map((period, key) => (
-                    <DevPeriod key={key} period={period} periodNum={key + periodIndexStart} cumlen={cumlen[key - 1]} />
+                    <DevPeriod
+                        key={key}
+                        period={period}
+                        periodKey={typeof periodIndexStart === 'number' ? key + periodIndexStart : periodIndexStart}
+                        cumlen={cumlen[key - 1]}
+                    />
                 ))}
             </div>
         </Container>

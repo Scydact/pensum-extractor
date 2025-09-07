@@ -33,20 +33,31 @@ export function convertSavePensum(save: Pensum.Save.Pensum): Pensum.Pensum {
         return mat
     }
 
-    const loose: Pensum.Mat[] = save.loose.map((mat) => MatConverter(mat))
+    const loose: Pensum.Mat[] = save.loose.filter(Boolean).map((mat) => MatConverter(mat))
     const periods: Pensum.Mat[][] = save.periods.map((period) => period.map((mat) => MatConverter(mat)))
+
+    const additionalPeriods: Pensum.Pensum['additionalPeriods'] = {}
+    if (save.additionalPeriods) {
+        for (const [periodName, periodDetails] of Object.entries(save.additionalPeriods)) {
+            additionalPeriods[periodName] = {
+                ...periodDetails,
+                mats: periodDetails.mats.map((mat) => MatConverter(mat)),
+            }
+        }
+    }
 
     return {
         ...save,
         loose,
         periods,
+        additionalPeriods,
     }
 }
 
 /** Loads a legacy pensum, mapping the old properties to the new ones. */
 export function convertPensum2(old: Pensum.Save.Legacy.Pensum2, university: string): Pensum.Pensum {
     const pensum: Pensum.Pensum = {
-        version: Number(import.meta.env.VITE_PENSUM_FORMAT_VERSION),
+        version: Number(import.meta.env.VITE_PENSUM_FORMAT_VERSION) as any,
         institution: university ?? '',
         code: old.codigo ?? '',
         publishDate: old.vigencia ?? '0000-00-00',
@@ -65,6 +76,7 @@ export function convertPensum2(old: Pensum.Save.Legacy.Pensum2, university: stri
         },
         loose: [],
         periods: [],
+        additionalPeriods: {},
     }
 
     if (!(old.cuats && old.cuats.length)) {

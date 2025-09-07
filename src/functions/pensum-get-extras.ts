@@ -34,18 +34,20 @@ export default function processPensumMats(pensum: Pensum.Pensum | null): ActiveP
             postreqMap: new Map(),
             coreqMap: new Map(),
             looseUnhandled: new Set(),
+            careerMats: new Set(),
         }
 
     const matMap = new Map<string, Pensum.Mat>()
-    const matPeriod = new Map<string, number>()
+    const matPeriod = new Map<string, number | string>()
     const matPostreq = new Map<string, string[]>()
     const matCoreq = new Map<string, string[]>()
     const mats: Pensum.Mat[] = []
+    const careerMats = new Set<string>()
     const warnings: { code: string; text: string }[] = []
 
     // Helper functions
 
-    const processMat = (mat: Pensum.Mat, periodNum: number) => {
+    const processMat = (mat: Pensum.Mat, periodNum: number | string) => {
         if (matMap.has(mat.code)) {
             warnings.push({ code: mat.code, text: 'was already registered!' })
         }
@@ -59,7 +61,14 @@ export default function processPensumMats(pensum: Pensum.Pensum | null): ActiveP
     pensum.loose.forEach((mat) => processMat(mat, 0))
     // Normal mats have period index starting from 1.
     pensum.periods.forEach((period, periodIdx) => {
-        period.forEach((mat) => processMat(mat, periodIdx + 1))
+        period.forEach((mat) => {
+            processMat(mat, periodIdx + 1)
+            careerMats.add(mat.code)
+        })
+    })
+    // Additional mats (e.g. optativas)
+    Object.entries(pensum.additionalPeriods).forEach(([periodName, periodDetails]) => {
+        periodDetails.mats.forEach((mat) => processMat(mat, periodName))
     })
 
     // After all mats are registered, get postreqs
@@ -113,5 +122,7 @@ export default function processPensumMats(pensum: Pensum.Pensum | null): ActiveP
         coreqMap: matCoreq,
         /** List of mats that are prereqs but are not registered. */
         looseUnhandled: looseUnhandled,
+        /** Mats that are counted towards progress. */
+        careerMats,
     }
 }

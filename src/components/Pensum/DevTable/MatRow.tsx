@@ -8,6 +8,7 @@ import { useCombinedRefs } from '@/hooks/use-combined-refs'
 import { useClassOnHover } from '@/hooks/use-hover-class'
 import { useSortable } from '@dnd-kit/sortable'
 import { CSS } from '@dnd-kit/utilities'
+import { BiTrash } from 'react-icons/bi'
 import { MdDragIndicator } from 'react-icons/md'
 import { MatRowProps, MatRowTemplate, MatRowTemplateProps } from '../Table/MatRow'
 import { findMatLocation, getPeriod, setPeriod } from './mat-movement'
@@ -78,7 +79,15 @@ export const DevMatRow = memo(
                         alert(err)
                     }
                 },
-            [commands, mat],
+            [commands, mat, pensum],
+        )
+
+        const deleteMatFromPeriod = useMemo(
+            () => () => {
+                const newPensum = deleteMat(pensum, mat)
+                commands.set(newPensum)
+            },
+            [commands, mat, pensum],
         )
 
         // TODO Edit mode per row
@@ -108,6 +117,7 @@ export const DevMatRow = memo(
                     display={(reqStr: string) => pensumReqEditable.display(reqStr, mat.code)}
                 />
             ),
+            delete: <BiTrash />,
         }
 
         return (
@@ -122,6 +132,12 @@ export const DevMatRow = memo(
                     className: classnames(cl),
                     'data-mat': mat.code,
                     ...rest,
+                }}
+                deleteProps={{
+                    onClick() {
+                        if (confirm(`Seguro que desea eliminar '${mat.code}' (${mat.description})?`))
+                            deleteMatFromPeriod()
+                    },
                 }}
             />
         )
@@ -146,11 +162,36 @@ export function DevMatRowSortable(props: MatRowProps) {
     )
 }
 
+function deleteMat(pensum: Pensum.Pensum, mat: Pensum.Mat) {
+    // Set of all codes
+    const codeMap = new Set()
+    pensum.periods.forEach((period) => period.forEach((mat) => codeMap.add(mat.code)))
+    pensum.loose.forEach((mat) => codeMap.add(mat.code))
+
+    // Check if code is valid
+    const matLocation = findMatLocation(pensum, mat.code)
+    if (!matLocation) {
+        throw 'Codigo de materia previo no encontrado.'
+    }
+
+    const period = Array.from(getPeriod(pensum, ~~matLocation.droppableId))
+    period.splice(matLocation.index, 1)
+    const newPensum: Pensum.Pensum = { ...pensum }
+    const wasValid = !!setPeriod(newPensum, ~~matLocation.droppableId, period)
+    if (wasValid) {
+        return newPensum
+    }
+    throw 'Fallo al eliminar materia.'
+}
+
 function changeMat(pensum: Pensum.Pensum, oldMat: Pensum.Mat, newMat: Pensum.Mat) {
     // Set of all codes
     const codeMap = new Set()
     pensum.periods.forEach((period) => period.forEach((mat) => codeMap.add(mat.code)))
     pensum.loose.forEach((mat) => codeMap.add(mat.code))
+    Object.values(pensum.additionalPeriods).forEach((periodDetails) =>
+        periodDetails.mats.forEach((mat) => codeMap.add(mat.code)),
+    )
 
     // Check if code is valid
     if (!newMat.code) {
@@ -173,10 +214,10 @@ function changeMat(pensum: Pensum.Pensum, oldMat: Pensum.Mat, newMat: Pensum.Mat
     if (!matLocation) {
         throw 'Codigo de materia previo no encontrado.'
     }
-    const period = Array.from(getPeriod(pensum, ~~matLocation.droppableId))
+    const period = Array.from(getPeriod(pensum, matLocation.droppableId))
     period[matLocation.index] = newMat
     const newPensum: Pensum.Pensum = { ...pensum }
-    const wasValid = !!setPeriod(newPensum, ~~matLocation.droppableId, period)
+    const wasValid = !!setPeriod(newPensum, matLocation.droppableId, period)
     if (wasValid) {
         return newPensum
     }

@@ -25,9 +25,10 @@ import {
 } from '@dnd-kit/core'
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
+import { BiPlus, BiTrash } from 'react-icons/bi'
 import { extractMat, findMat, findMatLocation, getPeriod, insertMat } from './mat-movement'
 
-type Props = {}
+type Props = { [k: string]: any }
 
 /**
  * Layout of two cards:
@@ -39,7 +40,7 @@ type Props = {}
  */
 function PensumDevDisplayCards(props: Props) {
     const { commands, pensum } = useContext(DeveloperModeContext)
-    const { career, periods, loose, periodType } = pensum
+    const { career, periods, loose, periodType, additionalPeriods } = pensum
 
     const [activeMatId, setActiveMatId] = useState<UniqueIdentifier | null>(null)
     const activeMat = typeof activeMatId === 'string' ? findMat(pensum, activeMatId) : null
@@ -49,10 +50,38 @@ function PensumDevDisplayCards(props: Props) {
 
     const findPeriod = (id: UniqueIdentifier) => {
         if (typeof id === 'number') return id
+        if (typeof id === 'string' && id in pensum.additionalPeriods) return id
         if (!(typeof id === 'string')) return -1
         const location = findMatLocation(pensum, id)
         if (!location) return -1
         return location.droppableId
+    }
+
+    function actionAddAdditionalPeriod() {
+        const newPeriodName = prompt('Nombre del nuevo periodo?')?.trim()
+        if (!newPeriodName) return
+        if (newPeriodName in additionalPeriods) {
+            alert(`Periodo '${newPeriodName}' ya existe!`)
+            return
+        }
+        commands.set({
+            ...pensum,
+            additionalPeriods: {
+                ...additionalPeriods,
+                [newPeriodName]: { description: '', electiveCode: '', mats: [] },
+            },
+        })
+    }
+
+    function actionDeleteAdditionalPeriod(periodKey: string) {
+        const periodDetails = pensum.additionalPeriods[periodKey]
+        if (!periodDetails) return
+        if (!confirm(`Seguro que desea eliminar el grupo '${periodKey}'?`)) return
+        const additionalPeriods = Object.fromEntries(
+            Object.entries(pensum.additionalPeriods).filter(([k, v]) => k !== periodKey),
+        )
+        const loose = [...pensum.loose, ...periodDetails.mats]
+        commands.set({ ...pensum, additionalPeriods, loose })
     }
 
     /**
@@ -138,6 +167,7 @@ function PensumDevDisplayCards(props: Props) {
 
         const overPeriod = findPeriod(overId)
         const activePeriod = findPeriod(active.id)
+        console.log({ activePeriod, overPeriod })
         if (overPeriod == null || activePeriod == null) return
 
         if (activePeriod !== overPeriod) {
@@ -157,6 +187,7 @@ function PensumDevDisplayCards(props: Props) {
                 const modifier = isBelowOverItem ? 1 : 0
                 newIndex = overIndex >= 0 ? overIndex + modifier : overItems.length + 1
             }
+            console.log({ activeItems, activeIndex, overItems, overIndex, newIndex })
             recentlyMovedToNewContainer.current = true
             const newPensum = { ...pensum }
             const mat = extractMat(newPensum, { droppableId: activePeriod, index: activeIndex })!
@@ -236,15 +267,49 @@ function PensumDevDisplayCards(props: Props) {
                 </Card.Body>
             </Card>
 
+            <hr />
+            <h1>Materias adicionales</h1>
+            <div className="d-flex">
+                <button
+                    type="button"
+                    className="col btn btn-primary btn-action"
+                    onClick={actionAddAdditionalPeriod}
+                    title="Agregar grupo"
+                >
+                    <BiPlus />
+                    <span className="btn-action-label">Nuevo grupo</span>
+                </button>
+            </div>
+            {Object.entries(additionalPeriods).map(([periodName, periodDetails]) => (
+                <Card className="pensum-table-container">
+                    <Card.Header>
+                        <Card.Title>
+                            [Adicional] {periodName}
+                            <button
+                                type="button"
+                                className="col btn btn-danger btn-action float-end"
+                                onClick={() => actionDeleteAdditionalPeriod(periodName)}
+                                title="Eliminar grupo"
+                            >
+                                <BiTrash />
+                                <span className="btn-action-label">Eliminar grupo</span>
+                            </button>
+                        </Card.Title>
+                    </Card.Header>
+                    <Card.Body>
+                        <PensumDevTable periods={[periodDetails.mats]} periodIndexStart={periodName} />
+                    </Card.Body>
+                </Card>
+            ))}
+
             <Card className="pensum-table-container">
                 <Card.Header>
                     <Card.Title>Demás materias</Card.Title>
                 </Card.Header>
                 <Card.Body>
-                    <PensumDevTable periods={useMemo(() => [loose], [loose])} periodType={null} periodIndexStart={0} />
+                    <PensumDevTable periods={useMemo(() => [loose], [loose])} periodIndexStart={0} />
                 </Card.Body>
             </Card>
-
             <DragOverlay
                 modifiers={[restrictToVerticalAxis]}
                 style={{ marginLeft: '0.75rem', userSelect: 'none' }}

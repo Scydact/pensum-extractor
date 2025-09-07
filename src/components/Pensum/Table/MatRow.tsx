@@ -1,4 +1,3 @@
-import React, { forwardRef, useCallback, useContext, useEffect, useRef } from 'react'
 import {
     matSelectHelpers,
     MatSelectionDispatchContext,
@@ -6,14 +5,15 @@ import {
     MatSelectionTrackerContext,
 } from '@/contexts/mat-selection'
 import { classnames } from '@/lib/format-utils'
+import React, { forwardRef, useCallback, useContext, useEffect, useRef } from 'react'
 
 import MatCode from '@/components/MatCode'
-import Row from 'react-bootstrap/Row'
-import Col from 'react-bootstrap/Col'
-import { Link } from 'react-router-dom'
 import PensumRowNodesContext from '@/contexts/pensum-row-nodes'
-import { useClassOnHover } from '@/hooks/use-hover-class'
 import { useCombinedRefs } from '@/hooks/use-combined-refs'
+import { useClassOnHover } from '@/hooks/use-hover-class'
+import Col from 'react-bootstrap/Col'
+import Row from 'react-bootstrap/Row'
+import { Link } from 'react-router-dom'
 
 export type MatRowProps = {
     mat: Pensum.Mat
@@ -23,6 +23,7 @@ export type MatRowProps = {
 export type MatRowTemplateProps = {
     elems: {
         checkmark: React.ReactNode
+        delete?: React.ReactNode
         code: React.ReactNode
         name: React.ReactNode
         cr: React.ReactNode
@@ -31,6 +32,7 @@ export type MatRowTemplateProps = {
 
     checkmarkProps?: any
     rowProps?: any
+    deleteProps?: any
 }
 
 export function MatRowTemplate(props: MatRowTemplateProps) {
@@ -49,6 +51,11 @@ export function MatRowTemplate(props: MatRowTemplateProps) {
                     <Col className="row-req">{props.elems.reqs}</Col>
                 </Row>
             </Col>
+            {props.deleteProps && props.elems.delete && (
+                <Col className="row-check" {...props.deleteProps}>
+                    {props.elems.delete}
+                </Col>
+            )}
         </Row>
     )
 }

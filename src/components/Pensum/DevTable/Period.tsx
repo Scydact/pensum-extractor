@@ -13,7 +13,7 @@ import { DevMatRowSortable } from './MatRow'
 
 type PeriodProps = {
     period: Pensum.Mat[]
-    periodNum: number
+    periodKey: number | string
     cumlen: number
 }
 
@@ -21,9 +21,9 @@ type PeriodProps = {
  * Displays a single period from the pensum as table rows.
  * This "Period" is a droppable target
  */
-const DevPeriod = memo(function DevPeriod({ period, periodNum, cumlen = 0 }: PeriodProps) {
+const DevPeriod = memo(function DevPeriod({ period, periodKey, cumlen = 0 }: PeriodProps) {
     const dispatch = useContext(MatSelectionDispatchContext)
-    const { setNodeRef } = useDroppable({ id: periodNum })
+    const { setNodeRef } = useDroppable({ id: periodKey })
 
     const onPeriodClick = useCallback(
         (evt: any) => {
@@ -34,8 +34,8 @@ const DevPeriod = memo(function DevPeriod({ period, periodNum, cumlen = 0 }: Per
 
     return (
         <div className="row-period">
-            <Row className="row-period-dev-sidebar" onClick={onPeriodClick} data-value={periodNum}>
-                <DevPeriodToolBar period={period} periodNum={periodNum} />
+            <Row className="row-period-dev-sidebar" onClick={onPeriodClick} data-value={periodKey}>
+                <DevPeriodToolBar period={period} periodKey={periodKey} />
             </Row>
             <Row className="row-mat-group" ref={setNodeRef}>
                 <SortableContext items={period.map((mat) => mat.code)} strategy={verticalListSortingStrategy}>
@@ -63,15 +63,15 @@ const DevPeriod = memo(function DevPeriod({ period, periodNum, cumlen = 0 }: Per
 export default DevPeriod
 
 /** Toolbar with actions for each period. */
-function DevPeriodToolBar({ period, periodNum }: Omit<PeriodProps, 'cumlen'>) {
+function DevPeriodToolBar({ period, periodKey }: Omit<PeriodProps, 'cumlen'>) {
     const { commands, pensum } = useContext(DeveloperModeContext)
     const {
         state: {
             matData: { codeMap },
         },
     } = useContext(ActivePensumContext)
-    const isLoose = periodNum === 0
-    const styleHiddenIfLoose = isLoose ? { display: 'none' } : undefined
+    const isIrregularPeriod = periodKey === 0 || typeof periodKey === 'string'
+    const styleHiddenIfLoose = isIrregularPeriod ? { display: 'none' } : undefined
 
     function actionDeletePeriod() {
         if (period.length) {
@@ -96,7 +96,7 @@ function DevPeriodToolBar({ period, periodNum }: Omit<PeriodProps, 'cumlen'>) {
             if (!window.confirm(msg)) return
         }
         const newPensum = { ...pensum }
-        setPeriod(newPensum, periodNum, [])
+        setPeriod(newPensum, periodKey, [])
         commands.set(newPensum)
     }
 
@@ -119,7 +119,7 @@ function DevPeriodToolBar({ period, periodNum }: Omit<PeriodProps, 'cumlen'>) {
         nextPeriod = Array.from(nextPeriod)
         nextPeriod.push(...period)
         setPeriod(newPensum, idx, nextPeriod)
-        setPeriod(newPensum, periodNum, [])
+        setPeriod(newPensum, periodKey, [])
         commands.set(newPensum)
     }
 
@@ -134,26 +134,38 @@ function DevPeriodToolBar({ period, periodNum }: Omit<PeriodProps, 'cumlen'>) {
             console.log(code)
         }
         newPeriod.push({ code, name: '*Materia', req: [], cr: 1 })
-        setPeriod(newPensum, periodNum, newPeriod)
+        setPeriod(newPensum, periodKey, newPeriod)
         commands.set(newPensum)
     }
 
     function actionInsertPeriodBefore() {
+        if (typeof periodKey !== 'number') {
+            const msg = `Cannot add period after loose or additional period.`
+            console.error(msg)
+            alert(msg)
+            return
+        }
         const newPensum = { ...pensum }
-        insertPeriod(newPensum, periodNum, [])
+        insertPeriod(newPensum, periodKey, [])
         commands.set(newPensum)
     }
 
     function actionInsertPeriodAfter() {
+        if (typeof periodKey !== 'number') {
+            const msg = `Cannot add period after loose or additional period.`
+            console.error(msg)
+            alert(msg)
+            return
+        }
         const newPensum = { ...pensum }
-        insertPeriod(newPensum, periodNum + 1, [])
+        insertPeriod(newPensum, periodKey + 1, [])
         commands.set(newPensum)
     }
 
     return (
         <div className="d-flex align-items-center flex-wrap align-items-stretch mb-2 mt-3" style={{ gap: '.25rem' }}>
             <b className="col d-flex align-items-center">
-                {pensum.periodType.name ?? 'Periodo'} #{periodNum}:
+                {pensum.periodType.name ?? 'Periodo'} #{periodKey}:
             </b>
 
             <button
@@ -200,7 +212,7 @@ function DevPeriodToolBar({ period, periodNum }: Omit<PeriodProps, 'cumlen'>) {
                     <Dropdown.Item onClick={actionDeleteMats}>
                         <BiEraser /> Borrar materias
                     </Dropdown.Item>
-                    {!isLoose && (
+                    {!isIrregularPeriod && (
                         <>
                             <Dropdown.Divider />
                             <Dropdown.Item onClick={actionInsertPeriodBefore}>

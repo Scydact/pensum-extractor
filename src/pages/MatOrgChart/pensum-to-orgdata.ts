@@ -49,7 +49,7 @@ type Mat2OrgLenient = Partial<Pensum.Mat> & {
 }
 export function mat2org(
     obj: Mat2OrgLenient,
-    period: number,
+    period: number | string,
     selectionClass: string = 'default',
     periodStr = 'Per.',
 ): MatOrgChartNode {

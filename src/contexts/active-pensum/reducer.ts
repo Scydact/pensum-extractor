@@ -50,8 +50,10 @@ export function createPayload(pensum: ActivePensum.Payload['pensum']): ActivePen
     }
 }
 
+const SHOULD_DEBUG_REDUCER = false
+
 export function activePensumReducer(state: ActivePensum.Payload, action: ActivePensum.Action): ActivePensum.Payload {
-    if (action.debug && import.meta.env.DEV) {
+    if (SHOULD_DEBUG_REDUCER && action.debug && import.meta.env.DEV) {
         console.log('[ActivePensum] %s', action.debug, {
             state,
             actionType: action.type,
@@ -107,7 +109,8 @@ export function activePensumReducer(state: ActivePensum.Payload, action: ActiveP
                 periodType: { abbr: 'cuat', name: 'cuatrimestre', two: 'ct' },
                 periods: [],
                 src: { type: 'online', date: japaneseDateFormat(new Date()), url: null },
-                version: 2,
+                version: Number(import.meta.env.VITE_PENSUM_FORMAT_VERSION),
+                additionalPeriods: {},
             })
 
         default:

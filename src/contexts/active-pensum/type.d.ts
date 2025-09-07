@@ -2,8 +2,8 @@ declare namespace ActivePensum {
     type MatExtraData = {
         /** List of all mats */
         list: Pensum.Mat[]
-        /** Map: code<string> -> period<number> */
-        periodMap: Map<string, number>
+        /** Map: code<string> -> period<number> or additionalPeriod<string> */
+        periodMap: Map<string, number | string>
         /** Map : code<string> -> mat<Mat> */
         codeMap: Map<string, Pensum.Mat>
         /** Map: code<string> -> postreqs<string> */
@@ -12,6 +12,8 @@ declare namespace ActivePensum {
         coreqMap: Map<string, string[]>
         /** List of mats that are prereqs but are not registered. */
         looseUnhandled: Set<string>
+        /** All mats that are counted towards the career progression. */
+        careerMats: Set<string>
     }
 
     /** List of universities/careers. */
