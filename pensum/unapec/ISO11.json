@@ -513,14 +513,6 @@
           "req": ["ISO936"],
           "cr": 3
         }
-      ],
-      "periods": [
-        {
-          "code": "ISO122",
-          "name": "Dirección de Proyectos Informáticos",
-          "req": ["ISO936"],
-          "cr": 3
-        }
       ]
     },
     "Certificación: Desarrollo en Emprendimiento": {
@@ -532,7 +524,7 @@
           "name": "Tópicos de Emprendimientos Globales",
           "req": [
             {
-              "text": "59% Créditos aprobrados"
+              "text": "59% Créditos aprobados"
             }
           ],
           "cr": 3
@@ -549,8 +541,7 @@
           "req": ["ADM537"],
           "cr": 3
         }
-      ],
-      "periods": []
+      ]
     },
     "Electiva I": {
       "description": "Las asignaturas Electivas Generales la conforman asignaturas ofrecidas al estudiante que no opte por una certificación.\n\nEl estudiante debe tomar una asignatura de cada unos de los bloques de las asignaturas Electivas Generales para completar el pénsum de la Carrera de ISO.\n\nPara optar por las asignaturas Electivas Generales I el estudiante debe haber aprobado el 59% de los créditos del pénsum.\n",
