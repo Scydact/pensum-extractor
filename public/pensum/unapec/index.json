@@ -4,6 +4,18 @@
   "groupOrder": ["Programas del 2020-2030", "Programas del 2010-2020", "Programas del 2000-2010"],
   "careers": [
     {
+      "code": "INE11",
+      "name": "INGENIERIA ELECTRICA",
+      "school": "Escuela de Ingenierías",
+      "group": "Programas del 2020-2030"
+    },
+    {
+      "code": "ISO11",
+      "name": "INGENIERIA DE SOFTWARE",
+      "school": "Escuela de Ingenierías",
+      "group": "Programas del 2020-2030"
+    },
+    {
       "code": "INE7",
       "name": "INGENIERIA ELECTRICA",
       "school": "Escuela de Ingenierías",

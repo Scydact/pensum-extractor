@@ -1,0 +1,670 @@
+{
+  "version": 5,
+  "institution": "unapec",
+  "career": "Ingeniería de Software",
+  "code": "ISO11",
+  "publishDate": "01/01/2024",
+  "fetchDate": "2025-09-06",
+  "info": [
+    "Este programa tiene una duración de 12 cuatrimestres y está conformado por 77 asignaturas, con un total de 224 créditos.",
+    "Título a Ortorgar: Ingeniero (a) de Software",
+    "Como requisito general de la graduación: Aprobar un Deporte. Ocho (8) niveles de inglés. Actitud Profesional: 60 horas. Pasantía Empresarial (PAS-261): 150 - 300 horas."
+  ],
+  "src": {
+    "type": "online",
+    "url": "https://unapec.edu.do/academia/programas-de-grado/ingenieria-de-software/",
+    "date": "2025-09-06"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "ESP101",
+        "cr": 3,
+        "name": "ANALISIS DE TEXTOS DISCURSIVOS",
+        "req": []
+      },
+      {
+        "code": "ISO100",
+        "cr": 5,
+        "name": "FUNDAMENTOS DE INFORMATICA Y ALGORITMOS",
+        "req": []
+      },
+      {
+        "code": "ISO105",
+        "cr": 3,
+        "name": "FUNDAMENTOS DE SISTEMAS OPERATIVOS Y COMUNICACIONES",
+        "req": []
+      },
+      {
+        "code": "SOC011",
+        "cr": 3,
+        "name": "HISTORIA SOCIAL DOMINICANA",
+        "req": []
+      },
+      {
+        "code": "SOC030",
+        "cr": 2,
+        "name": "ORIENTACION UNIVERSITARIA",
+        "req": []
+      },
+      {
+        "code": "MAT127",
+        "cr": 5,
+        "name": "MATEMATICA SUPERIOR PARA INGENIERIA",
+        "req": []
+      },
+      {
+        "code": "INF250",
+        "cr": 2,
+        "name": "FUNDAMENTOS DE INGENIERIA",
+        "req": []
+      },
+      {
+        "code": "ENG001",
+        "cr": 0,
+        "name": "INGLES I",
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "SOC043",
+        "cr": 2,
+        "name": "GESTION AMBIENTAL",
+        "req": []
+      },
+      {
+        "code": "ESP106",
+        "cr": 3,
+        "name": "REDACCION DE TEXTOS DISCURSIVOS I",
+        "req": ["ESP101"]
+      },
+      {
+        "code": "SOC200",
+        "cr": 3,
+        "name": "INTRODUCCION A LA SOCIOLOGIA",
+        "req": []
+      },
+      {
+        "code": "SOC101",
+        "cr": 3,
+        "name": "INTRODUCCION A LA PSICOLOGIA",
+        "req": []
+      },
+      {
+        "code": "MAT131",
+        "cr": 5,
+        "name": "CALCULO Y GEOMETRIA ANALITICA I",
+        "req": ["MAT127"]
+      },
+      {
+        "code": "ISO200",
+        "cr": 5,
+        "name": "PROGRAMACION Y ESTRUCTURAS DE DATOS",
+        "req": ["ISO100"]
+      },
+      {
+        "code": "ENG002",
+        "cr": 0,
+        "name": "INGLES II",
+        "req": ["ENG001"]
+      }
+    ],
+    [
+      {
+        "code": "INF111",
+        "cr": 3,
+        "name": "PROGRAMACION ORIENTADA  A OBJETOS",
+        "req": ["ISO200"]
+      },
+      {
+        "code": "ISO300",
+        "cr": 4,
+        "name": "FUNDAMENTOS DE INGENIERIA DE SOFTWARE",
+        "req": ["INF250"]
+      },
+      {
+        "code": "ESP107",
+        "cr": 3,
+        "name": "REDACCION DE TEXTOS DISCURSIVOS II",
+        "req": ["ESP106"]
+      },
+      {
+        "code": "MAT132",
+        "cr": 5,
+        "name": "CALCULO Y GEOMETRIA ANALITICA II",
+        "req": ["MAT131"]
+      },
+      {
+        "code": "ING716",
+        "cr": 3,
+        "name": "FISICA I",
+        "req": ["MAT131"]
+      },
+      {
+        "code": "ING717",
+        "cr": 1,
+        "name": "LABORATORIO DE FISICA I",
+        "req": ["MAT131"]
+      },
+      {
+        "code": "ISO310",
+        "cr": 4,
+        "name": "DISEÑO WEB",
+        "req": ["ISO200"]
+      },
+      {
+        "code": "ENG003",
+        "cr": 0,
+        "name": "INGLES III",
+        "req": ["ENG002"]
+      }
+    ],
+    [
+      {
+        "code": "INF164",
+        "cr": 3,
+        "name": "BASE DE DATOS I",
+        "req": ["INF111"]
+      },
+      {
+        "code": "ISO410",
+        "cr": 4,
+        "name": "VERIFICACION Y VALIDACION DE SOFTWARE",
+        "req": ["ISO300"]
+      },
+      {
+        "code": "SOC013",
+        "cr": 2,
+        "name": "FILOSOFIA",
+        "req": []
+      },
+      {
+        "code": "SOC253",
+        "cr": 4,
+        "name": "METODOLOGIA Y TECNICAS DE INVESTIGACION",
+        "req": []
+      },
+      {
+        "code": "MAT151",
+        "cr": 4,
+        "name": "MATEMATICA DISCRETA",
+        "req": ["MAT132"]
+      },
+      {
+        "code": "SOC031",
+        "cr": 3,
+        "name": "ETICA PROFESIONAL",
+        "req": []
+      },
+      {
+        "code": "ISO500",
+        "cr": 3,
+        "name": "INGENIERIA DE REQUISITOS",
+        "req": ["ISO300"]
+      },
+      {
+        "code": "ENG004",
+        "cr": 0,
+        "name": "INGLES IV",
+        "req": ["ENG003"]
+      }
+    ],
+    [
+      {
+        "code": "INF165",
+        "cr": 3,
+        "name": "BASE DE DATOS II",
+        "req": ["INF164"]
+      },
+      {
+        "code": "ISO505",
+        "cr": 3,
+        "name": "INGENIERIA DE LA USABILIDAD",
+        "req": ["ISO410"]
+      },
+      {
+        "code": "CON127",
+        "cr": 3,
+        "name": "CONTABILIDAD DE COSTOS PARA INGENIEROS",
+        "req": ["MAT127"]
+      },
+      {
+        "code": "ING718",
+        "cr": 3,
+        "name": "FISICA II",
+        "req": ["ING716"]
+      },
+      {
+        "code": "ING719",
+        "cr": 1,
+        "name": "LABORATORIO DE FISICA II",
+        "req": ["ING717"]
+      },
+      {
+        "code": "ISO515",
+        "cr": 3,
+        "name": "PROGRAMACION WEB",
+        "req": ["ISO310"]
+      },
+      {
+        "code": "ADM535",
+        "cr": 3,
+        "name": "ACTITUD EMPRENDEDORA",
+        "req": ["SOC101"]
+      },
+      {
+        "code": "ISO400",
+        "cr": 4,
+        "name": "ANALISIS Y DISEÑO ORIENTADO A OBJETOS",
+        "req": ["ISO500"]
+      },
+      {
+        "code": "ENG005",
+        "cr": 0,
+        "name": "INGLES V",
+        "req": ["ENG004"]
+      }
+    ],
+    [
+      {
+        "code": "ISO600",
+        "cr": 3,
+        "name": "ADMINISTRACION DE CONFIGURACION",
+        "req": ["ISO400"]
+      },
+      {
+        "code": "MAT252",
+        "cr": 4,
+        "name": "PROBABILIDAD Y ESTADISTICA",
+        "req": ["MAT132"]
+      },
+      {
+        "code": "ISO615",
+        "cr": 4,
+        "name": "DESARROLLO DE SOFTWARE CON TECNOLOGIAS PROPIETARIAS Y OPEN SOURCE I",
+        "req": ["INF165"]
+      },
+      {
+        "code": "ISO625",
+        "cr": 4,
+        "name": "PROGRAMACION MOVIL",
+        "req": ["ISO515"]
+      },
+      {
+        "code": "ENG006",
+        "cr": 0,
+        "name": "INGLES VI",
+        "req": ["ENG005"]
+      },
+      {
+        "code": "ODEP",
+        "cr": 0,
+        "name": "OPTATIVA DEPORTE",
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "ISO700",
+        "cr": 3,
+        "name": "GESTION DE SITIOS WEB",
+        "req": ["ISO505"]
+      },
+      {
+        "code": "ISO705",
+        "cr": 4,
+        "name": "PROYECTO DE SOFTWARE I",
+        "req": ["ISO600"]
+      },
+      {
+        "code": "ISO720",
+        "cr": 4,
+        "name": "DESARROLLO DE SOFTWARE CON TECNOLOGIAS PROPIETARIAS Y OPEN SOURCE II",
+        "req": ["ISO615"]
+      },
+      {
+        "code": "ISO735",
+        "cr": 3,
+        "name": "SEGURIDAD DE SOFTWARE",
+        "req": []
+      },
+      {
+        "code": "E077",
+        "cr": 3,
+        "name": "ELECTIVA I ISO-11",
+        "req": []
+      },
+      {
+        "code": "ENG007",
+        "cr": 0,
+        "name": "INGLES VII",
+        "req": ["ENG006"]
+      }
+    ],
+    [
+      {
+        "code": "ISO800",
+        "cr": 3,
+        "name": "GESTION DE CALIDAD DE SOFTWARE",
+        "req": ["ISO735"]
+      },
+      {
+        "code": "ISO725",
+        "cr": 4,
+        "name": "INTEGRACION DE APLICACIONES CON TECNOLOGIAS PROPIETARIAS Y OPEN SOURCE",
+        "req": ["ISO720"]
+      },
+      {
+        "code": "ISO934",
+        "cr": 4,
+        "name": "PROYECTO DE SOFTWARE II",
+        "req": ["ISO705"]
+      },
+      {
+        "code": "E078",
+        "cr": 3,
+        "name": "ELECTIVA II-ISO11",
+        "req": []
+      },
+      {
+        "code": "ENG008",
+        "cr": 0,
+        "name": "INGLES VIII",
+        "req": ["ENG007"]
+      }
+    ],
+    [
+      {
+        "code": "IDI045",
+        "cr": 3,
+        "name": "INGLES PARA INFORMATICA I",
+        "req": ["ENG008"]
+      },
+      {
+        "code": "ISO900",
+        "cr": 4,
+        "name": "ADMINISTRACION DE DESARROLLO",
+        "req": ["ISO800"]
+      },
+      {
+        "code": "INF900",
+        "cr": 3,
+        "name": "INGENIERIA COMERCIAL",
+        "req": []
+      },
+      {
+        "code": "ISO912",
+        "cr": 4,
+        "name": "ARQUITECTURA DE DESARROLLO CON TECNOLOGIAS PROPIETARIAS Y OPEN SOURCE",
+        "req": ["ISO725"]
+      },
+      {
+        "code": "ISO931",
+        "cr": 3,
+        "name": "INTELIGENCIA DE NEGOCIOS",
+        "req": ["ISO700"]
+      },
+      {
+        "code": "E079",
+        "cr": 3,
+        "name": "ELECTIVA III-ISO11",
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "IDI046",
+        "cr": 3,
+        "name": "INGLES PARA INFORMATICA II",
+        "req": ["IDI045"]
+      },
+      {
+        "code": "ISO937",
+        "cr": 4,
+        "name": "COMPUTACION UBICUA",
+        "req": ["ISO931"]
+      },
+      {
+        "code": "ISO940",
+        "cr": 4,
+        "name": "IMPLEMENTACION DE ECOMMERCE CON TECNOLOGIAS PROPIETARIAS Y OPEN SOURSE",
+        "req": ["ISO912"]
+      },
+      {
+        "code": "DER010",
+        "cr": 3,
+        "name": "EDUCACION CONSTITUCIONAL",
+        "req": []
+      },
+      {
+        "code": "ISO936",
+        "cr": 4,
+        "name": "PROYECTO DE SOFTWARE III",
+        "req": ["ISO934"]
+      },
+      {
+        "code": "PAS261",
+        "cr": 0,
+        "name": "PASANTIA EMPRESARIAL",
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "SOC281",
+        "cr": 3,
+        "name": "SEMINARIO DE GRADO",
+        "req": [
+          "SOC253",
+          {
+            "text": "90% de los créditos aprobados"
+          }
+        ]
+      },
+      {
+        "code": "ISO945",
+        "cr": 3,
+        "name": "SISTEMAS DE INFORMACIÓN GEOGRAFICA",
+        "req": ["ISO937"]
+      },
+      {
+        "code": "DER800",
+        "cr": 3,
+        "name": "DERECHO APLICADO A LA INFORMATICA",
+        "req": []
+      },
+      {
+        "code": "ISC835",
+        "cr": 3,
+        "name": "COMPUTACION FORENSE Y CIBERSEGURIDAD",
+        "req": []
+      },
+      {
+        "code": "INF610",
+        "cr": 3,
+        "name": "AUDITORIA DE SISTEMAS INFORMATICOS",
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "TFG",
+        "cr": 6,
+        "name": "TRABAJO FINAL DE GRADO",
+        "req": []
+      }
+    ]
+  ],
+  "additionalPeriods": {
+    "Certificación: Dirección de Proyectos": {
+      "description": "Para los estudiantes de la carrera en Ingeniería de Software que no opten por las asignaturas Electivas Generales que se ofrecen, se presentan las siguientes Certificaciones.\n\nEl estudiante puede elegir esta certificación, y luego esto no podrá seleccionar asignaturas de las Electivas Generales.\n\nNota: Esta asignatura certifica al estudiante en Direccion de Proyecto, complementa el bloque de asignaturas de proyectos de software de la carrera de ISO, comprendido por Proyecto de Software I, Proyecto de Software II y Proyecto de Software III. Este bloque de certificación tiene una sola asignatura electiva.",
+      "electiveCode": "E077",
+      "mats": [
+        {
+          "code": "ISO122",
+          "name": "Dirección de Proyectos Informáticos",
+          "req": ["ISO936"],
+          "cr": 3
+        }
+      ],
+      "periods": [
+        {
+          "code": "ISO122",
+          "name": "Dirección de Proyectos Informáticos",
+          "req": ["ISO936"],
+          "cr": 3
+        }
+      ]
+    },
+    "Certificación: Desarrollo en Emprendimiento": {
+      "description": "Para los estudiantes de la carrera en Ingeniería de Software que no opten por las asignaturas Electivas Generales que se ofrecen, se presentan las siguientes Certificaciones.\n\nEl estudiante puede elegir esta certificación, y luego de esto no podrá seleccionar asignaturas de las Electivas Generales.",
+      "electiveCode": "E077",
+      "mats": [
+        {
+          "code": "ADM202",
+          "name": "Tópicos de Emprendimientos Globales",
+          "req": [
+            {
+              "text": "59% Créditos aprobrados"
+            }
+          ],
+          "cr": 3
+        },
+        {
+          "code": "ADM537",
+          "name": "Design Thinking",
+          "req": ["ADM202"],
+          "cr": 3
+        },
+        {
+          "code": "ADM538",
+          "name": "Laboratorio de Emprendimiento",
+          "req": ["ADM537"],
+          "cr": 3
+        }
+      ],
+      "periods": []
+    },
+    "Electiva I": {
+      "description": "Las asignaturas Electivas Generales la conforman asignaturas ofrecidas al estudiante que no opte por una certificación.\n\nEl estudiante debe tomar una asignatura de cada unos de los bloques de las asignaturas Electivas Generales para completar el pénsum de la Carrera de ISO.\n\nPara optar por las asignaturas Electivas Generales I el estudiante debe haber aprobado el 59% de los créditos del pénsum.\n",
+      "electiveCode": "E077",
+      "mats": [
+        {
+          "code": "ADM103",
+          "name": "Fundamentos de Administración",
+          "req": [
+            {
+              "text": "59% de créditos aprobados"
+            }
+          ],
+          "cr": 3
+        },
+        {
+          "code": "ADM536",
+          "name": "Creación e Innovación de Negocios",
+          "req": [
+            {
+              "text": "59% de créditos aprobados"
+            }
+          ],
+          "cr": 3
+        },
+        {
+          "code": "ADM540",
+          "name": "Liderazgo y Habilidades Directivas",
+          "req": [
+            {
+              "text": "59% de créditos aprobados"
+            }
+          ],
+          "cr": 3
+        }
+      ]
+    },
+    "Electiva II": {
+      "description": "Para seleccionar las Electivas Generales II debe haber tomado al menos una de las Electivas Generales I y haber aprobado el 67% de los créditos del pénsum.",
+      "electiveCode": "E078",
+      "mats": [
+        {
+          "code": "ISO110",
+          "name": "TIC Inclusivas",
+          "req": [
+            "E077",
+            {
+              "text": "67% de créditos aprobados"
+            }
+          ],
+          "cr": 3
+        },
+        {
+          "code": "ISO112",
+          "name": "Ingeniería Telemática",
+          "req": [
+            "E077",
+            {
+              "text": "67% de créditos aprobados"
+            }
+          ],
+          "cr": 3
+        },
+        {
+          "code": "ISO114",
+          "name": "Gestión de Procesos",
+          "req": [
+            "E077",
+            {
+              "text": "67% de créditos aprobados"
+            }
+          ],
+          "cr": 3
+        }
+      ]
+    },
+    "Electiva III": {
+      "description": "Para seleccionar las Electivas Generales III debe haber tomado al menos una de las Electivas Generales II y haber aprobado el 73% de los créditos del pénsum.",
+      "electiveCode": "E079",
+      "mats": [
+        {
+          "code": "ISO116",
+          "name": "Reconocimiento de Patrones",
+          "req": [
+            "E078",
+            {
+              "text": "73% de créditos aprobados"
+            }
+          ],
+          "cr": 3
+        },
+        {
+          "code": "ISO118",
+          "name": "Nanotecnología",
+          "req": [
+            "E078",
+            {
+              "text": "73% de créditos aprobados"
+            }
+          ],
+          "cr": 3
+        },
+        {
+          "code": "ISO120",
+          "name": "Bioinformática",
+          "req": [
+            "E078",
+            {
+              "text": "73% de créditos aprobados"
+            }
+          ],
+          "cr": 3
+        }
+      ]
+    }
+  }
+}
