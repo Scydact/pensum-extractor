@@ -2,7 +2,7 @@ import './App.scss'
 import './global-vars.scss'
 
 import { memo } from 'react'
-import { BrowserRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom'
+import { HashRouter, Routes, Route, Outlet, Navigate } from 'react-router-dom'
 
 import { Container } from 'react-bootstrap'
 
@@ -24,7 +24,7 @@ import PensumDevelop from '@/pages/PensumDevelop'
 function App() {
     return (
         <Providers>
-            <BrowserRouter basename={import.meta.env.BASE_URL}>
+            <HashRouter basename={import.meta.env.BASE_URL}>
                 <Routes>
                     <Route element={<Layout />}>
                         <Route
@@ -51,7 +51,7 @@ function App() {
                         <Route path="*" element={<Navigate to="/" />} />
                     </Route>
                 </Routes>
-            </BrowserRouter>
+            </HashRouter>
         </Providers>
     )
 }
