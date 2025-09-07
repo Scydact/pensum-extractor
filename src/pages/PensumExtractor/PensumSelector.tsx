@@ -192,7 +192,6 @@ function PensumSelector() {
     // University logo
     // ***************************************************************************
     const uniImageUrl = useMemo(() => selected_uni?.university.imgUrl, [selected_uni?.university.imgUrl])
-    console.log({ uniImageUrl, universityData })
 
     // ***************************************************************************
     // Pensum upload
