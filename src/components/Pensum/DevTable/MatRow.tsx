@@ -48,12 +48,12 @@ const pensumReqEditable = {
 
 type DevMatRowProps = MatRowProps & {
     checkmarkProps?: Record<string, any>
-    [k: string]: any
+    rowProps?: any
 }
 
 export const DevMatRow = memo(
     forwardRef<unknown, DevMatRowProps>(function MR(props, ref) {
-        const { mat, idx, checkmarkProps, ...rest } = props
+        const { mat, idx, checkmarkProps, rowProps } = props
         const rowRef = useCombinedRefs<HTMLDivElement>(ref, useRef<HTMLDivElement>(null)) // innerRef in case no ref is given
         const dragHandleRef = useRef<HTMLDivElement>(null)
         const { pensum, commands } = useContext(DeveloperModeContext)
@@ -131,12 +131,11 @@ export const DevMatRow = memo(
                     ref: rowRef,
                     className: classnames(cl),
                     'data-mat': mat.code,
-                    ...rest,
+                    ...rowProps,
                 }}
                 deleteProps={{
                     onClick() {
-                        if (confirm(`Seguro que desea eliminar '${mat.code}' (${mat.description})?`))
-                            deleteMatFromPeriod()
+                        if (confirm(`Seguro que desea eliminar '${mat.code}' (${mat.name})?`)) deleteMatFromPeriod()
                     },
                 }}
             />
@@ -157,7 +156,7 @@ export function DevMatRowSortable(props: MatRowProps) {
             mat={props.mat}
             ref={setNodeRef}
             checkmarkProps={{ ...attributes, ...listeners }}
-            style={draggableStyle}
+            rowProps={{ style: draggableStyle }}
         />
     )
 }
@@ -174,10 +173,10 @@ function deleteMat(pensum: Pensum.Pensum, mat: Pensum.Mat) {
         throw 'Codigo de materia previo no encontrado.'
     }
 
-    const period = Array.from(getPeriod(pensum, ~~matLocation.droppableId))
+    const period = Array.from(getPeriod(pensum, matLocation.droppableId))
     period.splice(matLocation.index, 1)
     const newPensum: Pensum.Pensum = { ...pensum }
-    const wasValid = !!setPeriod(newPensum, ~~matLocation.droppableId, period)
+    const wasValid = !!setPeriod(newPensum, matLocation.droppableId, period)
     if (wasValid) {
         return newPensum
     }

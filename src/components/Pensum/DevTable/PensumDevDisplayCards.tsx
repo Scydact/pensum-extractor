@@ -1,5 +1,5 @@
 import PensumDevTable from '@/components/Pensum/DevTable'
-import { useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
+import { ChangeEvent, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 import Card from 'react-bootstrap/Card'
 
 import { DevMatRow } from '@/components/Pensum/DevTable/MatRow'
@@ -25,6 +25,7 @@ import {
 } from '@dnd-kit/core'
 import { restrictToVerticalAxis } from '@dnd-kit/modifiers'
 import { sortableKeyboardCoordinates } from '@dnd-kit/sortable'
+import { Form } from 'react-bootstrap'
 import { BiPlus, BiTrash } from 'react-icons/bi'
 import { extractMat, findMat, findMatLocation, getPeriod, insertMat } from './mat-movement'
 
@@ -82,6 +83,23 @@ function PensumDevDisplayCards(props: Props) {
         )
         const loose = [...pensum.loose, ...periodDetails.mats]
         commands.set({ ...pensum, additionalPeriods, loose })
+    }
+
+    function actionSetAdditionalPeriodValue<T extends keyof Pensum.AdditionalPeriod>(
+        periodKey: string,
+        key: T,
+        value: Pensum.AdditionalPeriod[T],
+    ) {
+        commands.set({
+            ...pensum,
+            additionalPeriods: {
+                ...pensum.additionalPeriods,
+                [periodKey]: {
+                    ...pensum.additionalPeriods[periodKey],
+                    [key]: value,
+                },
+            },
+        })
     }
 
     /**
@@ -267,9 +285,71 @@ function PensumDevDisplayCards(props: Props) {
                 </Card.Body>
             </Card>
 
+            {/* Loose mats */}
+            <Card className="pensum-table-container">
+                <Card.Header>
+                    <Card.Title className="d-flex align-items-center gap-2">
+                        <span className="badge bg-warning fs-5">Loose</span>
+                        Materias sin periodo
+                    </Card.Title>
+                </Card.Header>
+                <Card.Body>
+                    <PensumDevTable periods={useMemo(() => [loose], [loose])} periodIndexStart={0} />
+                </Card.Body>
+            </Card>
+
+            {/* Custom periods */}
             <hr />
-            <h1>Materias adicionales</h1>
-            <div className="d-flex">
+            <h1>Periodos adicionales</h1>
+            {Object.entries(additionalPeriods).map(([periodName, periodDetails]) => (
+                <Card className="pensum-table-container">
+                    <Card.Header>
+                        <Card.Title className="d-flex align-items-center gap-2">
+                            <span className="badge bg-secondary fs-5">Adicional</span> {periodName}
+                            <span className="flex-grow-1"></span>
+                            <button
+                                type="button"
+                                className="col btn btn-danger btn-action"
+                                onClick={() => actionDeleteAdditionalPeriod(periodName)}
+                                title="Eliminar grupo"
+                            >
+                                <BiTrash />
+                                <span className="btn-action-label">Eliminar grupo</span>
+                            </button>
+                        </Card.Title>
+                    </Card.Header>
+                    <Card.Body>
+                        <Form.Group className="mb-3">
+                            <Form.Label className="fw-bold">Detalles de {periodName}</Form.Label>
+                            <Form.Control
+                                as="textarea"
+                                placeholder="¿Por qué estas materias no están en un periodo regular? ¿Son electivas?"
+                                rows={7}
+                                value={periodDetails.description}
+                                onChange={(evt: ChangeEvent<HTMLTextAreaElement>) => {
+                                    evt.preventDefault()
+                                    actionSetAdditionalPeriodValue(periodName, 'description', evt.target.value)
+                                }}
+                            ></Form.Control>
+                        </Form.Group>
+                        <Form.Group className="mb-3">
+                            <Form.Label className="fw-bold">Codigo electiva (opcional)</Form.Label>
+                            <Form.Control
+                                type="text"
+                                placeholder="Codigo de la electiva en el pensum (opcional)"
+                                value={periodDetails.electiveCode}
+                                onChange={(evt: ChangeEvent<HTMLTextAreaElement>) => {
+                                    evt.preventDefault()
+                                    actionSetAdditionalPeriodValue(periodName, 'electiveCode', evt.target.value)
+                                }}
+                            ></Form.Control>
+                        </Form.Group>
+                        <PensumDevTable periods={[periodDetails.mats]} periodIndexStart={periodName} />
+                    </Card.Body>
+                </Card>
+            ))}
+
+            <div className="d-flex mb-3">
                 <button
                     type="button"
                     className="col btn btn-primary btn-action"
@@ -280,36 +360,7 @@ function PensumDevDisplayCards(props: Props) {
                     <span className="btn-action-label">Nuevo grupo</span>
                 </button>
             </div>
-            {Object.entries(additionalPeriods).map(([periodName, periodDetails]) => (
-                <Card className="pensum-table-container">
-                    <Card.Header>
-                        <Card.Title>
-                            [Adicional] {periodName}
-                            <button
-                                type="button"
-                                className="col btn btn-danger btn-action float-end"
-                                onClick={() => actionDeleteAdditionalPeriod(periodName)}
-                                title="Eliminar grupo"
-                            >
-                                <BiTrash />
-                                <span className="btn-action-label">Eliminar grupo</span>
-                            </button>
-                        </Card.Title>
-                    </Card.Header>
-                    <Card.Body>
-                        <PensumDevTable periods={[periodDetails.mats]} periodIndexStart={periodName} />
-                    </Card.Body>
-                </Card>
-            ))}
 
-            <Card className="pensum-table-container">
-                <Card.Header>
-                    <Card.Title>Demás materias</Card.Title>
-                </Card.Header>
-                <Card.Body>
-                    <PensumDevTable periods={useMemo(() => [loose], [loose])} periodIndexStart={0} />
-                </Card.Body>
-            </Card>
             <DragOverlay
                 modifiers={[restrictToVerticalAxis]}
                 style={{ marginLeft: '0.75rem', userSelect: 'none' }}

@@ -82,6 +82,7 @@ function useGradeProgress() {
     const { state } = useContext(ActivePensumContext)
 
     const matList = state.matData.list
+    const careerMats = state.matData.careerMats
 
     const out = {
         creds: {
@@ -90,7 +91,7 @@ function useGradeProgress() {
             course: 0,
         },
         mats: {
-            total: matList.length,
+            total: 0,
             passed: 0,
             course: 0,
         },
@@ -98,7 +99,10 @@ function useGradeProgress() {
 
     for (let i = 0; i < matList.length; i++) {
         const mat = matList[i]
+        if (!careerMats.has(mat.code)) continue
+
         out.creds.total += mat.cr
+        out.mats.total++
 
         if (tracker.passed.has(mat.code)) {
             out.creds.passed += mat.cr

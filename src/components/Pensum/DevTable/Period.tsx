@@ -131,7 +131,6 @@ function DevPeriodToolBar({ period, periodKey }: Omit<PeriodProps, 'cumlen'>) {
             const n = Math.round((Math.random() * 1000) % 1000)
             const l = 'X' + randomLetters(2)
             code = l + n.toString().padStart(3, '0')
-            console.log(code)
         }
         newPeriod.push({ code, name: '*Materia', req: [], cr: 1 })
         setPeriod(newPensum, periodKey, newPeriod)
@@ -165,7 +164,7 @@ function DevPeriodToolBar({ period, periodKey }: Omit<PeriodProps, 'cumlen'>) {
     return (
         <div className="d-flex align-items-center flex-wrap align-items-stretch mb-2 mt-3" style={{ gap: '.25rem' }}>
             <b className="col d-flex align-items-center">
-                {pensum.periodType.name ?? 'Periodo'} #{periodKey}:
+                {typeof periodKey === 'string' ? periodKey : `${pensum.periodType.name ?? 'Periodo'} #${periodKey}`}:
             </b>
 
             <button
