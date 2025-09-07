@@ -24,7 +24,7 @@ import PensumDevelop from '@/pages/PensumDevelop'
 function App() {
     return (
         <Providers>
-            <HashRouter basename={import.meta.env.BASE_URL}>
+            <HashRouter>
                 <Routes>
                     <Route element={<Layout />}>
                         <Route
