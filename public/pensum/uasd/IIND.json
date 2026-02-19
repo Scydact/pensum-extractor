@@ -1,0 +1,746 @@
+{
+  "version": 5,
+  "institution": "uasd",
+  "code": "IIND",
+  "publishDate": "01/01/2026",
+  "fetchDate": "2026-02-19",
+  "career": "INGENIERÍA INDUSTRIAL",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 226",
+    "TÍTULO: INGENIERO INDUSTRIAL",
+    "TOTAL HT: 168",
+    "TOTAL HP: 92",
+    "Plan de Estudios: 000012",
+    "Facultad de Ingeniería y Arquitectura, Escuela de Ingeniería Industrial"
+  ],
+  "src": {
+    "type": "online",
+    "date": "2026-02-19",
+    "url": "https://app.uasd.edu.do/PensumGrado/?periodoV=999999&programa=P-IIND&plan=000012&nivel=GR"
+  },
+  "periodType": {
+    "name": "Semestre",
+    "abbr": "Sem",
+    "two": "Sm"
+  },
+  "loose": [
+    {
+      "code": "ECN-2120",
+      "name": "MICROECONOMÍA",
+      "cr": 4,
+      "ht": 3,
+      "hp": 2,
+      "period": "Décimo Semestre (Optativa)",
+      "req": ["ECN-1100", "MAT-2510"]
+    },
+    {
+      "code": "IEM-3430",
+      "name": "MECANISMOS",
+      "cr": 4,
+      "ht": 3,
+      "hp": 2,
+      "period": "Décimo Semestre (Optativa)",
+      "req": [],
+      "equivalencias": ["IEM3240"]
+    },
+    {
+      "code": "IEM-3440",
+      "name": "FUND DE MECÁNICA DE MATERIALES",
+      "cr": 4,
+      "ht": 3,
+      "hp": 2,
+      "period": "Décimo Semestre (Optativa)",
+      "req": ["CIV-2020", "MAT-3710"],
+      "equivalencias": ["IEM3470"]
+    },
+    {
+      "code": "IND-5100",
+      "name": "TECNOLOGÍA DE CLASE MUNDIAL",
+      "cr": 3,
+      "ht": 3,
+      "hp": 0,
+      "period": "Décimo Semestre (Optativa)",
+      "req": ["IND-3220"],
+      "equivalencias": ["IEM5400"]
+    },
+    {
+      "code": "IND-5110",
+      "name": "INNOVAC Y GESTIÓN TECNOLÓGICA",
+      "cr": 3,
+      "ht": 3,
+      "hp": 0,
+      "period": "Décimo Semestre (Optativa)",
+      "req": ["IND-4100", "IND-4110"],
+      "equivalencias": ["IEM5310"]
+    },
+    {
+      "code": "IND-5120",
+      "name": "PLANIFICACIÓN ESTRATÉGICA",
+      "cr": 3,
+      "ht": 3,
+      "hp": 0,
+      "period": "Décimo Semestre (Optativa)",
+      "req": ["IND-4110"],
+      "equivalencias": ["IEM5220"]
+    },
+    {
+      "code": "IND-5200",
+      "name": "ADM DE UN SIST CALIDAD TOTAL",
+      "cr": 3,
+      "ht": 3,
+      "hp": 0,
+      "period": "Décimo Semestre (Optativa)",
+      "req": ["IND-3220"],
+      "equivalencias": ["IEM5200"]
+    },
+    {
+      "code": "IND-5230",
+      "name": "GESTIÓN DE PRODUCTIVIDAD",
+      "cr": 3,
+      "ht": 3,
+      "hp": 0,
+      "period": "Décimo Semestre (Optativa)",
+      "req": ["IND-3310", "IND-3410"],
+      "equivalencias": ["IEM6100"]
+    },
+    {
+      "code": "IND-5400",
+      "name": "RE-INGENIERÍA",
+      "cr": 3,
+      "ht": 3,
+      "hp": 0,
+      "period": "Décimo Semestre (Optativa)",
+      "req": ["IND-3420"],
+      "equivalencias": []
+    },
+    {
+      "code": "IND-6400",
+      "name": "DISEÑO Y DESARROLLO DE PRODUC",
+      "cr": 3,
+      "ht": 3,
+      "hp": 0,
+      "period": "Décimo Semestre (Optativa)",
+      "req": ["IND-3220", "IND-3320", "IND-3420"],
+      "equivalencias": ["IEM6400"]
+    },
+    {
+      "code": "INQ-4510",
+      "name": "TECNOLOGÍA DE ALIMENTOS",
+      "cr": 3,
+      "ht": 3,
+      "hp": 0,
+      "period": "Décimo Semestre (Optativa)",
+      "req": [],
+      "equivalencias": ["INQ4520"]
+    }
+  ],
+  "periods": [
+    [
+      {
+        "code": "DOP-1000",
+        "name": "ORIENTACIÓN INSTITUCIONAL",
+        "cr": 1,
+        "ht": 1,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["DOP0100", "OSI0310", "OSI1000", "PED3110", "TEG3110"]
+      },
+      {
+        "code": "EFS-0110",
+        "name": "EDUCACIÓN FÍSICA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": [],
+        "equivalencias": ["ART0410", "ART0420", "ART0510", "EFI0120", "EFI1700", "EFS0120", "EXT0110", "PED1700"]
+      },
+      {
+        "code": "FIL-0110",
+        "name": "INT A LA FILOSOFÍA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": [],
+        "equivalencias": []
+      },
+      {
+        "code": "FIS-0140",
+        "name": "FÍSICA BÁSICA",
+        "cr": 4,
+        "ht": 3,
+        "hp": 3,
+        "req": [],
+        "equivalencias": ["FIS0120", "FIS0130", "FIS0180", "FIS0310", "FIS0510", "FIS1510", "FIS1520"]
+      },
+      {
+        "code": "HIS-0110",
+        "name": "FUND DE HIST SOCIAL DOMINICANA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["HIS1100"]
+      },
+      {
+        "code": "IND-1100",
+        "name": "INTRODUC A LA ING INDUSTRIAL",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["IEM2720"]
+      },
+      {
+        "code": "LET-0110",
+        "name": "LENGUA ESPAÑOLA BÁSICA I",
+        "cr": 3,
+        "ht": 3,
+        "hp": 1,
+        "req": [],
+        "equivalencias": ["LET0130", "LET0150"]
+      },
+      {
+        "code": "MAT-0140",
+        "name": "MATEMÁTICA BÁSICA",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["MAT0120", "MAT0130", "MAT0840"]
+      },
+      {
+        "code": "QUI-0140",
+        "name": "QUÍMICA BÁSICA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 3,
+        "req": [],
+        "equivalencias": ["QUI0110", "QUI0120", "QUI1020"]
+      }
+    ],
+    [
+      {
+        "code": "ARQ-1060",
+        "name": "DIBUJO TÉCNICO I-G",
+        "cr": 4,
+        "ht": 2,
+        "hp": 5,
+        "req": [],
+        "equivalencias": ["ARQ1010", "ARQ1020", "ARQ1030", "ARQ1040", "ARQ1050", "ARQ1080", "ARQ1410"]
+      },
+      {
+        "code": "FIS-2110",
+        "name": "FÍSICA GENERAL I",
+        "cr": 3,
+        "ht": 3,
+        "hp": 1,
+        "req": ["FIS-0140"],
+        "equivalencias": ["FIS1110", "FIS2510"]
+      },
+      {
+        "code": "FIS-2210",
+        "name": "LAB DE FÍSICA GENERAL I",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["FIS-0140", "FIS-2110"],
+        "equivalencias": []
+      },
+      {
+        "code": "LET-0120",
+        "name": "LENGUA ESPAÑOLA BÁSICA II",
+        "cr": 3,
+        "ht": 3,
+        "hp": 1,
+        "req": ["LET-0110"],
+        "equivalencias": ["LET0130", "LET0160"]
+      },
+      {
+        "code": "MAT-2300",
+        "name": "ÁLGEBRA SUPERIOR",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["MAT-0140"],
+        "equivalencias": ["MAT2110", "MAT2330"]
+      },
+      {
+        "code": "MAT-2510",
+        "name": "CÁLCULO Y ANALÍTICA I",
+        "cr": 6,
+        "ht": 5,
+        "hp": 2,
+        "req": ["MAT-2300"],
+        "equivalencias": ["MAT2500", "MAT2570", "MAT2590", "MAT3560"]
+      },
+      {
+        "code": "SOC-0110",
+        "name": "INT A LAS CIENCIAS SOCIALES",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["ICS0110", "SOC0100", "SOC0120"]
+      }
+    ],
+    [
+      {
+        "code": "ARQ-1210",
+        "name": "GEOMETRÍA DESCRIPTIVA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["ARQ-1060", "MAT-0140"],
+        "equivalencias": ["ARQ1250"]
+      },
+      {
+        "code": "BIO-0140",
+        "name": "BIOLOGÍA BÁSICA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": [],
+        "equivalencias": ["BIO0110", "BIO0130", "BIO2100"]
+      },
+      {
+        "code": "ECN-1100",
+        "name": "NOCIONES DE ECONOMÍA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["ECN1110", "ECN1150", "ECN2110"]
+      },
+      {
+        "code": "FIS-2120",
+        "name": "FÍSICA GENERAL II",
+        "cr": 3,
+        "ht": 3,
+        "hp": 1,
+        "req": ["FIS-2110", "FIS-2210"],
+        "equivalencias": ["FIS2260", "FIS2520"]
+      },
+      {
+        "code": "FIS-2220",
+        "name": "LAB DE FÍSICA GENERAL II",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["FIS-2110", "FIS-2120"],
+        "equivalencias": ["FIS2270"]
+      },
+      {
+        "code": "MAT-3500",
+        "name": "CÁLCULO Y GEOM ANALÍTICA II",
+        "cr": 6,
+        "ht": 5,
+        "hp": 2,
+        "req": ["MAT-2300", "MAT-2510"],
+        "equivalencias": ["MAT2530", "MAT3520", "MAT3540", "MAT3570"]
+      },
+      {
+        "code": "MAT-3700",
+        "name": "CALC VECT Y ÁLGEBRA MATRICIAL",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["MAT-2510", "MAT-3500"],
+        "equivalencias": ["MAT3510", "MAT3730"]
+      }
+    ],
+    [
+      {
+        "code": "CIV-2010",
+        "name": "MECÁNICA RACIONAL I",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["FIS-2120", "MAT-3700"],
+        "equivalencias": []
+      },
+      {
+        "code": "EST-1220",
+        "name": "ESTADÍSTICA INDUSTRIAL I",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["MAT-2300"],
+        "equivalencias": ["EST1110", "EST1210", "EST2290"]
+      },
+      {
+        "code": "FIS-2150",
+        "name": "FÍSICA GENERAL III",
+        "cr": 5,
+        "ht": 5,
+        "hp": 1,
+        "req": ["FIS-2120", "FIS-2220", "FIS-2250"],
+        "equivalencias": ["FIS2130", "FIS2140"]
+      },
+      {
+        "code": "FIS-2250",
+        "name": "LAB DE FÍSICA GENERAL III",
+        "cr": 2,
+        "ht": 0,
+        "hp": 4,
+        "req": ["FIS-2120", "FIS-2220", "FIS-2150"],
+        "equivalencias": ["FIS1520", "FIS2230", "FIS2240"]
+      },
+      {
+        "code": "MAT-3600",
+        "name": "ECUACIONES DIFERENCIALES",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["MAT-3500"],
+        "equivalencias": ["MAT3110", "MAT3610"]
+      },
+      {
+        "code": "QUI-1110",
+        "name": "QUÍMICA INORGÁNICA",
+        "cr": 5,
+        "ht": 4,
+        "hp": 3,
+        "req": ["QUI-0140"],
+        "equivalencias": ["QUI1130"]
+      }
+    ],
+    [
+      {
+        "code": "CIV-2020",
+        "name": "MECÁNICA RACIONAL II",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["CIV-2010", "MAT-3600"],
+        "equivalencias": []
+      },
+      {
+        "code": "EST-1230",
+        "name": "ESTADÍSTICA INDUSTRIAL II",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["EST-1220"],
+        "equivalencias": []
+      },
+      {
+        "code": "FIL-1240",
+        "name": "METODOLOGÍA DE LA INV CIENTIF",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["FIL-0110"],
+        "equivalencias": []
+      },
+      {
+        "code": "IEM-2020",
+        "name": "ELECTROTECNIA GENERAL",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["FIS-2150", "MAT-3600"],
+        "equivalencias": ["IEM2010"]
+      },
+      {
+        "code": "IEM-2030",
+        "name": "LAB ELECTROTECNIA GENERAL",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["FIS-2150", "IEM-2020"],
+        "equivalencias": ["IEM2040"]
+      },
+      {
+        "code": "IND-2310",
+        "name": "APLIC COMP A LA ING IND",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["MAT-0140"],
+        "equivalencias": ["IEM2310", "INF1010"]
+      },
+      {
+        "code": "MAT-3710",
+        "name": "MET MATEMÁTICOS PARA ING",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["MAT-3600"],
+        "equivalencias": ["MAT2710", "MAT3720"]
+      }
+    ],
+    [
+      {
+        "code": "CON-1180",
+        "name": "CONTABILIDAD PARA INGENIERO",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["MAT-3710"],
+        "equivalencias": []
+      },
+      {
+        "code": "IEM-3310",
+        "name": "CIENCIA DE LOS MATERIALES",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["QUI-1110"],
+        "equivalencias": ["IEM3230"]
+      },
+      {
+        "code": "IEM-3640",
+        "name": "TERMODINÁMICA GENERAL",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["CIV-2020", "MAT-3710", "QUI-1110"],
+        "equivalencias": ["IEM3610", "IEM3650", "INQ2120"]
+      },
+      {
+        "code": "IND-2410",
+        "name": "DIBUJO APLICADO A LA ING IND",
+        "cr": 4,
+        "ht": 2,
+        "hp": 4,
+        "req": ["ARQ-1060", "ARQ-1210"],
+        "equivalencias": ["IEM2410", "IEM3490"]
+      },
+      {
+        "code": "IND-3210",
+        "name": "NORMALIZACIÓN Y METROLOGÍA",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["EST-1230"],
+        "equivalencias": ["IEM2210"]
+      },
+      {
+        "code": "IND-3330",
+        "name": "PROCESOS DE MANUFACTURAS IND",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["IND-2310", "IEM-3310"],
+        "equivalencias": ["IEM3320", "IEM3380"]
+      },
+      {
+        "code": "IND-3340",
+        "name": "LAB PROC DE MANUFACTURAS INDU",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["IND-2310", "IEM-3310", "IND-3330"],
+        "equivalencias": ["IEM3330", "IEM3390"]
+      }
+    ],
+    [
+      {
+        "code": "ADM-1120",
+        "name": "PRINCIPIOS DE ADMINISTRACIÓN",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["ADM1130", "ADM1150", "ADM1220", "ADM1230"]
+      },
+      {
+        "code": "IEM-2050",
+        "name": "FUNDAMENTOS DE ELECTRÓNICA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["IEM-2020"],
+        "equivalencias": ["IEM3040"]
+      },
+      {
+        "code": "IEM-2060",
+        "name": "LAB FUNDAMENTOS DE ELECTRÓNICA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["IEM-2020", "IEM-2050"],
+        "equivalencias": ["IEM3050"]
+      },
+      {
+        "code": "IEM-4210",
+        "name": "MECÁNICA DE FLUIDOS GENERAL",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["IEM-3640"],
+        "equivalencias": ["IEM3630"]
+      },
+      {
+        "code": "IND-3220",
+        "name": "CONTROL DE CALIDAD",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["EST-1230", "IND-3210"],
+        "equivalencias": ["IEM4700"]
+      },
+      {
+        "code": "IND-3310",
+        "name": "INVESTIGACIÓN DE OPERACIÓN I",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["EST-1230", "MAT-3710"],
+        "equivalencias": ["IEM2320"]
+      },
+      {
+        "code": "IND-3410",
+        "name": "DISEÑO DE SIST DE PRODUCCIÓN I",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["EST-1230", "MAT-3710"],
+        "equivalencias": ["IEM2730"]
+      }
+    ],
+    [
+      {
+        "code": "ADM-3610",
+        "name": "MERCADOTECNIA GENERAL",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["ADM-1120"],
+        "equivalencias": ["ADM3620", "ADM3630", "MER1100", "MER1110"]
+      },
+      {
+        "code": "IND-3320",
+        "name": "INVESTIGACIÓN DE OPERACIÓN II",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["IND-3310"],
+        "equivalencias": ["IEM2330"]
+      },
+      {
+        "code": "IND-3420",
+        "name": "DISEÑO DE SIST PRODUCCIÓN II",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["IND-3310", "IND-3410"],
+        "equivalencias": ["IEM2740"]
+      },
+      {
+        "code": "IND-5410",
+        "name": "DISEÑO DE EXPERIMENTO POR COMP",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["IND-2310", "IND-3310", "EST-1230"],
+        "equivalencias": ["IEM4400"]
+      },
+      {
+        "code": "INQ-4610",
+        "name": "INGENIERÍA ECONÓMICA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["ECN-1100", "MAT-3600", "CON-1180"],
+        "equivalencias": []
+      },
+      {
+        "code": "PSI-1340",
+        "name": "PSICOLOGÍA INDUSTRIAL",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["PSI1320"]
+      }
+    ],
+    [
+      {
+        "code": "IND-3120",
+        "name": "FORMULAC Y EVAL DE PROY IND",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["ECN-1100", "CON-1180", "IND-3410"],
+        "equivalencias": ["ECN3270"]
+      },
+      {
+        "code": "IND-3200",
+        "name": "CONTROL DE PRODUC E INVENTARIO",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["ADM-1120", "IND-3320"],
+        "equivalencias": ["IEM3200"]
+      },
+      {
+        "code": "IND-3300",
+        "name": "SEGURIDAD INDUSTRIAL",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["ADM-1120", "INQ-4610", "PSI-1340"],
+        "equivalencias": ["IEM5740"]
+      },
+      {
+        "code": "IND-4110",
+        "name": "PLANIFICACIÓN INDUSTRIAL",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["IND-3320", "INQ-4610"],
+        "equivalencias": ["IEM4200"]
+      },
+      {
+        "code": "IND-4120",
+        "name": "TEC DE SUPERVISIÓN INDUSTRIAL",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["ADM-1120", "IND-3420", "PSI-1340"],
+        "equivalencias": ["IEM2770"]
+      }
+    ],
+    [
+      {
+        "code": "DER-1190",
+        "name": "LEGISLACIÓN Y ÉTICA PROF",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["DER1210", "DER3250"]
+      },
+      {
+        "code": "IND-4100",
+        "name": "PRÁCTICA DE ING INDUSTRIAL",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["IND-4120", "IND-3120"],
+        "equivalencias": ["IEM4100"]
+      },
+      {
+        "code": "INDZ-090",
+        "name": "ASIGNATURA OPTATIVA",
+        "cr": 9,
+        "ht": 0,
+        "hp": 0,
+        "req": [],
+        "equivalencias": []
+      }
+    ],
+    [
+      {
+        "code": "IND-6100",
+        "name": "TESIS DE GRADO O CURSO EQUIVAL",
+        "cr": 8,
+        "ht": 0,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["IEM7500"]
+      }
+    ]
+  ]
+}
