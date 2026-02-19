@@ -1,0 +1,681 @@
+{
+  "version": 5,
+  "institution": "uasd",
+  "code": "IQUI",
+  "publishDate": "01/01/2026",
+  "fetchDate": "2026-02-19",
+  "career": "INGENIERÍA QUÍMICA",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 244",
+    "TÍTULO: INGENIERO QUÍMICO",
+    "TOTAL HT: 202",
+    "TOTAL HP: 81",
+    "Plan de Estudios: 000012",
+    "Facultad de Ingeniería y Arquitectura, Escuela de Ingeniería Química"
+  ],
+  "src": {
+    "type": "online",
+    "date": "2026-02-19",
+    "url": "https://app.uasd.edu.do/PensumGrado/?periodoV=999999&programa=P-IQUI&plan=000012&nivel=GR"
+  },
+  "periodType": {
+    "name": "Semestre",
+    "abbr": "Sem",
+    "two": "Sm"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "DOP-1000",
+        "name": "ORIENTACIÓN INSTITUCIONAL",
+        "cr": 1,
+        "ht": 1,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["DOP0100", "OSI0310", "OSI1000", "PED3110", "TEG3110"]
+      },
+      {
+        "code": "EFS-0110",
+        "name": "EDUCACIÓN FÍSICA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": [],
+        "equivalencias": ["ART0410", "ART0420", "ART0510", "EFI0120", "EFI1700", "EFS0120", "EXT0110", "PED1700"]
+      },
+      {
+        "code": "FIL-0110",
+        "name": "INT A LA FILOSOFÍA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": [],
+        "equivalencias": []
+      },
+      {
+        "code": "FIS-0140",
+        "name": "FÍSICA BÁSICA",
+        "cr": 4,
+        "ht": 3,
+        "hp": 3,
+        "req": [],
+        "equivalencias": ["FIS0120", "FIS0130", "FIS0180", "FIS0310", "FIS0510", "FIS1510", "FIS1520"]
+      },
+      {
+        "code": "HIS-0110",
+        "name": "FUND DE HIST SOCIAL DOMINICANA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["HIS1100"]
+      },
+      {
+        "code": "INQ-1100",
+        "name": "INT A LA INGENIERÍA QUÍMICA I",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": [],
+        "equivalencias": []
+      },
+      {
+        "code": "LET-0110",
+        "name": "LENGUA ESPAÑOLA BÁSICA I",
+        "cr": 3,
+        "ht": 3,
+        "hp": 1,
+        "req": [],
+        "equivalencias": ["LET0130", "LET0150"]
+      },
+      {
+        "code": "MAT-0140",
+        "name": "MATEMÁTICA BÁSICA",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["MAT0120", "MAT0130", "MAT0840"]
+      },
+      {
+        "code": "QUI-0140",
+        "name": "QUÍMICA BÁSICA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 3,
+        "req": [],
+        "equivalencias": ["QUI0110", "QUI0120", "QUI1020"]
+      }
+    ],
+    [
+      {
+        "code": "ARQ-1060",
+        "name": "DIBUJO TÉCNICO I-G",
+        "cr": 4,
+        "ht": 2,
+        "hp": 5,
+        "req": [],
+        "equivalencias": ["ARQ1010", "ARQ1020", "ARQ1030", "ARQ1040", "ARQ1050", "ARQ1080", "ARQ1410"]
+      },
+      {
+        "code": "BIO-0140",
+        "name": "BIOLOGÍA BÁSICA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": [],
+        "equivalencias": ["BIO0110", "BIO0130", "BIO2100"]
+      },
+      {
+        "code": "FIS-2110",
+        "name": "FÍSICA GENERAL I",
+        "cr": 3,
+        "ht": 3,
+        "hp": 1,
+        "req": ["FIS-0140"],
+        "equivalencias": ["FIS1110", "FIS2510"]
+      },
+      {
+        "code": "FIS-2210",
+        "name": "LAB DE FÍSICA GENERAL I",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["FIS-0140", "FIS-2110"],
+        "equivalencias": []
+      },
+      {
+        "code": "LET-0120",
+        "name": "LENGUA ESPAÑOLA BÁSICA II",
+        "cr": 3,
+        "ht": 3,
+        "hp": 1,
+        "req": ["LET-0110"],
+        "equivalencias": ["LET0130", "LET0160"]
+      },
+      {
+        "code": "MAT-2300",
+        "name": "ÁLGEBRA SUPERIOR",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["MAT-0140"],
+        "equivalencias": ["MAT2110", "MAT2330"]
+      },
+      {
+        "code": "QUI-1050",
+        "name": "QUÍMICA GENERAL",
+        "cr": 4,
+        "ht": 3,
+        "hp": 3,
+        "req": ["QUI-0140"],
+        "equivalencias": ["QUI1040"]
+      }
+    ],
+    [
+      {
+        "code": "ARQ-1210",
+        "name": "GEOMETRÍA DESCRIPTIVA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": [],
+        "equivalencias": ["ARQ1250"]
+      },
+      {
+        "code": "FIS-2120",
+        "name": "FÍSICA GENERAL II",
+        "cr": 3,
+        "ht": 3,
+        "hp": 1,
+        "req": ["FIS-2110", "FIS-2210"],
+        "equivalencias": ["FIS2260", "FIS2520"]
+      },
+      {
+        "code": "FIS-2220",
+        "name": "LAB DE FÍSICA GENERAL II",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["FIS-2110", "FIS-2120"],
+        "equivalencias": ["FIS2270"]
+      },
+      {
+        "code": "INQ-1110",
+        "name": "INT A LA INGENIERÍA QUÍMICA II",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["INQ-1100"],
+        "equivalencias": ["INQ1120"]
+      },
+      {
+        "code": "INQ-1130",
+        "name": "INGENIERÍA Y SOCIEDAD",
+        "cr": 1,
+        "ht": 1,
+        "hp": 0,
+        "req": ["HIS-0110"],
+        "equivalencias": []
+      },
+      {
+        "code": "MAT-2510",
+        "name": "CÁLCULO Y ANALÍTICA I",
+        "cr": 6,
+        "ht": 5,
+        "hp": 2,
+        "req": ["MAT-2300"],
+        "equivalencias": ["MAT2500", "MAT2570", "MAT2590", "MAT3560"]
+      },
+      {
+        "code": "QUI-1060",
+        "name": "QUÍMICA INORGÁNICA PARA INQ",
+        "cr": 4,
+        "ht": 3,
+        "hp": 3,
+        "req": ["QUI-1050"],
+        "equivalencias": ["QUI1110", "QUI1120", "QUI1160"]
+      },
+      {
+        "code": "SOC-0110",
+        "name": "INT A LAS CIENCIAS SOCIALES",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["ICS0110", "SOC0100", "SOC0120"]
+      }
+    ],
+    [
+      {
+        "code": "EST-2290",
+        "name": "MET ESTADÍSTICO PARA ING QUI",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["MAT-2510"],
+        "equivalencias": ["EST1210"]
+      },
+      {
+        "code": "FIS-2130",
+        "name": "FÍSICA GENERAL III",
+        "cr": 3,
+        "ht": 3,
+        "hp": 1,
+        "req": ["FIS-2120", "FIS-2220", "FIS-2230"],
+        "equivalencias": ["FIS2150", "FIS2530"]
+      },
+      {
+        "code": "FIS-2230",
+        "name": "LAB DE FÍSICA GENERAL III",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["FIS-2120", "FIS-2220", "FIS-2130"],
+        "equivalencias": ["FIS1220", "FIS1520", "FIS2250"]
+      },
+      {
+        "code": "INQ-2110",
+        "name": "BALANCES DE MATERIA Y ENERGÍA",
+        "cr": 5,
+        "ht": 5,
+        "hp": 0,
+        "req": ["INQ-1110"],
+        "equivalencias": []
+      },
+      {
+        "code": "MAT-3500",
+        "name": "CÁLCULO Y GEOM ANALÍTICA II",
+        "cr": 6,
+        "ht": 5,
+        "hp": 2,
+        "req": ["MAT-2300", "MAT-2510"],
+        "equivalencias": ["MAT2530", "MAT3520", "MAT3540", "MAT3570"]
+      },
+      {
+        "code": "QUI-2230",
+        "name": "QUÍMICA ORGÁNICA",
+        "cr": 4,
+        "ht": 3,
+        "hp": 3,
+        "req": ["QUI-1060"],
+        "equivalencias": ["QUI2220"]
+      },
+      {
+        "code": "QUI-2320",
+        "name": "QUÍMICA FÍSICA I",
+        "cr": 4,
+        "ht": 3,
+        "hp": 3,
+        "req": ["FIS-2110"],
+        "equivalencias": ["QUI4320"]
+      }
+    ],
+    [
+      {
+        "code": "CIV-1010",
+        "name": "MECÁNICA RACIONAL IB",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["FIS-2120"],
+        "equivalencias": ["CIV2010"]
+      },
+      {
+        "code": "INQ-1470",
+        "name": "FUND OPERACIONES UNITARIAS I",
+        "cr": 5,
+        "ht": 5,
+        "hp": 0,
+        "req": ["MAT-2300"],
+        "equivalencias": ["INQ2320"]
+      },
+      {
+        "code": "INQ-2600",
+        "name": "METODOLOGÍA DE LA INVEST TECN",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["INQ-2110"],
+        "equivalencias": []
+      },
+      {
+        "code": "MAT-3600",
+        "name": "ECUACIONES DIFERENCIALES",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["MAT-3500"],
+        "equivalencias": ["MAT3110", "MAT3610"]
+      },
+      {
+        "code": "QUI-2240",
+        "name": "QUÍMICA ORGÁNICA II",
+        "cr": 4,
+        "ht": 3,
+        "hp": 3,
+        "req": ["QUI-2230"],
+        "equivalencias": []
+      },
+      {
+        "code": "QUI-3310",
+        "name": "QUÍMICA FÍSICA II",
+        "cr": 4,
+        "ht": 3,
+        "hp": 3,
+        "req": ["QUI-2320"],
+        "equivalencias": []
+      }
+    ],
+    [
+      {
+        "code": "IEM-3400",
+        "name": "MECÁNICA DE MATERIALES",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["CIV-1010"],
+        "equivalencias": []
+      },
+      {
+        "code": "INF-1070",
+        "name": "COMPUTADORAS PARA ING QUI I",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["MAT-3600"],
+        "equivalencias": []
+      },
+      {
+        "code": "INQ-1480",
+        "name": "FUND OPERACIONES UNITARIAS II",
+        "cr": 5,
+        "ht": 5,
+        "hp": 0,
+        "req": ["INQ-1470"],
+        "equivalencias": ["INQ2320"]
+      },
+      {
+        "code": "INQ-2120",
+        "name": "TERMODINÁMICA QUÍMICA I",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["MAT-3600", "QUI-3310"],
+        "equivalencias": ["IEM3640"]
+      },
+      {
+        "code": "INQ-2610",
+        "name": "FUND TEÓRICOS DE ING QUÍMICA",
+        "cr": 5,
+        "ht": 5,
+        "hp": 0,
+        "req": ["MAT-3600", "QUI-3310"],
+        "equivalencias": ["MAT3720"]
+      },
+      {
+        "code": "INQ-3430",
+        "name": "OPERACIONES UNITARIAS I",
+        "cr": 5,
+        "ht": 5,
+        "hp": 0,
+        "req": ["INQ-1470"],
+        "equivalencias": ["INQ2450"]
+      }
+    ],
+    [
+      {
+        "code": "INF-1080",
+        "name": "COMPUTADORAS PARA ING QUI II",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["INF-1070"],
+        "equivalencias": []
+      },
+      {
+        "code": "INQ-2620",
+        "name": "MATERIALES Y CORROSIÓN",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["IEM-3400"],
+        "equivalencias": ["INQ3230"]
+      },
+      {
+        "code": "INQ-3130",
+        "name": "TERMODINÁMICA QUÍMICA II",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["INQ-2120"],
+        "equivalencias": []
+      },
+      {
+        "code": "INQ-3440",
+        "name": "LAB OPERACIONES UNITARIAS I",
+        "cr": 2,
+        "ht": 0,
+        "hp": 3,
+        "req": ["INQ-3430"],
+        "equivalencias": []
+      },
+      {
+        "code": "INQ-3450",
+        "name": "OPERACIONES UNITARIAS II",
+        "cr": 5,
+        "ht": 5,
+        "hp": 0,
+        "req": ["INQ-1480", "INQ-3430"],
+        "equivalencias": ["INQ3420"]
+      },
+      {
+        "code": "INQ-3600",
+        "name": "DIAGRAMAS Y PLANOS INDUSTR",
+        "cr": 4,
+        "ht": 2,
+        "hp": 4,
+        "req": ["ARQ-1210", "FIS-2130", "INQ-3430"],
+        "equivalencias": []
+      },
+      {
+        "code": "INQ-4520",
+        "name": "TECNOLOGÍA DE ALIMENTOS I",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["QUI-2240"],
+        "equivalencias": ["INQ4510"]
+      }
+    ],
+    [
+      {
+        "code": "INQ-3460",
+        "name": "LAB OPERACIONES UNITARIAS II",
+        "cr": 2,
+        "ht": 0,
+        "hp": 3,
+        "req": ["INQ-3450"],
+        "equivalencias": ["INQ4430"]
+      },
+      {
+        "code": "INQ-3470",
+        "name": "OPERACIONES UNITARIAS III",
+        "cr": 5,
+        "ht": 5,
+        "hp": 0,
+        "req": ["INQ-3450"],
+        "equivalencias": ["INQ4410"]
+      },
+      {
+        "code": "INQ-3530",
+        "name": "TECNOLOGÍA INDUSTRIAL I",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["INQ-3450"],
+        "equivalencias": ["INQ5630"]
+      },
+      {
+        "code": "INQ-4610",
+        "name": "INGENIERÍA ECONÓMICA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["MAT-3600"],
+        "equivalencias": []
+      },
+      {
+        "code": "INQ-5340",
+        "name": "DISEÑO DE REACTORES",
+        "cr": 5,
+        "ht": 5,
+        "hp": 0,
+        "req": ["INQ-3130"],
+        "equivalencias": []
+      },
+      {
+        "code": "INQ-5510",
+        "name": "TECNOLOGÍA DE ALIMENTOS II",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["INQ-4520"],
+        "equivalencias": []
+      }
+    ],
+    [
+      {
+        "code": "INQ-3150",
+        "name": "REFRIGERACIÓN Y AIRE ACONDIC",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["INQ-3130", "INQ-5510"],
+        "equivalencias": []
+      },
+      {
+        "code": "INQ-3540",
+        "name": "TECNOLOGÍA INDUSTRIAL II",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["INQ-3530"],
+        "equivalencias": []
+      },
+      {
+        "code": "INQ-3610",
+        "name": "DISEÑO DE SISTEMAS DE FLUIDOS",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["INQ-3430"],
+        "equivalencias": []
+      },
+      {
+        "code": "INQ-3620",
+        "name": "CONTROL AUTOMÁTICO DE PROCESOS",
+        "cr": 5,
+        "ht": 5,
+        "hp": 0,
+        "req": ["INQ-3530", "MAT-3600"],
+        "equivalencias": ["INQ4340"]
+      },
+      {
+        "code": "INQ-4450",
+        "name": "PRÁCTICA INDUSTRIAL I",
+        "cr": 3,
+        "ht": 1,
+        "hp": 4,
+        "req": ["INQ-3470"],
+        "equivalencias": []
+      },
+      {
+        "code": "INQ-5210",
+        "name": "GESTIÓN TÉCNICA DE LA PRODUCC",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["INQ-4610"],
+        "equivalencias": []
+      },
+      {
+        "code": "INQ-5520",
+        "name": "TECNOLOGÍA DE ALIMENTOS III",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["INQ-5510"],
+        "equivalencias": []
+      }
+    ],
+    [
+      {
+        "code": "ADM-3600",
+        "name": "MERCADEO Y VENTAS",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["INQ-3540"],
+        "equivalencias": []
+      },
+      {
+        "code": "IEM-2500",
+        "name": "ELECTRICIDAD INDUSTRIAL",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["INQ-3540"],
+        "equivalencias": ["IEM2020"]
+      },
+      {
+        "code": "INQ-4460",
+        "name": "PRÁCTICA INDUSTRIAL II",
+        "cr": 3,
+        "ht": 1,
+        "hp": 4,
+        "req": ["INQ-4450"],
+        "equivalencias": []
+      },
+      {
+        "code": "INQ-5220",
+        "name": "GESTIÓN DE CALIDAD",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["INQ-5210"],
+        "equivalencias": []
+      },
+      {
+        "code": "INQ-5530",
+        "name": "LAB TECNOLOGÍA DE ALIMENTOS",
+        "cr": 2,
+        "ht": 0,
+        "hp": 4,
+        "req": ["INQ-4520", "INQ-5510", "INQ-5520"],
+        "equivalencias": []
+      },
+      {
+        "code": "INQ-5640",
+        "name": "DISEÑO DE PLANTAS",
+        "cr": 5,
+        "ht": 5,
+        "hp": 0,
+        "req": ["INQ-3470", "INQ-4610"],
+        "equivalencias": []
+      }
+    ],
+    [
+      {
+        "code": "INQ-7000",
+        "name": "TESIS DE GRADO O CURSO EQUIVAL",
+        "cr": 8,
+        "ht": 0,
+        "hp": 0,
+        "req": [],
+        "equivalencias": []
+      }
+    ]
+  ]
+}

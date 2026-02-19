@@ -20,6 +20,12 @@
         "name": "INGENIERÍA INDUSTRIAL",
         "school": "Escuela de Ingeniería Industrial",
         "group": "Programas del 2020-2030"
+      },
+      {
+        "code": "IQUI",
+        "name": "INGENIERÍA QUÍMICA",
+        "school": "Escuela de Ingeniería Química",
+        "group": "Programas del 2020-2030"
       }
 
     ]
