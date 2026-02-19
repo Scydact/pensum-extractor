@@ -1,0 +1,681 @@
+{
+  "version": 5,
+  "institution": "uasd",
+  "code": "ICIV",
+  "publishDate": "01/01/2026",
+  "fetchDate": "2026-02-19",
+  "career": "INGENIERÍA CIVIL",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 239",
+    "TÍTULO: INGENIERO CIVIL",
+    "TOTAL HT: 173",
+    "TOTAL HP: 128",
+    "Plan de Estudios: 000012",
+    "Facultad de Ingeniería y Arquitectura, Escuela de Ingeniería Civil"
+  ],
+  "src": {
+    "type": "online",
+    "date": "2026-02-19",
+    "url": "https://app.uasd.edu.do/PensumGrado/?periodoV=999999&programa=P-ICIV&plan=000012&nivel=GR"
+  },
+  "periodType": {
+    "name": "Semestre",
+    "abbr": "Sem",
+    "two": "Sm"
+  },
+  "loose": [],
+  "periods": [
+    [
+      {
+        "code": "BIO-0140",
+        "name": "BIOLOGÍA BÁSICA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": [],
+        "equivalencias": ["BIO0110", "BIO0130", "BIO2100"]
+      },
+      {
+        "code": "DOP-1000",
+        "name": "ORIENTACIÓN INSTITUCIONAL",
+        "cr": 1,
+        "ht": 1,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["DOP0100", "OSI0310", "OSI1000", "PED3110", "TEG3110"]
+      },
+      {
+        "code": "EFS-0110",
+        "name": "EDUCACIÓN FÍSICA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": [],
+        "equivalencias": ["ART0410", "ART0420", "ART0510", "EFI0120", "EFI1700", "EFS0120", "EXT0110", "PED1700"]
+      },
+      {
+        "code": "FIL-0110",
+        "name": "INT A LA FILOSOFÍA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": [],
+        "equivalencias": []
+      },
+      {
+        "code": "FIS-0140",
+        "name": "FÍSICA BÁSICA",
+        "cr": 4,
+        "ht": 3,
+        "hp": 3,
+        "req": [],
+        "equivalencias": ["FIS0120", "FIS0130", "FIS0180", "FIS0310", "FIS0510", "FIS1510", "FIS1520"]
+      },
+      {
+        "code": "HIS-0110",
+        "name": "FUND DE HIST SOCIAL DOMINICANA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["HIS1100"]
+      },
+      {
+        "code": "LET-0110",
+        "name": "LENGUA ESPAÑOLA BÁSICA I",
+        "cr": 3,
+        "ht": 3,
+        "hp": 1,
+        "req": [],
+        "equivalencias": ["LET0130", "LET0150"]
+      },
+      {
+        "code": "MAT-0140",
+        "name": "MATEMÁTICA BÁSICA",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["MAT0120", "MAT0130", "MAT0840"]
+      },
+      {
+        "code": "SOC-0110",
+        "name": "INT A LAS CIENCIAS SOCIALES",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["ICS0110", "SOC0100", "SOC0120"]
+      }
+    ],
+    [
+      {
+        "code": "ARQ-1210",
+        "name": "GEOMETRÍA DESCRIPTIVA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": [],
+        "equivalencias": ["ARQ1250"]
+      },
+      {
+        "code": "FIS-2110",
+        "name": "FÍSICA GENERAL I",
+        "cr": 3,
+        "ht": 3,
+        "hp": 1,
+        "req": ["FIS-0140"],
+        "equivalencias": ["FIS1110", "FIS2510"]
+      },
+      {
+        "code": "FIS-2210",
+        "name": "LAB DE FÍSICA GENERAL I",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["FIS-0140", "FIS-2110"],
+        "equivalencias": []
+      },
+      {
+        "code": "LET-0120",
+        "name": "LENGUA ESPAÑOLA BÁSICA II",
+        "cr": 3,
+        "ht": 3,
+        "hp": 1,
+        "req": ["LET-0110"],
+        "equivalencias": ["LET0130", "LET0160"]
+      },
+      {
+        "code": "MAT-2300",
+        "name": "ÁLGEBRA SUPERIOR",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["MAT-0140"],
+        "equivalencias": ["MAT2110", "MAT2330"]
+      },
+      {
+        "code": "MAT-2510",
+        "name": "CÁLCULO Y ANALÍTICA I",
+        "cr": 6,
+        "ht": 5,
+        "hp": 2,
+        "req": ["MAT-2300"],
+        "equivalencias": ["MAT2500", "MAT2570", "MAT2590", "MAT3560"]
+      },
+      {
+        "code": "QUI-0140",
+        "name": "QUÍMICA BÁSICA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 3,
+        "req": [],
+        "equivalencias": ["QUI0110", "QUI0120", "QUI1020"]
+      }
+    ],
+    [
+      {
+        "code": "ARQ-1060",
+        "name": "DIBUJO TÉCNICO I-G",
+        "cr": 4,
+        "ht": 2,
+        "hp": 5,
+        "req": [],
+        "equivalencias": ["ARQ1010", "ARQ1020", "ARQ1030", "ARQ1040", "ARQ1050", "ARQ1080", "ARQ1410"]
+      },
+      {
+        "code": "FIS-2120",
+        "name": "FÍSICA GENERAL II",
+        "cr": 3,
+        "ht": 3,
+        "hp": 1,
+        "req": ["FIS-2110", "FIS-2210"],
+        "equivalencias": ["FIS2260", "FIS2520"]
+      },
+      {
+        "code": "FIS-2220",
+        "name": "LAB DE FÍSICA GENERAL II",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["FIS-2110", "FIS-2120"],
+        "equivalencias": ["FIS2270"]
+      },
+      {
+        "code": "INF-1010",
+        "name": "INT AL PROCESAMIENTO DE DATOS",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["MAT-0140"],
+        "equivalencias": ["INF1030"]
+      },
+      {
+        "code": "MAT-2390",
+        "name": "ÁLGEBRA MATRICIAL",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["MAT-2300"],
+        "equivalencias": ["MAT2320"]
+      },
+      {
+        "code": "MAT-3500",
+        "name": "CÁLCULO Y GEOM ANALÍTICA II",
+        "cr": 6,
+        "ht": 5,
+        "hp": 2,
+        "req": ["MAT-2300", "MAT-2510"],
+        "equivalencias": ["MAT2530", "MAT3520", "MAT3540", "MAT3570"]
+      },
+      {
+        "code": "MAT-3730",
+        "name": "CÁLCULO VECTORIAL",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["MAT-2510"],
+        "equivalencias": ["MAT2860", "MAT3210", "MAT3510", "MAT3550", "MAT3700"]
+      }
+    ],
+    [
+      {
+        "code": "AGM-1310",
+        "name": "TOPOGRAFÍA I",
+        "cr": 4,
+        "ht": 2,
+        "hp": 6,
+        "req": ["MAT-3500"],
+        "equivalencias": []
+      },
+      {
+        "code": "CIV-2010",
+        "name": "MECÁNICA RACIONAL I",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["FIS-2120", "MAT-3730"],
+        "equivalencias": []
+      },
+      {
+        "code": "CIV-2070",
+        "name": "PROGR DE COMP APLIC A ING CIV",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["CIV-2010", "INF-1010", "MAT-2390"],
+        "equivalencias": []
+      },
+      {
+        "code": "ECN-1100",
+        "name": "NOCIONES DE ECONOMÍA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["ECN1110", "ECN1150", "ECN2110"]
+      },
+      {
+        "code": "EST-1210",
+        "name": "ESTADÍSTICA INDUSTRIAL",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["MAT-3500"],
+        "equivalencias": ["EST1100", "EST1110", "EST1220", "EST2110", "EST2290", "EST3410"]
+      },
+      {
+        "code": "MAT-3600",
+        "name": "ECUACIONES DIFERENCIALES",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["MAT-3500"],
+        "equivalencias": ["MAT3110", "MAT3610"]
+      }
+    ],
+    [
+      {
+        "code": "AGM-1320",
+        "name": "TOPOGRAFÍA II",
+        "cr": 4,
+        "ht": 2,
+        "hp": 6,
+        "req": ["AGM-1310"],
+        "equivalencias": []
+      },
+      {
+        "code": "CIV-2020",
+        "name": "MECÁNICA RACIONAL II",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["CIV-2010", "MAT-3600"],
+        "equivalencias": []
+      },
+      {
+        "code": "CIV-2180",
+        "name": "MATERIALES DE CONSTRUCCIÓN",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["QUI-0140"],
+        "equivalencias": ["CIV1150"]
+      },
+      {
+        "code": "CIV-2190",
+        "name": "LAB DE MATERIALES DE CONSTRUCC",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["CIV-2180", "QUI-0140"],
+        "equivalencias": ["CIV1150"]
+      },
+      {
+        "code": "CIV-2440",
+        "name": "GEOLOGÍA I",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["AGM-1310", "QUI-0140"],
+        "equivalencias": []
+      },
+      {
+        "code": "IDI-0110",
+        "name": "INGLÉS ELEMENTAL I",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["IDI0210", "IDI1140"]
+      }
+    ],
+    [
+      {
+        "code": "CIV-3180",
+        "name": "RESISTENCIA DE MATERIALES I",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["CIV-2020", "CIV-2180", "CIV-2190"],
+        "equivalencias": ["CIV1130", "CIV2110", "CIV2160"]
+      },
+      {
+        "code": "CIV-3300",
+        "name": "INGENIERÍA DE TRÁNSITO",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["AGM-1320"],
+        "equivalencias": ["CIV2310"]
+      },
+      {
+        "code": "CIV-3600",
+        "name": "MECÁNICA DE LOS FLUIDOS",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["CIV-2020"],
+        "equivalencias": ["CIV3620"]
+      },
+      {
+        "code": "CIV-3610",
+        "name": "LAB DE MECÁNICA DE LOS FLUIDOS",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["CIV-2020", "CIV-3600"],
+        "equivalencias": ["CIV3620"]
+      },
+      {
+        "code": "CIV-4010",
+        "name": "ANÁLISIS ESTRUCTURAL I",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["CIV-2020", "CIV-2070"],
+        "equivalencias": ["CIV3010"]
+      },
+      {
+        "code": "CIV-4410",
+        "name": "MECÁNICA DE SUELOS I",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["CIV-2440", "CIV-4420", "CIV-3600"],
+        "equivalencias": ["CIV3430"]
+      },
+      {
+        "code": "CIV-4420",
+        "name": "LAB DE MECÁNICA DE SUELOS I",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["CIV-2440", "CIV-4410"],
+        "equivalencias": ["CIV3430"]
+      }
+    ],
+    [
+      {
+        "code": "CIV-3190",
+        "name": "RESISTENCIA DE MATERIALES II",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["CIV-3180"],
+        "equivalencias": ["CIV2120", "CIV2170"]
+      },
+      {
+        "code": "CIV-3650",
+        "name": "HIDRÁULICA",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["CIV-3600"],
+        "equivalencias": ["CIV3630"]
+      },
+      {
+        "code": "CIV-3660",
+        "name": "LAB DE HIDRÁULICA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["CIV-3600", "CIV-3650"],
+        "equivalencias": ["CIV3630"]
+      },
+      {
+        "code": "CIV-4020",
+        "name": "ANÁLISIS ESTRUCTURAL II",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["CIV-4010"],
+        "equivalencias": ["CIV3030", "CIV3070"]
+      },
+      {
+        "code": "CIV-4300",
+        "name": "CARRETERA I",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["CIV-3300"],
+        "equivalencias": ["CIV2330"]
+      },
+      {
+        "code": "CIV-4430",
+        "name": "MECÁNICA DE SUELOS II",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["CIV-3180", "CIV-3600", "CIV-4410", "CIV-4420"],
+        "equivalencias": ["CIV3440"]
+      },
+      {
+        "code": "CIV-4440",
+        "name": "LAB MECÁNICA DE SUELOS II",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["CIV-4420", "CIV-4410", "CIV-4430"],
+        "equivalencias": ["CIV3440"]
+      },
+      {
+        "code": "CIV-4600",
+        "name": "HIDROLOGÍA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["CIV-3600"],
+        "equivalencias": ["CIV4630"]
+      }
+    ],
+    [
+      {
+        "code": "CIV-3140",
+        "name": "HORMIGÓN ARMADO I",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["CIV-3190"],
+        "equivalencias": ["CIV3110"]
+      },
+      {
+        "code": "CIV-4030",
+        "name": "ANÁLISIS SISMO-RESISTENTE",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["CIV-4020"],
+        "equivalencias": []
+      },
+      {
+        "code": "CIV-4250",
+        "name": "ING ECO Y PROY DE INVERSIÓN",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["ECN-1100", "CIV-3650", "CIV-4010", "CIV-4300"],
+        "equivalencias": ["CIV3210"]
+      },
+      {
+        "code": "CIV-4310",
+        "name": "CARRETERA II",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["CIV-4300", "CIV-3300", "CIV-4600", "CIV-3650"],
+        "equivalencias": ["CIV2340"]
+      },
+      {
+        "code": "CIV-4500",
+        "name": "ECOLOGÍA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["CIV-4600"],
+        "equivalencias": ["CIV2530"]
+      },
+      {
+        "code": "CIV-4510",
+        "name": "ACUEDUCTOS Y ALCANTARILLADOS",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["CIV-3650", "CIV-3660"],
+        "equivalencias": []
+      }
+    ],
+    [
+      {
+        "code": "CIV-4140",
+        "name": "HORMIGÓN ARMADO II",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["CIV-3140"],
+        "equivalencias": ["CIV3150"]
+      },
+      {
+        "code": "CIV-4320",
+        "name": "CARRETERA III",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["CIV-4310"],
+        "equivalencias": ["CIV3360"]
+      },
+      {
+        "code": "CIV-4450",
+        "name": "PAVIMENTOS",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["CIV-4310", "CIV-4320", "CIV-4430"],
+        "equivalencias": ["CIV3450"]
+      },
+      {
+        "code": "CIV-4460",
+        "name": "FUNDACIONES DE ESTRUCTURAS",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["CIV-3140", "CIV-4140", "CIV-4430", "CIV-4440"],
+        "equivalencias": ["CIV3420"]
+      },
+      {
+        "code": "CIV-4520",
+        "name": "INSTALACIONES SANITARIAS",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["CIV-4510"],
+        "equivalencias": []
+      },
+      {
+        "code": "CIV-4620",
+        "name": "OBRAS CIVILES EN RIEGO Y DREN",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["CIV-4510"],
+        "equivalencias": []
+      }
+    ],
+    [
+      {
+        "code": "CIV-4150",
+        "name": "PUENTES",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["CIV-4140", "CIV-4600", "CIV-3650"],
+        "equivalencias": []
+      },
+      {
+        "code": "CIV-4180",
+        "name": "HORMIGÓN ARMADO III",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["CIV-4140"],
+        "equivalencias": ["CIV3170"]
+      },
+      {
+        "code": "CIV-4190",
+        "name": "ESTRUCTURAS METÁLICAS Y DE MAD",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["CIV-4030"],
+        "equivalencias": ["CIV4130"]
+      },
+      {
+        "code": "CIV-4220",
+        "name": "PLANEACIÓN Y ORG DE OBRAS",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["CIV-4250"],
+        "equivalencias": ["CIV2210"]
+      },
+      {
+        "code": "CIV-4240",
+        "name": "ANÁLISIS DE COSTOS Y PRESUPUES",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["CIV-4250"],
+        "equivalencias": []
+      },
+      {
+        "code": "CIV-4540",
+        "name": "IMPACTO AMBIENTAL OBRAS INGEN",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["CIV-4320", "CIV-4510"],
+        "equivalencias": []
+      },
+      {
+        "code": "DER-1190",
+        "name": "LEGISLACIÓN Y ÉTICA PROF",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": [],
+        "equivalencias": ["DER1210", "DER3250"]
+      }
+    ],
+    [
+      {
+        "code": "CIV-7000",
+        "name": "TESIS DE GRADO O CURSO EQUIVAL",
+        "cr": 8,
+        "ht": 0,
+        "hp": 0,
+        "req": [],
+        "equivalencias": []
+      }
+    ]
+  ]
+}
