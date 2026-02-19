@@ -8,6 +8,12 @@
         "name": "DOCTOR EN MEDICINA",
         "school": "Escuela de Medicina",
         "group": "Programas del 2020-2030"
+      },
+      {
+        "code": "ICIV",
+        "name": "INGENIERÍA CIVIL",
+        "school": "Escuela de Ingeniería Civil",
+        "group": "Programas del 2020-2030"
       }
     ]
   }
