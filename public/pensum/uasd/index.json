@@ -1,0 +1,14 @@
+{
+    "university": "UASD",
+    "api": "https://servicios.unapec.edu.do/pensum/Main/Detalles/",
+    "groupOrder": ["Programas del 2020-2030", "Programas del 2010-2020", "Programas del 2000-2010"],
+    "careers": [
+      {
+        "code": "DMED",
+        "name": "DOCTOR EN MEDICINA",
+        "school": "Escuela de Medicina",
+        "group": "Programas del 2020-2030"
+      }
+    ]
+  }
+  

@@ -1,0 +1,1162 @@
+{
+  "version": 5,
+  "institution": "uasd",
+  "code": "DMED",
+  "publishDate": "01/01/2009",
+  "fetchDate": "2018-02-08",
+  "career": "DOCTOR EN MEDICINA",
+  "info": [
+    "TOTAL GENERAL DE CRÉDITOS: 357",
+    "TÍTULO: DOCTOR EN MEDICINA",
+    "TOTAL HT: 230",
+    "TOTAL HP: 255",
+    "Plan de Estudios: 200920",
+    "Facultad de Ciencias de la Salud, Escuela de Medicina"
+  ],
+  "src": {
+    "type": "online",
+    "date": "2018-02-08",
+    "url": "https://soft2.uasd.edu.do/desc_carreras/?periodoV=999999&programa=81001-DMED"
+  },
+  "periodType": {
+    "name": "Cuatrimestre",
+    "abbr": "Cuat",
+    "two": "Ct"
+  },
+  "loose": [
+    {
+      "code": "FAR-1450",
+      "name": "TOXICOLOGIA GENERAL",
+      "cr": 3,
+      "ht": 2,
+      "hp": 2,
+      "period": "Octavo Semestre C Basico Med (Optativa)",
+      "req": ["SAP1160", "SAP1170"]
+    },
+    {
+      "code": "MED-2370",
+      "name": "INTR TERAPIA EN PAREJA Y FAMIL",
+      "cr": 3,
+      "ht": 2,
+      "hp": 2,
+      "period": "Octavo Semestre C Basico Med (Optativa)",
+      "req": ["MED2350", "MED2360"]
+    },
+    {
+      "code": "SAP-1180",
+      "name": "MEDICINA DE URGENCIAS Y DESAST",
+      "cr": 2,
+      "ht": 1,
+      "hp": 2,
+      "period": "Octavo Semestre C Basico Med (Optativa)",
+      "req": ["CMO3160", "CMO3170", "CFI3110", "SAP2030"]
+    },
+    {
+      "code": "CFI-3200",
+      "name": "GENETICA CLINICA",
+      "cr": 3,
+      "ht": 2,
+      "hp": 2,
+      "period": "Noveno Semestre Pre-Internado (Optativa)",
+      "req": []
+    },
+    {
+      "code": "MED-2380",
+      "name": "SUSTANCIAS PSICOACTIVAS Y ADIC",
+      "cr": 3,
+      "ht": 2,
+      "hp": 2,
+      "period": "Noveno Semestre Pre-Internado (Optativa)",
+      "req": ["MED4740", "MED4750", "CFI3130", "CFI3140"]
+    },
+    {
+      "code": "MED-5210",
+      "name": "MEDICINA DEL DEPORTE",
+      "cr": 3,
+      "ht": 2,
+      "hp": 2,
+      "period": "Undecimo Semestre Pre-Intern (Optativa)",
+      "req": ["BAN3000", "MED4260", "MED4270"]
+    },
+    {
+      "code": "MED-5220",
+      "name": "MEDICINA FISICA Y REHABILITAC",
+      "cr": 3,
+      "ht": 2,
+      "hp": 2,
+      "period": "Undecimo Semestre Pre-Intern (Optativa)",
+      "req": ["BAN3000", "MED4260", "MED4270"]
+    },
+    {
+      "code": "SAP-1190",
+      "name": "SALUD OCUPACIONAL Y AMBIENTAL",
+      "cr": 3,
+      "ht": 2,
+      "hp": 2,
+      "period": "Undecimo Semestre Pre-Intern (Optativa)",
+      "req": ["SAP1160", "SAP1170", "SAP2030"]
+    }
+  ],
+  "periods": [
+    [
+      {
+        "code": "BIO-0170",
+        "name": "BIOLOGIA BASICA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "BIO-0180",
+        "name": "LABORATORIO DE BIOLOGIA BASICA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["BIO0170"]
+      },
+      {
+        "code": "DOP-1000",
+        "name": "ORIENTACION INSTITUCIONAL",
+        "cr": 1,
+        "ht": 1,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "FIL-0110",
+        "name": "INT A LA FILOSOFIA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "FIS-0140",
+        "name": "FISICA BASICA",
+        "cr": 4,
+        "ht": 3,
+        "hp": 3,
+        "req": []
+      },
+      {
+        "code": "LET-0110",
+        "name": "LENGUA ESPAÑOLA BASICA I",
+        "cr": 3,
+        "ht": 3,
+        "hp": 1,
+        "req": []
+      },
+      {
+        "code": "MAT-0140",
+        "name": "MATEMATICA BASICA",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "QUI-0140",
+        "name": "QUIMICA BASICA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 3,
+        "req": []
+      },
+      {
+        "code": "SOC-0100",
+        "name": "INTROD A LAS CIENCIAS SOCIALES",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "CFI-3150",
+        "name": "BIOFISICA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["FIS0140", "BIO0170", "BIO0180"]
+      },
+      {
+        "code": "CFI-3160",
+        "name": "LAB BIOFISICA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["FIS0140", "BIO0170", "BIO0180", {"text": "Co-req: CFI3150"}]
+      },
+      {
+        "code": "EFS-0120",
+        "name": "EDUCACION FISICA",
+        "cr": 2,
+        "ht": 1,
+        "hp": 2,
+        "req": []
+      },
+      {
+        "code": "HIS-0110",
+        "name": "FUND DE HIS SOCIAL DOMINICANA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "LET-0120",
+        "name": "LENGUA ESPAÑOLA BASICA II",
+        "cr": 3,
+        "ht": 3,
+        "hp": 1,
+        "req": ["LET0110"]
+      },
+      {
+        "code": "OSI-1510",
+        "name": "FUND DE DESARROLLO COGNITIVO",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "QUI-1220",
+        "name": "QUIMICA ORGANICA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 3,
+        "req": ["QUI0140"]
+      },
+      {
+        "code": "SOC-1470",
+        "name": "VIDA EN COMUNIDAD",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["SOC0100"]
+      }
+    ],
+    [
+      {
+        "code": "CMO-1020",
+        "name": "ESTRUCTURAS Y SIST ANATOMICOS",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["BIO0170", "BIO0180"]
+      },
+      {
+        "code": "CMO-1030",
+        "name": "LAB ESTRUCT Y SIST ANATOMICOS",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["BIO0170", "BIO0180", {"text": "Co-req: CMO1020"}]
+      },
+      {
+        "code": "FIL-1270",
+        "name": "FUNDAMENTOS ETICA GRAL",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["FIL0110"]
+      },
+      {
+        "code": "HIS-1700",
+        "name": "ANTROP APLICADA EN MEDICINA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["SOC0100"]
+      },
+      {
+        "code": "HIS-2370",
+        "name": "HIST DE LA CULTURA UNIVERSAL",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["HIS0110"]
+      },
+      {
+        "code": "IDI-1200",
+        "name": "INGLES TECNICO EN SALUD I",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["LET0120"]
+      },
+      {
+        "code": "INF-1030",
+        "name": "INTRODUCCION A LA INFORMATICA",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["MAT0140"]
+      },
+      {
+        "code": "SAP-2090",
+        "name": "BASES PARA EL ANAL BIOMETRICO",
+        "cr": 4,
+        "ht": 3,
+        "hp": 2,
+        "req": ["MAT0140"]
+      }
+    ],
+    [
+      {
+        "code": "CFI-0160",
+        "name": "FISIOLOGIA CELULAR",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["QUI1220", "BIO0170", "BIO0180", "CFI3150", "CFI3160"]
+      },
+      {
+        "code": "CMO-0300",
+        "name": "BASES HIST DEL ORGANISMO",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["BIO0170", "BIO0180"]
+      },
+      {
+        "code": "CMO-0340",
+        "name": "LAB BASES HIST DEL ORGANISMO",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["BIO0170", "BIO0180", {"text": "Co-req: CMO0300"}]
+      },
+      {
+        "code": "IDI-1270",
+        "name": "INGLES TECNICO EN SALUD II",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["IDI1200"]
+      },
+      {
+        "code": "MED-0330",
+        "name": "SALUD Y CONDUCTA HUMANA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["SOC0100"]
+      },
+      {
+        "code": "MED-0340",
+        "name": "LAB SALUD Y CONDUCTA HUMANA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": ["SOC0100", {"text": "Co-req: MED0330"}]
+      },
+      {
+        "code": "SAP-1050",
+        "name": "INT A LA METOD INVEST EN SALUD",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": []
+      },
+      {
+        "code": "SAP-1150",
+        "name": "FUND DE SOPORTE VITAL BASICO",
+        "cr": 3,
+        "ht": 2,
+        "hp": 3,
+        "req": ["CMO1020", "CMO1030"]
+      },
+      {
+        "code": "SAP-2080",
+        "name": "TECN INFORM E INVEST EN SALUD",
+        "cr": 3,
+        "ht": 1,
+        "hp": 6,
+        "req": ["INF1030"]
+      }
+    ],
+    [
+      {
+        "code": "CFI-1230",
+        "name": "GENETICA MEDICA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["QUI1220", "CFI0160", "BIO0170", "BIO0180"]
+      },
+      {
+        "code": "CFI-1240",
+        "name": "LAB GENETICA MEDICA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["CFI0160", "QUI1220", "BIO0170", "BIO0180", {"text": "Co-req: CFI1230"}]
+      },
+      {
+        "code": "CFI-2330",
+        "name": "BIOQUIMICA I",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["BIO0170", "BIO0180", "QUI1220"]
+      },
+      {
+        "code": "CFI-2340",
+        "name": "LAB BIOQUIMICA I",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": ["BIO0170", "BIO0180", "QUI1220", {"text": "Co-req: CFI2330"}]
+      },
+      {
+        "code": "CMO-1420",
+        "name": "EMBRIOLOGIA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "CMO-2320",
+        "name": "HIST GRAL DE ORG Y SIST HUMAN",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "CMO-2330",
+        "name": "LAB HIST GRAL ORG Y SIST HUMAN",
+        "cr": 2,
+        "ht": 0,
+        "hp": 4,
+        "req": [{"text": "Co-req: CMO2320"}]
+      },
+      {
+        "code": "CMO-3140",
+        "name": "ANATOMIA HUMANA I",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "CMO-3150",
+        "name": "LAB ANATOMIA HUMANA I",
+        "cr": 2,
+        "ht": 0,
+        "hp": 4,
+        "req": [{"text": "Co-req: CMO3140"}]
+      },
+      {
+        "code": "MED-3100",
+        "name": "INTRODUCCION A LA CLINICA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": []
+      },
+      {
+        "code": "MIP-1330",
+        "name": "MICROBIOLOGIA",
+        "cr": 5,
+        "ht": 4,
+        "hp": 3,
+        "req": []
+      },
+      {
+        "code": "SAP-1100",
+        "name": "PROMOCION EN SALUD",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": [{"text": "Co-req: MED3100"}]
+      }
+    ],
+    [
+      {
+        "code": "CFI-2350",
+        "name": "BIOQUIMICA II",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["CFI2330", "CFI2340"]
+      },
+      {
+        "code": "CFI-2360",
+        "name": "LAB BIOQUIMICA II",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": ["CFI2330", "CFI2340", {"text": "Co-req: CFI2350"}]
+      },
+      {
+        "code": "CFI-3110",
+        "name": "FISIOLOGIA HUMANA I",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["CFI0160", "CFI3150"]
+      },
+      {
+        "code": "CFI-3120",
+        "name": "LAB FISIOLOGIA HUMANA I",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": ["CFI0160", "CFI3150", {"text": "Co-req: CFI3110"}]
+      },
+      {
+        "code": "CMO-3160",
+        "name": "ANATOMIA HUMANA II",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["CMO3140", "CMO3150"]
+      },
+      {
+        "code": "CMO-3170",
+        "name": "LAB ANATOMIA HUMANA II",
+        "cr": 2,
+        "ht": 0,
+        "hp": 4,
+        "req": ["CMO3140", "CMO3150", {"text": "Co-req: CMO3160"}]
+      },
+      {
+        "code": "MED-1340",
+        "name": "PSICOLOGIA MEDICA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["MED0330", "MED0340"]
+      },
+      {
+        "code": "MED-4740",
+        "name": "SEMIOLOGIA MEDICA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "MED-4750",
+        "name": "LAB SEMIOLOGIA MEDICA",
+        "cr": 2,
+        "ht": 0,
+        "hp": 4,
+        "req": [{"text": "Co-req: MED4740"}]
+      },
+      {
+        "code": "MIP-1240",
+        "name": "PARASITOLOGIA",
+        "cr": 5,
+        "ht": 4,
+        "hp": 3,
+        "req": ["MIP1330", "CMO3140", "CMO3150"]
+      },
+      {
+        "code": "SAP-2030",
+        "name": "SALUD COLECTIVA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["SOC0100"]
+      },
+      {
+        "code": "SAP-3040",
+        "name": "LAB SALUD COLECTIVA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": ["SOC0100", {"text": "Co-req: SAP2030"}]
+      }
+    ],
+    [
+      {
+        "code": "CFI-1550",
+        "name": "FISIOPATOLOGIA I",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["CFI2350", "CFI2360", "CFI3110", "CFI3120"]
+      },
+      {
+        "code": "CFI-3130",
+        "name": "FISIOLOGIA HUMANA II",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["CFI3110", "CFI3120"]
+      },
+      {
+        "code": "CFI-3140",
+        "name": "LAB FISIOLOGIA HUMANA II",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": ["CFI3110", "CFI3120", {"text": "Co-req: CFI3130"}]
+      },
+      {
+        "code": "CMO-2280",
+        "name": "ANATOMIA PATOLOGICA I",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["CMO3160", "CMO3170"]
+      },
+      {
+        "code": "CMO-2290",
+        "name": "LAB ANATOMIA PATOLOGICA I",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": ["CMO3160", "CMO3170", {"text": "Co-req: CMO2280"}]
+      },
+      {
+        "code": "CMO-3180",
+        "name": "NEUROANATOMIA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["CMO3160", "CMO3170"]
+      },
+      {
+        "code": "CMO-3190",
+        "name": "LAB NEUROANATOMIA",
+        "cr": 2,
+        "ht": 0,
+        "hp": 4,
+        "req": ["CMO3160", "CMO3170", {"text": "Co-req: CMO3180"}]
+      },
+      {
+        "code": "MED-3260",
+        "name": "SEMIOLOGIA QUIRURGICA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["MED4740", "MED4750"]
+      },
+      {
+        "code": "MED-3270",
+        "name": "LAB SEMIOLOGIA QUIRURGICA",
+        "cr": 2,
+        "ht": 0,
+        "hp": 4,
+        "req": ["MED4740", "MED4750", {"text": "Co-req: MED3260"}]
+      },
+      {
+        "code": "SAP-1160",
+        "name": "EPIDEMIOLOGIA",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["SAP2030", "SAP3040"]
+      },
+      {
+        "code": "SAP-1170",
+        "name": "LAB EPIDEMIOLOGIA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["SAP2030", "SAP3040", {"text": "Co-req: SAP1160"}]
+      },
+      {
+        "code": "SAP-2380",
+        "name": "GERENCIA Y POLITICAS DE SALUD",
+        "cr": 5,
+        "ht": 4,
+        "hp": 2,
+        "req": ["SAP2030", "SAP3040"]
+      }
+    ],
+    [
+      {
+        "code": "BAN-2180",
+        "name": "INMUNOLOGIA GENERAL",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["CFI2350", "CFI2360", "CMO3160", "CMO3170"]
+      },
+      {
+        "code": "CFI-1560",
+        "name": "FISIOPATOLOGIA II",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["CFI1550"]
+      },
+      {
+        "code": "CFI-1570",
+        "name": "LAB FISIOPATOLOGIA II",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": ["CFI1550", {"text": "Co-req: CFI1560"}]
+      },
+      {
+        "code": "CFI-2460",
+        "name": "FARMACOLOGIA",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["CFI2350", "CFI2360", "CFI3130", "CFI3140"]
+      },
+      {
+        "code": "CFI-2470",
+        "name": "LAB FARMACOLOGIA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": ["CFI2350", "CFI2360", "CFI3130", "CFI3140", {"text": "Co-req: CFI2460"}]
+      },
+      {
+        "code": "CMO-3210",
+        "name": "ANATOMIA PATOLOGICA II",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["CMO2280", "CMO2290"]
+      },
+      {
+        "code": "CMO-3220",
+        "name": "LAB ANATOMIA PATOLOGICA II",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": ["CMO2280", "CMO2290", {"text": "Co-req: CMO3210"}]
+      },
+      {
+        "code": "MED-1360",
+        "name": "SEXOLOGIA MEDICA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["CMO3160", "CMO3170", "MED1340"]
+      },
+      {
+        "code": "MED-ZYY0",
+        "name": "ASIGNATURA OPTATIVA",
+        "cr": 5,
+        "ht": 0,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "SAP-3350",
+        "name": "EVOLUCION SOCIOHISTORICA MED",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["SAP1160", "SAP1170"]
+      }
+    ],
+    [
+      {
+        "code": "BAN-3000",
+        "name": "IMAGENOLOGIA",
+        "cr": 2,
+        "ht": 1,
+        "hp": 3,
+        "req": []
+      },
+      {
+        "code": "BAN-3160",
+        "name": "HEMATOLOGIA MEDICA",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "BAN-3170",
+        "name": "LAB HEMATOLOGIA MEDICA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": [{"text": "Co-req: BAN3160"}]
+      },
+      {
+        "code": "CFI-2480",
+        "name": "FARMACOTERAPEUTICA",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": ["CFI2460", "CFI2470"]
+      },
+      {
+        "code": "CFI-2490",
+        "name": "LAB FARMACOTERAPEUTICA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["CFI2460", "CFI2470", {"text": "Co-req: CFI2480"}]
+      },
+      {
+        "code": "MED-4210",
+        "name": "CIRUGIA GENERAL",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "MED-6120",
+        "name": "INFECTOLOGIA",
+        "cr": 4,
+        "ht": 4,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "MED-ZZX0",
+        "name": "ASIGNATURA OPTATIVA",
+        "cr": 3,
+        "ht": 0,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "SAP-2200",
+        "name": "BIOETICA Y NORMATIVAS EN SALUD",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "CFI-4100",
+        "name": "ENDOCRINOLOGIA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["CFI1550", "CFI1560", "CFI1570", "CFI2350", "CFI2360", "CFI3110", "CFI3120"]
+      },
+      {
+        "code": "CFI-4110",
+        "name": "LAB ENDOCRINOLOGIA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["CFI1550", "CFI1560", "CFI1570", "CFI2350", "CFI2360", "CFI3110", "CFI3120", {"text": "Co-req: CFI4100"}]
+      },
+      {
+        "code": "MED-2140",
+        "name": "NEFROLOGIA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["BAN3000", "MED6120"]
+      },
+      {
+        "code": "MED-2350",
+        "name": "PSIQUIATRIA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "MED-2360",
+        "name": "LAB PSIQUIATRIA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": [{"text": "Co-req: MED2350"}]
+      },
+      {
+        "code": "MED-4160",
+        "name": "DERMATOLOGIA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["MED6120"]
+      },
+      {
+        "code": "MED-4230",
+        "name": "OFTALMOLOGIA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["BAN3000", "MED4210"]
+      },
+      {
+        "code": "MED-4240",
+        "name": "LAB OFTALMOLOGIA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["BAN3000", "MED4210", {"text": "Co-req: MED4230"}]
+      },
+      {
+        "code": "MED-6130",
+        "name": "NEUROLOGIA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["BAN3000"]
+      },
+      {
+        "code": "MED-6140",
+        "name": "LAB NEUROLOGIA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": ["BAN3000", {"text": "Co-req: MED6130"}]
+      },
+      {
+        "code": "MED-6150",
+        "name": "CARDIOLOGIA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["BAN3000", "MED4210"]
+      },
+      {
+        "code": "MED-6160",
+        "name": "LAB CARDIOLOGIA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": ["BAN3000", "MED4210", {"text": "Co-req: MED6150"}]
+      },
+      {
+        "code": "MED-6170",
+        "name": "PNEUMOPATOLOGIA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["BAN3000", "MED4210"]
+      },
+      {
+        "code": "MED-6180",
+        "name": "LAB PNEUMOPATOLOGIA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["BAN3000", "MED4210", {"text": "Co-req: MED6170"}]
+      },
+      {
+        "code": "MED-6190",
+        "name": "GASTROENTEROLOGIA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["BAN3000"]
+      },
+      {
+        "code": "MED-7100",
+        "name": "LAB GASTROENTEROLOGIA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["BAN3000", {"text": "Co-req: MED6190"}]
+      },
+      {
+        "code": "SAP-3050",
+        "name": "MEDICINA FORENSE",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": []
+      },
+      {
+        "code": "SAP-3080",
+        "name": "LAB MEDICINA FORENSE",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": [{"text": "Co-req: SAP3050"}]
+      }
+    ],
+    [
+      {
+        "code": "FAR-3510",
+        "name": "NUTRICION (MEDICINA)",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["CFI2350", "CFI2360", "CFI3130", "CFI3140"]
+      },
+      {
+        "code": "MED-1240",
+        "name": "NEUROCIRUGIA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["BAN3000", "MED4210"]
+      },
+      {
+        "code": "MED-3280",
+        "name": "ANESTESIOLOGIA",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["MED6170", "MED6180"]
+      },
+      {
+        "code": "MED-3290",
+        "name": "OTORRINOLARINGOLOGIA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["BAN3000", "MED4210"]
+      },
+      {
+        "code": "MED-4250",
+        "name": "LAB OTORRINOLARINGOLOGIA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["BAN3000", "MED4210", {"text": "Co-req: MED3290"}]
+      },
+      {
+        "code": "MED-4260",
+        "name": "TRAUMATOLOGIA Y ORTOPEDIA",
+        "cr": 3,
+        "ht": 3,
+        "hp": 0,
+        "req": ["BAN3000", "MED4210"]
+      },
+      {
+        "code": "MED-4270",
+        "name": "LAB TRAUMATOLOGIA Y ORTOPEDIA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 3,
+        "req": ["BAN3000", "MED4210", {"text": "Co-req: MED4260"}]
+      },
+      {
+        "code": "MED-4280",
+        "name": "UROLOGIA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["BAN3000", "MED4210", "MED2140"]
+      },
+      {
+        "code": "MED-4290",
+        "name": "LAB UROLOGIA",
+        "cr": 1,
+        "ht": 0,
+        "hp": 2,
+        "req": ["BAN3000", "MED4210", "MED2140", {"text": "Co-req: MED4280"}]
+      },
+      {
+        "code": "MED-5120",
+        "name": "ONCOLOGIA",
+        "cr": 2,
+        "ht": 2,
+        "hp": 0,
+        "req": ["BAN3000", "MED4210"]
+      },
+      {
+        "code": "MED-ZZX0",
+        "name": "ASIGNATURA OPTATIVA",
+        "cr": 3,
+        "ht": 0,
+        "hp": 0,
+        "req": []
+      }
+    ],
+    [
+      {
+        "code": "MED-3410",
+        "name": "PEDIATRIA Y NEONATOLOGIA",
+        "cr": 6,
+        "ht": 3,
+        "hp": 6,
+        "req": ["FAR3510"]
+      },
+      {
+        "code": "MED-3500",
+        "name": "GINECO-OBSTETRICIA",
+        "cr": 6,
+        "ht": 3,
+        "hp": 6,
+        "req": ["MED3280", "MED5120"]
+      },
+      {
+        "code": "MED-5200",
+        "name": "EMERGENCIAS MEDICAS",
+        "cr": 6,
+        "ht": 3,
+        "hp": 6,
+        "req": ["BAN3000", "MED3280", "MED4210"]
+      },
+      {
+        "code": "SAP-1060",
+        "name": "METOD DE LA INVEST EN SALUD",
+        "cr": 3,
+        "ht": 2,
+        "hp": 2,
+        "req": ["SAP2200", "SAP3050"]
+      }
+    ],
+    [
+      {
+        "code": "MED-3370",
+        "name": "CLINICA MEDICO PSIQUIATRICA",
+        "cr": 3,
+        "ht": 0,
+        "hp": 9,
+        "req": [{"text": "Internado: MED0000"}]
+      },
+      {
+        "code": "MED-3440",
+        "name": "CLINICA PEDIATRICA",
+        "cr": 8,
+        "ht": 0,
+        "hp": 16,
+        "req": [{"text": "Internado: MED0000"}]
+      },
+      {
+        "code": "MED-3520",
+        "name": "CLINICA GINECO - OBSTETRICA",
+        "cr": 8,
+        "ht": 0,
+        "hp": 16,
+        "req": [{"text": "Internado: MED0000"}]
+      },
+      {
+        "code": "MED-5230",
+        "name": "SALUD PUBLICA",
+        "cr": 9,
+        "ht": 0,
+        "hp": 18,
+        "req": [{"text": "Internado: MED0000"}]
+      },
+      {
+        "code": "MED-5240",
+        "name": "MED QUIRURGICA Y TRAUMATOLOGIA",
+        "cr": 8,
+        "ht": 0,
+        "hp": 16,
+        "req": [{"text": "Internado: MED0000"}]
+      },
+      {
+        "code": "MED-7110",
+        "name": "MEDICINA INTERNA",
+        "cr": 8,
+        "ht": 0,
+        "hp": 16,
+        "req": [{"text": "Internado: MED0000"}]
+      }
+    ],
+    [
+      {
+        "code": "MED-7990",
+        "name": "TESIS DE GRADO",
+        "cr": 8,
+        "ht": 0,
+        "hp": 0,
+        "req": []
+      }
+    ]
+  ]
+}
