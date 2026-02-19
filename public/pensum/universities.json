@@ -12,6 +12,12 @@
       "longName": "Pontificia Universidad Católica Madre y Maestra",
       "imgUrl": "img/universities/pucmm.png",
       "hidden": true
+    },
+    {
+      "code": "uasd",
+      "shortName": "UASD",
+      "longName": "Universidad Autónoma de Santo Domingo",
+      "imgUrl": "img/universities/uasd.png"
     }
   ]
 }
