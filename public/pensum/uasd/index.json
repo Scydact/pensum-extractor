@@ -14,7 +14,14 @@
         "name": "INGENIERÍA CIVIL",
         "school": "Escuela de Ingeniería Civil",
         "group": "Programas del 2020-2030"
+      },
+      {
+        "code": "IIND",
+        "name": "INGENIERÍA INDUSTRIAL",
+        "school": "Escuela de Ingeniería Industrial",
+        "group": "Programas del 2020-2030"
       }
+
     ]
   }
   
